@@ -1,0 +1,16 @@
+{
+  "name": "tribetron",
+  "version": "0.0.1",
+  "description": "Robotribes the game",
+  "authors": [
+    "Humakt83"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "app/bower_components",
+    "test",
+    "tests"
+  ]
+}
