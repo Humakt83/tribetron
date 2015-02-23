@@ -12,7 +12,7 @@ angular.module('Tribetron').controller('GameController', ['$scope', 'AreaMap', '
 	
 	var placeTeam = function(team) {
 		angular.forEach(team.robots, function(robot) {
-			$scope.map.placeRobotAtRandomFreeSpot(robot)
+			$scope.map.placeRobotAtRandomFreeSpot(robot, team.isEnemy)
 		})
 	}
 	

@@ -7,9 +7,9 @@ angular.module('Tribetron').factory('Team', [function() {
 		}
 		this.robots = robots
 		this.isEnemy = isEnemy
-		var toSet = this
+		var thisTeam = this
 		angular.forEach(robots, function(robo) {
-			robo.setTeam(toSet)
+			robo.setTeam(thisTeam)
 		})
 	}
 	return {
