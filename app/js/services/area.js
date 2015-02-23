@@ -22,24 +22,24 @@ angular.module('Tribetron').factory('AreaMap', ['$filter', function($filter) {
 		this.getAreaByCoord = function(coord) {
 			return $filter('filter')(areas, {'yCoord': coord.y, 'xCoord': coord.x})[0]
 		}
-		this.placeRobotAtRandomFreeSpot = function(robot, isEnemyTeam) {
-			function canBePlaced(coord) {
-				return areaByCoord && !areaByCoord.isWall && !areaByCoord.robot
+		this.botCanBePlacedOnArea = function(area) {
+			return area && !area.isWall && !area.robot
+		}
+		this.tryToPlaceRobot = function(robot, coord) {
+			var areaByCoord  = this.getAreaByCoord(coord)
+			if (this.botCanBePlacedOnArea(areaByCoord)) {
+				areaByCoord.setRobot(robot)
+				return true
 			}
+		}
+		this.placeRobotAtRandomFreeSpot = function(robot, isEnemyTeam) {
 			function randomCoord () {
 				if (isEnemyTeam)
 					return new Coord(Math.floor((width / 2 + 1) + (Math.random() * ((width / 2)))), Math.floor(Math.random() * height)) 
 				else
 					return new Coord(Math.floor(Math.random() * ((width / 2) -1)), Math.floor(Math.random() * height)) 
 			}
-			var placed = false
-			while (!placed) {
-				var areaByCoord  = this.getAreaByCoord(randomCoord())
-				if (canBePlaced(areaByCoord)) {
-					areaByCoord.setRobot(robot)
-					placed = true
-				}
-			}
+			while (!this.tryToPlaceRobot(robot, randomCoord())){}
 		}
 		this.areas = areas
 		this.width = width
