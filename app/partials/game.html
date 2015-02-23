@@ -5,7 +5,9 @@
 		</thead>
 		<tbody>
 			<tr ng-repeat="row in map.rows track by $index">
-				<td ng-repeat="area in map.getAreasByRow($index)" ng-class="area.isWall ? 'wall' : 'floor'">0</td>
+				<td ng-repeat="area in map.getAreasByRow($index)" ng-class="area.isWall ? 'wall' : 'floor'">
+					<div ng-if="area.robot" ng-class="area.robot.type" class="robot"></div>
+				</td>
 			</tr>
 		</tbody>
 	</table>
