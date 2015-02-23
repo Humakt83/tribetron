@@ -1,0 +1,7 @@
+table.game td.wall {
+	background: black;
+}
+
+table.game td.floor {
+	background: grey;
+}

@@ -1,9 +1,10 @@
 'use strict'
 
 angular.module('Tribetron').factory('AreaMap', ['$filter', function($filter) {
-	function Area(xCoord, yCoord) {
+	function Area(xCoord, yCoord, isWall) {
 		this.xCoord = xCoord
 		this.yCoord = yCoord
+		this.isWall = isWall
 	}
 	
 	function Map(areas, width, heigth) {
@@ -20,7 +21,10 @@ angular.module('Tribetron').factory('AreaMap', ['$filter', function($filter) {
 			var areas = []
 			for (var y = 0; y < heigth; y++) {
 				for (var x = 0; x < width; x++) {
-					areas.push(new Area(x, y))
+					if ( y === 0 || x === 0 || y === heigth-1 || x === heigth -1)
+						areas.push(new Area(x, y, true))
+					else
+						areas.push(new Area(x, y))
 				}
 			}
 			return new Map(areas, width, heigth)
