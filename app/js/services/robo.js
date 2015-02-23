@@ -3,6 +3,13 @@
 angular.module('Tribetron').factory('Robot', [function() {
 	var types = ['hunter']
 	function Robot(type) {
+		this.setTeam = function(team) {
+			this.team = team
+		}
+		this.getTypeClass = function() {
+			var postfix = this.team.isEnemy ? '_enemy' : ''
+			return this.type + postfix
+		}
 		this.type = type;
 	}
 	

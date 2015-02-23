@@ -1,15 +1,30 @@
 'use strict'
 
-angular.module('Tribetron').controller('GameController', ['$scope', 'AreaMap', 'Robot', function($scope, AreaMap, Robot) {
-	var width = 10, height = 10, robots = 10
+angular.module('Tribetron').controller('GameController', ['$scope', 'AreaMap', 'Robot', 'Team', function($scope, AreaMap, Robot, Team) {
+	var createTeamWithRobots = function(amountOfRobots, isEnemy) {
+		var bots = []
+		var robotType = Robot.getTypes()[0]
+		for ( var i = 0; i < amountOfRobots; i++) {
+			bots.push(Robot.createRobot(robotType))
+		}
+		return Team.createTeam(bots, isEnemy)
+	}
+	
+	var placeTeam = function(team) {
+		angular.forEach(team.robots, function(robot) {
+			$scope.map.placeRobotAtRandomFreeSpot(robot)
+		})
+	}
+	
+	var width = 10, height = 10, robotsPerTeam = 5
 	
 	$scope.map = AreaMap.createMap(width,height)
 	
-	var robotType = Robot.getTypes()[0]
+	$scope.team = createTeamWithRobots(robotsPerTeam)
+	$scope.enemyTeam = createTeamWithRobots(robotsPerTeam, true)
 	
-	for ( var i = 0; i < robots; i++) {
-		$scope.map.placeRobotAtRandomFreeSpot(Robot.createRobot(robotType))
-	}
+	placeTeam($scope.team)
+	placeTeam($scope.enemyTeam)
 	
 	$scope.title = 'Tribetron'
 }])
