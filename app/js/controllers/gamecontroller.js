@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('Tribetron').controller('GameController', ['$scope', 'AreaMap', 'Robot', 'Team', function($scope, AreaMap, Robot, Team) {
+angular.module('Tribetron').controller('GameController', ['$scope', 'AreaMap', 'Robot', 'Team', 'GameHandler', function($scope, AreaMap, Robot, Team, GameHandler) {
 	var createTeamWithRobots = function(amountOfRobots, isEnemy) {
 		var bots = []
 		var robotType = Robot.getTypes()[0]
@@ -26,5 +26,6 @@ angular.module('Tribetron').controller('GameController', ['$scope', 'AreaMap', '
 	placeTeam($scope.team)
 	placeTeam($scope.enemyTeam)
 	
+	$scope.gameState = GameHandler.createGameState([$scope.team, $scope.enemyTeam])
 	$scope.title = 'Tribetron'
 }])
