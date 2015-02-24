@@ -28,4 +28,16 @@ angular.module('Tribetron').controller('GameController', ['$scope', 'AreaMap', '
 	
 	$scope.gameState = GameHandler.createGameState([$scope.team, $scope.enemyTeam])
 	$scope.title = 'Tribetron'
+	
+	$scope.nextTurn = function() {
+		var bot = $scope.gameState.nextRobot()
+		$scope.map.moveBot(bot)
+	}
+	
+	$scope.fullTurn = function() {
+		$scope.nextTurn()
+		while($scope.gameState.robotTurn !== 0) { 
+			$scope.nextTurn()
+		}
+	}
 }])

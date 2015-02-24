@@ -20,9 +20,9 @@ angular.module('Tribetron').factory('GameHandler', ['ngIterator', function(ngIte
 	}
 
 	function GameState(teams) {
-		this.nextTurn = function() {
-			var robot = robots[robotTurn]
-			
+		this.nextRobot = function() {
+			var robot = this.robotQueue[this.robotTurn]
+			this.robotTurn = this.robotQueue.length > this.robotTurn ? this.robotTurn + 1 : 0
 			return robot
 		}
 		this.teams = teams

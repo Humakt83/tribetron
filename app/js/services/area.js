@@ -8,6 +8,7 @@ angular.module('Tribetron').factory('AreaMap', ['$filter', function($filter) {
 		this.xCoord = xCoord
 		this.yCoord = yCoord
 		this.isWall = isWall
+		this.robot = null
 	}
 	
 	function Coord(x, y) {
@@ -16,6 +17,17 @@ angular.module('Tribetron').factory('AreaMap', ['$filter', function($filter) {
 	}
 	
 	function Map(areas, width, height) {
+		this.moveBot = function(bot) {
+			var areaWhereBotIs = null 
+			angular.forEach(this.areas, function(area) {
+				if (area.robot === bot) areaWhereBotIs = area
+			})
+			var areaOnRight = this.getAreaByCoord(new Coord(areaWhereBotIs.xCoord + 1, areaWhereBotIs.yCoord))
+			if (this.botCanBePlacedOnArea(areaOnRight)) {
+				areaOnRight.setRobot(bot)
+				areaWhereBotIs.setRobot()
+			}
+		}
 		this.getAreasByRow = function(row) {
 			return $filter('filter')(areas, {'yCoord':row}, 'xCoord')
 		}
