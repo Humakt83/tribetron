@@ -20,10 +20,20 @@ angular.module('Tribetron').factory('GameHandler', ['ngIterator', function(ngIte
 	}
 
 	function GameState(teams) {
+		this.nextRobotTurn = function() {
+			this.robotTurn = this.robotQueue.length > this.robotTurn + 1? this.robotTurn + 1 : 0
+		}
 		this.nextRobot = function() {
-			var robot = this.robotQueue[this.robotTurn]
-			this.robotTurn = this.robotQueue.length > this.robotTurn ? this.robotTurn + 1 : 0
-			return robot
+			var bot = this.robotQueue[this.robotTurn], attemptsCounter = 0
+			this.nextRobotTurn()
+			while(bot.destroyed) {
+				if (attemptsCounter > this.robotQueue.length) throw "All robots have been destroyed"
+				bot = this.robotQueue[this.robotTurn]
+				this.nextRobotTurn()
+				attemptsCounter += 1
+			}
+			return bot
+			
 		}
 		this.teams = teams
 		this.robotQueue = buildRobotQueue(teams)

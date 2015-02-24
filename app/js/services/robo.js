@@ -11,6 +11,7 @@ angular.module('Tribetron').factory('Robot', [function() {
 			return this.type + postfix
 		}
 		this.type = type;
+		this.destroyed = false;
 	}
 	
 	return {
