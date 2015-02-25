@@ -1,11 +1,9 @@
 'use strict'
 
-angular.module('Tribetron').factory('GameHandler', ['ngIterator', function(ngIterator) {
+angular.module('Tribetron').factory('GameHandler', [function() {
 
 	function buildRobotQueue(teams) {
-		var bots = []
-		angular.forEach(teams, function(team) { bots.push(team.robots)})
-		return _.flatten(_.zip.apply(_, bots))
+		return _.flatten(_.zip.apply(_, _.map(teams, function(team) { return team.robots })))
 	}
 
 	function GameState(teams) {
