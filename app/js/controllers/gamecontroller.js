@@ -31,7 +31,7 @@ angular.module('Tribetron').controller('GameController', ['$scope', 'AreaMap', '
 	
 	$scope.nextTurn = function() {
 		var bot = $scope.gameState.nextRobot()
-		$scope.map.moveBot(bot)
+		bot.takeTurn($scope.map)
 	}
 	
 	$scope.fullTurn = function() {

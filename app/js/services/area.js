@@ -1,7 +1,24 @@
 'use strict'
 
 angular.module('Tribetron').factory('AreaMap', ['$filter', function($filter) {
+
+	
 	function Area(xCoord, yCoord, isWall) {
+		this.calculateDistance = function(toArea) {
+			return Math.abs(this.xCoord - toArea.xCoord) + Math.abs(this.yCoord - toArea.yCoord)
+		}
+		this.findClosest = function(areas) {
+			var closest, closestDistance
+			var thisArea = this
+			angular.forEach(areas, function(area) {
+				var calculatedDistance = thisArea.calculateDistance(area)
+				if (!closest || closestDistance > calculatedDistance) {
+					closest = area
+					closestDistance = calculatedDistance
+				}
+			})
+			return closest
+		}
 		this.setRobot = function(robot) {
 			this.robot = robot
 		}
@@ -17,16 +34,39 @@ angular.module('Tribetron').factory('AreaMap', ['$filter', function($filter) {
 	}
 	
 	function Map(areas, width, height) {
-		this.moveBot = function(bot) {
+		this.findAreaWhereBotIs = function(bot) {
 			var areaWhereBotIs = null 
 			angular.forEach(this.areas, function(area) {
 				if (area.robot === bot) areaWhereBotIs = area
 			})
-			var areaOnRight = this.getAreaByCoord(new Coord(areaWhereBotIs.xCoord + 1, areaWhereBotIs.yCoord))
-			if (this.botCanBePlacedOnArea(areaOnRight)) {
-				areaOnRight.setRobot(bot)
-				areaWhereBotIs.setRobot()
+			return areaWhereBotIs
+		}
+		this.moveBot = function(from, to) {
+			if (this.botCanBePlacedOnArea(to)) {
+				to.setRobot(from.robot)
+				from.setRobot()
+				return true
 			}
+			return false
+		}
+		this.moveBotTowards = function(botArea, targetArea) {
+			var xDistance = botArea.xCoord - targetArea.xCoord
+			var yDistance = botArea.yCoord - targetArea.yCoord
+			var moveOptions = []
+			if (Math.abs(xDistance) >= Math.abs(yDistance)) {
+				moveOptions.push(this.getAreaByCoord(new Coord(botArea.xCoord + (Math.sign(xDistance) * -1), botArea.yCoord)))
+				moveOptions.push(this.getAreaByCoord(new Coord(botArea.xCoord, botArea.yCoord + 1)))
+				moveOptions.push(this.getAreaByCoord(new Coord(botArea.xCoord, botArea.yCoord - 1)))
+			} else {
+				moveOptions.push(this.getAreaByCoord(new Coord(botArea.xCoord, botArea.yCoord + (Math.sign(yDistance) * -1))))
+				moveOptions.push(this.getAreaByCoord(new Coord(botArea.xCoord + 1, botArea.yCoord)))
+				moveOptions.push(this.getAreaByCoord(new Coord(botArea.xCoord -1, botArea.yCoord)))
+			}
+			var thisMap = this
+			_.find(moveOptions, function(option) { return thisMap.moveBot(botArea, option) })
+		}
+		this.findOpponents = function(team) {
+			return $filter('filter')(areas, function(area) { return area.robot && !area.robot.destroyed && area.robot.team !== team })
 		}
 		this.getAreasByRow = function(row) {
 			return $filter('filter')(areas, {'yCoord':row}, 'xCoord')
