@@ -3,7 +3,7 @@
 angular.module('Tribetron').factory('GameHandler', [function() {
 
 	function buildRobotQueue(teams) {
-		return _.flatten(_.zip.apply(_, _.map(teams, function(team) { return team.robots })))
+		return _.compact(_.flatten(_.zip.apply(_, _.map(teams, function(team) { return team.robots }))))
 	}
 
 	function GameState(teams) {
