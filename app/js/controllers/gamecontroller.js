@@ -4,9 +4,9 @@ angular.module('Tribetron').controller('GameController', ['$scope', '$interval',
 	function init() {
 		var createTeamWithRobots = function(amountOfRobots, isEnemy) {
 			var bots = []
-			var robotType = Robot.getTypes()[0]
 			for ( var i = 0; i < amountOfRobots; i++) {
-				bots.push(Robot.createRobot(robotType))
+				var robotType = Robot.getTypes()[Math.floor(Math.random() * Robot.getTypes().length)]
+				bots.push(Robot.createRobot(new robotType()))
 			}
 			return Team.createTeam(bots, isEnemy)
 		}
@@ -17,7 +17,7 @@ angular.module('Tribetron').controller('GameController', ['$scope', '$interval',
 			})
 		}
 		
-		var width = 10, height = 10, robotsPerTeam = 5
+		var width = 15, height = 10, robotsPerTeam = 8, numberOfRounds = 25
 		$scope.autoPlayOn = undefined
 		$scope.playToggle = 'Play'
 		
@@ -29,7 +29,7 @@ angular.module('Tribetron').controller('GameController', ['$scope', '$interval',
 		placeTeam($scope.team)
 		placeTeam($scope.enemyTeam)
 		
-		$scope.gameState = GameHandler.createGameState([$scope.team, $scope.enemyTeam], 20)
+		$scope.gameState = GameHandler.createGameState([$scope.team, $scope.enemyTeam], numberOfRounds)
 	}
 	
 	$scope.title = 'Tribetron'
@@ -61,7 +61,7 @@ angular.module('Tribetron').controller('GameController', ['$scope', '$interval',
             } else {
               $scope.stop();
             }
-          }, 200);
+          }, 100);
 		  $scope.playToggle = 'Pause' 
 	}
 	

@@ -1,21 +1,36 @@
 'use strict'
 
 angular.module('Tribetron').factory('Robot', [function() {
-	var types = ['hunter']
-	function Robot(type) {
-		this.takeTurn = function(map) {
-			var area = map.findAreaWhereBotIs(this)
-			var opponentAreas = map.findOpponents(this.team)
+	var types = [Hunter, Box]
+	
+	function Hunter() {
+		this.takeTurn = function(bot, map, team) {
+			var area = map.findAreaWhereBotIs(bot)
+			var opponentAreas = map.findOpponents(team)
 			var closestOpponent = area.findClosest(opponentAreas)
 			if (area.calculateDistance(closestOpponent) < 2) closestOpponent.robot.destroyed = true
 			else map.moveBotTowards(area, closestOpponent)
+		}
+		this.name = 'hunter'
+	}
+	
+	function Box() {
+		this.takeTurn = function() {
+			return
+		}
+		this.name = "box"
+	}
+	
+	function Robot(type) {
+		this.takeTurn = function(map) {
+			this.type.takeTurn(this, map, this.team)
 		}
 		this.setTeam = function(team) {
 			this.team = team
 		}
 		this.getTypeClass = function() {
 			var postfix = this.team.isEnemy ? '_enemy' : ''
-			return this.type + postfix
+			return this.type.name + postfix
 		}
 		this.type = type;
 		this.destroyed = false;

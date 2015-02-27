@@ -1,6 +1,6 @@
 table.game td {
-	width: 50px;
-	height: 50px;
+	width: 52px;
+	height: 52px;
 	position: relative;
 }
 
@@ -24,6 +24,18 @@ table.game td.floor {
 
 .hunter_enemy {
 	content: url("img/robobasic2.png");
+	width: 50px;
+	height: 50px;
+}
+
+.box {
+	content: url("img/boxbot.png");
+	width: 50px;
+	height: 50px;
+}
+
+.box_enemy {
+	content: url("img/boxbot2.png");
 	width: 50px;
 	height: 50px;
 }

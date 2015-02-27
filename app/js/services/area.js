@@ -55,14 +55,16 @@ angular.module('Tribetron').factory('AreaMap', ['$filter', function($filter) {
 			var moveOptions = [], thisMap = this
 			if (Math.abs(xDistance) >= Math.abs(yDistance)) {
 				moveOptions.push(this.getAreaByCoord(new Coord(botArea.xCoord + (Math.sign(xDistance) * -1), botArea.yCoord)))
-				moveOptions.push(this.getAreaByCoord(new Coord(botArea.xCoord, botArea.yCoord + 1)))
-				moveOptions.push(this.getAreaByCoord(new Coord(botArea.xCoord, botArea.yCoord - 1)))
+				moveOptions.push(_.shuffle([
+					this.getAreaByCoord(new Coord(botArea.xCoord, botArea.yCoord + 1)), 
+					this.getAreaByCoord(new Coord(botArea.xCoord, botArea.yCoord - 1))]))
 			} else {
 				moveOptions.push(this.getAreaByCoord(new Coord(botArea.xCoord, botArea.yCoord + (Math.sign(yDistance) * -1))))
-				moveOptions.push(this.getAreaByCoord(new Coord(botArea.xCoord + 1, botArea.yCoord)))
-				moveOptions.push(this.getAreaByCoord(new Coord(botArea.xCoord -1, botArea.yCoord)))
-			} 
-			_.find(moveOptions, function(option) { return thisMap.moveBot(botArea, option) })
+				moveOptions.push(_.shuffle([
+					this.getAreaByCoord(new Coord(botArea.xCoord + 1, botArea.yCoord)),
+					this.getAreaByCoord(new Coord(botArea.xCoord -1, botArea.yCoord))]))
+			}
+			_.find(_.flatten(moveOptions), function(option) { return thisMap.moveBot(botArea, option) })
 		}
 		this.findOpponents = function(team) {
 			return $filter('filter')(areas, function(area) { return area.robot && !area.robot.destroyed && area.robot.team !== team })
