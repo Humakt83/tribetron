@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('Tribetron').controller('GameController', ['$scope', 'AreaMap', 'Robot', 'Team', 'GameHandler', function($scope, AreaMap, Robot, Team, GameHandler) {
+angular.module('Tribetron').controller('GameController', ['$scope', '$interval', 'AreaMap', 'Robot', 'Team', 'GameHandler', function($scope, $interval, AreaMap, Robot, Team, GameHandler) {
 	var createTeamWithRobots = function(amountOfRobots, isEnemy) {
 		var bots = []
 		var robotType = Robot.getTypes()[0]
@@ -17,6 +17,8 @@ angular.module('Tribetron').controller('GameController', ['$scope', 'AreaMap', '
 	}
 	
 	var width = 10, height = 10, robotsPerTeam = 5
+	var autoPlayOn
+	$scope.playToggle = 'Play'
 	
 	$scope.map = AreaMap.createMap(width,height)
 	
@@ -30,15 +32,41 @@ angular.module('Tribetron').controller('GameController', ['$scope', 'AreaMap', '
 	$scope.title = 'Tribetron'
 	
 	$scope.nextTurn = function() {
+		$scope.stop()
 		if (!$scope.gameState.isOver()) {
 			$scope.gameState.nextRobot().takeTurn($scope.map)
 		}
 	}
 	
 	$scope.fullTurn = function() {
+		$scope.stop()
 		var round = $scope.gameState.round
 		while(!$scope.gameState.isOver() && $scope.gameState.round === round) { 
 			$scope.nextTurn()
 		}
+	}
+	
+	$scope.play = function() {
+		autoPlayOn = $interval(function() {
+            if (!$scope.gameState.isOver()) {
+              $scope.gameState.nextRobot().takeTurn($scope.map)
+            } else {
+              $scope.stop();
+            }
+          }, 200);
+		  $scope.playToggle = 'Pause' 
+	}
+	
+	$scope.togglePlay = function() {
+		if (autoPlayOn) $scope.stop()
+		else $scope.play()
+		
+	}
+	
+	$scope.stop = function() {
+		if (!autoPlayOn) return
+		$interval.cancel(autoPlayOn)
+		autoPlayOn = undefined
+		$scope.playToggle = 'Play' 
 	}
 }])
