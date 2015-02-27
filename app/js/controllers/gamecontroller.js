@@ -26,17 +26,21 @@ angular.module('Tribetron').controller('GameController', ['$scope', 'AreaMap', '
 	placeTeam($scope.team)
 	placeTeam($scope.enemyTeam)
 	
-	$scope.gameState = GameHandler.createGameState([$scope.team, $scope.enemyTeam])
+	$scope.gameState = GameHandler.createGameState([$scope.team, $scope.enemyTeam], 20)
 	$scope.title = 'Tribetron'
 	
 	$scope.nextTurn = function() {
-		var bot = $scope.gameState.nextRobot()
-		bot.takeTurn($scope.map)
+		if ($scope.gameState.isOver()) {
+			$scope.gameOver = true
+		} else {
+			var bot = $scope.gameState.nextRobot()
+			bot.takeTurn($scope.map)
+		}
 	}
 	
 	$scope.fullTurn = function() {
-		$scope.nextTurn()
-		while($scope.gameState.robotTurn !== 0) { 
+		var round = $scope.gameState.round
+		while(!$scope.gameState.isOver() && $scope.gameState.round === round) { 
 			$scope.nextTurn()
 		}
 	}

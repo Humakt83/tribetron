@@ -52,7 +52,7 @@ angular.module('Tribetron').factory('AreaMap', ['$filter', function($filter) {
 		this.moveBotTowards = function(botArea, targetArea) {
 			var xDistance = botArea.xCoord - targetArea.xCoord
 			var yDistance = botArea.yCoord - targetArea.yCoord
-			var moveOptions = []
+			var moveOptions = [], thisMap = this
 			if (Math.abs(xDistance) >= Math.abs(yDistance)) {
 				moveOptions.push(this.getAreaByCoord(new Coord(botArea.xCoord + (Math.sign(xDistance) * -1), botArea.yCoord)))
 				moveOptions.push(this.getAreaByCoord(new Coord(botArea.xCoord, botArea.yCoord + 1)))
@@ -61,8 +61,7 @@ angular.module('Tribetron').factory('AreaMap', ['$filter', function($filter) {
 				moveOptions.push(this.getAreaByCoord(new Coord(botArea.xCoord, botArea.yCoord + (Math.sign(yDistance) * -1))))
 				moveOptions.push(this.getAreaByCoord(new Coord(botArea.xCoord + 1, botArea.yCoord)))
 				moveOptions.push(this.getAreaByCoord(new Coord(botArea.xCoord -1, botArea.yCoord)))
-			}
-			var thisMap = this
+			} 
 			_.find(moveOptions, function(option) { return thisMap.moveBot(botArea, option) })
 		}
 		this.findOpponents = function(team) {
