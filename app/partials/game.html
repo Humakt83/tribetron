@@ -12,6 +12,7 @@
 			</tr>
 		</tbody>
 	</table>
+	<button ng-click="newGame()">New Game</button>
 	<button ng-click="nextTurn()" ng-disabled="gameState.isOver()">Next turn</button>
 	<button ng-click="fullTurn()" ng-disabled="gameState.isOver()">Full turn</button>
 	<button ng-click="togglePlay()" ng-disabled="gameState.isOver()">{{playToggle}}</button>
