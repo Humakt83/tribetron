@@ -30,11 +30,8 @@ angular.module('Tribetron').controller('GameController', ['$scope', 'AreaMap', '
 	$scope.title = 'Tribetron'
 	
 	$scope.nextTurn = function() {
-		if ($scope.gameState.isOver()) {
-			$scope.gameOver = true
-		} else {
-			var bot = $scope.gameState.nextRobot()
-			bot.takeTurn($scope.map)
+		if (!$scope.gameState.isOver()) {
+			$scope.gameState.nextRobot().takeTurn($scope.map)
 		}
 	}
 	
