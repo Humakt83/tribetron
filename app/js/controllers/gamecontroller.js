@@ -1,6 +1,9 @@
 'use strict'
 
 angular.module('Tribetron').controller('GameController', ['$scope', '$interval', 'AreaMap', 'Robot', 'Team', 'GameHandler', function($scope, $interval, AreaMap, Robot, Team, GameHandler) {
+
+	$scope.gameStarted = false
+	
 	function init() {
 		var createTeamWithRobots = function(teamName, amountOfRobots, isEnemy) {
 			var bots = []
@@ -58,6 +61,7 @@ angular.module('Tribetron').controller('GameController', ['$scope', '$interval',
 	}
 	
 	$scope.newGame = function() {
+		$scope.gameStarted = true
 		$scope.stop()
 		init()
 	}

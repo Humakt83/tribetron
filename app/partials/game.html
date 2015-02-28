@@ -18,17 +18,19 @@
 	</table>
 	
 	<button ng-click="newGame()">New Game</button>
-	<button ng-click="nextTurn()" ng-disabled="gameState.isOver()">Next turn</button>
-	<button ng-click="fullTurn()" ng-disabled="gameState.isOver()">Full turn</button>
-	<button ng-click="togglePlay()" ng-disabled="gameState.isOver()">{{playToggle}}</button>
-	<span>{{gameState.round}}/{{gameState.maxRounds}}</span>
+	<div ng-show="gameStarted">
+		<button ng-click="nextTurn()" ng-disabled="gameState.isOver()">Next turn</button>
+		<button ng-click="fullTurn()" ng-disabled="gameState.isOver()">Full turn</button>
+		<button ng-click="togglePlay()" ng-disabled="gameState.isOver()">{{playToggle}}</button>
+		<span>{{gameState.round}}/{{gameState.maxRounds}}</span>
 	
-	<div ng-repeat="team in teams">
-		<h1>{{team.name}}</h1>
-		<strong>Bots left</strong> <span ng-repeat="botsByType in team.botsByTypeAlive">{{botsByType.typeName}}: {{botsByType.amount}} </span>
-	</div>
-	<div ng-show="gameState.isOver()">
-		<h1>Game Over!</h1>
-		<span>{{winMessage()}}</span>
+		<div ng-repeat="team in teams">
+			<h1>{{team.name}}</h1>
+			<strong>Bots left</strong> <span ng-repeat="botsByType in team.botsByTypeAlive">{{botsByType.typeName}}: {{botsByType.amount}} </span>
+		</div>
+		<div ng-show="gameState.isOver()">
+			<h1>Game Over!</h1>
+			<span>{{winMessage()}}</span>
+		</div>
 	</div>
 </div>
