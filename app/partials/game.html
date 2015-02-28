@@ -9,6 +9,9 @@
 				<td ng-repeat="area in map.getAreasByRow($index)" ng-class="area.isWall ? 'wall' : 'floor'">
 					<div ng-if="area.robot" ng-class="area.robot.getTypeClass()" class="robot"></div>
 					<div ng-if="area.robot && area.robot.destroyed" class="broken"></div>
+					<div ng-if="area.robot" class="health">
+						<div class="health-bar" style="width:{{area.robot.calculatePercentageOfHealth()}}%;"></div>
+					</div>
 				</td>
 			</tr>
 		</tbody>

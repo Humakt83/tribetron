@@ -12,6 +12,19 @@ table.game td.floor {
 	background: grey;
 }
 
+.health {
+	width: 98%;
+	height: 4px;
+	bottom: 1px;
+	background: rgb(255, 7, 32);
+	z-index: 10; 
+}
+
+.health-bar {
+	height: 100%;
+	background: rgb(10,255,10);
+}
+
 .robot {
 	z-index: 5;
 	width: 50px;
