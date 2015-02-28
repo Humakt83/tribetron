@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('Tribetron').factory('Robot', [function() {
-	var types = [Hunter, Box, Medic, Totter]
+	var types = [Hunter, Box, Medic, Totter, Radiator]
 	
 	function Hunter() {
 		this.takeTurn = function(bot, map, team) {
@@ -58,6 +58,28 @@ angular.module('Tribetron').factory('Robot', [function() {
 		this.maxHealth = 9
 		this.meleeDamage = 8
 		this.typeName = 'totter'
+	}
+	
+	function Radiator() {
+		this.radiateDamage = function(map, area, bot) {
+			var areasNear = map.findAreasCloseToArea(area)
+			angular.forEach(areasNear, function(areaNear) {
+				if (areaNear.robot) areaNear.robot.receiveDamage(bot.type.radiationDamage)
+			})
+		}
+		this.takeTurn = function(bot, map, team) {
+			var area = map.findAreaWhereBotIs(bot)
+			var opponentAreas = map.findOpponents(team)
+			var closestOpponent = area.findClosest(opponentAreas)
+			if (area.calculateDistance(closestOpponent) < 2) {
+				this.radiateDamage(map, area, bot)
+			} else {
+				map.moveBotTowards(area, closestOpponent)
+			}
+		}
+		this.maxHealth = 9
+		this.radiationDamage = 4
+		this.typeName = "radiator"
 	}
 	
 	function Robot(type) {

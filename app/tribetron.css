@@ -63,6 +63,14 @@ table.game td.floor {
 	content: url("img/totterbot2.png");
 }
 
+.radiator {
+	content: url("img/radiatorbot.png");
+}
+
+.radiator_enemy {
+	content: url("img/radiatorbot2.png");
+}
+
 .broken {
 	position: absolute;
 	top: 1px;
