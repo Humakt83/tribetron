@@ -1,33 +1,43 @@
-<div ng-controller="GameController">
-	
-	<table class="table-bordered game">
-		<tbody>
-			<tr ng-repeat="row in map.rows track by $index">
-				<td ng-repeat="area in map.getAreasByRow($index)" ng-class="area.isWall ? 'wall' : 'floor'">
-					<div ng-if="area.robot" ng-class="area.robot.getTypeClass()" class="robot"></div>
-					<div ng-if="area.robot && area.robot.destroyed" class="broken"></div>
-					<div ng-if="area.robot" class="health">
-						<div class="health-bar" style="width:{{area.robot.calculatePercentageOfHealth()}}%;"></div>
-					</div>
-				</td>
-			</tr>
-		</tbody>
-	</table>
-	
+<div class="container" ng-controller="GameController">
 	<button ng-click="newGame()">New Game</button>
-	<div ng-show="gameStarted">
-		<button ng-click="nextTurn()" ng-disabled="gameState.isOver()">Next turn</button>
-		<button ng-click="fullTurn()" ng-disabled="gameState.isOver()">Full turn</button>
-		<button ng-click="togglePlay()" ng-disabled="gameState.isOver()">{{playToggle}}</button>
-		<span>{{gameState.round}}/{{gameState.maxRounds}}</span>
+	<div class="row" ng-show="gameStarted">
+		<div class="col-xs-8">
+		
+			<table class="table-bordered game">
+				<tbody>
+					<tr ng-repeat="row in map.rows track by $index">
+						<td ng-repeat="area in map.getAreasByRow($index)" ng-class="area.isWall ? 'wall' : 'floor'">
+							<div ng-if="area.robot" ng-class="area.robot.getTypeClass()" class="robot"></div>
+							<div ng-if="area.robot && area.robot.destroyed" class="broken"></div>
+							<div ng-if="area.robot" class="health">
+								<div class="health-bar" style="width:{{area.robot.calculatePercentageOfHealth()}}%;"></div>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			
+			<button ng-click="nextTurn()" ng-disabled="gameState.isOver()">Next turn</button>
+			<button ng-click="fullTurn()" ng-disabled="gameState.isOver()">Full turn</button>
+			<button ng-click="togglePlay()" ng-disabled="gameState.isOver()">{{playToggle}}</button>
+			<span>{{gameState.round}}/{{gameState.maxRounds}}</span>
+			
+		</div>
+		
+		<div class="col-xs-4">
+		
+			<div ng-repeat="team in teams">
+				<h1>{{team.name}}</h1>
+				<strong>Bots left</strong> <span ng-repeat="botsByType in team.botsByTypeAlive">{{botsByType.typeName}}: {{botsByType.amount}} </span>
+			</div>
+			
+			<div ng-show="gameState.isOver()">
+				<h1>Game Over!</h1>
+				<span>{{winMessage()}}</span>
+			</div>
+			
+			<textarea class="battle-log" ng-disabled="true">{{battleLog.log.join()}}</textarea>
+		</div>
 	
-		<div ng-repeat="team in teams">
-			<h1>{{team.name}}</h1>
-			<strong>Bots left</strong> <span ng-repeat="botsByType in team.botsByTypeAlive">{{botsByType.typeName}}: {{botsByType.amount}} </span>
-		</div>
-		<div ng-show="gameState.isOver()">
-			<h1>Game Over!</h1>
-			<span>{{winMessage()}}</span>
-		</div>
 	</div>
 </div>

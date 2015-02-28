@@ -1,10 +1,16 @@
 'use strict'
 
-angular.module('Tribetron').controller('GameController', ['$scope', '$interval', 'AreaMap', 'Robot', 'Team', 'GameHandler', function($scope, $interval, AreaMap, Robot, Team, GameHandler) {
+angular.module('Tribetron').controller('GameController', ['$scope', '$interval', 'AreaMap', 'Robot', 'Team', 'GameHandler', 'BattleLog', function($scope, $interval, AreaMap, Robot, Team, GameHandler, BattleLog) {
 
 	$scope.gameStarted = false
 	
+	$scope._ = _
+	
+	$scope.battleLog = BattleLog.getLog()
+	
 	function init() {
+		$scope.battleLog.reset()
+		$scope.battleLog.add("Battle started")
 		var createTeamWithRobots = function(teamName, amountOfRobots, isEnemy) {
 			var bots = []
 			for ( var i = 0; i < amountOfRobots; i++) {

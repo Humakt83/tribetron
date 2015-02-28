@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('Tribetron').factory('GameHandler', ['$filter', function($filter) {
+angular.module('Tribetron').factory('GameHandler', ['$filter', 'BattleLog', function($filter, BattleLog) {
 
 	function buildRobotQueue(teams) {
 		return _.compact(_.flatten(_.zip.apply(_, _.map(teams, function(team) { return team.robots }))))
@@ -12,6 +12,7 @@ angular.module('Tribetron').factory('GameHandler', ['$filter', function($filter)
 				this.robotTurn += 1 
 			} else {
 				this.round += 1
+				BattleLog.add('Round: ' + this.round + ' starts.')
 				this.robotTurn = 0
 			}
 		}
@@ -25,6 +26,7 @@ angular.module('Tribetron').factory('GameHandler', ['$filter', function($filter)
 				this.nextRobotTurn()
 				attemptsCounter += 1
 			}
+			BattleLog.add('Turn of ' + bot.type.typeName + ' from team ' + bot.team.name) 
 			return bot
 		}
 		
