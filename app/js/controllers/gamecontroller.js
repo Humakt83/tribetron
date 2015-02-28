@@ -37,8 +37,6 @@ angular.module('Tribetron').controller('GameController', ['$scope', '$interval',
 		$scope.gameState = GameHandler.createGameState([$scope.team, $scope.enemyTeam], numberOfRounds)
 	}
 	
-	$scope.title = 'Tribetron'
-	
 	$scope.nextTurn = function() {
 		$scope.stop()
 		if (!$scope.gameState.isOver()) {

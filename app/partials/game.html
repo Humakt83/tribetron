@@ -1,9 +1,6 @@
 <div ng-controller="GameController">
 	
 	<table class="table-bordered game">
-		<thead>
-			<th><td colspan="{{map.lines.length}}">{{title}}</td></th>
-		</thead>
 		<tbody>
 			<tr ng-repeat="row in map.rows track by $index">
 				<td ng-repeat="area in map.getAreasByRow($index)" ng-class="area.isWall ? 'wall' : 'floor'">
