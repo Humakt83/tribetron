@@ -42,6 +42,14 @@ table.game td.floor {
 	content: url("img/medicbot2.png");
 }
 
+.totter {
+	content: url("img/totterbot.png");
+}
+
+.totter_enemy {
+	content: url("img/totterbot2.png");
+}
+
 .broken {
 	position: absolute;
 	top: 1px;

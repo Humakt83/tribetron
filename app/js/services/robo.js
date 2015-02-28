@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('Tribetron').factory('Robot', [function() {
-	var types = [Hunter, Box, Medic]
+	var types = [Hunter, Box, Medic, Totter]
 	
 	function Hunter() {
 		this.takeTurn = function(bot, map, team) {
@@ -18,7 +18,7 @@ angular.module('Tribetron').factory('Robot', [function() {
 		this.takeTurn = function() {
 			return
 		}
-		this.name = "box"
+		this.name = 'box'
 	}
 	
 	function Medic() {
@@ -31,7 +31,24 @@ angular.module('Tribetron').factory('Robot', [function() {
 				else map.moveBotTowards(area, closestInjured)
 			}
 		}
-		this.name = "medic"
+		this.name = 'medic'
+	}
+	
+	function Totter() {
+		this.takeTurn = function(bot, map) {
+			var area = map.findAreaWhereBotIs(bot)
+			var areasNear = map.findAreasCloseToArea(area)
+			var areaToMove = areasNear[Math.floor(Math.random() * areasNear.length)]
+			if (areaToMove.robot) {
+				bot.destroyed = true
+				areaToMove.robot.destroyed = true
+			} else if (areaToMove.isWall) {
+				bot.destroyed = true
+			} else {
+				map.moveBot(area, areaToMove)
+			}
+		}
+		this.name = 'totter'
 	}
 	
 	function Robot(type) {

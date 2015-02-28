@@ -41,6 +41,14 @@ angular.module('Tribetron').factory('AreaMap', ['$filter', function($filter) {
 			})
 			return areaWhereBotIs
 		}
+		
+		this.findAreasCloseToArea = function(area) {
+			return _.compact([this.getAreaByCoord(new Coord(area.xCoord - 1, area.yCoord)),
+				this.getAreaByCoord(new Coord(area.xCoord + 1, area.yCoord)),
+				this.getAreaByCoord(new Coord(area.xCoord, area.yCoord - 1)),
+				this.getAreaByCoord(new Coord(area.xCoord, area.yCoord + 1))])
+		}
+		
 		this.moveBot = function(from, to) {
 			if (this.botCanBePlacedOnArea(to)) {
 				to.setRobot(from.robot)
@@ -76,7 +84,8 @@ angular.module('Tribetron').factory('AreaMap', ['$filter', function($filter) {
 			return $filter('filter')(areas, {'yCoord':row}, 'xCoord')
 		}
 		this.getAreaByCoord = function(coord) {
-			return $filter('filter')(areas, {'yCoord': coord.y, 'xCoord': coord.x})[0]
+			var foundedArea = $filter('filter')(areas, {'yCoord': coord.y, 'xCoord': coord.x})
+			return foundedArea ? foundedArea[0] : null
 		}
 		this.botCanBePlacedOnArea = function(area) {
 			return area && !area.isWall && !area.robot
