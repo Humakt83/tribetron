@@ -14,30 +14,32 @@ table.game td.floor {
 
 .robot {
 	z-index: 5;
+	width: 50px;
+	height: 50px;
 }
 
 .hunter  {
 	content: url("img/robobasic.png");
-	width: 50px;
-	height: 50px;
 }
 
 .hunter_enemy {
 	content: url("img/robobasic2.png");
-	width: 50px;
-	height: 50px;
 }
 
 .box {
 	content: url("img/boxbot.png");
-	width: 50px;
-	height: 50px;
 }
 
 .box_enemy {
 	content: url("img/boxbot2.png");
-	width: 50px;
-	height: 50px;
+}
+
+.medic {
+	content: url("img/medicbot.png");
+}
+
+.medic_enemy {
+	content: url("img/medicbot2.png");
 }
 
 .broken {
