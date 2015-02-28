@@ -2,13 +2,13 @@
 
 angular.module('Tribetron').controller('GameController', ['$scope', '$interval', 'AreaMap', 'Robot', 'Team', 'GameHandler', function($scope, $interval, AreaMap, Robot, Team, GameHandler) {
 	function init() {
-		var createTeamWithRobots = function(amountOfRobots, isEnemy) {
+		var createTeamWithRobots = function(teamName, amountOfRobots, isEnemy) {
 			var bots = []
 			for ( var i = 0; i < amountOfRobots; i++) {
 				var robotType = Robot.getTypes()[Math.floor(Math.random() * Robot.getTypes().length)]
 				bots.push(Robot.createRobot(new robotType()))
 			}
-			return Team.createTeam(bots, isEnemy)
+			return Team.createTeam(teamName, bots, isEnemy)
 		}
 		
 		var placeTeam = function(team) {
@@ -23,8 +23,10 @@ angular.module('Tribetron').controller('GameController', ['$scope', '$interval',
 		
 		$scope.map = AreaMap.createMap(width,height)
 		
-		$scope.team = createTeamWithRobots(robotsPerTeam)
-		$scope.enemyTeam = createTeamWithRobots(robotsPerTeam, true)
+		$scope.team = createTeamWithRobots('Corobons', robotsPerTeam)
+		$scope.enemyTeam = createTeamWithRobots('Tributrons', robotsPerTeam, true)
+		
+		$scope.teams = [$scope.team, $scope.enemyTeam]
 		
 		placeTeam($scope.team)
 		placeTeam($scope.enemyTeam)
@@ -38,6 +40,7 @@ angular.module('Tribetron').controller('GameController', ['$scope', '$interval',
 		$scope.stop()
 		if (!$scope.gameState.isOver()) {
 			$scope.gameState.nextRobot().takeTurn($scope.map)
+			angular.forEach($scope.teams, function(team) { team.updateBotCount() })
 		}
 	}
 	
@@ -49,6 +52,11 @@ angular.module('Tribetron').controller('GameController', ['$scope', '$interval',
 		}
 	}
 	
+	$scope.winMessage = function() {
+		var winningTeam = $scope.gameState ? $scope.gameState.getWinner() : undefined
+		return winningTeam ? winningTeam.name + ' are victorious!' : 'Battle ended in a draw'
+	}
+	
 	$scope.newGame = function() {
 		$scope.stop()
 		init()
@@ -58,6 +66,7 @@ angular.module('Tribetron').controller('GameController', ['$scope', '$interval',
 		$scope.autoPlayOn = $interval(function() {
             if (!$scope.gameState.isOver()) {
               $scope.gameState.nextRobot().takeTurn($scope.map)
+			  angular.forEach($scope.teams, function(team) { team.updateBotCount() })
             } else {
               $scope.stop();
             }

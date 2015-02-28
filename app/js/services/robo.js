@@ -11,14 +11,14 @@ angular.module('Tribetron').factory('Robot', [function() {
 			if (area.calculateDistance(closestOpponent) < 2) closestOpponent.robot.destroyed = true
 			else map.moveBotTowards(area, closestOpponent)
 		}
-		this.name = 'hunter'
+		this.typeName = 'hunter'
 	}
 	
 	function Box() {
 		this.takeTurn = function() {
 			return
 		}
-		this.name = 'box'
+		this.typeName = 'box'
 	}
 	
 	function Medic() {
@@ -31,7 +31,7 @@ angular.module('Tribetron').factory('Robot', [function() {
 				else map.moveBotTowards(area, closestInjured)
 			}
 		}
-		this.name = 'medic'
+		this.typeName = 'medic'
 	}
 	
 	function Totter() {
@@ -48,7 +48,7 @@ angular.module('Tribetron').factory('Robot', [function() {
 				map.moveBot(area, areaToMove)
 			}
 		}
-		this.name = 'totter'
+		this.typeName = 'totter'
 	}
 	
 	function Robot(type) {
@@ -60,7 +60,7 @@ angular.module('Tribetron').factory('Robot', [function() {
 		}
 		this.getTypeClass = function() {
 			var postfix = this.team.isEnemy ? '_enemy' : ''
-			return this.type.name + postfix
+			return this.type.typeName + postfix
 		}
 		this.type = type;
 		this.destroyed = false;

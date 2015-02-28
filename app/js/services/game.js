@@ -35,6 +35,18 @@ angular.module('Tribetron').factory('GameHandler', ['$filter', function($filter)
 			})
 			return this.round >= maxRounds || teamsWithBotsLeft < 2
 		}
+		
+		this.getWinner = function() {
+			var winningTeam
+			angular.forEach(this.teams, function(team) {
+				if (!winningTeam || team.botsRemaining() > winningTeam.botsRemaining())
+					winningTeam = team
+				else 
+					winningTeam = !winningTeam || winningTeam.botsRemaining() === team.botsRemaining() ? undefined : winningTeam
+			})
+			return winningTeam
+		}
+		
 		this.maxRounds = maxRounds
 		this.teams = teams
 		this.robotQueue = buildRobotQueue(teams)
