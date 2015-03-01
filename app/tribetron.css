@@ -65,6 +65,7 @@ p.detail {
 .robot-large {
 	width: 100px;
 	height: 100px;
+	cursor: pointer;
 }
 
 .hunter  {

@@ -34,6 +34,7 @@ angular.module('Tribetron').factory('Team', ['$filter', 'Robot', function($filte
 		
 		this.addBot = function(robot) {
 			this.robots.push(robot)
+			robot.setTeam(this)
 		}
 		
 		this.robots = robots
