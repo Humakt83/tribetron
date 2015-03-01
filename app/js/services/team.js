@@ -29,8 +29,11 @@ angular.module('Tribetron').factory('Team', ['$filter', 'Robot', function($filte
 					return bot.type.typeName === botType.typeName && !bot.destroyed
 				})))
 			})
-			console.log(botsPerType)
 			return botsPerType
+		}
+		
+		this.addBot = function(robot) {
+			this.robots.push(robot)
 		}
 		
 		this.robots = robots

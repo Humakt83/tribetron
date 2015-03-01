@@ -130,6 +130,9 @@ angular.module('Tribetron').factory('Robot', ['BattleLog', function(BattleLog) {
 		},
 		getTypes : function() {
 			return types
+		},
+		getTypesAsObjects : function() {
+			return _.map(types, function(type) { return new type()})
 		}
 	}
 }])

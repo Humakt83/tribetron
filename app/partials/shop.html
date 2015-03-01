@@ -1,0 +1,15 @@
+<div class="container" ng-controller="ShopController">
+	
+	<table class="table-bordered">
+		<tr ng-repeat="botType in botTypes">
+			<td>
+				<div class="robot-large" ng-class="botType.typeName"></div>
+			</td>
+			<td>
+				Class: {{botType.typeName | capitalize}}<br />
+				<p class="detail" ng-repeat="detail in getDetails(botType)">{{detail | capitalize | spacify}}</p>
+			</td>
+		</tr>
+	</table>
+	
+</div>

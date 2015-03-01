@@ -29,6 +29,10 @@ table.game td.floor {
 	background: grey;
 }
 
+p.detail {
+	margin: 0 0 0;
+}
+
 .battle-log {
 	width: 400px;
 	height: 400px;
@@ -56,6 +60,11 @@ table.game td.floor {
 .robot-small {
 	width: 20px;
 	height: 20px;
+}
+
+.robot-large {
+	width: 100px;
+	height: 100px;
 }
 
 .hunter  {
