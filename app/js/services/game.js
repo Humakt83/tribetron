@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('Tribetron').factory('GameHandler', ['$filter', 'BattleLog', function($filter, BattleLog) {
+angular.module('Tribetron').factory('GameHandler', ['BattleLog', function(BattleLog) {
 
 	function buildRobotQueue(teams) {
 		return _.compact(_.flatten(_.zip.apply(_, _.map(teams, function(team) { return team.robots }))))
@@ -33,7 +33,7 @@ angular.module('Tribetron').factory('GameHandler', ['$filter', 'BattleLog', func
 		this.isOver = function() {
 			var teamsWithBotsLeft = 0
 			angular.forEach(teams, function(team) {
-				teamsWithBotsLeft += $filter('filter')(team.robots, {'destroyed':false}).length > 0 ? 1 : 0
+				teamsWithBotsLeft += team.botsRemaining() > 0 ? 1 : 0
 			})
 			return this.round >= maxRounds || teamsWithBotsLeft < 2
 		}

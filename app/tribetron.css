@@ -14,8 +14,10 @@ body {
 }
 
 table.game td {
-	width: 52px;
-	height: 52px;
+	width: 55px;
+	height: 55px;
+	min-height: 55px;
+	min-width: 55px;
 	position: relative;
 }
 
@@ -28,7 +30,7 @@ table.game td.floor {
 }
 
 .battle-log {
-	width: 600px;
+	width: 400px;
 	height: 400px;
 }
 
@@ -49,6 +51,11 @@ table.game td.floor {
 	z-index: 5;
 	width: 50px;
 	height: 50px;
+}
+
+.robot-small {
+	width: 20px;
+	height: 20px;
 }
 
 .hunter  {

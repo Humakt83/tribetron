@@ -4,7 +4,7 @@ angular.module('Tribetron').factory('Team', ['$filter', 'Robot', function($filte
 	
 	function BotsByType(typeName, amount) {
 		this.typeName = typeName
-		this.amount = amount
+		this.bots = amount
 	}
 	
 	function Team(name, robots, isEnemy) {
@@ -27,8 +27,9 @@ angular.module('Tribetron').factory('Team', ['$filter', 'Robot', function($filte
 				var botType = new type()
 				botsPerType.push(new BotsByType(botType.typeName, $filter('filter')(thisTeam.robots, function(bot) {
 					return bot.type.typeName === botType.typeName && !bot.destroyed
-				}).length))
+				})))
 			})
+			console.log(botsPerType)
 			return botsPerType
 		}
 		
