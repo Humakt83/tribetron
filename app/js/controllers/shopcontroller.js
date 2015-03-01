@@ -19,6 +19,11 @@ angular.module('Tribetron').controller('ShopController', ['$scope', 'Robot', 'Te
 		$scope.money -= botType.price
 	}
 	
+	$scope.sellBot = function(robot) {
+		$scope.team.removeBot(robot)
+		$scope.money += robot.type.price
+	}
+	
 	$scope.getDetails = function(botType) {
 		var details = []
 		angular.forEach(Object.keys(botType), function(key) {

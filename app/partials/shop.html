@@ -4,7 +4,7 @@
 			<table class="table-bordered">
 				<tr ng-repeat="botType in botTypes">
 					<td>
-						<div class="robot-large" ng-class="botType.typeName" ng-click="buyBot(botType)"></div>
+						<div class="robot-large touchable" ng-class="botType.typeName" ng-click="buyBot(botType)"></div>
 					</td>
 					<td>
 						<strong>Class: {{botType.typeName | capitalize}}</strong>
@@ -18,7 +18,7 @@
 				<strong>Money: {{money}}
 			</div>
 			<div>
-				<strong>Roster (max {{maxRosterSize}}): </strong><span ng-repeat="bot in team.robots" class="robot-small" ng-class="bot.getTypeClass()"></span>
+				<strong>Roster (max {{maxRosterSize}}): </strong><span ng-repeat="bot in team.robots" class="robot-small touchable" ng-class="bot.getTypeClass()" ng-click="sellBot(bot)"></span>
 			</div>
 		</div>
 	</div>

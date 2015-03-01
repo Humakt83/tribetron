@@ -37,6 +37,10 @@ angular.module('Tribetron').factory('Team', ['$filter', 'Robot', function($filte
 			robot.setTeam(this)
 		}
 		
+		this.removeBot = function(robot) {
+			this.robots.splice(this.robots.indexOf(robot), 1)
+		}
+		
 		this.robots = robots
 		this.isEnemy = isEnemy
 		this.name = name
