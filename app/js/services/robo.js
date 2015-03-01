@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('Tribetron').factory('Robot', ['BattleLog', function(BattleLog) {
-	var types = [Hunter, Box, Medic, Totter, Radiator, Psycho]
+	var types = [Hunter, Box, Medic, Totter, Radiator, Psycho, Crate]
 	
 	function Hunter() {
 		this.takeTurn = function(bot, map, team) {
@@ -29,6 +29,16 @@ angular.module('Tribetron').factory('Robot', ['BattleLog', function(BattleLog) {
 		this.typeName = 'box'
 		this.price = 0
 		this.maxHealth = 5
+		this.intelligence = 'none'
+	}
+	
+	function Crate() {
+		this.takeTurn = function() {
+			BattleLog.add('Crate does nothing.')
+		}
+		this.typeName = 'crate'
+		this.price = 5
+		this.maxHealth = 30
 		this.intelligence = 'none'
 	}
 	
@@ -117,7 +127,7 @@ angular.module('Tribetron').factory('Robot', ['BattleLog', function(BattleLog) {
 				BattleLog.add('Psycho did not find suitable target to destroy.')
 			}
 		}
-		this.price = 15
+		this.price = 20
 		this.maxHealth = 15
 		this.meleeDamage = 10
 		this.intelligence = 'insane'

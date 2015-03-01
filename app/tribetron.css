@@ -119,6 +119,14 @@ p.detail {
 	content: url("img/psychobot2.png");
 }
 
+.crate {
+	content: url("img/cratebot.png");
+}
+
+.crate_enemy {
+	content: url("img/cratebot2.png");
+}
+
 .broken {
 	position: absolute;
 	top: 1px;
