@@ -1,10 +1,10 @@
 'use strict'
 
-angular.module('Tribetron').controller('ShopController', ['$scope', 'Robot', 'Team', function($scope, Robot, Team) {
+angular.module('Tribetron').controller('ShopController', ['$scope', '$location', 'Robot', 'Team', function($scope, $location, Robot, Team) {
 	
 	$scope.botTypes = Robot.getTypesAsObjects()
 	
-	$scope.team = Team.createTeam('MyTeam', [])
+	$scope.team = Team.createPlayerTeam('MyTeam', [])
 	
 	$scope.money = 50
 	
@@ -32,5 +32,9 @@ angular.module('Tribetron').controller('ShopController', ['$scope', 'Robot', 'Te
 			}
 		})
 		return details
+	}
+	
+	$scope.toBattle = function() {
+		$location.path('/battle')
 	}
 }])

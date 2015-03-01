@@ -11,6 +11,14 @@ angular.module('Tribetron', ['ngRoute', 'ngAnimate'])
 				templateUrl: './partials/shop.html',
 				controller: 'ShopController'
 			})
+			.when('/test', {
+				templateUrl: './partials/testgame.html',
+				controller: 'TestGameController'
+			})
+			.when('/battle', {
+				templateUrl: './partials/battle.html',
+				controller: 'BattleController'
+			})
 			.otherwise({
 				redirectTo: '/'
 			})

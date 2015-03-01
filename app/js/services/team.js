@@ -2,6 +2,8 @@
 
 angular.module('Tribetron').factory('Team', ['$filter', 'Robot', function($filter, Robot) {
 	
+	var playerTeam
+	
 	function BotsByType(typeName, amount) {
 		this.typeName = typeName
 		this.bots = amount
@@ -53,6 +55,13 @@ angular.module('Tribetron').factory('Team', ['$filter', 'Robot', function($filte
 	return {
 		createTeam : function (name, robots, isEnemy) {
 			return new Team(name, robots, isEnemy)
+		},
+		createPlayerTeam : function (name, robots) {
+			playerTeam = new Team(name, robots)
+			return playerTeam
+		},
+		getPlayerTeam : function() {
+			return playerTeam
 		}
 	}
 }])

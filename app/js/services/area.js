@@ -63,11 +63,13 @@ angular.module('Tribetron').factory('AreaMap', ['$filter', function($filter) {
 			var moveOptions = [], thisMap = this
 			if (Math.abs(xDistance) >= Math.abs(yDistance)) {
 				moveOptions.push(this.getAreaByCoord(new Coord(botArea.xCoord + (Math.sign(xDistance) * -1), botArea.yCoord)))
+				if (Math.abs(yDistance > 0)) moveOptions.push(this.getAreaByCoord(new Coord(botArea.xCoord, botArea.yCoord + (Math.sign(yDistance) * -1))))
 				moveOptions.push(_.shuffle([
 					this.getAreaByCoord(new Coord(botArea.xCoord, botArea.yCoord + 1)), 
 					this.getAreaByCoord(new Coord(botArea.xCoord, botArea.yCoord - 1))]))
 			} else {
 				moveOptions.push(this.getAreaByCoord(new Coord(botArea.xCoord, botArea.yCoord + (Math.sign(yDistance) * -1))))
+				if (Math.abs(xDistance > 0)) moveOptions.push(this.getAreaByCoord(new Coord(botArea.xCoord + (Math.sign(xDistance) * -1), botArea.yCoord)))
 				moveOptions.push(_.shuffle([
 					this.getAreaByCoord(new Coord(botArea.xCoord + 1, botArea.yCoord)),
 					this.getAreaByCoord(new Coord(botArea.xCoord -1, botArea.yCoord))]))
