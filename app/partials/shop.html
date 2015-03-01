@@ -1,18 +1,26 @@
 <div class="container" ng-controller="ShopController">
-	
-	<table class="table-bordered">
-		<tr ng-repeat="botType in botTypes">
-			<td>
-				<div class="robot-large" ng-class="botType.typeName" ng-click="buyBot(botType)"></div>
-			</td>
-			<td>
-				<strong>Class: {{botType.typeName | capitalize}}</strong>
-				<p class="detail" ng-repeat="detail in getDetails(botType)">{{detail | capitalize | spacify}}</p>
-			</td>
-		</tr>
-	</table>
-	<div class="roster">
-		<strong>Roster: </strong><span ng-repeat="bot in team.robots" class="robot-small" ng-class="bot.getTypeClass()"></span>
+	<div class="row">
+		<div class="col-xs-8">
+			<table class="table-bordered">
+				<tr ng-repeat="botType in botTypes">
+					<td>
+						<div class="robot-large" ng-class="botType.typeName" ng-click="buyBot(botType)"></div>
+					</td>
+					<td>
+						<strong>Class: {{botType.typeName | capitalize}}</strong>
+						<p class="detail" ng-repeat="detail in getDetails(botType)">{{detail | capitalize | spacify}}</p>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div class="col-xs-4">
+			<div>
+				<strong>Money: {{money}}
+			</div>
+			<div>
+				<strong>Roster (max {{maxRosterSize}}): </strong><span ng-repeat="bot in team.robots" class="robot-small" ng-class="bot.getTypeClass()"></span>
+			</div>
+		</div>
 	</div>
 	
 </div>

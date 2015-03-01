@@ -8,8 +8,15 @@ angular.module('Tribetron').controller('ShopController', ['$scope', 'Robot', 'Te
 	
 	$scope.money = 50
 	
+	$scope.maxRosterSize = 10
+	
 	$scope.buyBot = function(botType) {
+		if ($scope.maxRosterSize <= $scope.team.robots.length)
+			throw 'Already at full team size'
+		if ($scope.money < botType.price)
+			throw 'Can`t afford'
 		$scope.team.addBot(Robot.createRobot(botType))
+		$scope.money -= botType.price
 	}
 	
 	$scope.getDetails = function(botType) {

@@ -15,6 +15,7 @@ angular.module('Tribetron').factory('Robot', ['BattleLog', function(BattleLog) {
 				map.moveBotTowards(area, closestOpponent)
 			}
 		}
+		this.price = 10
 		this.maxHealth = 10
 		this.meleeDamage = 5
 		this.typeName = 'hunter'
@@ -25,6 +26,7 @@ angular.module('Tribetron').factory('Robot', ['BattleLog', function(BattleLog) {
 			BattleLog.add('Box does nothing.')
 		}
 		this.typeName = 'box'
+		this.price = 0
 		this.maxHealth = 5
 	}
 	
@@ -41,6 +43,7 @@ angular.module('Tribetron').factory('Robot', ['BattleLog', function(BattleLog) {
 				}
 			} else BattleLog.add('Medic does nothing.')
 		}
+		this.price = 12
 		this.heal = 4
 		this.maxHealth = 8
 		this.typeName = 'medic'
@@ -61,6 +64,7 @@ angular.module('Tribetron').factory('Robot', ['BattleLog', function(BattleLog) {
 				map.moveBot(area, areaToMove)
 			}
 		}
+		this.price = 1
 		this.maxHealth = 9
 		this.meleeDamage = 8
 		this.typeName = 'totter'
@@ -84,6 +88,7 @@ angular.module('Tribetron').factory('Robot', ['BattleLog', function(BattleLog) {
 				map.moveBotTowards(area, closestOpponent)
 			}
 		}
+		this.price = 10
 		this.maxHealth = 9
 		this.radiationDamage = 4
 		this.typeName = "radiator"
