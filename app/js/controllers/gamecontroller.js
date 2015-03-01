@@ -76,7 +76,7 @@ angular.module('Tribetron').controller('GameController', ['$scope', '$interval',
             } else {
               $scope.stop();
             }
-          }, 100);
+          }, 150);
 		  $scope.playToggle = 'Pause' 
 	}
 	

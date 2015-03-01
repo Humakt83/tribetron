@@ -111,6 +111,14 @@ p.detail {
 	content: url("img/radiatorbot2.png");
 }
 
+.psycho {
+	content: url("img/psychobot.png");
+}
+
+.psycho_enemy {
+	content: url("img/psychobot2.png");
+}
+
 .broken {
 	position: absolute;
 	top: 1px;

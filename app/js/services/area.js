@@ -42,6 +42,10 @@ angular.module('Tribetron').factory('AreaMap', ['$filter', function($filter) {
 			return areaWhereBotIs
 		}
 		
+		this.findAreasWithOtherBots = function(bot, botsAreDestroyed) {
+			return $filter('filter')(this.areas, function(area) { return area.robot && area.robot !== bot && area.robot.destroyed == botsAreDestroyed})
+		}
+		
 		this.findAreasCloseToArea = function(area) {
 			return _.compact([this.getAreaByCoord(new Coord(area.xCoord - 1, area.yCoord)),
 				this.getAreaByCoord(new Coord(area.xCoord + 1, area.yCoord)),
@@ -76,6 +80,31 @@ angular.module('Tribetron').factory('AreaMap', ['$filter', function($filter) {
 			}
 			_.find(_.flatten(moveOptions), function(option) { return thisMap.moveBot(botArea, option) })
 		}
+		
+		this.areaCanbeReachedInStraightLine = function(area, targetArea) {
+			return area.yCoord === targetArea.yCoord || area.xCoord == targetArea.xCoord
+		}
+		
+		this.anythingBetweenAreas = function(area, targetArea) {
+			var blocked = false
+			if (area.yCoord === targetArea.yCoord) {
+				var min = Math.min(area.xCoord, targetArea.xCoord)
+				var max = Math.max(area.xCoord, targetArea.xCoord)
+				angular.forEach(this.getAreasByRow(area.yCoord), function(areaByRow) {
+					if ((areaByRow.robot || areaByRow.isWall) && areaByRow.xCoord > min && areaByRow.xCoord < max) 
+						blocked = true
+				})
+			} else if (area.xCoord === targetArea.xCoord) {
+				var min = Math.min(area.yCoord, targetArea.yCoord)
+				var max = Math.max(area.yCoord, targetArea.yCoord)
+				angular.forEach(this.getAreasByColumn(area.xCoord), function(areaByColumn) {
+					if ((areaByColumn.robot || areaByColumn.isWall) && areaByColumn.xCoord > min && areaByColumn.xCoord < max) 
+						blocked = true
+				})
+			} else blocked = true
+			return blocked
+		}
+		
 		this.findOpponents = function(team) {
 			return $filter('filter')(areas, function(area) { return area.robot && !area.robot.destroyed && area.robot.team !== team })
 		}
@@ -84,6 +113,9 @@ angular.module('Tribetron').factory('AreaMap', ['$filter', function($filter) {
 		}
 		this.getAreasByRow = function(row) {
 			return $filter('filter')(areas, {'yCoord':row}, 'xCoord')
+		}
+		this.getAreasByColumn = function(column) {
+			return $filter('filter')(areas, {'xCoord':column}, 'yCoord')
 		}
 		this.getAreaByCoord = function(coord) {
 			var foundedArea = $filter('filter')(areas, {'yCoord': coord.y, 'xCoord': coord.x})

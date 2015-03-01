@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('Tribetron').factory('Robot', ['BattleLog', function(BattleLog) {
-	var types = [Hunter, Box, Medic, Totter, Radiator]
+	var types = [Hunter, Box, Medic, Totter, Radiator, Psycho]
 	
 	function Hunter() {
 		this.takeTurn = function(bot, map, team) {
@@ -92,6 +92,30 @@ angular.module('Tribetron').factory('Robot', ['BattleLog', function(BattleLog) {
 		this.maxHealth = 9
 		this.radiationDamage = 4
 		this.typeName = "radiator"
+	}
+	
+	function Psycho() {
+		this.takeTurn = function(bot, map, team) {
+			var area = map.findAreaWhereBotIs(bot)
+			var botAreas = map.findAreasWithOtherBots(bot, false)
+			var target = _.find(botAreas, function(botArea) {
+				return !map.anythingBetweenAreas(area, botArea)
+			})
+			if (target && !target.robot.destroyed) {
+				while (area.calculateDistance(target) > 1) {
+					map.moveBotTowards(area, target)
+					area = map.findAreaWhereBotIs(bot)
+				}
+				BattleLog.add('Psycho rams its target')
+				target.robot.receiveDamage('Psycho', this.meleeDamage)
+			} else {
+				BattleLog.add('Psycho did not find suitable target to destroy.')
+			}
+		}
+		this.price = 15
+		this.maxHealth = 15
+		this.meleeDamage = 10
+		this.typeName = "psycho"
 	}
 	
 	function Robot(type) {
