@@ -74,10 +74,10 @@ angular.module('Tribetron').controller('RumbleController', ['$scope', '$interval
               $scope.gameState.nextRobot().takeTurn($scope.map)
 			  angular.forEach($scope.teams, function(team) { team.updateBotCount() })
             } else {
-              $scope.stop();
+              $scope.stop($scope.continuousPlay)
             }
           }, 100);
-		  $scope.playToggle = 'Pause' 
+		 $scope.playToggle = 'Pause' 
 	}
 	
 	$scope.togglePlay = function() {
@@ -86,10 +86,14 @@ angular.module('Tribetron').controller('RumbleController', ['$scope', '$interval
 		
 	}
 	
-	$scope.stop = function() {
+	$scope.stop = function(restart) {
 		if (!$scope.autoPlayOn) return
 		$interval.cancel($scope.autoPlayOn)
 		$scope.autoPlayOn = undefined
 		$scope.playToggle = 'Play' 
+		if (restart) {
+			$scope.newGame()
+			$scope.play()
+		}
 	}
 }])

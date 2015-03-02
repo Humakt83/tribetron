@@ -21,7 +21,7 @@
 			<button ng-click="fullTurn()" ng-disabled="gameState.isOver()">Full turn</button>
 			<button ng-click="togglePlay()" ng-disabled="gameState.isOver()">{{playToggle}}</button>
 			<span>{{gameState.round}}/{{gameState.maxRounds}}</span>
-			
+			<span ng-show="autoPlayOn"> <input type="checkbox" ng-model="continuousPlay"> Endless game</input></span>
 		</div>
 		
 		<div class="col-xs-3">
