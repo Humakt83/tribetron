@@ -1,6 +1,13 @@
 'use strict'
 
-angular.module('Tribetron').controller('BattleController', ['$scope', '$interval', '$location', 'AreaMap', 'Robot', 'Team', 'GameHandler', function($scope, $interval, $location, AreaMap, Robot, Team, GameHandler) {
+angular.module('Tribetron').controller('BattleController', ['$scope', '$interval', '$location', 'AreaMap', 'Robot', 'Team', 'GameHandler', 'Player', 'Campaign', function($scope, $interval, $location, AreaMap, Robot, Team, GameHandler, Player, Campaign) {
+	
+	$scope.player = Player.getPlayer()
+	
+	if (!$scope.player) {
+		$location.path('/')
+		return
+	}
 	
 	function init() {
 		var createTeamWithRobots = function(teamName, amountOfRobots, isEnemy) {
@@ -18,23 +25,25 @@ angular.module('Tribetron').controller('BattleController', ['$scope', '$interval
 			})
 		}
 		
-		$scope.team = Team.getPlayerTeam()
+		$scope.team = $scope.player.team
 		
-		var width = 15, height = 10, robotsPerTeam = $scope.team.robots.length, numberOfRounds = 25
-		$scope.autoPlayOn = undefined
-		$scope.playToggle = 'Play'
-		
-		$scope.map = AreaMap.createMap(width,height)
-		
-		
-		$scope.enemyTeam = createTeamWithRobots('Tributrons', robotsPerTeam, true)
-		
-		$scope.teams = [$scope.team, $scope.enemyTeam]
-		
-		placeTeam($scope.team)
-		placeTeam($scope.enemyTeam)
-		
-		$scope.gameState = GameHandler.createGameState([$scope.team, $scope.enemyTeam], numberOfRounds)
+		Campaign.getScenario(Campaign.getCampaign().currentScenario).success(function(result) {
+			var width = result.areaWidth, height = result.areaHeight, robotsPerTeam = result.maxRoster, numberOfRounds = result.rounds
+			$scope.autoPlayOn = undefined
+			$scope.playToggle = 'Play'
+			
+			$scope.map = AreaMap.createMap(width,height)
+			
+			
+			$scope.enemyTeam = createTeamWithRobots('Tributrons', robotsPerTeam, true)
+			
+			$scope.teams = [$scope.team, $scope.enemyTeam]
+			
+			placeTeam($scope.team)
+			placeTeam($scope.enemyTeam)
+			
+			$scope.gameState = GameHandler.createGameState([$scope.team, $scope.enemyTeam], numberOfRounds)
+		})
 	}
 	
 	$scope.winMessage = function() {

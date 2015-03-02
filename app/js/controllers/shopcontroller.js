@@ -1,14 +1,23 @@
 'use strict'
 
-angular.module('Tribetron').controller('ShopController', ['$scope', '$location', 'Robot', 'Team', function($scope, $location, Robot, Team) {
+angular.module('Tribetron').controller('ShopController', ['$scope', '$location', 'Robot', 'Player', 'Campaign', function($scope, $location, Robot, Player, Campaign) {
+	
+	$scope.player = Player.getPlayer()
+	
+	if (!$scope.player) {
+		$location.path('/')
+		return
+	}
 	
 	$scope.botTypes = Robot.getTypesAsObjects()
 	
-	$scope.team = Team.createPlayerTeam('MyTeam', [])
+	$scope.team = $scope.player.team
 	
-	$scope.money = 50
+	$scope.money = $scope.player.money
 	
-	$scope.maxRosterSize = 10
+	Campaign.getScenario(Campaign.getCampaign().currentScenario).success(function(result) {
+		$scope.maxRosterSize = result.maxRoster
+	})
 	
 	$scope.buyBot = function(botType) {
 		if ($scope.maxRosterSize <= $scope.team.robots.length)
@@ -35,6 +44,7 @@ angular.module('Tribetron').controller('ShopController', ['$scope', '$location',
 	}
 	
 	$scope.toBattle = function() {
+		$scope.player.money = $scope.money
 		$location.path('/battle')
 	}
 }])

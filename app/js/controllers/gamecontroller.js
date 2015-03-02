@@ -1,16 +1,17 @@
 'use strict'
 
-angular.module('Tribetron').controller('GameController', ['$scope', 'AreaMap', 'Robot', 'Team', 'GameHandler', function($scope, AreaMap, Robot, Team, GameHandler) {
+angular.module('Tribetron').controller('GameController', ['$scope', '$location', 'Campaign', 'Player', function($scope, $location, Campaign, Player) {
 
-	$scope.gameStarted = false
+	$scope.player = Player.createPlayer('player', 'Superions')
+	$scope.campaign = Campaign.getCampaignJson()
+	Campaign.getCampaignJson().success(function(campaignResult) {
+		$scope.campaign = Campaign.createCampaign(campaignResult)
+		Campaign.getScenario($scope.campaign.currentScenario).success(function(result) {
+			$scope.scenario = result
+		})
+	})
 	
-	function init() {
-
-	}
-	
-	$scope.newGame = function() {
-		$scope.gameStarted = true
-		$scope.stop()
-		init()
+	$scope.goToShop = function() {
+		$location.path('/shop')
 	}
 }])
