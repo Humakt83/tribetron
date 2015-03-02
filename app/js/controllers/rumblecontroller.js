@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('Tribetron').controller('TestGameController', ['$scope', '$interval', 'AreaMap', 'Robot', 'Team', 'GameHandler', 'BattleLog', function($scope, $interval, AreaMap, Robot, Team, GameHandler, BattleLog) {
+angular.module('Tribetron').controller('RumbleController', ['$scope', '$interval', 'AreaMap', 'Robot', 'Team', 'GameHandler', 'BattleLog', function($scope, $interval, AreaMap, Robot, Team, GameHandler, BattleLog) {
 
 	$scope.gameStarted = false
 	

@@ -4,6 +4,10 @@ angular.module('Tribetron', ['ngRoute', 'ngAnimate'])
 	.config(['$routeProvider', function($routeProvider) {
 		$routeProvider
 			.when('/', {
+				templateUrl: './partials/main.html',
+				controller: 'MainController'
+			})
+			.when('/game', {
 				templateUrl: './partials/game.html',
 				controller: 'GameController'
 			})
@@ -11,9 +15,9 @@ angular.module('Tribetron', ['ngRoute', 'ngAnimate'])
 				templateUrl: './partials/shop.html',
 				controller: 'ShopController'
 			})
-			.when('/test', {
-				templateUrl: './partials/testgame.html',
-				controller: 'TestGameController'
+			.when('/rumble', {
+				templateUrl: './partials/rumble.html',
+				controller: 'RumbleController'
 			})
 			.when('/battle', {
 				templateUrl: './partials/battle.html',
