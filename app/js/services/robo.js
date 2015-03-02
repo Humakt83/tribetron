@@ -114,11 +114,11 @@ angular.module('Tribetron').factory('Robot', ['BattleLog', function(BattleLog) {
 			var area = map.findAreaWhereBotIs(bot)
 			var botAreas = map.findAreasWithOtherBots(bot, false)
 			var target = _.find(botAreas, function(botArea) {
-				return !map.anythingBetweenAreas(area, botArea)
+				return map.areaCanbeReachedInStraightLine(area, botArea) && !map.anythingBetweenAreas(area, botArea)
 			})
 			if (target && !target.robot.destroyed) {
 				while (area.calculateDistance(target) > 1) {
-					map.moveBotTowards(area, target)
+					map.moveBotTowardsInStraightLine(area, target)
 					area = map.findAreaWhereBotIs(bot)
 				}
 				BattleLog.add('Psycho rams its target')

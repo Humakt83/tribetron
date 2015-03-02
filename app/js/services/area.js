@@ -65,15 +65,15 @@ angular.module('Tribetron').factory('AreaMap', ['$filter', function($filter) {
 			var xDistance = botArea.xCoord - targetArea.xCoord
 			var yDistance = botArea.yCoord - targetArea.yCoord
 			var moveOptions = [], thisMap = this
-			if (Math.abs(xDistance) >= Math.abs(yDistance)) {
+			if (Math.abs(xDistance) >= Math.abs(yDistance) || (Math.abs(xDistance) == Math.abs(yDistance) && Math.floor(Math.random()) == 1)) {
 				moveOptions.push(this.getAreaByCoord(new Coord(botArea.xCoord + (Math.sign(xDistance) * -1), botArea.yCoord)))
-				if (Math.abs(yDistance > 0)) moveOptions.push(this.getAreaByCoord(new Coord(botArea.xCoord, botArea.yCoord + (Math.sign(yDistance) * -1))))
+				if (yDistance != 0) moveOptions.push(this.getAreaByCoord(new Coord(botArea.xCoord, botArea.yCoord + (Math.sign(yDistance) * -1))))
 				moveOptions.push(_.shuffle([
 					this.getAreaByCoord(new Coord(botArea.xCoord, botArea.yCoord + 1)), 
 					this.getAreaByCoord(new Coord(botArea.xCoord, botArea.yCoord - 1))]))
 			} else {
 				moveOptions.push(this.getAreaByCoord(new Coord(botArea.xCoord, botArea.yCoord + (Math.sign(yDistance) * -1))))
-				if (Math.abs(xDistance > 0)) moveOptions.push(this.getAreaByCoord(new Coord(botArea.xCoord + (Math.sign(xDistance) * -1), botArea.yCoord)))
+				if (xDistance != 0) moveOptions.push(this.getAreaByCoord(new Coord(botArea.xCoord + (Math.sign(xDistance) * -1), botArea.yCoord)))
 				moveOptions.push(_.shuffle([
 					this.getAreaByCoord(new Coord(botArea.xCoord + 1, botArea.yCoord)),
 					this.getAreaByCoord(new Coord(botArea.xCoord -1, botArea.yCoord))]))
@@ -81,24 +81,33 @@ angular.module('Tribetron').factory('AreaMap', ['$filter', function($filter) {
 			_.find(_.flatten(moveOptions), function(option) { return thisMap.moveBot(botArea, option) })
 		}
 		
+		this.moveBotTowardsInStraightLine = function(botArea, targetArea) {
+			var xDistance = botArea.xCoord - targetArea.xCoord
+			var yDistance = botArea.yCoord - targetArea.yCoord
+			if (xDistance != 0)
+				this.moveBot(botArea, this.getAreaByCoord(new Coord(botArea.xCoord + (Math.sign(xDistance) * -1), botArea.yCoord)))
+			else
+				this.moveBot(botArea, this.getAreaByCoord(new Coord(botArea.xCoord, botArea.yCoord + (Math.sign(yDistance) * -1))))
+		}
+		
 		this.areaCanbeReachedInStraightLine = function(area, targetArea) {
-			return area.yCoord === targetArea.yCoord || area.xCoord == targetArea.xCoord
+			return area.yCoord == targetArea.yCoord || area.xCoord == targetArea.xCoord
 		}
 		
 		this.anythingBetweenAreas = function(area, targetArea) {
 			var blocked = false
-			if (area.yCoord === targetArea.yCoord) {
-				var min = Math.min(area.xCoord, targetArea.xCoord)
-				var max = Math.max(area.xCoord, targetArea.xCoord)
+			if (area.yCoord == targetArea.yCoord) {
+				var minX = Math.min(area.xCoord, targetArea.xCoord)
+				var maxX = Math.max(area.xCoord, targetArea.xCoord)
 				angular.forEach(this.getAreasByRow(area.yCoord), function(areaByRow) {
-					if ((areaByRow.robot || areaByRow.isWall) && areaByRow.xCoord > min && areaByRow.xCoord < max) 
+					if ((areaByRow.robot || areaByRow.isWall) && areaByRow.xCoord > minX && areaByRow.xCoord < maxX) 
 						blocked = true
 				})
-			} else if (area.xCoord === targetArea.xCoord) {
-				var min = Math.min(area.yCoord, targetArea.yCoord)
-				var max = Math.max(area.yCoord, targetArea.yCoord)
+			} else if (area.xCoord == targetArea.xCoord) {
+				var minY = Math.min(area.yCoord, targetArea.yCoord)
+				var maxY = Math.max(area.yCoord, targetArea.yCoord)
 				angular.forEach(this.getAreasByColumn(area.xCoord), function(areaByColumn) {
-					if ((areaByColumn.robot || areaByColumn.isWall) && areaByColumn.xCoord > min && areaByColumn.xCoord < max) 
+					if ((areaByColumn.robot || areaByColumn.isWall) && areaByColumn.yCoord > minY && areaByColumn.yCoord < maxY) 
 						blocked = true
 				})
 			} else blocked = true
