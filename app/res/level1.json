@@ -1,7 +1,7 @@
 {
-"reward": 50,
-"areaWidth": 10,
-"areaHeight": 10,
-"maxRoster": 8,
-"rounds": 20
+"reward": 30,
+"areaWidth": 7,
+"areaHeight": 7,
+"maxRoster": 5,
+"rounds": 15
 }

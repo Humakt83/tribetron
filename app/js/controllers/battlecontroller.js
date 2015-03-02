@@ -31,6 +31,7 @@ angular.module('Tribetron').controller('BattleController', ['$scope', '$interval
 			var width = result.areaWidth, height = result.areaHeight, robotsPerTeam = result.maxRoster, numberOfRounds = result.rounds
 			$scope.autoPlayOn = undefined
 			$scope.playToggle = 'Play'
+			$scope.reward = result.reward
 			
 			$scope.map = AreaMap.createMap(width,height)
 			
@@ -48,7 +49,12 @@ angular.module('Tribetron').controller('BattleController', ['$scope', '$interval
 	
 	$scope.winMessage = function() {
 		var winningTeam = $scope.gameState ? $scope.gameState.getWinner() : undefined
-		return winningTeam ? winningTeam.name + ' are victorious!' : 'Battle ended in a draw'
+		var winMessage = winningTeam ? winningTeam.name + ' are victorious!' : 'Battle ended in a draw'
+		if (winningTeam === $scope.team) {
+			$scope.player.money += $scope.reward
+			winMessage += '\n' + $scope.player.name + ' earned reward of ' + $scope.reward + ' tribs'
+		}
+		return winMessage
 	}
 	
 	$scope.play = function() {
@@ -76,7 +82,7 @@ angular.module('Tribetron').controller('BattleController', ['$scope', '$interval
 	}
 	
 	$scope.continueGame = function() {
-		$location.path('/shop')
+		$location.path('/game')
 	}
 	
 	if (Team.getPlayerTeam()) init()
