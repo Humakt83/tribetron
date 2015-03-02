@@ -9,7 +9,6 @@ angular.module('Tribetron').factory('Campaign', ['$http', function($http) {
 				throw 'Campaign over'
 			else 
 				this.currentScenario = this.scenarios[scenarioIndex + 1]
-			console.log(this.currentScenario)
 		}
 		this.scenarios = result.scenarios
 		this.currentScenario = this.scenarios[0]
