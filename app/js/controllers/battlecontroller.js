@@ -82,6 +82,8 @@ angular.module('Tribetron').controller('BattleController', ['$scope', '$interval
 	}
 	
 	$scope.continueGame = function() {
+		if ($scope.team = $scope.gameState.getWinner()) $scope.player.money += $scope.reward
+		angular.forEach($scope.team.destroyedBots(), function(bot) { $scope.team.removeBot(bot) })
 		$location.path('/game')
 	}
 	
