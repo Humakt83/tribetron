@@ -21,7 +21,7 @@
 				<strong style="float:left;">Roster (max {{maxRosterSize}}): </strong><span ng-repeat="bot in team.robots" class="robot-small touchable" ng-class="bot.getTypeClass()" ng-click="sellBot(bot)"></span>
 			</div>
 			<div>
-				<button ng-disabled="maxRosterSize > team.robots.length" ng-click="toBattle()">To Battle</button>
+				<button ng-disabled="maxRosterSize > team.robots.length" ng-click="toBattle()" class="btn btn-primary">To Battle</button>
 			</div>
 		</div>
 	</div>

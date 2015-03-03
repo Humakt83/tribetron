@@ -1,5 +1,5 @@
 <div class="container" ng-controller="RumbleController">
-	<button ng-click="newGame()">New Game</button>
+	<button ng-click="newGame()" class="btn btn-primary">New Game</button>
 	<div class="row" ng-show="gameStarted">
 		<div class="col-xs-9">
 		
@@ -17,9 +17,9 @@
 				</tbody>
 			</table>
 			
-			<button ng-click="nextTurn()" ng-disabled="gameState.isOver()">Next turn</button>
-			<button ng-click="fullTurn()" ng-disabled="gameState.isOver()">Full turn</button>
-			<button ng-click="togglePlay()" ng-disabled="gameState.isOver()">{{playToggle}}</button>
+			<button class="btn btn-default" ng-click="nextTurn()" ng-disabled="gameState.isOver()">Next turn</button>
+			<button class="btn btn-default" ng-click="fullTurn()" ng-disabled="gameState.isOver()">Full turn</button>
+			<button class="btn btn-default" ng-click="togglePlay()" ng-disabled="gameState.isOver()">{{playToggle}}</button>
 			<span>{{gameState.round}}/{{gameState.maxRounds}}</span>
 			<span ng-show="autoPlayOn"> <input type="checkbox" ng-model="continuousPlay"> Endless game</input></span>
 		</div>
