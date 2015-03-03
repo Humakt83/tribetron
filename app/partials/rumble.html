@@ -28,7 +28,7 @@
 		
 			<div ng-repeat="team in teams">
 				<h1>{{team.name}}</h1>
-				<strong>Bots left</strong> <span ng-repeat="botsByType in team.botsByTypeAlive"><span class="robot-small" ng-class="bot.getTypeClass()" ng-repeat="bot in botsByType.bots"></span></span>
+				<strong style="float:left">Bots left </strong> <span ng-repeat="botsByType in team.botsByTypeAlive"><span class="robot-small" ng-class="bot.getTypeClass()" ng-repeat="bot in botsByType.bots"></span></span>
 			</div>
 			
 			<div ng-show="gameState.isOver()">
