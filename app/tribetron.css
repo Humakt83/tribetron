@@ -127,6 +127,14 @@ p.detail {
 	content: url("img/cratebot2.png");
 }
 
+.zipper {
+	content: url("img/zipperbot.png");
+}
+
+.zipper_enemy {
+	content: url("img/zipperbot2.png");
+}
+
 .broken {
 	position: absolute;
 	top: 1px;

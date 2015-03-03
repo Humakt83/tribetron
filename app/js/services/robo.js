@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('Tribetron').factory('Robot', ['BattleLog', function(BattleLog) {
-	var types = [Hunter, Box, Medic, Totter, Radiator, Psycho, Crate]
+	var types = [Hunter, Box, Medic, Totter, Radiator, Psycho, Crate, Zipper]
 	
 	function Hunter() {
 		this.takeTurn = function(bot, map, team) {
@@ -20,6 +20,26 @@ angular.module('Tribetron').factory('Robot', ['BattleLog', function(BattleLog) {
 		this.meleeDamage = 5
 		this.intelligence = 'low'
 		this.typeName = 'hunter'
+	}
+	
+	function Zipper() {
+		this.takeTurn = function(bot, map, team) {
+			var area = map.findAreaWhereBotIs(bot)
+			var opponentAreas = map.findOpponents(team)
+			var closestOpponent = area.findClosest(opponentAreas)
+			if (area.calculateDistance(closestOpponent) <= this.range) 
+				closestOpponent.robot.receiveDamage('Zipper', this.rangedDamage)
+			else {
+				BattleLog.add('Zipper moves towards enemy.')
+				map.moveBotTowards(area, closestOpponent)
+			}
+		}
+		this.price = 10
+		this.maxHealth = 5
+		this.rangedDamage = 3
+		this.range = 3
+		this.intelligence = 'low'
+		this.typeName = 'zipper'
 	}
 	
 	function Box() {
@@ -147,7 +167,7 @@ angular.module('Tribetron').factory('Robot', ['BattleLog', function(BattleLog) {
 		}
 		this.receiveDamage = function(source, damage) {
 			this.currentHealth = Math.max(0, (this.currentHealth - damage))
-			BattleLog.add(this.type.typeName + ' receives ' + damage + ' from ' + source) 
+			BattleLog.add(this.type.typeName + ' receives ' + damage + ' damage from ' + source) 
 			if (this.currentHealth <= 0) {
 				BattleLog.add(this.type.typeName + ' is destroyed')
 				this.destroyed = true
