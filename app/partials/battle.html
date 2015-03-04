@@ -1,4 +1,4 @@
-<div class="container" ng-controller="GameController">
+<div class="container">
 	<div class="row">
 		<div class="col-xs-9">
 		
@@ -25,7 +25,7 @@
 		
 			<div ng-repeat="team in teams" class="row">
 				<h1>{{team.name}}</h1>
-				<strong style="float:left;">Bots left</strong> <span ng-repeat="botsByType in team.botsByTypeAlive"><span class="robot-small" ng-class="bot.getTypeClass()" ng-repeat="bot in botsByType.bots"></span></span>
+				<strong style="float:left;">Bots left&nbsp;</strong> <span ng-repeat="botsByType in team.botsByTypeAlive"><span class="robot-small" ng-class="bot.getTypeClass()" ng-repeat="bot in botsByType.bots"></span></span>
 			</div>
 			
 			<div ng-show="gameState.isOver()" class="row">

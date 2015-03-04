@@ -1,7 +1,8 @@
 {
-"reward": 50,
-"areaWidth": 15,
+"reward": 40,
+"areaWidth": 10,
 "areaHeight": 10,
-"maxRoster": 10,
-"rounds": 25
+"maxRoster": 6,
+"rounds": 25,
+"rosterOpponent": ["box", "box", "zipper", "hunter", "medic", "crate"]
 }

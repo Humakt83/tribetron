@@ -10,13 +10,14 @@ angular.module('Tribetron').controller('BattleController', ['$scope', '$interval
 	}
 	
 	function init() {
-		var createTeamWithRobots = function(teamName, amountOfRobots, isEnemy) {
+		var createTeamWithRobots = function(teamName, amountOfRobots, rosterOpponent) {
 			var bots = []
-			for ( var i = 0; i < amountOfRobots; i++) {
-				var robotType = Robot.getTypes()[Math.floor(Math.random() * Robot.getTypes().length)]
-				bots.push(Robot.createRobot(new robotType()))
-			}
-			return Team.createTeam(teamName, bots, isEnemy)
+			angular.forEach(rosterOpponent, function(botType) {
+				bots.push(Robot.createRobot(_.find(Robot.getTypesAsObjects(), function(type) {
+					return type.typeName === botType;
+				})))
+			})
+			return Team.createTeam(teamName, bots, true)
 		}
 		
 		var placeTeam = function(team) {
@@ -36,7 +37,7 @@ angular.module('Tribetron').controller('BattleController', ['$scope', '$interval
 			$scope.map = AreaMap.createMap(width,height)
 			
 			
-			$scope.enemyTeam = createTeamWithRobots('Tributrons', robotsPerTeam, true)
+			$scope.enemyTeam = createTeamWithRobots('Tributrons', robotsPerTeam, result.rosterOpponent)
 			
 			$scope.teams = [$scope.team, $scope.enemyTeam]
 			

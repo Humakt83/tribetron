@@ -1,7 +1,8 @@
 {
-"reward": 40,
-"areaWidth": 10,
-"areaHeight": 10,
-"maxRoster": 8,
-"rounds": 20
+"reward": 30,
+"areaWidth": 8,
+"areaHeight": 8,
+"maxRoster": 5,
+"rounds": 15,
+"rosterOpponent": ["box", "box", "zipper", "box", "zipper"]
 }
