@@ -1,8 +1,9 @@
 'use strict'
 
-angular.module('Tribetron').controller('MainController', ['$scope', '$location', function($scope, $location) {
+angular.module('Tribetron').controller('MainController', ['$scope', '$location', 'Player', function($scope, $location, Player) {
 
 	$scope.newCampaign = function() {
+		Player.reset()
 		$location.path('/game')
 	}
 

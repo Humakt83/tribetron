@@ -22,9 +22,13 @@
 			<button class="btn btn-default" ng-click="togglePlay()" ng-disabled="gameState.isOver()">{{playToggle}}</button>
 			<span>{{gameState.round}}/{{gameState.maxRounds}}</span>
 			<span ng-show="autoPlayOn"> <input type="checkbox" ng-model="continuousPlay"> Endless game</input></span>
+			
+			<div>
+				<textarea class="battle-log" ng-disabled="true" ng-trim="false">{{battleLog.log.join()}}</textarea>
+			</div>
 		</div>
 		
-		<div class="col-xs-3">
+		<div class="col-xs-3 battle-info">
 		
 			<div ng-repeat="team in teams">
 				<h1>{{team.name}}</h1>
@@ -35,8 +39,6 @@
 				<h1>Game Over!</h1>
 				<span>{{winMessage()}}</span>
 			</div>
-			
-			<textarea class="battle-log" ng-disabled="true" ng-trim="false">{{battleLog.log.join()}}</textarea>
 		</div>
 	
 	</div>

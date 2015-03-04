@@ -49,9 +49,12 @@ angular.module('Tribetron').controller('BattleController', ['$scope', '$interval
 	
 	$scope.winMessage = function() {
 		var winningTeam = $scope.gameState ? $scope.gameState.getWinner() : undefined
-		var winMessage = winningTeam ? winningTeam.name + ' are victorious!' : 'Battle ended in a draw'
+		var winMessage = winningTeam ? winningTeam.name + ' are victorious!' : 'Battle ended in a draw.'
 		if (winningTeam === $scope.team) {
-			winMessage += '\n' + $scope.player.name + ' earned reward of ' + $scope.reward + ' tribs'
+			$scope.victorious = true
+			winMessage += '\n' + $scope.player.name + ' earned reward of ' + $scope.reward + ' tribs.'
+		} else {
+			winMessage +='\n' + $scope.player.name + ' has been defeated from campaign.'
 		}
 		return winMessage
 	}
@@ -81,11 +84,13 @@ angular.module('Tribetron').controller('BattleController', ['$scope', '$interval
 	}
 	
 	$scope.continueGame = function() {
-		if ($scope.team === $scope.gameState.getWinner()) {
-			$scope.player.money = $scope.player.money + $scope.reward
-		}
+		$scope.player.money = $scope.player.money + $scope.reward
 		angular.forEach($scope.team.destroyedBots(), function(bot) { $scope.team.removeBot(bot) })
 		$location.path('/game')
+	}
+	
+	$scope.backToMain = function() {
+		$location.path('/')
 	}
 	
 	if (Team.getPlayerTeam()) init()

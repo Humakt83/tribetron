@@ -17,6 +17,9 @@ angular.module('Tribetron').factory('Player', ['Team', function(Team) {
 		},
 		getPlayer: function() {
 			return player
+		},
+		reset: function() {
+			player = undefined
 		}
 	}
 }])
