@@ -21,6 +21,15 @@ body {
 	display: block;
 }
 
+div.battle-info {
+	background-color: white;
+	padding-left: 30px;
+	padding-bottom: 20px;
+	border-radius: 10px;
+	border: 3px solid;
+	box-shadow: 10px 10px 5px #888888;
+}
+
 table.game td {
 	width: 55px;
 	height: 55px;
