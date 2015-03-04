@@ -246,6 +246,24 @@ p.detail {
 	display: block;
 }
 
+.multiplicator:before {
+	background: url(img/multiplicatorbot.png);
+	width: 100%;
+	height: 100%;
+	content: "";
+    background-size: 100%;
+	display: block;
+}
+
+.multiplicator_enemy:before {
+	background: url(img/multiplicatorbot2.png);
+	width: 100%;
+	height: 100%;
+	content: "";
+    background-size: 100%;
+	display: block;
+}
+
 .broken:before {
 	content: "";
 	position: absolute;

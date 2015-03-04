@@ -20,6 +20,7 @@ angular.module('Tribetron').factory('Team', ['$filter', 'Robot', function($filte
 		}
 		
 		this.botsRemaining = function() {
+			this.robots = _.compact(this.robots)
 			return $filter('filter')(this.robots, {'destroyed': false}).length
 		}
 		
@@ -45,6 +46,17 @@ angular.module('Tribetron').factory('Team', ['$filter', 'Robot', function($filte
 		
 		this.removeBot = function(robot) {
 			this.robots.splice(this.robots.indexOf(robot), 1)
+			this.robots = _.compact(this.robots)
+		}
+		
+		this.removeBotsByTypeName = function(typeName) {
+			var botsByType = $filter('filter')(this.robots, function (robot) {return robot.type.typeName == typeName})
+			if (botsByType && botsByType.length > 0) {
+				var thisTeam = this
+				angular.forEach(botsByType, function(bot) {
+					thisTeam.removeBot(bot)
+				})
+			}
 		}
 		
 		this.robots = robots

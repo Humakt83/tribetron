@@ -1,7 +1,7 @@
 'use strict'
 
-angular.module('Tribetron').factory('Robot', ['BattleLog', function(BattleLog) {
-	var types = [Hunter, Box, Medic, Totter, Radiator, Psycho, Crate, Zipper]
+angular.module('Tribetron').factory('Robot', ['BattleLog', 'GameHandler', function(BattleLog, GameHandler) {
+	var types = [Hunter, Box, Medic, Totter, Radiator, Psycho, Crate, Zipper, Multiplicator]
 	
 	function Hunter() {
 		this.takeTurn = function(bot, map, team) {
@@ -9,7 +9,7 @@ angular.module('Tribetron').factory('Robot', ['BattleLog', function(BattleLog) {
 			var opponentAreas = map.findOpponents(team)
 			var closestOpponent = area.findClosest(opponentAreas)
 			if (area.calculateDistance(closestOpponent) < 2) 
-				closestOpponent.robot.receiveDamage('Hunter', this.meleeDamage)
+				closestOpponent.robot.receiveDamage('Hunter', this.meleeDamage, map)
 			else {
 				BattleLog.add('Hunter moves towards enemy.')
 				map.moveBotTowards(area, closestOpponent)
@@ -28,7 +28,7 @@ angular.module('Tribetron').factory('Robot', ['BattleLog', function(BattleLog) {
 			var opponentAreas = map.findOpponents(team)
 			var closestOpponent = area.findClosest(opponentAreas)
 			if (area.calculateDistance(closestOpponent) <= this.range) 
-				closestOpponent.robot.receiveDamage('Zipper', this.rangedDamage)
+				closestOpponent.robot.receiveDamage('Zipper', this.rangedDamage, map)
 			else {
 				BattleLog.add('Zipper moves towards enemy.')
 				map.moveBotTowards(area, closestOpponent)
@@ -89,7 +89,7 @@ angular.module('Tribetron').factory('Robot', ['BattleLog', function(BattleLog) {
 			var areaToMove = areasNear[Math.floor(Math.random() * areasNear.length)]
 			if (areaToMove.robot) {
 				bot.receiveDamage('self', this.meleeDamage)
-				areaToMove.robot.receiveDamage('Totter', this.meleeDamage)
+				areaToMove.robot.receiveDamage('Totter', this.meleeDamage, map)
 			} else if (areaToMove.isWall) {
 				bot.receiveDamage('Wall', this.meleeDamage)
 			} else {
@@ -108,7 +108,7 @@ angular.module('Tribetron').factory('Robot', ['BattleLog', function(BattleLog) {
 		this.radiateDamage = function(map, area, bot) {
 			var areasNear = map.findAreasCloseToArea(area)
 			angular.forEach(areasNear, function(areaNear) {
-				if (areaNear.robot) areaNear.robot.receiveDamage('Radiator', bot.type.radiationDamage)
+				if (areaNear.robot) areaNear.robot.receiveDamage('Radiator', bot.type.radiationDamage, map)
 			})
 		}
 		this.takeTurn = function(bot, map, team) {
@@ -142,7 +142,7 @@ angular.module('Tribetron').factory('Robot', ['BattleLog', function(BattleLog) {
 					area = map.findAreaWhereBotIs(bot)
 				}
 				BattleLog.add('Psycho rams its target')
-				target.robot.receiveDamage('Psycho', this.meleeDamage)
+				target.robot.receiveDamage('Psycho', this.meleeDamage, map)
 			} else {
 				BattleLog.add('Psycho did not find suitable target to destroy.')
 			}
@@ -152,6 +152,45 @@ angular.module('Tribetron').factory('Robot', ['BattleLog', function(BattleLog) {
 		this.meleeDamage = 10
 		this.intelligence = 'insane'
 		this.typeName = "psycho"
+	}
+	
+	function Multiplicator() {
+		this.reduceLifeSpan = function(bot, map, team) {
+			this.lifeSpan -= 1 
+			if (this.lifeSpan < 1) {
+				BattleLog.add('Multiplicator expires after having existed a rich full life')
+				team.removeBot(bot)
+				map.findAreaWhereBotIs(bot).robot = undefined
+				GameHandler.getGameState().removeBotFromQueue(bot)
+			}
+			return this.lifeSpan > 0
+		}
+		
+		this.takeTurn = function(bot, map, team) {
+			if (!this.reduceLifeSpan(bot, map, team)) {
+				return
+			}
+			var area = map.findAreaWhereBotIs(bot)
+			var opponentAreas = map.findOpponents(team)
+			var closestOpponent = area.findClosest(opponentAreas)
+			if (area.calculateDistance(closestOpponent) < 2) 
+				closestOpponent.robot.receiveDamage('Multiplicator', this.meleeDamage, map)
+			else {
+				var botClone = new Robot(_.find(getTypesAsObjects(), function(typeAsObject) { return bot.type.typeName === typeAsObject.typeName}))
+				if (map.moveBotTowards(area, closestOpponent)) {
+					BattleLog.add('Multiplicator moves towards enemy and leaves a clone behind.')
+					area.robot = botClone
+					team.addBot(botClone)
+					GameHandler.getGameState().addBotToQueue(botClone)
+				}
+			}
+		}
+		this.price = 20
+		this.maxHealth = 1
+		this.meleeDamage = 1
+		this.intelligence = 'low'
+		this.lifeSpan = 3
+		this.typeName = 'multiplicator'
 	}
 	
 	function Robot(type) {
@@ -165,12 +204,18 @@ angular.module('Tribetron').factory('Robot', ['BattleLog', function(BattleLog) {
 			var postfix = this.team.isEnemy ? '_enemy' : ''
 			return this.type.typeName + postfix
 		}
-		this.receiveDamage = function(source, damage) {
+		this.receiveDamage = function(source, damage, map) {
 			this.currentHealth = Math.max(0, (this.currentHealth - damage))
 			BattleLog.add(this.type.typeName + ' receives ' + damage + ' damage from ' + source) 
 			if (this.currentHealth <= 0) {
 				BattleLog.add(this.type.typeName + ' is destroyed')
-				this.destroyed = true
+				if (this.type.typeName === 'multiplicator') {
+					map.findAreaWhereBotIs(this).robot = undefined
+					this.team.removeBot(this)
+					GameHandler.getGameState().removeBotFromQueue(this)
+				} else {
+					this.destroyed = true
+				}
 			}
 		}
 		this.receiveHealing = function(source, heal) {
@@ -189,6 +234,10 @@ angular.module('Tribetron').factory('Robot', ['BattleLog', function(BattleLog) {
 		this.currentHealth = this.type.maxHealth
 	}
 	
+	var getTypesAsObjects = function() {
+			return _.map(types, function(type) { return new type()})
+		}
+	
 	return {
 		createRobot : function(type) {
 			return new Robot(type)
@@ -196,8 +245,6 @@ angular.module('Tribetron').factory('Robot', ['BattleLog', function(BattleLog) {
 		getTypes : function() {
 			return types
 		},
-		getTypesAsObjects : function() {
-			return _.map(types, function(type) { return new type()})
-		}
+		getTypesAsObjects: getTypesAsObjects
 	}
 }])

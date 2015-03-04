@@ -20,7 +20,7 @@ angular.module('Tribetron').factory('GameHandler', ['BattleLog', function(Battle
 		this.nextRobot = function() {
 			var bot = this.robotQueue[this.robotTurn], attemptsCounter = 0
 			this.nextRobotTurn()
-			while(bot.destroyed) {
+			while(!bot || bot.destroyed) {
 				if (attemptsCounter > this.robotQueue.length) throw "All robots have been destroyed"
 				bot = this.robotQueue[this.robotTurn]
 				this.nextRobotTurn()
@@ -36,6 +36,15 @@ angular.module('Tribetron').factory('GameHandler', ['BattleLog', function(Battle
 				teamsWithBotsLeft += team.botsRemaining() > 0 ? 1 : 0
 			})
 			return this.round >= maxRounds || teamsWithBotsLeft < 2
+		}
+		
+		this.addBotToQueue = function(bot) {
+			this.robotQueue.push(bot)
+		}
+		
+		this.removeBotFromQueue = function(bot) {
+			this.robotQueue.splice(this.robotQueue.indexOf(bot), 1)
+			this.robotQueue = _.compact(this.robotQueue)
 		}
 		
 		this.getWinner = function() {
@@ -56,9 +65,15 @@ angular.module('Tribetron').factory('GameHandler', ['BattleLog', function(Battle
 		this.round = 1
 	}
 	
+	var gameState
+	
 	return {
 		createGameState : function(teams, maxRounds) {
-			return new GameState(teams, maxRounds)
+			gameState = new GameState(teams, maxRounds)
+			return gameState
+		},
+		getGameState : function() {
+			return gameState
 		}
 	}
 }])
