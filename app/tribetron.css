@@ -30,6 +30,18 @@ div.battle-info {
 	box-shadow: 10px 10px 5px #888888;
 }
 
+div.player-info {
+	background-color: rgb(118, 118, 118);
+	padding-left: 30px;
+	padding-bottom: 20px;
+	border-radius: 10px;
+	border: 3px solid black;
+	box-shadow: 10px 10px 5px #888888;
+	color: white;
+	width: 500px;
+	margin-right: 20px;
+}
+
 table.game td {
 	width: 55px;
 	height: 55px;
@@ -83,6 +95,7 @@ p.detail {
 	height: 20px;
 	float: left;
 }
+
 
 .robot-large {
 	width: 100px;
