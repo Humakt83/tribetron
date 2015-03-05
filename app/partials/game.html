@@ -13,7 +13,7 @@
 		<div class="col-xs-6 battle-info">
 			<h3>Next battle</h3>
 			<div class="row">
-				<h4>Opponent's team</h4>
+				<h4>{{scenario.opponentTeamName}}</h4>
 				<span class="robot-small" ng-class="getEnemyBotClass(type)" ng-repeat="type in scenario.rosterOpponent track by $index"></span>
 			</div>
 			<div class="row">

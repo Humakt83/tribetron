@@ -4,5 +4,6 @@
 "areaHeight": 5,
 "maxRoster": 3,
 "rounds": 10,
-"rosterOpponent": ["box", "box", "unknown"]
+"rosterOpponent": ["totter", "totter", "totter"],
+"opponentTeamName": "Totters"
 }

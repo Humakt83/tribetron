@@ -45,7 +45,7 @@ angular.module('Tribetron').controller('BattleController', ['$scope', '$interval
 			$scope.map = AreaMap.createMap(width,height)
 			
 			
-			$scope.enemyTeam = createTeamWithRobots('Tributrons', robotsPerTeam, result.rosterOpponent)
+			$scope.enemyTeam = createTeamWithRobots(result.opponentTeamName, robotsPerTeam, result.rosterOpponent)
 			
 			$scope.teams = [$scope.team, $scope.enemyTeam]
 			
