@@ -11,11 +11,19 @@ angular.module('Tribetron').controller('BattleController', ['$scope', '$interval
 	
 	function init() {
 		var createTeamWithRobots = function(teamName, amountOfRobots, rosterOpponent) {
+			function createRandomRobot() {
+				var robotType = Robot.getTypes()[Math.floor(Math.random() * Robot.getTypes().length)]
+				return Robot.createRobot(new robotType())
+			}
 			var bots = []
 			angular.forEach(rosterOpponent, function(botType) {
-				bots.push(Robot.createRobot(_.find(Robot.getTypesAsObjects(), function(type) {
-					return type.typeName === botType;
-				})))
+				if (botType != 'unknown') {
+					bots.push(Robot.createRobot(_.find(Robot.getTypesAsObjects(), function(type) {
+						return type.typeName === botType;
+					})))
+				} else {
+					bots.push(createRandomRobot())
+				}
 			})
 			return Team.createTeam(teamName, bots, true)
 		}

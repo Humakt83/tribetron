@@ -32,4 +32,10 @@ angular.module('Tribetron').controller('GameController', ['$scope', '$location',
 	$scope.goToShop = function() {
 		$location.path('/shop')
 	}
+	
+	$scope.getEnemyBotClass = function(type) {
+		if (type == 'unknown')
+			return type
+		return type + '_enemy'
+	}
 }])
