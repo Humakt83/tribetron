@@ -264,6 +264,24 @@ p.detail {
 	display: block;
 }
 
+.cannoneer:before {
+	background: url(img/cannoneerbot.png);
+	width: 100%;
+	height: 100%;
+	content: "";
+    background-size: 100%;
+	display: block
+}
+
+.cannoneer_enemy:before {
+	background: url(img/cannoneerbot2.png);
+	width: 100%;
+	height: 100%;
+	content: "";
+    background-size: 100%;
+	display: block
+}
+
 .broken:before {
 	content: "";
 	position: absolute;

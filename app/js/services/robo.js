@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('Tribetron').factory('Robot', ['BattleLog', 'GameHandler', function(BattleLog, GameHandler) {
-	var types = [Hunter, Box, Medic, Totter, Radiator, Psycho, Crate, Zipper, Multiplicator]
+	var types = [Hunter, Box, Medic, Totter, Radiator, Psycho, Crate, Zipper, Multiplicator, Cannoneer]
 	
 	function Hunter() {
 		this.takeTurn = function(bot, map, team) {
@@ -127,6 +127,30 @@ angular.module('Tribetron').factory('Robot', ['BattleLog', 'GameHandler', functi
 		this.radiationDamage = 4
 		this.intelligence = 'low'
 		this.typeName = "radiator"
+	}
+	
+	function Cannoneer() {
+		this.inflictDamage = function(map, area, bot) {
+			var areasNear = map.findAreasCloseToArea(area)
+			areasNear.push(area)
+			angular.forEach(areasNear, function(areaNear) {
+				if (areaNear.robot) areaNear.robot.receiveDamage('Cannoneer', bot.type.explosiveDamage, map)
+			})
+		}
+		this.takeTurn = function(bot, map, team) {
+			var area = map.findAreaWhereBotIs(bot)
+			var opponentAreas = map.findOpponents(team)
+			var closestOpponent = area.findClosest(opponentAreas)
+			if (area.calculateDistance(closestOpponent) < this.range) {
+				this.inflictDamage(map, closestOpponent, bot)
+			}
+		}
+		this.price = 12
+		this.maxHealth = 12
+		this.explosiveDamage = 1
+		this.range = 8
+		this.intelligence = 'low'
+		this.typeName = "cannoneer"
 	}
 	
 	function Psycho() {

@@ -4,7 +4,7 @@ angular.module('Tribetron').factory('BattleLog', [function() {
 	
 	function BattleLog() {
 		this.add = function(message) {
-			this.log.push(message + '\n')
+			this.log.splice(0, 0, message + '\n')
 		}
 		this.reset = function() {
 			this.log = []
