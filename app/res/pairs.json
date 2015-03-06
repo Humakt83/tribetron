@@ -1,6 +1,6 @@
 {
 "type": "pairs",
 "reward": 15,
-"maxClicks": 30,
+"maxClicks": 40,
 "pairs": 8
 }

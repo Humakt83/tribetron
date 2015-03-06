@@ -3,29 +3,46 @@
 angular.module('Tribetron').controller('PairsController', ['$scope', '$location', 'Robot', 'Player', 'Campaign', function($scope, $location, Robot, Player, Campaign) {
 
 	function Card(typeName) {
-		this.getTurnedClass = function() {
-			return this.turned ? 'turned-card' : ''
-		}
 		this.typeName = typeName
 		this.turned = false
 	}
 
 	function init() {
 		Campaign.getScenario(Campaign.getCampaign().currentScenario).success(function(result) {
+			
+			function generateRowsOfCards(cards) {
+				var rows = new Array()
+				var cardsPerRowRemaining = 4
+				var i = 0
+				rows[i] = new Array()
+				angular.forEach(cards, function(card) {
+					rows[i].push(card)
+					cardsPerRowRemaining--
+					if (cardsPerRowRemaining < 1) {
+						i++
+						rows[i] = new Array()
+						cardsPerRowRemaining = 4
+					}
+				})
+				return rows
+			}
+			
 			$scope.numberOfPairsLeft = result.pairs
 			$scope.maxClicks = result.maxClicks
 			$scope.clicks = 0
 			$scope.reward = result.reward
-			$scope.pairs = new Array()
+			var cards = new Array()
 			$scope.cardsSelected = []
 			var types = Robot.getTypesAsObjects()
+			
 			for (var i = 0; i < $scope.numberOfPairsLeft; i++) {
 				if (i >= types.length) {
 					throw "Too many pairs"
 				}
-				$scope.pairs.push(new Card(types[i].typeName), new Card(types[i].typeName))
+				cards.push(new Card(types[i].typeName), new Card(types[i].typeName))
 			}
-			$scope.pairs = _.shuffle($scope.pairs)
+			
+			$scope.rows = generateRowsOfCards(_.shuffle(cards))
 		})
 	}
 	
@@ -37,6 +54,14 @@ angular.module('Tribetron').controller('PairsController', ['$scope', '$location'
 	init()
 	
 	$scope.clickCard = function(card) {
+		function setPairsOverMessage(victory) {
+			$scope.pairsOverText = victory ? 'You have passed this memory challenge. Collect your reward and continue campaign' : 'Your memory is flawed. Press "Skip" to continue campaign.'
+		}
+		
+		if (card.turned || $scope.pairsOver) {
+			return
+		}
+		
 		$scope.clicks++
 		
 		card.turned = true
@@ -53,10 +78,13 @@ angular.module('Tribetron').controller('PairsController', ['$scope', '$location'
 		
 		if ($scope.numberOfPairsLeft < 1) {
 			$scope.victory = true
+			$scope.pairsOver = true
+			setPairsOverMessage(true)
 		}
 		
 		if ($scope.clicks >= $scope.maxClicks) {
 			$scope.pairsOver = true
+			setPairsOverMessage(false)
 		}
 	}
 	
@@ -68,5 +96,8 @@ angular.module('Tribetron').controller('PairsController', ['$scope', '$location'
 		Player.getPlayer().money += $scope.reward
 		$location.path('/game')
 	}
-
+	
+	$scope.shouldFloat = function(indexValue) {
+		return indexValue != 0 && indexValue % 4 == 0 ? '': 'card-float'
+	}
 }])
