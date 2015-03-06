@@ -10,15 +10,23 @@
 			</div>
 		</div>
 		
-		<div class="col-xs-6 battle-info">
-			<h3>Next battle</h3>
-			<div class="row">
-				<h4>{{scenario.opponentTeamName}}</h4>
-				<span class="robot-small" ng-class="getEnemyBotClass(type)" ng-repeat="type in scenario.rosterOpponent track by $index"></span>
+		<div class="col-xs-6 scenario-info">
+			<div ng-if="!scenario.type">
+				<h3>Next battle</h3>
+				<div class="row">
+					<h4>{{scenario.opponentTeamName}}</h4>
+					<span class="robot-small" ng-class="getEnemyBotClass(type)" ng-repeat="type in scenario.rosterOpponent track by $index"></span>
+				</div>
+				<div class="row">
+					<strong>Reward: {{scenario.reward}} tribs</strong>
+					<button ng-click="goToShop()" style="float:right; margin-right: 15px;" class="btn btn-primary">Shop</button>
+				</div>
 			</div>
-			<div class="row">
-				<strong>Reward: {{scenario.reward}} tribs</strong>
-				<button ng-click="goToShop()" style="float:right; margin-right: 15px;" class="btn btn-primary">Shop</button>
+			<div ng-if="scenario.type && scenario.type == 'pairs'">
+				<div class="row">
+					<strong>Reward: {{scenario.reward}} tribs</strong>
+					<button ng-click="goToPairs()" style="float:right; margin-right: 15px;" class="btn btn-primary">Memory Challenge</button>
+				</div>
 			</div>
 		</div>
 	</div>
