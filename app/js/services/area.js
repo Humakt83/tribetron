@@ -81,6 +81,26 @@ angular.module('Tribetron').factory('AreaMap', ['$filter', function($filter) {
 			return _.find(_.flatten(moveOptions), function(option) { return thisMap.moveBot(botArea, option) })
 		}
 		
+		this.moveBotAway = function(botArea, fromArea) {
+			var xDistance = botArea.xCoord - fromArea.xCoord
+			var yDistance = botArea.yCoord - fromArea.yCoord
+			var moveOptions = [], thisMap = this
+			if (Math.abs(xDistance) >= Math.abs(yDistance) || (Math.abs(xDistance) == Math.abs(yDistance) && Math.floor(Math.random()) == 1)) {
+				moveOptions.push(this.getAreaByCoord(new Coord(botArea.xCoord + Math.sign(xDistance), botArea.yCoord)))
+				if (yDistance != 0) moveOptions.push(this.getAreaByCoord(new Coord(botArea.xCoord, botArea.yCoord + Math.sign(yDistance))))
+				moveOptions.push(_.shuffle([
+					this.getAreaByCoord(new Coord(botArea.xCoord, botArea.yCoord + 1)), 
+					this.getAreaByCoord(new Coord(botArea.xCoord, botArea.yCoord - 1))]))
+			} else {
+				moveOptions.push(this.getAreaByCoord(new Coord(botArea.xCoord, botArea.yCoord + Math.sign(yDistance))))
+				if (xDistance != 0) moveOptions.push(this.getAreaByCoord(new Coord(botArea.xCoord + Math.sign(xDistance), botArea.yCoord)))
+				moveOptions.push(_.shuffle([
+					this.getAreaByCoord(new Coord(botArea.xCoord + 1, botArea.yCoord)),
+					this.getAreaByCoord(new Coord(botArea.xCoord -1, botArea.yCoord))]))
+			}
+			return _.find(_.flatten(moveOptions), function(option) { return thisMap.moveBot(botArea, option) })
+		}
+		
 		this.moveBotTowardsInStraightLine = function(botArea, targetArea) {
 			var xDistance = botArea.xCoord - targetArea.xCoord
 			var yDistance = botArea.yCoord - targetArea.yCoord
