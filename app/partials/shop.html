@@ -18,7 +18,9 @@
 				<strong>Money: {{money}}
 			</div>
 			<div>
-				<strong style="float:left;">Roster (max {{maxRosterSize}}): </strong><span ng-repeat="bot in team.robots" class="robot-small touchable" ng-class="bot.getTypeClass()" ng-click="sellOrRepair(bot)"></span>
+				<strong style="float:left;">Roster (max {{maxRosterSize}}): </strong><span ng-repeat="bot in team.robots" class="robot-small touchable" ng-class="bot.getTypeClass()" ng-click="sellOrRepair(bot)">
+					<img ng-if="bot.currentHealth < bot.type.maxHealth" class="repair" src="img/repair.png" />
+				</span>
 			</div>
 			<div>
 				<button ng-disabled="maxRosterSize > team.robots.length" ng-click="toBattle()" class="btn btn-primary">To Battle</button>

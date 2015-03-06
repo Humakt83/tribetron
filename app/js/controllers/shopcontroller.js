@@ -43,6 +43,11 @@ angular.module('Tribetron').controller('ShopController', ['$scope', '$location',
 		$location.path('/battle')
 	}
 	
+	$scope.brokenBotClass = function(bot) {
+		return 'repair'
+		//return bot.currentHealth < bot.type.maxHealth ? 'repair' : ''
+	}
+	
 	$scope.sellOrRepair = function(bot) {
 		 var modalInstance = $modal.open({
 			templateUrl: './partials/sellorrepair.html',
@@ -66,14 +71,15 @@ angular.module('Tribetron').controller('ShopController', ['$scope', '$location',
 
 angular.module('Tribetron').controller('SellOrRepair', ['$scope', '$modalInstance', 'Player', 'bot', 'money', function ($scope, $modalInstance, Player, bot, money) {
     
-	function calculatePrice(reduction) {
+	function calculatePrice(reduction, repair) {
 		var price = Math.floor(bot.type.price * (bot.currentHealth / bot.type.maxHealth)) - reduction
+		price = repair? bot.type.price - price : price
 		return price > 0 ? price : 0
 	}
 	
     $scope.robot = bot    
 	$scope.money = money
-	$scope.repairPrice = calculatePrice(0)
+	$scope.repairPrice = calculatePrice(0, true)
 	$scope.sellPrice = calculatePrice(1)
 	
     $scope.cancel = function () {
