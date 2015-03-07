@@ -440,6 +440,12 @@ p.detail {
 	font-size: larger;
 }
 
+.popover {
+	font-size: smaller;
+	font-weight: bolder;
+	min-width: 100px;
+}
+
 /* modalhack: */
 .modal-open {
 	overflow: auto; 
