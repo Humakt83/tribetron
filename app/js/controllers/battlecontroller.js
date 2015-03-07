@@ -1,6 +1,7 @@
 'use strict'
 
-angular.module('Tribetron').controller('BattleController', ['$scope', '$interval', '$location', 'AreaMap', 'Robot', 'Team', 'GameHandler', 'Player', 'Campaign', function($scope, $interval, $location, AreaMap, Robot, Team, GameHandler, Player, Campaign) {
+angular.module('Tribetron').controller('BattleController', ['$scope', '$interval', '$location', 'AreaMap', 'Robot', 'Trap', 'Team', 'GameHandler', 'Player', 'Campaign', 
+		function($scope, $interval, $location, AreaMap, Robot, Trap, Team, GameHandler, Player, Campaign) {
 	
 	$scope.player = Player.getPlayer()
 	
@@ -34,10 +35,20 @@ angular.module('Tribetron').controller('BattleController', ['$scope', '$interval
 			})
 		}
 		
+		var placeTraps = function(traps) {
+			angular.forEach(traps, function(trap) {
+				var trapType = _.find(Trap.getTrapTypes(), function(type) {
+						return new type().name === trap;
+				})
+				$scope.map.placeTrapAtRandomFreeSpot(Trap.createTrap(trapType))
+			})			
+		}
+		
 		$scope.team = $scope.player.team
 		
 		Campaign.getScenario(Campaign.getCampaign().currentScenario).success(function(result) {
 			var width = result.areaWidth, height = result.areaHeight, robotsPerTeam = result.maxRoster, numberOfRounds = result.rounds
+			var traps = result.traps ? result.traps : []
 			$scope.autoPlayOn = undefined
 			$scope.playToggle = 'Play'
 			$scope.reward = result.reward
@@ -51,6 +62,8 @@ angular.module('Tribetron').controller('BattleController', ['$scope', '$interval
 			
 			placeTeam($scope.team)
 			placeTeam($scope.enemyTeam)
+			
+			placeTraps(traps)
 			
 			$scope.gameState = GameHandler.createGameState([$scope.team, $scope.enemyTeam], numberOfRounds)
 		})
