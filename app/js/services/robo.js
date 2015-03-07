@@ -242,7 +242,15 @@ angular.module('Tribetron').factory('Robot', ['BattleLog', 'GameHandler', functi
 	
 	function Robot(type) {
 		this.takeTurn = function(map) {
-			this.type.takeTurn(this, map, this.team)
+			if (this.stunned < 1) {
+				this.type.takeTurn(this, map, this.team)
+			} else {
+				BattleLog.add(this.type.typeName + ' is stunned and skips the turn')
+				this.stunned -= 1
+				if (this.type.typeName == 'multiplicator') {
+					this.type.reduceLifeSpan(this, map, this.team)
+				}
+			}
 		}
 		this.setTeam = function(team) {
 			this.team = team
@@ -276,6 +284,13 @@ angular.module('Tribetron').factory('Robot', ['BattleLog', 'GameHandler', functi
 		this.calculatePercentageOfHealth = function() {
 			return Math.round((this.currentHealth / this.type.maxHealth) * 100)
 		}
+		this.stun = function(stunTime) {
+			this.stunned = stunTime
+		}
+		this.cleanEffects = function() {
+			this.stunned = 0
+		}
+		this.stunned = 0
 		this.type = type;
 		this.destroyed = false;
 		this.currentHealth = this.type.maxHealth

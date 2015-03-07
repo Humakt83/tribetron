@@ -22,10 +22,14 @@ angular.module('Tribetron').factory('AreaMap', ['$filter', function($filter) {
 		this.setRobot = function(robot) {
 			this.robot = robot
 		}
+		this.setTrap = function(trap) {
+			this.trap = trap
+		}
 		this.xCoord = xCoord
 		this.yCoord = yCoord
 		this.isWall = isWall
 		this.robot = null
+		this.trap = null
 	}
 	
 	function Coord(x, y) {
@@ -57,6 +61,9 @@ angular.module('Tribetron').factory('AreaMap', ['$filter', function($filter) {
 			if (this.botCanBePlacedOnArea(to)) {
 				to.setRobot(from.robot)
 				from.setRobot()
+				if (to.trap) {
+					to.trap.triggerTrap(to, to.robot, this)
+				}
 				return true
 			}
 			return false
@@ -168,6 +175,20 @@ angular.module('Tribetron').factory('AreaMap', ['$filter', function($filter) {
 					return new Coord(Math.floor(Math.random() * ((width / 2) -1)), Math.floor(Math.random() * height)) 
 			}
 			while (!this.tryToPlaceRobot(robot, randomCoord())){}
+		}
+		this.tryToPlaceTrap = function(trap, coord) {
+			var areaByCoord = this.getAreaByCoord(coord)
+			if (areaByCoord && !areaByCoord.isWall && !areaByCoord.robot && !areaByCoord.trap) {
+				areaByCoord.setTrap(trap)
+				return true
+			}
+		}
+		
+		this.placeTrapAtRandomFreeSpot = function(trap) {
+			function randomCoord() {
+				return new Coord(Math.floor(Math.random() * width), Math.floor(Math.random() * height))
+			}
+			while (!this.tryToPlaceTrap(trap, randomCoord())) {}
 		}
 		this.areas = areas
 		this.width = width
