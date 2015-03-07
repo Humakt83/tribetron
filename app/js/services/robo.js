@@ -261,6 +261,7 @@ angular.module('Tribetron').factory('Robot', ['BattleLog', 'GameHandler', functi
 				var target = closestOpponent.robot
 				target.team.removeBot(target)
 				target.team = this.team
+				target.hacked = !target.hacked
 				team.addBot(target)
 			} else {
 				BattleLog.add('Hacker moves towards enemy.')
@@ -271,7 +272,7 @@ angular.module('Tribetron').factory('Robot', ['BattleLog', 'GameHandler', functi
 		this.maxHealth = 6
 		this.intelligence = 'high'
 		this.typeName = 'hacker'
-		this.description = 'Hacker turns enemies to allies.'
+		this.description = 'Hacker turns enemies to allies until end of combat.'
 	}
 	
 	function Robot(type) {

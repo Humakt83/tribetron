@@ -110,6 +110,10 @@ angular.module('Tribetron').controller('BattleController', ['$scope', '$interval
 		$scope.player.money = $scope.player.money + $scope.reward
 		$scope.player.team.removeBotsByTypeName('multiplicator')
 		angular.forEach($scope.team.destroyedBots(), function(bot) { $scope.team.removeBot(bot) })
+		angular.forEach($scope.team.robots, function(bot) {
+			if (bot.hacked) $scope.team.removeBot(bot)
+			else bot.cleanEffects()
+		})
 		$location.path('/game')
 	}
 	
