@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('Tribetron').factory('Robot', ['BattleLog', 'GameHandler', function(BattleLog, GameHandler) {
-	var types = [Hunter, Box, Medic, Totter, Radiator, Psycho, Crate, Zipper, Multiplicator, Cannoneer, Sniper, Hacker]
+	var types = [Hunter, Box, Medic, Totter, Radiator, Psycho, Crate, Zipper, Multiplicator, Cannoneer, Sniper, Hacker, Destructor]
 	
 	function Hunter() {
 		this.takeTurn = function(bot, map, team) {
@@ -273,6 +273,26 @@ angular.module('Tribetron').factory('Robot', ['BattleLog', 'GameHandler', functi
 		this.intelligence = 'high'
 		this.typeName = 'hacker'
 		this.description = 'Hacker turns enemies to allies until end of combat.'
+	}
+	
+	function Destructor() {
+		this.takeTurn = function(bot, map, team) {
+			var area = map.findAreaWhereBotIs(bot)
+			var opponentAreas = map.findOpponents(team)
+			var closestOpponent = area.findClosest(opponentAreas)
+			if (area.calculateDistance(closestOpponent) < 2) 
+				closestOpponent.robot.receiveDamage('Destructor', this.meleeDamage, map)
+			else {
+				BattleLog.add('Hunter moves towards enemy.')
+				map.moveBotTowards(area, closestOpponent)
+			}
+		}
+		this.price = 40
+		this.maxHealth = 30
+		this.meleeDamage = 15
+		this.intelligence = 'low'
+		this.typeName = 'destructor'
+		this.description = 'Desctructor crushes its opponents with devastating blows.'
 	}
 	
 	function Robot(type) {
