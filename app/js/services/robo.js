@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('Tribetron').factory('Robot', ['BattleLog', 'GameHandler', function(BattleLog, GameHandler) {
-	var types = [Hunter, Box, Medic, Totter, Radiator, Psycho, Crate, Zipper, Multiplicator, Cannoneer, Sniper]
+	var types = [Hunter, Box, Medic, Totter, Radiator, Psycho, Crate, Zipper, Multiplicator, Cannoneer, Sniper, Hacker]
 	
 	function Hunter() {
 		this.takeTurn = function(bot, map, team) {
@@ -61,7 +61,7 @@ angular.module('Tribetron').factory('Robot', ['BattleLog', 'GameHandler', functi
 		}
 		this.price = 25
 		this.maxHealth = 7
-		this.rangedDamage = 5
+		this.rangedDamage = 4
 		this.range = 10
 		this.intelligence = 'medium'
 		this.typeName = 'sniper'
@@ -249,6 +249,29 @@ angular.module('Tribetron').factory('Robot', ['BattleLog', 'GameHandler', functi
 		this.lifeSpan = 3
 		this.typeName = 'multiplicator'
 		this.description = 'Multiplicator will move itself towards closest opponent leaving a fresh clone on the previous spot. Due to short life span, Multiplicator will vanish after the battle.'
+	}
+	
+	function Hacker() {
+		this.takeTurn = function(bot, map, team) {
+			var area = map.findAreaWhereBotIs(bot)
+			var opponentAreas = map.findOpponents(team)
+			var closestOpponent = area.findClosest(opponentAreas)
+			if (area.calculateDistance(closestOpponent) < 2) {
+				BattleLog.add('Hacker hacks enemy')
+				var target = closestOpponent.robot
+				target.team.removeBot(target)
+				target.team = this.team
+				team.addBot(target)
+			} else {
+				BattleLog.add('Hacker moves towards enemy.')
+				map.moveBotTowards(area, closestOpponent)
+			}
+		}
+		this.price = 25
+		this.maxHealth = 6
+		this.intelligence = 'high'
+		this.typeName = 'hacker'
+		this.description = 'Hacker turns enemies to allies.'
 	}
 	
 	function Robot(type) {

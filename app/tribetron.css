@@ -305,6 +305,24 @@ p.detail {
 	display: block;
 }
 
+.hacker:before {
+	background: url(img/hackerbot.png);
+	width: 100%;
+	height: 100%;
+	content: "";
+    background-size: 100%;
+	display: block;
+}
+
+.hacker_enemy:before {
+	background: url(img/hackerbot2.png);
+	width: 100%;
+	height: 100%;
+	content: "";
+    background-size: 100%;
+	display: block;
+}
+
 .unknown:before {
 	background: url(img/unknown.png);
 	width: 100%;
