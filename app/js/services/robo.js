@@ -20,6 +20,7 @@ angular.module('Tribetron').factory('Robot', ['BattleLog', 'GameHandler', functi
 		this.meleeDamage = 5
 		this.intelligence = 'low'
 		this.typeName = 'hunter'
+		this.description = 'Hunter seeks closest opponent to rumble with.'
 	}
 	
 	function Zipper() {
@@ -40,6 +41,7 @@ angular.module('Tribetron').factory('Robot', ['BattleLog', 'GameHandler', functi
 		this.range = 3
 		this.intelligence = 'low'
 		this.typeName = 'zipper'
+		this.description = 'Zipper prefers to attack opponent from range but will not retreat from close combat either.'
 	}
 	
 	function Sniper() {
@@ -63,6 +65,7 @@ angular.module('Tribetron').factory('Robot', ['BattleLog', 'GameHandler', functi
 		this.range = 10
 		this.intelligence = 'medium'
 		this.typeName = 'sniper'
+		this.description = 'Sniper can pick opponent from afar but is unable to attack opponent in melee and thus attempts to retreat.'
 	}
 	
 	function Box() {
@@ -73,6 +76,7 @@ angular.module('Tribetron').factory('Robot', ['BattleLog', 'GameHandler', functi
 		this.price = 0
 		this.maxHealth = 5
 		this.intelligence = 'none'
+		this.description = 'It`s a box. A box bot'
 	}
 	
 	function Crate() {
@@ -83,6 +87,7 @@ angular.module('Tribetron').factory('Robot', ['BattleLog', 'GameHandler', functi
 		this.price = 5
 		this.maxHealth = 30
 		this.intelligence = 'none'
+		this.description = 'A tough box'
 	}
 	
 	function Medic() {
@@ -103,6 +108,7 @@ angular.module('Tribetron').factory('Robot', ['BattleLog', 'GameHandler', functi
 		this.maxHealth = 8
 		this.intelligence = 'low'
 		this.typeName = 'medic'
+		this.description = 'Medic tries to help the closest injured ally.'
 	}
 	
 	function Totter() {
@@ -125,6 +131,7 @@ angular.module('Tribetron').factory('Robot', ['BattleLog', 'GameHandler', functi
 		this.meleeDamage = 8
 		this.intelligence = 'insane'
 		this.typeName = 'totter'
+		this.description = 'Totter tots around randomly until hitting obstacle, damaging itself and the target greatly in the process'
 	}
 	
 	function Radiator() {
@@ -149,7 +156,8 @@ angular.module('Tribetron').factory('Robot', ['BattleLog', 'GameHandler', functi
 		this.maxHealth = 9
 		this.radiationDamage = 4
 		this.intelligence = 'low'
-		this.typeName = "radiator"
+		this.typeName = 'radiator'
+		this.description = 'Radiator seeks out enemies and inflicts damage to all the robots surrounding itself.'
 	}
 	
 	function Cannoneer() {
@@ -173,7 +181,8 @@ angular.module('Tribetron').factory('Robot', ['BattleLog', 'GameHandler', functi
 		this.explosiveDamage = 1
 		this.range = 8
 		this.intelligence = 'low'
-		this.typeName = "cannoneer"
+		this.typeName = 'cannoneer'
+		this.description = 'While unable to move, Cannoneer strikes opponents from afar damaging it and all the surrounding targets'
 	}
 	
 	function Psycho() {
@@ -198,7 +207,8 @@ angular.module('Tribetron').factory('Robot', ['BattleLog', 'GameHandler', functi
 		this.maxHealth = 15
 		this.meleeDamage = 10
 		this.intelligence = 'insane'
-		this.typeName = "psycho"
+		this.typeName = 'psycho'
+		this.description = 'Psycho will attack any robot that enters its radar in diagonal or horizontal line'
 	}
 	
 	function Multiplicator() {
@@ -238,6 +248,7 @@ angular.module('Tribetron').factory('Robot', ['BattleLog', 'GameHandler', functi
 		this.intelligence = 'low'
 		this.lifeSpan = 3
 		this.typeName = 'multiplicator'
+		this.description = 'Multiplicator will move itself towards closest opponent leaving a fresh clone on the previous spot. Due to short life span, Multiplicator will vanish after the battle.'
 	}
 	
 	function Robot(type) {

@@ -402,8 +402,42 @@ p.detail {
 	float: right;
 }
 
+.shop-bot {
+	background-color: rgb(235, 235, 235);
+	padding: 3px;
+	border-radius: 5px;
+	border: 3px solid black;
+}
+
+.shop-bot-bot {
+	width: 110px;
+}
+
+.shop-bot-stats {
+	width: 165px;
+	font-size: smaller;
+	font-weight: bolder;
+}
+
+.shop-bot-name {
+	font-size: larger;
+}
+
 .repair-shop {
 	width: 100%;
+}
+
+.bot-description-shop-container {
+	background-color: white;
+	height: 95px;
+	width: 390px;
+}
+
+.bot-description-shop {
+	padding-left: 5px;
+	padding-top: 5px;
+	vertical-align: text-top;
+	font-size: larger;
 }
 
 /* modalhack: */
