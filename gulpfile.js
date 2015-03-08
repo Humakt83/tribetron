@@ -8,6 +8,8 @@ var clean = require('gulp-clean');
 var browserSync = require('browser-sync');
 var reload = browserSync.reload;
 
+var karma = require('karma').server;
+
 gulp.task('default', ['serve']);
 
 gulp.task('clean', function() {
@@ -65,4 +67,11 @@ gulp.task('serveDist', function() {
 	  baseDir: 'dist'
 	}
   });
+});
+
+gulp.task('test', function (done) {
+  karma.start({
+    configFile: __dirname + '/karma.conf.js',
+    singleRun: true
+  }, done);
 });
