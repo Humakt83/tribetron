@@ -141,8 +141,10 @@ angular.module('Tribetron').factory('AreaMap', ['$filter', function($filter) {
 			return blocked
 		}
 		
-		this.findOpponents = function(team) {
-			return $filter('filter')(areas, function(area) { return area.robot && !area.robot.destroyed && area.robot.team !== team })
+		this.findOpponents = function(team, includeDestroyed) {
+			return $filter('filter')(areas, function(area) { 
+				return area.robot && (includeDestroyed || !area.robot.destroyed) && area.robot.team !== team 
+			})
 		}
 		this.findInjuredAllies = function(team, bot) {
 			return $filter('filter')(areas, function(area) { return area.robot && area.robot.isInjured() && area.robot.team === team && area.robot !== bot })

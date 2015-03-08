@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('Tribetron').factory('Robot', ['BattleLog', 'GameHandler', function(BattleLog, GameHandler) {
-	var types = [Hunter, Box, Medic, Totter, Radiator, Psycho, Crate, Zipper, Multiplicator, Cannoneer, Sniper, Hacker, Destructor]
+	var types = [Hunter, Box, Medic, Totter, Radiator, Psycho, Crate, Zipper, Multiplicator, Cannoneer, Sniper, Hacker, Destructor, Trasher]
 	
 	function Hunter() {
 		this.takeTurn = function(bot, map, team) {
@@ -283,7 +283,7 @@ angular.module('Tribetron').factory('Robot', ['BattleLog', 'GameHandler', functi
 			if (area.calculateDistance(closestOpponent) < 2) 
 				closestOpponent.robot.receiveDamage('Destructor', this.meleeDamage, map)
 			else {
-				BattleLog.add('Hunter moves towards enemy.')
+				BattleLog.add('Destructor moves towards enemy.')
 				map.moveBotTowards(area, closestOpponent)
 			}
 		}
@@ -293,6 +293,30 @@ angular.module('Tribetron').factory('Robot', ['BattleLog', 'GameHandler', functi
 		this.intelligence = 'low'
 		this.typeName = 'destructor'
 		this.description = 'Desctructor crushes its opponents with devastating blows.'
+	}
+	
+	function Trasher() {
+		this.takeTurn = function(bot, map, team) {
+			var area = map.findAreaWhereBotIs(bot)
+			var opponentAreas = map.findOpponents(team, true)
+			var closestOpponent = area.findClosest(opponentAreas)
+			if (area.calculateDistance(closestOpponent) < 2) {
+				if (closestOpponent.robot.destroyed) {
+					BattleLog.add('Trasher cleans up enemy wreckage')
+					closestOpponent.robot.team.removeBot(closestOpponent.robot)
+					closestOpponent.setRobot()
+				} else closestOpponent.robot.receiveDamage('Trasher', this.meleeDamage, map)
+			} else {
+				BattleLog.add('Trasher moves towards enemy.')
+				map.moveBotTowards(area, closestOpponent)
+			}
+		}
+		this.price = 20
+		this.maxHealth = 20
+		this.meleeDamage = 8
+		this.intelligence = 'medium'
+		this.typeName = 'trasher'
+		this.description = 'Trasher is a tough bot which cleans up enemy wrecks or makes more of them.'
 	}
 	
 	function Robot(type) {
