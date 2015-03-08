@@ -1,0 +1,9 @@
+{
+"reward": 20,
+"areaWidth": 7,
+"areaHeight": 7,
+"maxRoster": 4,
+"rounds": 15,
+"rosterOpponent": ["hunter", "box", "zipper", "box"],
+"opponentTeamName": "Nullians"
+}

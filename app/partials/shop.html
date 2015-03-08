@@ -1,0 +1,35 @@
+<div class="container">
+	<div class="row">
+		<div class="col-xs-7">
+			<div class="row shop-bot" ng-repeat="botType in botTypes">
+				<div class="col-xs-3 shop-bot-bot">
+					<div class="robot-large touchable" popover="Click to buy" popover-popup-delay="700" popover-trigger="mouseenter" ng-class="botType.typeName" ng-click="buyBot(botType)"></div>
+				</div>
+				<div class="col-xs-3 shop-bot-stats">
+					<span class="shop-bot-name">Class: {{botType.typeName | capitalize}}</span><br />
+					<p class="detail" ng-repeat="detail in getDetails(botType)">{{detail | capitalize | spacify}}</p>
+				</div>
+				<div class="col-xs-6 bot-description-shop-container">
+					<p class="bot-description-shop">{{botType.description}}</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-1"></div>
+		<div class="col-xs-4">
+			<div class="row">
+				<div>
+					<strong>Money: {{money}}
+				</div>
+				<div>
+					<strong style="float:left;">Roster (max {{maxRosterSize}}): </strong><span ng-repeat="bot in team.robots" class="robot-small touchable" ng-class="bot.getTypeClass()" ng-click="sellOrRepair(bot)">
+						<img ng-if="bot.currentHealth < bot.type.maxHealth" class="repair" src="img/repair.png" />
+					</span>
+				</div>
+			</div>
+			<div class="row">
+				<button ng-disabled="maxRosterSize > team.robots.length" ng-click="toBattle()" class="btn btn-primary">To Battle</button>
+			</div>
+		</div>
+	</div>
+	
+</div>

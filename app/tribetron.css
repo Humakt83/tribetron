@@ -1,0 +1,488 @@
+body {
+  background: -webkit-linear-gradient(left, rgba(100, 100, 100, 0), rgba(200, 200, 200, 1)); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(right, rgba(100, 100, 100, 0), rgba(200, 200, 200, 1)); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(right, rgba(100, 100, 100, 0), rgba(200, 200, 200, 1)); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to right, rgba(100, 100, 100, 0), rgba(200, 200, 200, 1)); /* Standard syntax */
+}
+
+.title {
+	width: 500px;
+	height: 100px;
+	margin-left: 400px;
+	padding: 5px;
+}
+
+.title:before {
+	width: 100%;
+	height: 100%;
+	content: "";
+	background: url(img/title.png) no-repeat 0 0;
+    background-size: 100%;
+	display: block;
+}
+
+.scenario-info, .battle-info, .pairs-info {
+	background-color: white;
+	padding-left: 30px;
+	padding-bottom: 20px;
+	border-radius: 10px;
+	border: 3px solid;
+	box-shadow: 10px 10px 5px #888888;
+}
+
+.pairs-info {
+	padding-top: 15px;
+	min-height: 150px;
+}
+
+div.player-info {
+	background-color: rgb(118, 118, 118);
+	padding-left: 30px;
+	padding-bottom: 20px;
+	border-radius: 10px;
+	border: 3px solid black;
+	box-shadow: 10px 10px 5px #888888;
+	color: white;
+	width: 500px;
+	margin-right: 20px;
+}
+
+table.game td {
+	width: 55px;
+	height: 55px;
+	min-height: 55px;
+	min-width: 55px;
+	position: relative;
+}
+
+table.game td.wall {
+	background: black;
+}
+
+table.game td.floor {
+	background: grey;
+}
+
+.touchable {
+	cursor: pointer
+}
+
+p.detail {
+	margin: 0 0 0;
+}
+
+.battle-log {
+	width: 400px;
+	height: 400px;
+}
+
+.health {
+	width: 98%;
+	height: 4px;
+	bottom: 1px;
+	background: rgb(255, 7, 32);
+	z-index: 10; 
+}
+
+.health-bar {
+	height: 100%;
+	background: rgb(10,255,10);
+}
+
+.robot {
+	z-index: 5;
+	width: 50px;
+	height: 50px;
+	position: relative;
+}
+
+.robot-small {
+	width: 20px;
+	height: 20px;
+	float: left;
+}
+
+.robot-large {
+	width: 100px;
+	height: 100px;
+}
+
+.hunter:before {
+	background: url(img/robobasic.png);
+	width: 100%;
+	height: 100%;
+	content: "";
+    background-size: 100%;
+	display: block;
+}
+
+.hunter_enemy:before {
+	background: url(img/robobasic2.png);
+	width: 100%;
+	height: 100%;
+	content: "";
+    background-size: 100%;
+	display: block;
+}
+
+.box:before {
+	background: url(img/boxbot.png);
+	width: 100%;
+	height: 100%;
+	content: "";
+    background-size: 100%;
+	display: block;
+}
+
+.box_enemy:before {
+	background: url(img/boxbot2.png);
+	width: 100%;
+	height: 100%;
+	content: "";
+    background-size: 100%;
+	display: block;
+}
+
+.medic:before {
+	background: url(img/medicbot.png);
+	width: 100%;
+	height: 100%;
+	content: "";
+    background-size: 100%;
+	display: block;
+}
+
+.medic_enemy:before {
+	background: url(img/medicbot2.png);
+	width: 100%;
+	height: 100%;
+	content: "";
+    background-size: 100%;
+	display: block;
+}
+
+.totter:before {
+	background: url(img/totterbot.png);
+	width: 100%;
+	height: 100%;
+	content: "";
+    background-size: 100%;
+	display: block;
+}
+
+.totter_enemy:before {
+	background: url(img/totterbot2.png);
+	width: 100%;
+	height: 100%;
+	content: "";
+    background-size: 100%;
+	display: block;
+}
+
+.radiator:before {
+	background: url(img/radiatorbot.png);
+	width: 100%;
+	height: 100%;
+	content: "";
+    background-size: 100%;
+	display: block;
+}
+
+.radiator_enemy:before {
+	background: url(img/radiatorbot2.png);
+	width: 100%;
+	height: 100%;
+	content: "";
+    background-size: 100%;
+	display: block;
+}
+
+.psycho:before {
+	background: url(img/psychobot.png);
+	width: 100%;
+	height: 100%;
+	content: "";
+    background-size: 100%;
+	display: block;
+}
+
+.psycho_enemy:before {
+	background: url(img/psychobot2.png);
+	width: 100%;
+	height: 100%;
+	content: "";
+    background-size: 100%;
+	display: block;
+}
+
+.crate:before {
+	background: url(img/cratebot.png);
+	width: 100%;
+	height: 100%;
+	content: "";
+    background-size: 100%;
+	display: block;
+}
+
+.crate_enemy:before {
+	background: url(img/cratebot2.png);
+	width: 100%;
+	height: 100%;
+	content: "";
+    background-size: 100%;
+	display: block;
+}
+
+.zipper:before {
+	background: url(img/zipperbot.png);
+	width: 100%;
+	height: 100%;
+	content: "";
+    background-size: 100%;
+	display: block;
+}
+
+.zipper_enemy:before {
+	background: url(img/zipperbot2.png);
+	width: 100%;
+	height: 100%;
+	content: "";
+    background-size: 100%;
+	display: block;
+}
+
+.multiplicator:before {
+	background: url(img/multiplicatorbot.png);
+	width: 100%;
+	height: 100%;
+	content: "";
+    background-size: 100%;
+	display: block;
+}
+
+.multiplicator_enemy:before {
+	background: url(img/multiplicatorbot2.png);
+	width: 100%;
+	height: 100%;
+	content: "";
+    background-size: 100%;
+	display: block;
+}
+
+.cannoneer:before {
+	background: url(img/cannoneerbot.png);
+	width: 100%;
+	height: 100%;
+	content: "";
+    background-size: 100%;
+	display: block;
+}
+
+.cannoneer_enemy:before {
+	background: url(img/cannoneerbot2.png);
+	width: 100%;
+	height: 100%;
+	content: "";
+    background-size: 100%;
+	display: block;
+}
+
+.sniper:before {
+	background: url(img/sniperbot.png);
+	width: 100%;
+	height: 100%;
+	content: "";
+    background-size: 100%;
+	display: block;
+}
+
+.sniper_enemy:before {
+	background: url(img/sniperbot2.png);
+	width: 100%;
+	height: 100%;
+	content: "";
+    background-size: 100%;
+	display: block;
+}
+
+.hacker:before {
+	background: url(img/hackerbot.png);
+	width: 100%;
+	height: 100%;
+	content: "";
+    background-size: 100%;
+	display: block;
+}
+
+.hacker_enemy:before {
+	background: url(img/hackerbot2.png);
+	width: 100%;
+	height: 100%;
+	content: "";
+    background-size: 100%;
+	display: block;
+}
+
+.destructor:before {
+	background: url(img/destructorbot.png);
+	width: 100%;
+	height: 100%;
+	content: "";
+    background-size: 100%;
+	display: block;
+}
+
+.destructor_enemy:before {
+	background: url(img/destructorbot2.png);
+	width: 100%;
+	height: 100%;
+	content: "";
+    background-size: 100%;
+	display: block;
+}
+
+.unknown:before {
+	background: url(img/unknown.png);
+	width: 100%;
+	height: 100%;
+	content: "";
+    background-size: 100%;
+	display: block;
+}
+
+.repair {
+	width: 20px;
+	height: 20px;
+	z-index: 50;
+	top: -20px;
+	position: relative;
+}
+
+.broken:before {
+	content: "";
+	position: absolute;
+	top: 1px;
+	left: 1px;
+	background: url(img/broken.png);
+	width: 50px;
+	height: 50px;
+	z-index: 150;
+}
+
+.stunned:before {
+	content: "";
+	position: absolute;
+	top: 1px;
+	left: 1px;
+	background: url(img/stunned.png);
+	width: 50px;
+	height: 50px;
+	z-index: 150;
+}
+
+.trap {
+	width: 50px;
+	height: 50px;
+	position: absolute;
+	top: 1px;
+	left: 1px;
+}
+
+.plasma-pool:before {
+	background: url(img/plasma.png);
+	width: 100%;
+	height: 100%;
+	content: "";
+    background-size: 100%;
+	display: block;
+}
+
+.mine:before {
+	background: url(img/mine.png);
+	width: 100%;
+	height: 100%;
+	content: "";
+    background-size: 100%;
+	display: block;
+}
+
+.stun-mine:before {
+	background: url(img/stunmine.png);
+	width: 100%;
+	height: 100%;
+	content: "";
+    background-size: 100%;
+	display: block;
+}
+
+.pairs {
+	width: 250px;
+	padding-right: 10px;
+	padding-bottom: 5px;
+	padding-top: 5px;
+	border-width: 3px;
+	border-radius: 15px;
+	border-color: white;
+	box-shadow: 10px 10px 5px #888888;
+}
+
+.turned-card {
+	width: 50px;
+	height: 50px;
+	z-index: 150;
+	top: -50px;
+	position: relative;
+}
+
+.card {
+	float: right;
+}
+
+.shop-bot {
+	background-color: rgb(235, 235, 235);
+	padding: 3px;
+	border-radius: 5px;
+	border: 3px solid black;
+}
+
+.shop-bot-bot {
+	width: 110px;
+}
+
+.shop-bot-stats {
+	width: 165px;
+	font-size: smaller;
+	font-weight: bolder;
+}
+
+.shop-bot-name {
+	font-size: larger;
+}
+
+.repair-shop {
+	width: 100%;
+}
+
+.bot-description-shop-container {
+	background-color: white;
+	height: 95px;
+	width: 390px;
+}
+
+.bot-description-shop {
+	padding-left: 5px;
+	padding-top: 5px;
+	vertical-align: text-top;
+	font-size: larger;
+}
+
+.popover {
+	font-size: smaller;
+	font-weight: bolder;
+	min-width: 100px;
+}
+
+/* modalhack: */
+.modal-open {
+	overflow: auto; 
+}

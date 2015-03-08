@@ -1,0 +1,9 @@
+{
+"reward": 30,
+"areaWidth": 8,
+"areaHeight": 8,
+"maxRoster": 5,
+"rounds": 15,
+"rosterOpponent": ["box", "box", "zipper", "box", "zipper"],
+"opponentTeamName": "Zibunians"
+}

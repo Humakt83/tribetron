@@ -1,0 +1,33 @@
+<div class="container">
+	<div class="row">
+		<div class="col-xs-6 player-info">
+			<h4>Player: {{player.name}}</h4>
+			<span>Team: {{player.team.name}} <span><br />
+			<span>Money: {{player.money}} tribs</span>
+			<div class="row" ng-show="player.team.robots && player.team.robots.length > 0">
+				<strong style="float:left">Roster&nbsp;</strong>
+				<span class="robot-small" ng-repeat="bot in player.team.robots" ng-class="bot.getTypeClass()">
+			</div>
+		</div>
+		
+		<div class="col-xs-6 scenario-info">
+			<div ng-if="!scenario.type">
+				<h3>Next battle</h3>
+				<div class="row">
+					<h4>{{scenario.opponentTeamName}}</h4>
+					<span class="robot-small" ng-class="getEnemyBotClass(type)" ng-repeat="type in scenario.rosterOpponent track by $index"></span>
+				</div>
+				<div class="row">
+					<strong>Reward: {{scenario.reward}} tribs</strong>
+					<button ng-click="goToShop()" style="float:right; margin-right: 15px;" class="btn btn-primary">Shop</button>
+				</div>
+			</div>
+			<div ng-if="scenario.type && scenario.type == 'pairs'">
+				<div class="row">
+					<strong>Reward: {{scenario.reward}} tribs</strong>
+					<button ng-click="goToPairs()" style="float:right; margin-right: 15px;" class="btn btn-primary">Memory Challenge</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

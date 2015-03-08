@@ -1,0 +1,7 @@
+<div>
+	<div class="btn-group repair-shop" role="group" aria-label="...">
+		<button style="width: 30%;" type="button" class="btn btn-default" ng-click="cancel()">Cancel</button>
+		<button style="width: 40%;" type="button" class="btn btn-success" ng-click="repairBot()" ng-disabled="money < repairPrice || robot.currentHealth >= robot.type.maxHealth">Repair ({{repairPrice}})</button>
+		<button style="width: 30%;" type="button" class="btn btn-success" ng-click="sellBot()">Sell ({{sellPrice}})</button>
+	</div>
+</div>

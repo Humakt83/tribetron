@@ -1,0 +1,27 @@
+{
+  "name": "tribetron",
+  "version": "0.0.1",
+  "description": "Robotribes the game",
+  "authors": [
+    "Humakt83"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "app/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.3.13",
+    "angular-animate": "~1.3.13",
+    "angular-route": "~1.3.13",
+    "jquery": "~2.1.3",
+    "animate.css": "~3.2.0",
+    "bootstrap": "~3.3.2",
+    "fontawesome": "~4.3.0",
+    "underscore": "~1.8.2",
+    "angular-bootstrap": "~0.12.1"
+  }
+}

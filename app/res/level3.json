@@ -1,0 +1,9 @@
+{
+"reward": 40,
+"areaWidth": 10,
+"areaHeight": 10,
+"maxRoster": 6,
+"rounds": 25,
+"rosterOpponent": ["box", "box", "zipper", "hunter", "medic", "crate"],
+"opponentTeamName": "Nepenians"
+}

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head lang="en">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Tribetron</title>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="bower_components/fontawesome/css/font-awesome.css"/>
+    <link rel="stylesheet" href="bower_components/animate.css/animate.css"/>
+    <link rel="stylesheet" href="tribetron.css"/>
+  </head>
+  <body ng-app="Tribetron">
+	<div class="title"></div>
+    <div class="container">
+      <div ng-view></div>
+    </div>
+    <!-- scripts -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+	<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+	<script src="bower_components/underscore/underscore-min.js"></script>
+    <script src="js/tribetron.js"></script>
+	<script src="js/controllers/maincontroller.js"></script>
+	<script src="js/controllers/gamecontroller.js"></script>
+	<script src="js/controllers/shopcontroller.js"></script>
+	<script src="js/controllers/battlecontroller.js"></script>
+	<script src="js/controllers/rumblecontroller.js"></script>
+	<script src="js/controllers/pairscontroller.js"></script>
+	<script src="js/services/area.js"></script>
+	<script src="js/services/robo.js"></script>
+	<script src="js/services/team.js"></script>
+	<script src="js/services/game.js"></script>
+	<script src="js/services/battlelog.js"></script>
+	<script src="js/services/campaign.js"></script>
+	<script src="js/services/player.js"></script>
+	<script src="js/services/trap.js"></script>
+	<script src="js/filters/capitalize.js"></script>
+	<script src="js/filters/spacify.js"></script>
+  </body>
+</html>
