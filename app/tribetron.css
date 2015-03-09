@@ -543,6 +543,10 @@ p.detail {
 	min-width: 100px;
 }
 
+.help-text {
+	width: 550px;
+}
+
 /* modalhack: */
 .modal-open {
 	overflow: auto; 
