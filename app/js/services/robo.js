@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('Tribetron').factory('Robot', ['$interval', 'BattleLog', 'GameHandler', function($interval, BattleLog, GameHandler) {
-	var types = [Hunter, Box, Medic, Totter, Radiator, Psycho, Crate, Zipper, Multiplicator, Cannoneer, Sniper, Hacker, Destructor, Trasher]
+	var types = [Hunter, Box, Medic, Totter, Radiator, Psycho, Crate, Zipper, Multiplicator, Cannoneer, Sniper, Hacker, Destructor, Trasher, PsychoMedic]
 	
 	function Hunter() {
 		this.takeTurn = function(bot, map, team) {
@@ -209,6 +209,50 @@ angular.module('Tribetron').factory('Robot', ['$interval', 'BattleLog', 'GameHan
 		this.intelligence = 'insane'
 		this.typeName = 'psycho'
 		this.description = 'Psycho will attack any robot that enters its radar in diagonal or horizontal line'
+	}
+	
+	function PsychoMedic() {
+		this.psychoTurn = function(bot, map, team) {
+			var area = map.findAreaWhereBotIs(bot)
+			var botAreas = map.findAreasWithOtherBots(bot, false)
+			var target = _.find(botAreas, function(botArea) {
+				return map.areaCanbeReachedInStraightLine(area, botArea) && !map.anythingBetweenAreas(area, botArea)
+			})
+			if (target && !target.robot.destroyed) {
+				while (area.calculateDistance(target) > 1) {
+					map.moveBotTowardsInStraightLine(area, target)
+					area = map.findAreaWhereBotIs(bot)
+				}
+				BattleLog.add('Psycho rams its target')
+				target.robot.receiveDamage('Psycho-Medic', this.meleeDamage, map)
+			} else {
+				BattleLog.add('Psycho-medic did not find suitable target to heal.')
+			}
+		}
+		this.medicTurn = function(bot, map, team) {
+			var area = map.findAreaWhereBotIs(bot)
+			var injuredAreas = map.findInjuredAllies(team, bot)
+			if (injuredAreas.length > 0) {
+				var closestInjured = area.findClosest(injuredAreas)
+				if (area.calculateDistance(closestInjured) < 2) closestInjured.robot.receiveHealing('Psycho-medic', this.heal)
+				else {
+					map.moveBotTowards(area, closestInjured)
+					BattleLog.add('Psycho-medic moves towards injured ally')
+				}
+			} else BattleLog.add('Psycho-medic does nothing.')
+		}
+		this.takeTurn = function(bot, map, team) {
+			this.psychoMode = this.psychoMode || Math.floor(Math.random() * 10) == 0
+			if (this.psychoMode) this.psychoTurn(bot, map, team)
+			else this.medicTurn(bot, map, team)
+		}
+		this.price = 21
+		this.maxHealth = 14
+		this.meleeDamage = 9
+		this.healing = 11
+		this.intelligence = 'insane'
+		this.typeName = 'psycho-medic'
+		this.description = 'Psycho-medic will act like a normal medic, but there is a 10% chance for the medic to go berserk each turn.'
 	}
 	
 	function Multiplicator() {
