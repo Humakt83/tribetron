@@ -5,6 +5,5 @@
 "maxRoster": 3,
 "rounds": 10,
 "rosterOpponent": ["totter", "totter", "totter"],
-"opponentTeamName": "Totters",
-"traps": ["Stun mine", "Mine"]
+"opponentTeamName": "Totters"
 }

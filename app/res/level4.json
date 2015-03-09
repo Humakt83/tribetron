@@ -1,0 +1,10 @@
+{
+"reward": 40,
+"areaWidth": 12,
+"areaHeight": 8,
+"maxRoster": 6,
+"rounds": 20,
+"rosterOpponent": ["totter", "totter", "totter", "psycho", "psycho-medic", "psycho", "totter", "totter"],
+"opponentTeamName": "Insatrons",
+"traps": ["Stun mine", "Stun mine", "Stun mine", "Stun mine"]
+}

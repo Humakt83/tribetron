@@ -1,0 +1,10 @@
+{
+"reward": 45,
+"areaWidth": 10,
+"areaHeight": 8,
+"maxRoster": 7,
+"rounds": 20,
+"rosterOpponent": ["crate", "crate", "crate", "zipper", "zipper", "sniper", "cannoneer", "cannoneer"],
+"opponentTeamName": "Rangulans",
+"traps": ["Mine", "Mine", "Mine", "Mine"]
+}

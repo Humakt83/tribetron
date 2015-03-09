@@ -1,0 +1,10 @@
+{
+"reward": 55,
+"areaWidth": 13,
+"areaHeight": 11,
+"maxRoster": 8,
+"rounds": 20,
+"rosterOpponent": ["box", "box", "box", "unknown", "unknown", "unknown", "unknown", "unknown", "unknown"],
+"opponentTeamName": "Randumians",
+"traps": ["Mine", "Mine", "Mine", "Stun mine", "Stun mine"]
+}

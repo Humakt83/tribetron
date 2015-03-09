@@ -1,0 +1,10 @@
+{
+"reward": 45,
+"areaWidth": 10,
+"areaHeight": 10,
+"maxRoster": 7,
+"rounds": 20,
+"rosterOpponent": ["box", "box", "box", "cannoneer", "multiplicator", "radiator", "radiator", "multiplicator"],
+"opponentTeamName": "Mupilians",
+"traps": ["Mine", "Mine", "Plasma pool", "Plasma pool", "Plasma pool", "Plasma pool"]
+}

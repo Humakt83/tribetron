@@ -1,0 +1,10 @@
+{
+"reward": 50,
+"areaWidth": 11,
+"areaHeight": 11,
+"maxRoster": 8,
+"rounds": 20,
+"rosterOpponent": ["crate", "box", "zipper", "zipper", "medic", "medic", "hunter", "hunter", "destructor"],
+"opponentTeamName": "Hungians",
+"traps": ["Mine", "Mine", "Plasma pool", "Stun mine", "Stun mine"]
+}
