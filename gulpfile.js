@@ -19,7 +19,7 @@ gulp.task('clean', function() {
 
 gulp.task('minify-css', function() {
   var opts = {comments:true,spare:true};
-  gulp.src(['app/collector.css', '!app/bower_components/**'])
+  gulp.src(['app/tribetron.css', '!app/bower_components/**'])
     .pipe(minifyCSS(opts))
     .pipe(gulp.dest('dist/'))
 });
@@ -41,12 +41,17 @@ gulp.task('copy-html-files', function () {
 });
 
 gulp.task('copy-pictures', function() {
-  gulp.src('app/img*')
+  gulp.src('app/img/*.png')
     .pipe(gulp.dest('dist/img'));
 });
 
+gulp.task('copy-json', function() {
+  gulp.src('app/res/*.json')
+    .pipe(gulp.dest('dist/res'));
+});
+
 gulp.task('build',
-  ['minify-css', 'minify-js', 'copy-html-files', 'copy-bower-components', 'copy-pictures']
+  ['minify-css', 'minify-js', 'copy-html-files', 'copy-bower-components', 'copy-pictures', 'copy-json']
 );
 
 gulp.task('build-start', ['build', 'serveDist']);
