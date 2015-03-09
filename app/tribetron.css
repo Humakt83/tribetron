@@ -21,6 +21,10 @@ body {
 	display: block;
 }
 
+.battle-image {
+	padding: 10px;
+}
+
 .scenario-info, .battle-info, .pairs-info {
 	background-color: white;
 	padding-left: 30px;
