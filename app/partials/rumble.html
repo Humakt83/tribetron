@@ -15,6 +15,7 @@
 								<div class="health-bar" style="width:{{area.robot.calculatePercentageOfHealth()}}%;"></div>
 							</div>
 							<div ng-if="area.trap" class="trap" ng-class="area.trap.trapType.cssName"></div>
+							<img ng-if="area.robot" class="hit" ng-hide="area.robot.damaged < 1" src="img/hit.png" />
 						</td>
 					</tr>
 				</tbody>
