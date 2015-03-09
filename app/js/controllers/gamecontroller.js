@@ -17,10 +17,14 @@ angular.module('Tribetron').controller('GameController', ['$scope', '$location',
 		$scope.player = Player.getPlayer()
 		$scope.campaign = Campaign.getCampaign()
 		$scope.started = false
-		$scope.campaign.advanceCampaign()
-		Campaign.getScenario(Campaign.getCampaign().currentScenario).success(function(result) {
-			$scope.scenario = result
-		})
+		if ($scope.campaign.isCompleted()) {
+			$scope.completed = true
+		} else {
+			$scope.campaign.advanceCampaign()	
+			Campaign.getScenario(Campaign.getCampaign().currentScenario).success(function(result) {
+				$scope.scenario = result
+			})
+		}
 	}
 	
 	if (!Player.getPlayer() || !Campaign.getCampaign()) {
