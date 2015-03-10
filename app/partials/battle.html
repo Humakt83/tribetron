@@ -17,8 +17,9 @@
 					</tr>
 				</tbody>
 			</table>
-			
 			<button class="btn btn-primary" ng-click="togglePlay()" ng-disabled="gameState.isOver()">{{playToggle}}</button>
+			<button ng-click="settings.decreaseSpeed(); stop()" class="btn btn-default" ng-disabled="!settings.canDecreaseSpeed()">- Speed</button>
+			<button ng-click="settings.increaseSpeed(); stop()" class="btn btn-default" ng-disabled="!settings.canIncreaseSpeed()">+ Speed</button>
 			<span>{{gameState.round}}/{{gameState.maxRounds}}</span>
 			
 		</div>

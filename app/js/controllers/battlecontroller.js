@@ -1,7 +1,7 @@
 'use strict'
 
-angular.module('Tribetron').controller('BattleController', ['$scope', '$interval', '$location', 'AreaMap', 'Robot', 'Trap', 'Team', 'GameHandler', 'Player', 'Campaign', 
-		function($scope, $interval, $location, AreaMap, Robot, Trap, Team, GameHandler, Player, Campaign) {
+angular.module('Tribetron').controller('BattleController', ['$scope', '$interval', '$location', 'AreaMap', 'Robot', 'Trap', 'Team', 'GameHandler', 'Player', 'Campaign', 'GameSettings', 
+		function($scope, $interval, $location, AreaMap, Robot, Trap, Team, GameHandler, Player, Campaign, GameSettings) {
 	
 	$scope.player = Player.getPlayer()
 	
@@ -9,6 +9,8 @@ angular.module('Tribetron').controller('BattleController', ['$scope', '$interval
 		$location.path('/')
 		return
 	}
+	
+	$scope.settings = GameSettings
 	
 	function init() {
 		var createTeamWithRobots = function(teamName, amountOfRobots, rosterOpponent) {
@@ -90,7 +92,7 @@ angular.module('Tribetron').controller('BattleController', ['$scope', '$interval
             } else {
               $scope.stop();
             }
-          }, 100);
+          }, 100 * GameSettings.getGameSpeed());
 		  $scope.playToggle = 'Pause' 
 	}
 	

@@ -1,8 +1,11 @@
 'use strict'
 
-angular.module('Tribetron').controller('RumbleController', ['$scope', '$interval', 'AreaMap', 'Robot', 'Trap', 'Team', 'GameHandler', 'BattleLog', function($scope, $interval, AreaMap, Robot, Trap, Team, GameHandler, BattleLog) {
+angular.module('Tribetron').controller('RumbleController', ['$scope', '$interval', 'AreaMap', 'Robot', 'Trap', 'Team', 'GameHandler', 'BattleLog', 'GameSettings',
+		function($scope, $interval, AreaMap, Robot, Trap, Team, GameHandler, BattleLog, GameSettings) {
 
 	$scope.gameStarted = false
+	
+	$scope.settings = GameSettings
 	
 	$scope.battleLog = BattleLog.getLog()
 	
@@ -85,7 +88,7 @@ angular.module('Tribetron').controller('RumbleController', ['$scope', '$interval
             } else {
               $scope.stop($scope.continuousPlay)
             }
-          }, 100);
+          }, 100 * GameSettings.getGameSpeed());
 		 $scope.playToggle = 'Pause' 
 	}
 	

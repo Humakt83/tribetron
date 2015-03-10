@@ -1,5 +1,7 @@
 <div class="container" ng-controller="RumbleController">
 	<button ng-click="newGame()" class="btn btn-primary">New Game</button>
+	<button ng-click="settings.decreaseSpeed(); stop()" class="btn btn-default" ng-disabled="!settings.canDecreaseSpeed()">- Speed</button>
+	<button ng-click="settings.increaseSpeed(); stop()" class="btn btn-default" ng-disabled="!settings.canIncreaseSpeed()">+ Speed</button>
 	<div class="row" ng-show="gameStarted">
 		<div class="col-xs-9">
 		
