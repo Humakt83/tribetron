@@ -381,6 +381,24 @@ p.detail {
 	display: block;
 }
 
+.hottot:before {
+	background: url(img/hottotbot.png);
+	width: 100%;
+	height: 100%;
+	content: "";
+    background-size: 100%;
+	display: block;
+}
+
+.hottot_enemy:before {
+	background: url(img/hottotbot2.png);
+	width: 100%;
+	height: 100%;
+	content: "";
+    background-size: 100%;
+	display: block;
+}
+
 .unknown:before {
 	background: url(img/unknown.png);
 	width: 100%;

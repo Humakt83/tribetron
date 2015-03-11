@@ -85,7 +85,7 @@ angular.module('Tribetron').factory('AreaMap', ['$filter', function($filter) {
 					this.getAreaByCoord(new Coord(botArea.xCoord + 1, botArea.yCoord)),
 					this.getAreaByCoord(new Coord(botArea.xCoord -1, botArea.yCoord))]))
 			}
-			return _.find(_.flatten(moveOptions), function(option) { return thisMap.moveBot(botArea, option) })
+			return _.find(_.compact(_.flatten(moveOptions)), function(option) { return thisMap.moveBot(botArea, option) })
 		}
 		
 		this.moveBotAway = function(botArea, fromArea) {
@@ -105,7 +105,7 @@ angular.module('Tribetron').factory('AreaMap', ['$filter', function($filter) {
 					this.getAreaByCoord(new Coord(botArea.xCoord + 1, botArea.yCoord)),
 					this.getAreaByCoord(new Coord(botArea.xCoord -1, botArea.yCoord))]))
 			}
-			return _.find(_.flatten(moveOptions), function(option) { return thisMap.moveBot(botArea, option) })
+			return _.find(_.compact(_.flatten(moveOptions)), function(option) { return thisMap.moveBot(botArea, option) })
 		}
 		
 		this.moveBotTowardsInStraightLine = function(botArea, targetArea) {

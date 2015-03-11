@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('Tribetron').factory('Robot', ['$interval', 'BattleLog', 'GameHandler', 'GameSettings', function($interval, BattleLog, GameHandler, GameSettings) {
-	var types = [Hunter, Box, Medic, Totter, Radiator, Psycho, Crate, Zipper, Multiplicator, Cannoneer, Sniper, Hacker, Destructor, Trasher, PsychoMedic]
+	var types = [Hunter, Box, Medic, Totter, Radiator, Psycho, Crate, Zipper, Multiplicator, Cannoneer, Sniper, Hacker, Destructor, Trasher, PsychoMedic, HotTot]
 	
 	function Hunter() {
 		this.takeTurn = function(bot, map, team) {
@@ -134,6 +134,48 @@ angular.module('Tribetron').factory('Robot', ['$interval', 'BattleLog', 'GameHan
 		this.description = 'Totter tots around randomly until hitting obstacle, damaging itself and the target greatly in the process'
 	}
 	
+	function HotTot() {
+		this.takeTurn = function(bot, map, team) {
+			var area = map.findAreaWhereBotIs(bot)
+			var botAreas = map.findAreasWithOtherBots(bot, false)
+			var target = _.find(botAreas, function(botArea) {
+				return map.areaCanbeReachedInStraightLine(area, botArea) && !map.anythingBetweenAreas(area, botArea)
+			})
+			if (target && !target.robot.destroyed) {
+				while (area.calculateDistance(target) > 1) {
+					map.moveBotTowardsInStraightLine(area, target)
+					area = map.findAreaWhereBotIs(bot)
+				}
+				BattleLog.add('Hottot rams its target')
+				target.robot.receiveDamage('Hottot', this.meleeDamage, map)
+			} else {
+				BattleLog.add('Hottot did not find suitable target to destroy.')
+			}
+		}
+		this.destroyEffect = function(bot, map, team) {
+			var botArea = map.findAreaWhereBotIs(bot)
+			var areas = map.findAreasCloseToArea(botArea)
+			botArea.setRobot()
+			team.removeBot(bot)
+			areas.push(botArea)
+			GameHandler.getGameState().removeBotFromQueue(bot)
+			angular.forEach(areas, function(area) {
+				if (map.botCanBePlacedOnArea(area)) {
+					var totter = new Robot(new Totter())
+					team.addBot(totter)
+					area.setRobot(totter)
+					GameHandler.getGameState().addBotToQueue(totter)
+				}
+			})
+		}
+		this.price = 27
+		this.maxHealth = 14
+		this.meleeDamage = 9
+		this.intelligence = 'insane'
+		this.typeName = 'hottot'
+		this.description = 'Hottot is like a Psycho, but will create Totters when destroyed.'
+	}
+	
 	function Radiator() {
 		this.radiateDamage = function(map, area, bot) {
 			var areasNear = map.findAreasCloseToArea(area)
@@ -223,8 +265,8 @@ angular.module('Tribetron').factory('Robot', ['$interval', 'BattleLog', 'GameHan
 					map.moveBotTowardsInStraightLine(area, target)
 					area = map.findAreaWhereBotIs(bot)
 				}
-				BattleLog.add('Psycho rams its target')
-				target.robot.receiveDamage('Psycho-Medic', this.meleeDamage, map)
+				BattleLog.add('Psycho-medic rams its target')
+				target.robot.receiveDamage('Psycho-medic', this.meleeDamage, map)
 			} else {
 				BattleLog.add('Psycho-medic did not find suitable target to heal.')
 			}
@@ -285,6 +327,11 @@ angular.module('Tribetron').factory('Robot', ['$interval', 'BattleLog', 'GameHan
 					GameHandler.getGameState().addBotToQueue(botClone)
 				}
 			}
+		}
+		this.destroyEffect = function(bot, map, team) {
+			map.findAreaWhereBotIs(bot).setRobot()
+			team.removeBot(bot)
+			GameHandler.getGameState().removeBotFromQueue(bot)
 		}
 		this.price = 20
 		this.maxHealth = 1
@@ -387,13 +434,8 @@ angular.module('Tribetron').factory('Robot', ['$interval', 'BattleLog', 'GameHan
 			BattleLog.add(this.type.typeName + ' receives ' + damage + ' damage from ' + source) 
 			if (this.currentHealth <= 0) {
 				BattleLog.add(this.type.typeName + ' is destroyed')
-				if (this.type.typeName === 'multiplicator') {
-					map.findAreaWhereBotIs(this).robot = undefined
-					this.team.removeBot(this)
-					GameHandler.getGameState().removeBotFromQueue(this)
-				} else {
-					this.destroyed = true
-				}
+				this.destroyed = true
+				if (this.type.destroyEffect) this.type.destroyEffect(this, map, this.team)
 			}
 			this.damaged = damage
 			var thisRobot = this
