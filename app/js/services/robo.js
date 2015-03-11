@@ -268,7 +268,7 @@ angular.module('Tribetron').factory('Robot', ['$interval', 'BattleLog', 'GameHan
 				BattleLog.add('Psycho-medic rams its target')
 				target.robot.receiveDamage('Psycho-medic', this.meleeDamage, map)
 			} else {
-				BattleLog.add('Psycho-medic did not find suitable target to heal.')
+				BattleLog.add('Psycho-medic did not find suitable target to destroy.')
 			}
 		}
 		this.medicTurn = function(bot, map, team) {
@@ -291,7 +291,7 @@ angular.module('Tribetron').factory('Robot', ['$interval', 'BattleLog', 'GameHan
 		this.price = 21
 		this.maxHealth = 14
 		this.meleeDamage = 9
-		this.healing = 11
+		this.heal = 11
 		this.intelligence = 'insane'
 		this.typeName = 'psycho-medic'
 		this.description = 'Psycho-medic will act like a normal medic, but there is a 10% chance for the medic to go berserk each turn.'
