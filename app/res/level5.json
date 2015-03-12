@@ -1,5 +1,6 @@
 {
 "reward": 45,
+"levelup": true,
 "areaWidth": 10,
 "areaHeight": 8,
 "maxRoster": 7,

@@ -20,9 +20,10 @@ angular.module('Tribetron').controller('GameController', ['$scope', '$location',
 		if ($scope.campaign.isCompleted()) {
 			$scope.completed = true
 		} else {
-			$scope.campaign.advanceCampaign()	
+			$scope.campaign.advanceCampaign()
 			Campaign.getScenario(Campaign.getCampaign().currentScenario).success(function(result) {
 				$scope.scenario = result
+				if ($scope.scenario.levelup) $scope.player.levelUp()
 			})
 		}
 	}

@@ -20,6 +20,8 @@ angular.module('Tribetron').controller('ShopController', ['$scope', '$location',
 	})
 	
 	$scope.buyBot = function(botType) {
+		if (botType.levelRequirement > $scope.player.level)
+			throw 'Player level too low'
 		if ($scope.maxRosterSize <= $scope.team.robots.length)
 			throw 'Already at full team size'
 		if ($scope.money < botType.price)
@@ -45,7 +47,6 @@ angular.module('Tribetron').controller('ShopController', ['$scope', '$location',
 	
 	$scope.brokenBotClass = function(bot) {
 		return 'repair'
-		//return bot.currentHealth < bot.type.maxHealth ? 'repair' : ''
 	}
 	
 	$scope.sellOrRepair = function(bot) {

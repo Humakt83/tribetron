@@ -1,7 +1,8 @@
 <div class="container">
+	<input type="checkbox" class="btn btn-default" ng-click="showUnavailable = !showUnavailable">Show unavailable</button>
 	<div class="row">
 		<div class="col-xs-7">
-			<div class="row shop-bot" ng-repeat="botType in botTypes">
+			<div class="row shop-bot" ng-repeat="botType in botTypes | orderBy:'levelRequirement'" ng-hide="!showUnavailable && botType.levelRequirement > player.level">
 				<div class="col-xs-3 shop-bot-bot">
 					<div class="robot-large touchable" popover="Click to buy" popover-popup-delay="700" popover-trigger="mouseenter" ng-class="botType.typeName" ng-click="buyBot(botType)"></div>
 				</div>
@@ -18,7 +19,7 @@
 		<div class="col-xs-4">
 			<div class="row">
 				<div>
-					<strong>Money: {{money}}
+					<strong>Money: {{money}}</strong>
 				</div>
 				<div>
 					<strong style="float:left;">Roster (max {{maxRosterSize}}): </strong><span ng-repeat="bot in team.robots" class="robot-small touchable" ng-class="bot.getTypeClass()" ng-click="sellOrRepair(bot)">

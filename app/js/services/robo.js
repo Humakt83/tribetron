@@ -15,6 +15,7 @@ angular.module('Tribetron').factory('Robot', ['$interval', 'BattleLog', 'GameHan
 				map.moveBotTowards(area, closestOpponent)
 			}
 		}
+		this.levelRequirement = 1
 		this.price = 10
 		this.maxHealth = 10
 		this.meleeDamage = 5
@@ -35,6 +36,7 @@ angular.module('Tribetron').factory('Robot', ['$interval', 'BattleLog', 'GameHan
 				map.moveBotTowards(area, closestOpponent)
 			}
 		}
+		this.levelRequirement = 1
 		this.price = 10
 		this.maxHealth = 5
 		this.rangedDamage = 3
@@ -59,6 +61,7 @@ angular.module('Tribetron').factory('Robot', ['$interval', 'BattleLog', 'GameHan
 				map.moveBotTowards(area, closestOpponent)
 			}
 		}
+		this.levelRequirement = 3
 		this.price = 25
 		this.maxHealth = 7
 		this.rangedDamage = 4
@@ -72,6 +75,7 @@ angular.module('Tribetron').factory('Robot', ['$interval', 'BattleLog', 'GameHan
 		this.takeTurn = function() {
 			BattleLog.add('Box does nothing.')
 		}
+		this.levelRequirement = 1
 		this.typeName = 'box'
 		this.price = 0
 		this.maxHealth = 5
@@ -83,6 +87,7 @@ angular.module('Tribetron').factory('Robot', ['$interval', 'BattleLog', 'GameHan
 		this.takeTurn = function() {
 			BattleLog.add('Crate does nothing.')
 		}
+		this.levelRequirement = 2
 		this.typeName = 'crate'
 		this.price = 5
 		this.maxHealth = 30
@@ -103,6 +108,7 @@ angular.module('Tribetron').factory('Robot', ['$interval', 'BattleLog', 'GameHan
 				}
 			} else BattleLog.add('Medic does nothing.')
 		}
+		this.levelRequirement = 2
 		this.price = 12
 		this.heal = 4
 		this.maxHealth = 8
@@ -126,6 +132,7 @@ angular.module('Tribetron').factory('Robot', ['$interval', 'BattleLog', 'GameHan
 				map.moveBot(area, areaToMove)
 			}
 		}
+		this.levelRequirement = 1
 		this.price = 1
 		this.maxHealth = 9
 		this.meleeDamage = 8
@@ -168,6 +175,7 @@ angular.module('Tribetron').factory('Robot', ['$interval', 'BattleLog', 'GameHan
 				}
 			})
 		}
+		this.levelRequirement = 3
 		this.price = 27
 		this.maxHealth = 14
 		this.meleeDamage = 9
@@ -194,6 +202,7 @@ angular.module('Tribetron').factory('Robot', ['$interval', 'BattleLog', 'GameHan
 				map.moveBotTowards(area, closestOpponent)
 			}
 		}
+		this.levelRequirement = 1
 		this.price = 10
 		this.maxHealth = 9
 		this.radiationDamage = 4
@@ -218,6 +227,7 @@ angular.module('Tribetron').factory('Robot', ['$interval', 'BattleLog', 'GameHan
 				this.inflictDamage(map, closestOpponent, bot)
 			}
 		}
+		this.levelRequirement = 2
 		this.price = 12
 		this.maxHealth = 12
 		this.explosiveDamage = 1
@@ -245,6 +255,7 @@ angular.module('Tribetron').factory('Robot', ['$interval', 'BattleLog', 'GameHan
 				BattleLog.add('Psycho did not find suitable target to destroy.')
 			}
 		}
+		this.levelRequirement = 2
 		this.price = 20
 		this.maxHealth = 15
 		this.meleeDamage = 10
@@ -288,6 +299,7 @@ angular.module('Tribetron').factory('Robot', ['$interval', 'BattleLog', 'GameHan
 			if (this.psychoMode) this.psychoTurn(bot, map, team)
 			else this.medicTurn(bot, map, team)
 		}
+		this.levelRequirement = 3
 		this.price = 21
 		this.maxHealth = 14
 		this.meleeDamage = 9
@@ -333,6 +345,7 @@ angular.module('Tribetron').factory('Robot', ['$interval', 'BattleLog', 'GameHan
 			team.removeBot(bot)
 			GameHandler.getGameState().removeBotFromQueue(bot)
 		}
+		this.levelRequirement = 4
 		this.price = 20
 		this.maxHealth = 1
 		this.meleeDamage = 1
@@ -359,6 +372,7 @@ angular.module('Tribetron').factory('Robot', ['$interval', 'BattleLog', 'GameHan
 				map.moveBotTowards(area, closestOpponent)
 			}
 		}
+		this.levelRequirement = 4
 		this.price = 25
 		this.maxHealth = 6
 		this.intelligence = 'high'
@@ -378,6 +392,7 @@ angular.module('Tribetron').factory('Robot', ['$interval', 'BattleLog', 'GameHan
 				map.moveBotTowards(area, closestOpponent)
 			}
 		}
+		this.levelRequirement = 5
 		this.price = 40
 		this.maxHealth = 30
 		this.meleeDamage = 15
@@ -402,6 +417,7 @@ angular.module('Tribetron').factory('Robot', ['$interval', 'BattleLog', 'GameHan
 				map.moveBotTowards(area, closestOpponent)
 			}
 		}
+		this.levelRequirement = 3
 		this.price = 20
 		this.maxHealth = 20
 		this.meleeDamage = 8
