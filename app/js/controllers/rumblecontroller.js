@@ -57,6 +57,12 @@ angular.module('Tribetron').controller('RumbleController', ['$scope', '$interval
 		$scope.gameState = GameHandler.createGameState([$scope.team, $scope.enemyTeam], numberOfRounds)
 	}
 	
+	function validateOptions() {
+		var areaSpace = ($scope.mapWidth - 4) * ($scope.mapHeight - 2)
+		$scope.invalidArguments = areaSpace < ($scope.botsPerTeam * 2) + $scope.trapAmount ? 'Map is too small for robots and traps': undefined
+		return !$scope.invalidArguments
+	}
+	
 	$scope.nextTurn = function() {
 		$scope.stop()
 		if (!$scope.gameState.isOver()) {
@@ -79,6 +85,7 @@ angular.module('Tribetron').controller('RumbleController', ['$scope', '$interval
 	}
 	
 	$scope.newGame = function() {
+		if (!validateOptions()) return
 		$scope.gameStarted = true
 		$scope.stop()
 		init()
