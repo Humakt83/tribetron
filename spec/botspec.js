@@ -18,10 +18,11 @@ describe('Testing bots', function() {
 		expect(robotService.getTypes().length).toBeGreaterThan(0)
 	})
 	
-	it('traps have maxHealth and price attributes', function() {
+	it('bot types have maxHealth, description and price attributes', function() {
 		angular.forEach(robotService.getTypes(), function(botType) {
 			expect(new botType().maxHealth).toBeDefined()
 			expect(new botType().price).toBeDefined()
+			expect(new botType().description).toBeDefined()
 		})
 	})
 	
