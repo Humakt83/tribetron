@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('Tribetron').factory('Robot', ['$interval', 'BattleLog', 'GameHandler', 'GameSettings', function($interval, BattleLog, GameHandler, GameSettings) {
-	var types = [Hunter, Box, Medic, Totter, Radiator, Psycho, Crate, Zipper, Multiplicator, Cannoneer, Sniper, Hacker, Destructor, Trasher, PsychoMedic, HotTot]
+	var types = [Hunter, Box, Medic, Totter, Radiator, Psycho, Crate, Zipper, Multiplicator, Cannoneer, Sniper, Hacker, Destructor, Trasher, PsychoMedic, HotTot, MegaHunter]
 	
 	function Hunter() {
 		this.takeTurn = function(bot, map, team) {
@@ -22,6 +22,43 @@ angular.module('Tribetron').factory('Robot', ['$interval', 'BattleLog', 'GameHan
 		this.intelligence = 'low'
 		this.typeName = 'hunter'
 		this.description = 'Hunter seeks closest opponent to rumble with.'
+	}
+	
+	function MegaHunter() {
+		this.takeTurn = function(bot, map, team) {
+			var area = map.findAreaWhereBotIs(bot)
+			var opponentAreas = map.findOpponents(team)
+			var closestOpponent = area.findClosest(opponentAreas)
+			if (area.calculateDistance(closestOpponent) < 2) 
+				closestOpponent.robot.receiveDamage('MegaHunter', this.meleeDamage, map)
+			else {
+				BattleLog.add('MegaHunter moves towards enemy.')
+				map.moveBotTowards(area, closestOpponent)
+			}
+		}
+		this.destroyEffect = function(bot, map, team) {
+			var botArea = map.findAreaWhereBotIs(bot)
+			var areas = map.findAreasCloseToArea(botArea)
+			botArea.setRobot()
+			team.removeBot(bot)
+			areas.push(botArea)
+			GameHandler.getGameState().removeBotFromQueue(bot)
+			angular.forEach(areas, function(area) {
+				if (map.botCanBePlacedOnArea(area)) {
+					var hunter = new Robot(new Hunter())
+					team.addBot(hunter)
+					area.setRobot(hunter)
+					GameHandler.getGameState().addBotToQueue(hunter)
+				}
+			})
+		}
+		this.levelRequirement = 5
+		this.price = 50
+		this.maxHealth = 30
+		this.meleeDamage = 15
+		this.intelligence = 'medium'
+		this.typeName = 'megaHunter'
+		this.description = 'MegaHunter is three times as strong as Hunter and upon destruction will split into them.'
 	}
 	
 	function Zipper() {
@@ -62,7 +99,7 @@ angular.module('Tribetron').factory('Robot', ['$interval', 'BattleLog', 'GameHan
 			}
 		}
 		this.levelRequirement = 3
-		this.price = 25
+		this.price = 30
 		this.maxHealth = 7
 		this.rangedDamage = 4
 		this.range = 10
@@ -394,8 +431,8 @@ angular.module('Tribetron').factory('Robot', ['$interval', 'BattleLog', 'GameHan
 		}
 		this.levelRequirement = 5
 		this.price = 40
-		this.maxHealth = 30
-		this.meleeDamage = 15
+		this.maxHealth = 36
+		this.meleeDamage = 18
 		this.intelligence = 'low'
 		this.typeName = 'destructor'
 		this.description = 'Desctructor crushes its opponents with devastating blows.'
