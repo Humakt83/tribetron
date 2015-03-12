@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('Tribetron', ['ngRoute', 'ngAnimate', 'ui.bootstrap'])
+angular.module('Tribetron', ['ngRoute', 'ngAnimate', 'ui.bootstrap', 'angularNumberPicker'])
 	.config(['$routeProvider', function($routeProvider) {
 		$routeProvider
 			.when('/', {

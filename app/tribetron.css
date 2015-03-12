@@ -34,6 +34,11 @@ body {
 	box-shadow: 10px 10px 5px #888888;
 }
 
+.rumble-input-number-group .input-group {
+	width: 100px;
+	display: table;
+}
+
 .pairs-info {
 	padding-top: 15px;
 	min-height: 150px;

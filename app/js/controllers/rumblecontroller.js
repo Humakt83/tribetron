@@ -9,6 +9,11 @@ angular.module('Tribetron').controller('RumbleController', ['$scope', '$interval
 	
 	$scope.battleLog = BattleLog.getLog()
 	
+	$scope.mapWidth = 15
+	$scope.mapHeight = 10
+	$scope.trapAmount = 5
+	$scope.botsPerTeam = 8
+	
 	function init() {
 		$scope.battleLog.reset()
 		$scope.battleLog.add("Battle started")
@@ -33,22 +38,21 @@ angular.module('Tribetron').controller('RumbleController', ['$scope', '$interval
 				$scope.map.placeTrapAtRandomFreeSpot(Trap.createTrap(trapType))
 			}
 		}
-		
-		var width = 15, height = 10, robotsPerTeam = 8, numberOfRounds = 25, traps = 5
+		var numberOfRounds = 25
 		$scope.autoPlayOn = undefined
 		$scope.playToggle = 'Play'
 		
-		$scope.map = AreaMap.createMap(width,height)
+		$scope.map = AreaMap.createMap($scope.mapWidth, $scope.mapHeight)
 		
-		$scope.team = createTeamWithRobots('Corobons', robotsPerTeam)
-		$scope.enemyTeam = createTeamWithRobots('Tributrons', robotsPerTeam, true)
+		$scope.team = createTeamWithRobots('Corobons', $scope.botsPerTeam)
+		$scope.enemyTeam = createTeamWithRobots('Tributrons', $scope.botsPerTeam, true)
 		
 		$scope.teams = [$scope.team, $scope.enemyTeam]
 		
 		placeTeam($scope.team)
 		placeTeam($scope.enemyTeam)
 		
-		placeTraps(traps)
+		placeTraps($scope.trapAmount)
 		
 		$scope.gameState = GameHandler.createGameState([$scope.team, $scope.enemyTeam], numberOfRounds)
 	}
