@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('Tribetron').factory('Robot', ['$interval', 'BattleLog', 'GameHandler', 'GameSettings', function($interval, BattleLog, GameHandler, GameSettings) {
-	var types = [Hunter, Box, Medic, Totter, Radiator, Psycho, Crate, Zipper, Multiplicator, Cannoneer, Sniper, Hacker, Destructor, Trasher, PsychoMedic, HotTot, MegaHunter]
+	var types = [Hunter, Box, Medic, Totter, Radiator, Psycho, Crate, Zipper, Multiplicator, Cannoneer, Sniper, Hacker, Destructor, Trasher, PsychoMedic, HotTot, MegaHunter, Titan]
 	
 	function Hunter() {
 		this.takeTurn = function(bot, map, team) {
@@ -461,6 +461,30 @@ angular.module('Tribetron').factory('Robot', ['$interval', 'BattleLog', 'GameHan
 		this.intelligence = 'medium'
 		this.typeName = 'trasher'
 		this.description = 'Trasher is a tough bot which cleans up enemy wrecks or makes more of them.'
+	}
+	
+	function Titan() {
+		this.takeTurn = function(bot, map, team) {
+			var area = map.findAreaWhereBotIs(bot)
+			var opponentAreas = map.findOpponents(team)
+			var closestOpponent = area.findClosest(opponentAreas)
+			var distance = area.calculateDistance(closestOpponent)
+			if (distance <= this.range) { 
+				closestOpponent.robot.receiveDamage('Titan', distance < 2 ? this.meleeDamage : this.rangedDamage, map)
+			} else {
+				BattleLog.add('Titan moves towards enemy.')
+				map.moveBotTowards(area, closestOpponent)
+			}
+		}
+		this.levelRequirement = 6
+		this.price = 120
+		this.maxHealth = 50
+		this.rangedDamage = 15
+		this.meleeDamage = 22
+		this.range = 6
+		this.intelligence = 'medium'
+		this.typeName = 'titan'
+		this.description = 'Titan delivers massive damage from range and even more at melee combat.'
 	}
 	
 	function Robot(type) {
