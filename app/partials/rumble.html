@@ -4,7 +4,7 @@
 		<button ng-click="newGame()" class="btn btn-primary">New Game</button>
 		<button ng-click="settings.decreaseSpeed(); stop()" class="btn btn-default" ng-disabled="!settings.canDecreaseSpeed()">- Speed</button>
 		<button ng-click="settings.increaseSpeed(); stop()" class="btn btn-default" ng-disabled="!settings.canIncreaseSpeed()">+ Speed</button>
-		<button ng-click="showMapOptions = !showMapOptions" class="btn btn-default">Toggle Display Map Options</button>
+		<button ng-click="showMapOptions = !showMapOptions" class="btn btn-default">{{showMapOptions ? "Hide" : "Show"}} Map Options</button>
 	</div>
 
 	<div class="row rumble-input-number-group form-inline" ng-show="showMapOptions">
@@ -50,8 +50,8 @@
 			<button class="btn btn-default" ng-click="togglePlay()" ng-disabled="gameState.isOver()">{{playToggle}}</button>
 			<span>{{gameState.round}}/{{gameState.maxRounds}}</span>
 			<span ng-show="autoPlayOn"> <input type="checkbox" ng-model="continuousPlay"> Endless game</input></span>
-			
-			<div>
+			<button ng-click="showBattleLog = !showBattleLog" class="btn btn-default">{{showBattleLog ? "Hide" : "Show"}} log</button>
+			<div ng-show="showBattleLog">
 				<textarea class="battle-log" ng-disabled="true" ng-trim="false">{{battleLog.log.join()}}</textarea>
 			</div>
 		</div>
