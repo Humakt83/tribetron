@@ -22,7 +22,6 @@
     "bootstrap": "~3.3.2",
     "fontawesome": "~4.3.0",
     "underscore": "~1.8.2",
-    "angular-bootstrap": "~0.12.1",
-    "angular-number-picker": "~1.0.2"
+    "angular-bootstrap": "~0.12.1"
   }
 }
