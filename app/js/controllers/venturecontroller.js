@@ -92,15 +92,31 @@ angular.module('Tribetron').controller('VentureController', ['$scope', '$interva
 				enemy.receiveDamage($scope.player.avatar.type.typeName, $scope.player.avatar.type.meleeDamage, $scope.map)
 			}
 		}
+		function handleLoot(lootArea) {
+			var loot = lootArea.loot
+			$scope.player.money += loot.baseMoney
+			if (loot.goal) {
+				$scope.ventureOver = true
+			} else {
+				lootArea.setLoot()
+			}
+		}
+		if ($scope.ventureOver) return
 		var playerArea = $scope.map.findAreaWithBotByTypeName($scope.player.avatar.type.typeName)[0]
 		var areaClicked = $scope.map.getAreaByCoord(AreaMap.createCoord(x, y))
 		console.log(playerArea)
 		if (playerArea.calculateDistance(areaClicked) == 1 && !areaClicked.isWall) {
 			if (areaClicked.robot) {
 				handleEnemy(areaClicked)
+			} else if (areaClicked.loot) {
+				handleLoot(areaClicked)
 			} else {
 				$scope.map.moveBot(playerArea, areaClicked)
 			}
 		}
+	}
+	
+	$scope.continueCampaign = function() {
+		$location.path('/game')
 	}
 }])
