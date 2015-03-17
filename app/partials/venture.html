@@ -5,7 +5,7 @@
 			<table class="table-bordered game">
 				<tbody>
 					<tr ng-repeat="row in map.rows track by $index">
-						<td ng-repeat="area in map.getAreasByRow($index)" ng-class="area.isWall ? 'wall' : 'floor'">
+						<td ng-repeat="area in map.getAreasByRow($index)" ng-class="area.isWall ? 'wall' : 'floor'" ng-click="playerMove(area.xCoord, area.yCoord)">
 							<div ng-if="area.robot" ng-class="area.robot.getTypeClass()" class="robot"></div>
 							<div ng-if="area.robot && area.robot.destroyed" class="broken"></div>
 							<div ng-if="area.robot && !area.robot.destroyed && area.robot.stunned > 0" class="stunned"></div>							

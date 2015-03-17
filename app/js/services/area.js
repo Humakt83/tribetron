@@ -145,6 +145,12 @@ angular.module('Tribetron').factory('AreaMap', ['$filter', function($filter) {
 			return blocked
 		}
 		
+		this.findAreaWithBotByTypeName = function(typeName) {
+			return $filter('filter')(areas, function(area) {
+				return area.robot && area.robot.type.typeName == typeName
+			})
+		}
+		
 		this.findOpponents = function(team, includeDestroyed) {
 			return $filter('filter')(areas, function(area) { 
 				return area.robot && (includeDestroyed || !area.robot.destroyed) && area.robot.team !== team 
@@ -215,6 +221,9 @@ angular.module('Tribetron').factory('AreaMap', ['$filter', function($filter) {
 				}
 			}
 			return new Map(areas, width, height)
+		},
+		createCoord: function(x, y) {
+			return new Coord(x, y)
 		}
 	}
 }])
