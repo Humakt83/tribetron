@@ -83,12 +83,14 @@ angular.module('Tribetron').controller('VentureController', ['$scope', '$interva
 	
 	function moveMonsters() {
 		$scope.gameState.robotTurn = 1
+		$scope.monstersTurnPlaying = true
 		$scope.monstersTurn = $interval(function() {
             if (!$scope.gameState.isOver() && ($scope.gameState.robotTurn > 0 || $scope.player.avatar.stunned > 0)) {
               $scope.gameState.nextRobot().takeTurn($scope.map)
 			  angular.forEach($scope.teams, function(team) { team.updateBotCount() })
             } else {
               $interval.cancel($scope.monstersTurn)
+			  $scope.monstersTurnPlaying = false
             }
           }, 100 * GameSettings.getGameSpeed())
 	}
@@ -113,7 +115,7 @@ angular.module('Tribetron').controller('VentureController', ['$scope', '$interva
 				lootArea.setLoot()
 			}
 		}
-		if ($scope.ventureOver || $scope.player.avatar.destroyed) return
+		if ($scope.ventureOver || $scope.player.avatar.destroyed || $scope.monstersTurnPlaying) return
 		var playerArea = $scope.map.findAreaWithBotByTypeName($scope.player.avatar.type.typeName)[0]
 		var areaClicked = $scope.map.getAreaByCoord(AreaMap.createCoord(x, y))
 		if (playerArea.calculateDistance(areaClicked) == 1 && !areaClicked.isWall) {
