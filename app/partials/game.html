@@ -34,6 +34,13 @@
 					<button ng-click="goToPairs()" style="float:right; margin-right: 15px;" class="btn btn-primary">Memory Challenge</button>
 				</div>
 			</div>
+			
+			<div ng-if="scenario.type && scenario.type == 'venture'">
+				<div class="row">
+					<strong>Adventure awaits</strong>
+					<button ng-click="goToAdventure()" style="float:right; margin-right: 15px;" class="btn btn-primary">Travel</button>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>

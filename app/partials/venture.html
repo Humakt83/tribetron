@@ -1,0 +1,25 @@
+<div class="container">
+	<div class="row">
+		<div class="col-xs-12">
+		
+			<table class="table-bordered game">
+				<tbody>
+					<tr ng-repeat="row in map.rows track by $index">
+						<td ng-repeat="area in map.getAreasByRow($index)" ng-class="area.isWall ? 'wall' : 'floor'">
+							<div ng-if="area.robot" ng-class="area.robot.getTypeClass()" class="robot"></div>
+							<div ng-if="area.robot && area.robot.destroyed" class="broken"></div>
+							<div ng-if="area.robot && !area.robot.destroyed && area.robot.stunned > 0" class="stunned"></div>							
+							<div ng-if="area.robot" class="health">
+								<div class="health-bar" style="width:{{area.robot.calculatePercentageOfHealth()}}%;"></div>
+							</div>							
+							<div ng-if="area.trap" class="trap" ng-class="area.trap.trapType.cssName"></div>
+							<div ng-if="area.loot" class="loot" ng-class="area.loot.cssName"></div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			
+		</div>
+	
+	</div>
+</div>

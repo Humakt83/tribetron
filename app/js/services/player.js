@@ -1,6 +1,17 @@
 'use strict'
 
-angular.module('Tribetron').factory('Player', ['Team', function(Team) {
+angular.module('Tribetron').factory('Player', ['Team', 'Robot', function(Team, Robot) {
+	
+	function Avatar() {
+		this.takeTurn = function(bot, map, team) {
+			return
+		}
+		this.maxHealth = 20
+		this.meleeDamage = 5
+		this.intelligence = 'smartypants'
+		this.typeName = 'avatar'
+		this.description = 'Avatar of the player'
+	}
 	
 	function Player(playerName, teamName) {
 		this.levelUp = function() {
@@ -10,6 +21,7 @@ angular.module('Tribetron').factory('Player', ['Team', function(Team) {
 		this.money = 50
 		this.team = Team.createPlayerTeam(teamName, [])
 		this.level = 1
+		this.avatar = Robot.createRobot(new Avatar())
 	}
 	
 	var player;

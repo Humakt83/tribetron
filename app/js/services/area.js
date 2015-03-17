@@ -25,11 +25,15 @@ angular.module('Tribetron').factory('AreaMap', ['$filter', function($filter) {
 		this.setTrap = function(trap) {
 			this.trap = trap
 		}
+		this.setLoot = function(loot) {
+			this.loot = loot
+		}
 		this.xCoord = xCoord
 		this.yCoord = yCoord
 		this.isWall = isWall
 		this.robot = null
 		this.trap = null
+		this.loot = null
 	}
 	
 	function Coord(x, y) {

@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('Tribetron').factory('Trap', ['BattleLog', function(BattleLog) {
+angular.module('Tribetron').factory('Trap', [function() {
 	
 	var trapTypes = [Mine, StunMine, PlasmaPool]
 	
@@ -11,6 +11,7 @@ angular.module('Tribetron').factory('Trap', ['BattleLog', function(BattleLog) {
 		this.name = 'Stun mine'
 		this.cssName = 'stun-mine'
 		this.stunTime = 3
+		this.jsonName = 'stunmine'
 	}
 	
 	function PlasmaPool() {
@@ -18,12 +19,14 @@ angular.module('Tribetron').factory('Trap', ['BattleLog', function(BattleLog) {
 		this.cssName = 'plasma-pool'
 		this.damage = 2
 		this.permanent = true
+		this.jsonName = 'plasma'
 	}
 	
 	function Mine() {
 		this.name = 'Mine'
 		this.cssName = 'mine'
 		this.damage = 5
+		this.jsonName = 'mine'
 	}
 	
 	function Trap(trapType) {
