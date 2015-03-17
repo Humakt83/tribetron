@@ -81,6 +81,18 @@ angular.module('Tribetron').controller('VentureController', ['$scope', '$interva
 	
 	init()
 	
+	function moveMonsters() {
+		$scope.gameState.robotTurn = 1
+		$scope.monstersTurn = $interval(function() {
+            if (!$scope.gameState.isOver() && ($scope.gameState.robotTurn > 0 || $scope.player.avatar.stunned > 0)) {
+              $scope.gameState.nextRobot().takeTurn($scope.map)
+			  angular.forEach($scope.teams, function(team) { team.updateBotCount() })
+            } else {
+              $interval.cancel($scope.monstersTurn)
+            }
+          }, 100 * GameSettings.getGameSpeed())
+	}
+	
 	$scope.playerMove = function(x, y) {
 		function handleEnemy(enemyArea) {
 			var enemy = enemyArea.robot
@@ -94,17 +106,16 @@ angular.module('Tribetron').controller('VentureController', ['$scope', '$interva
 		}
 		function handleLoot(lootArea) {
 			var loot = lootArea.loot
-			$scope.player.money += loot.baseMoney
+			$scope.player.money += loot.baseValue
 			if (loot.goal) {
 				$scope.ventureOver = true
 			} else {
 				lootArea.setLoot()
 			}
 		}
-		if ($scope.ventureOver) return
+		if ($scope.ventureOver || $scope.player.avatar.destroyed) return
 		var playerArea = $scope.map.findAreaWithBotByTypeName($scope.player.avatar.type.typeName)[0]
 		var areaClicked = $scope.map.getAreaByCoord(AreaMap.createCoord(x, y))
-		console.log(playerArea)
 		if (playerArea.calculateDistance(areaClicked) == 1 && !areaClicked.isWall) {
 			if (areaClicked.robot) {
 				handleEnemy(areaClicked)
@@ -113,10 +124,16 @@ angular.module('Tribetron').controller('VentureController', ['$scope', '$interva
 			} else {
 				$scope.map.moveBot(playerArea, areaClicked)
 			}
+			if (!$scope.ventureOver) moveMonsters()
 		}
 	}
 	
 	$scope.continueCampaign = function() {
+		$scope.player.avatar.currentHealth = $scope.player.avatar.type.maxHealth
 		$location.path('/game')
+	}
+	
+	$scope.backToMain = function() {
+		$location.path('/')
 	}
 }])
