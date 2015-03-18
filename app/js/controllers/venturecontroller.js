@@ -84,10 +84,12 @@ angular.module('Tribetron').controller('VentureController', ['$scope', '$interva
 	function moveMonsters() {
 		$scope.gameState.robotTurn = 1
 		$scope.monstersTurnPlaying = true
-		$scope.monstersTurn = $interval(function() {
-            if (!$scope.gameState.isOver() && ($scope.gameState.robotTurn > 0 || $scope.player.avatar.stunned > 0)) {
+		var fullTurn = $scope.gameState.robotQueue.length
+		$scope.monstersTurn = $interval(function() {			
+            if (!$scope.gameState.isOver() && (fullTurn > 1 || $scope.player.avatar.stunned > 0)) {
               $scope.gameState.nextRobot().takeTurn($scope.map)
 			  angular.forEach($scope.teams, function(team) { team.updateBotCount() })
+			  fullTurn -= 1			  
             } else {
               $interval.cancel($scope.monstersTurn)
 			  $scope.monstersTurnPlaying = false
@@ -128,6 +130,12 @@ angular.module('Tribetron').controller('VentureController', ['$scope', '$interva
 			}
 			if (!$scope.ventureOver) moveMonsters()
 		}
+	}
+	
+	$scope.clickableClass = function(area) {
+		if (!$scope.monstersTurnPlaying && !$scope.ventureOver && area.calculateDistance($scope.map.findAreaWithBotByTypeName($scope.player.avatar.type.typeName)[0]) == 1)
+			return 'floor-clickable'
+		return 'floor'
 	}
 	
 	$scope.continueCampaign = function() {

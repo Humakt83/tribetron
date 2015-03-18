@@ -72,6 +72,16 @@ table.game td.floor {
 	background: grey;
 }
 
+table.game td.floor-clickable {
+	background: rgb(10,255,10);
+	cursor: pointer;
+}
+
+table.game td.floor-clickable:hover {
+	background: rgb(10,200,10);
+	cursor: pointer;
+}
+
 .touchable {
 	cursor: pointer
 }
