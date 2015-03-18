@@ -243,6 +243,24 @@ p.detail {
 	display: block;
 }
 
+.tauron:before {
+	background: url(img/tauronbot.png);
+	width: 100%;
+	height: 100%;
+	content: "";
+    background-size: 100%;
+	display: block;
+}
+
+.tauron_enemy:before {
+	background: url(img/tauronbot2.png);
+	width: 100%;
+	height: 100%;
+	content: "";
+    background-size: 100%;
+	display: block;
+}
+
 .crate:before {
 	background: url(img/cratebot.png);
 	width: 100%;

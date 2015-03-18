@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('Tribetron').factory('Robot', ['$interval', 'BattleLog', 'GameHandler', 'GameSettings', function($interval, BattleLog, GameHandler, GameSettings) {
-	var types = [Hunter, Box, Medic, Totter, Radiator, Psycho, Crate, Zipper, Multiplicator, Cannoneer, Sniper, Hacker, Destructor, Trasher, PsychoMedic, HotTot, MegaHunter, Titan]
+	var types = [Hunter, Box, Medic, Totter, Radiator, Psycho, Crate, Zipper, Multiplicator, Cannoneer, Sniper, Hacker, Destructor, Trasher, PsychoMedic, HotTot, MegaHunter, Titan, Tauron]
 	
 	function Hunter() {
 		this.takeTurn = function(bot, map, team) {
@@ -344,6 +344,35 @@ angular.module('Tribetron').factory('Robot', ['$interval', 'BattleLog', 'GameHan
 		this.intelligence = 'insane'
 		this.typeName = 'psycho-medic'
 		this.description = 'Psycho-medic will act like a normal medic, but there is a 10% chance for the medic to go berserk each turn.'
+	}
+	
+	function Tauron() {
+		this.takeTurn = function(bot, map, team) {
+			var area = map.findAreaWhereBotIs(bot)
+			var opponentAreas = map.findOpponents(bot.team, false)
+			var target = _.find(opponentAreas, function(botArea) {
+				return map.areaCanbeReachedInStraightLine(area, botArea) && !map.anythingBetweenAreas(area, botArea)
+			})
+			if (target && !target.robot.destroyed) {
+				while (area.calculateDistance(target) > 1) {
+					map.moveBotTowardsInStraightLine(area, target)
+					area = map.findAreaWhereBotIs(bot)
+				}
+				BattleLog.add('Tauron rams its target')
+				target.robot.receiveDamage('Tauron', this.meleeDamage, map)
+			} else {
+				var closestOpponent = area.findClosest(opponentAreas)
+				BattleLog.add('Tauron moves towards enemy.')
+				map.moveBotTowards(area, closestOpponent)
+			}
+		}
+		this.levelRequirement = 3
+		this.price = 30
+		this.maxHealth = 25
+		this.meleeDamage = 15
+		this.intelligence = 'low'
+		this.typeName = 'tauron'
+		this.description = 'Tauron will charge towards enemy dealing massive damage'
 	}
 	
 	function Multiplicator() {
