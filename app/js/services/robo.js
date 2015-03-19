@@ -33,7 +33,7 @@ angular.module('Tribetron').factory('Robot', ['$interval', 'BattleLog', 'GameHan
 				closestOpponent.robot.receiveDamage('MegaHunter', this.meleeDamage, map)
 			else {
 				BattleLog.add('MegaHunter moves towards enemy.')
-				map.moveBotTowards(area, closestOpponent)
+				map.moveBotTowardsUsingFinder(area, closestOpponent)
 			}
 		}
 		this.destroyEffect = function(bot, map, team) {
@@ -95,14 +95,14 @@ angular.module('Tribetron').factory('Robot', ['$interval', 'BattleLog', 'GameHan
 				closestOpponent.robot.receiveDamage('Sniper', this.rangedDamage, map)
 			} else {
 				BattleLog.add('Sniper moves towards enemy.')
-				map.moveBotTowards(area, closestOpponent)
+				map.moveBotTowardsUsingFinder(area, closestOpponent)
 			}
 		}
 		this.levelRequirement = 3
 		this.price = 30
 		this.maxHealth = 7
 		this.rangedDamage = 4
-		this.range = 10
+		this.range = 7
 		this.intelligence = 'medium'
 		this.typeName = 'sniper'
 		this.description = 'Sniper can pick opponent from afar but is unable to attack opponent in melee and thus attempts to retreat.'
@@ -140,7 +140,7 @@ angular.module('Tribetron').factory('Robot', ['$interval', 'BattleLog', 'GameHan
 				var closestInjured = area.findClosest(injuredAreas)
 				if (area.calculateDistance(closestInjured) < 2) closestInjured.robot.receiveHealing('Medic', this.heal)
 				else {
-					map.moveBotTowards(area, closestInjured)
+					map.moveBotTowardsUsingFinder(area, closestInjured)
 					BattleLog.add('Medic moves towards injured ally')
 				}
 			} else BattleLog.add('Medic does nothing.')
@@ -149,7 +149,7 @@ angular.module('Tribetron').factory('Robot', ['$interval', 'BattleLog', 'GameHan
 		this.price = 12
 		this.heal = 4
 		this.maxHealth = 8
-		this.intelligence = 'low'
+		this.intelligence = 'medium'
 		this.typeName = 'medic'
 		this.description = 'Medic tries to help the closest injured ally.'
 	}
@@ -326,7 +326,7 @@ angular.module('Tribetron').factory('Robot', ['$interval', 'BattleLog', 'GameHan
 				var closestInjured = area.findClosest(injuredAreas)
 				if (area.calculateDistance(closestInjured) < 2) closestInjured.robot.receiveHealing('Psycho-medic', this.heal)
 				else {
-					map.moveBotTowards(area, closestInjured)
+					map.moveBotTowardsUsingFinder(area, closestInjured)
 					BattleLog.add('Psycho-medic moves towards injured ally')
 				}
 			} else BattleLog.add('Psycho-medic does nothing.')
@@ -433,6 +433,8 @@ angular.module('Tribetron').factory('Robot', ['$interval', 'BattleLog', 'GameHan
 				target.team = this.team
 				target.hacked = !target.hacked
 				team.addBot(target)
+			} else if (area.calculateDistance(closestOpponent) == 2 && !closestOpponent.range) {
+				BattleLog.add('Hacker waits for enemy to close in')
 			} else {
 				BattleLog.add('Hacker moves towards enemy.')
 				map.moveBotTowardsUsingFinder(area, closestOpponent, true)
@@ -487,7 +489,7 @@ angular.module('Tribetron').factory('Robot', ['$interval', 'BattleLog', 'GameHan
 		this.price = 20
 		this.maxHealth = 20
 		this.meleeDamage = 8
-		this.intelligence = 'medium'
+		this.intelligence = 'low'
 		this.typeName = 'trasher'
 		this.description = 'Trasher is a tough bot which cleans up enemy wrecks or makes more of them.'
 	}
@@ -502,7 +504,7 @@ angular.module('Tribetron').factory('Robot', ['$interval', 'BattleLog', 'GameHan
 				closestOpponent.robot.receiveDamage('Titan', distance < 2 ? this.meleeDamage : this.rangedDamage, map)
 			} else {
 				BattleLog.add('Titan moves towards enemy.')
-				map.moveBotTowards(area, closestOpponent)
+				map.moveBotTowardsUsingFinder(area, closestOpponent, false)
 			}
 		}
 		this.levelRequirement = 6
@@ -510,7 +512,7 @@ angular.module('Tribetron').factory('Robot', ['$interval', 'BattleLog', 'GameHan
 		this.maxHealth = 50
 		this.rangedDamage = 15
 		this.meleeDamage = 22
-		this.range = 6
+		this.range = 5
 		this.intelligence = 'medium'
 		this.typeName = 'titan'
 		this.description = 'Titan delivers massive damage from range and even more at melee combat.'
