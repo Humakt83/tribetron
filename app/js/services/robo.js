@@ -433,7 +433,7 @@ angular.module('Tribetron').factory('Robot', ['$interval', 'BattleLog', 'GameHan
 				target.team = this.team
 				target.hacked = !target.hacked
 				team.addBot(target)
-			} else if (area.calculateDistance(closestOpponent) == 2 && !closestOpponent.range) {
+			} else if (area.calculateDistance(closestOpponent) == 2 && !closestOpponent.robot.range && closestOpponent.robot.meleeDamage ) {
 				BattleLog.add('Hacker waits for enemy to close in')
 			} else {
 				BattleLog.add('Hacker moves towards enemy.')
