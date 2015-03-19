@@ -435,7 +435,7 @@ angular.module('Tribetron').factory('Robot', ['$interval', 'BattleLog', 'GameHan
 				team.addBot(target)
 			} else {
 				BattleLog.add('Hacker moves towards enemy.')
-				map.moveBotTowards(area, closestOpponent)
+				map.moveBotTowardsUsingFinder(area, closestOpponent, true)
 			}
 		}
 		this.levelRequirement = 4

@@ -72,6 +72,20 @@ angular.module('Tribetron').factory('AreaMap', ['$filter', function($filter) {
 			}
 			return false
 		}
+		
+		this.moveBotTowardsUsingFinder = function(botArea, targetArea, avoidTraps) {
+			function walkableArea(area) {
+				return area === targetArea || (!area.isWall && !area.robot && (!avoidTraps || !area.trap))
+			}
+			var grid = new PF.Grid(this.width, this.height)
+			angular.forEach(this.areas, function(area) {
+				grid.setWalkableAt(area.xCoord, area.yCoord, walkableArea(area))
+			})
+			var finder = new PF.BestFirstFinder()
+			var path = finder.findPath(botArea.xCoord, botArea.yCoord, targetArea.xCoord, targetArea.yCoord, grid)
+			return path && path.length > 1 ? this.moveBot(botArea, this.getAreaByCoord(new Coord(path[1][0], path[1][1]))) : false
+		}		
+		
 		this.moveBotTowards = function(botArea, targetArea) {
 			var xDistance = botArea.xCoord - targetArea.xCoord
 			var yDistance = botArea.yCoord - targetArea.yCoord

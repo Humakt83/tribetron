@@ -22,6 +22,7 @@
     "bootstrap": "~3.3.2",
     "fontawesome": "~4.3.0",
     "underscore": "~1.8.2",
-    "angular-bootstrap": "~0.12.1"
+    "angular-bootstrap": "~0.12.1",
+    "pathfinding": "~0.4.16"
   }
 }
