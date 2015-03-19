@@ -13,6 +13,7 @@ angular.module('Tribetron').controller('RumbleController', ['$scope', '$interval
 	$scope.mapHeight = 10
 	$scope.trapAmount = 5
 	$scope.botsPerTeam = 8
+	$scope.randomWalls = 5
 	
 	function init() {
 		$scope.battleLog.reset()
@@ -37,12 +38,20 @@ angular.module('Tribetron').controller('RumbleController', ['$scope', '$interval
 				var trapType = Trap.getTrapTypes()[Math.floor(Math.random() * Trap.getTrapTypes().length)]
 				$scope.map.placeTrapAtRandomFreeSpot(Trap.createTrap(trapType))
 			}
+		}		
+		var placeRandomWalls = function(randomWalls) {
+			for (var i = 0; i < randomWalls; i++) {
+				var x = 1 + Math.floor(Math.random() * ($scope.map.width - 2))
+				var y = 1 + Math.floor(Math.random() * ($scope.map.height - 2))
+				$scope.map.getAreaByCoord(AreaMap.createCoord(x, y)).isWall = true
+			}
 		}
 		var numberOfRounds = 25
 		$scope.autoPlayOn = undefined
 		$scope.playToggle = 'Play'
 		
 		$scope.map = AreaMap.createMap($scope.mapWidth, $scope.mapHeight)
+		placeRandomWalls($scope.randomWalls)
 		
 		$scope.team = createTeamWithRobots('Corobons', $scope.botsPerTeam)
 		$scope.enemyTeam = createTeamWithRobots('Tributrons', $scope.botsPerTeam, true)
@@ -59,8 +68,9 @@ angular.module('Tribetron').controller('RumbleController', ['$scope', '$interval
 	
 	function validateOptions() {
 		var areaSpace = ($scope.mapWidth - 4) * ($scope.mapHeight - 2)
-		$scope.invalidArguments = areaSpace < ($scope.botsPerTeam * 2) + $scope.trapAmount ? 'Map is too small for robots and traps': undefined
-		return !$scope.invalidArguments
+		$scope.invalidArguments = areaSpace < ($scope.botsPerTeam * 2) + $scope.trapAmount ? 'Map is too small for robots and traps. ': ''
+		$scope.invalidArguments += $scope.randomWalls >= $scope.mapWidth - 2 || $scope.randomWalls >= $scope.mapHeight - 2 ? 'Too many walls.' : ''
+		return $scope.invalidArguments.length < 1
 	}
 	
 	$scope.nextTurn = function() {
