@@ -568,6 +568,9 @@ angular.module('Tribetron').factory('Robot', ['$interval', 'BattleLog', 'GameHan
 		this.cleanEffects = function() {
 			this.stunned = 0
 		}
+		this.resetHealth = function() {
+			this.currentHealth = this.type.maxHealth
+		}
 		this.stunned = 0
 		this.type = type;
 		this.destroyed = false;

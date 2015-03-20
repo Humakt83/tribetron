@@ -16,6 +16,9 @@ angular.module('Tribetron').factory('Player', ['Team', 'Robot', function(Team, R
 	function Player(playerName, teamName) {
 		this.levelUp = function() {
 			this.level += 1
+			this.avatar.type.maxHealth += 5
+			this.avatar.resetHealth()
+			this.avatar.type.meleeDamage += 2
 		}
 		this.name = playerName
 		this.money = 0
