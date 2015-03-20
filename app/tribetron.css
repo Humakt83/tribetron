@@ -477,6 +477,60 @@ p.detail {
 	display: block;
 }
 
+.atomitum:before {
+	background: url(img/combinatorBbot.png);
+	width: 100%;
+	height: 100%;
+	content: "";
+    background-size: 100%;
+	display: block;
+}
+
+.atomitum_enemy:before {
+	background: url(img/combinatorBbot2.png);
+	width: 100%;
+	height: 100%;
+	content: "";
+    background-size: 100%;
+	display: block;
+}
+
+.plutan:before {
+	background: url(img/combinatorAbot.png);
+	width: 100%;
+	height: 100%;
+	content: "";
+    background-size: 100%;
+	display: block;
+}
+
+.plutan_enemy:before {
+	background: url(img/combinatorAbot2.png);
+	width: 100%;
+	height: 100%;
+	content: "";
+    background-size: 100%;
+	display: block;
+}
+
+.colossus:before {
+	background: url(img/colossusbot.png);
+	width: 100%;
+	height: 100%;
+	content: "";
+    background-size: 100%;
+	display: block;
+}
+
+.colossus_enemy:before {
+	background: url(img/colossusbot2.png);
+	width: 100%;
+	height: 100%;
+	content: "";
+    background-size: 100%;
+	display: block;
+}
+
 .unknown:before {
 	background: url(img/unknown.png);
 	width: 100%;

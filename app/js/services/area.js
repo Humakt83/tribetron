@@ -159,9 +159,9 @@ angular.module('Tribetron').factory('AreaMap', ['$filter', function($filter) {
 			return blocked
 		}
 		
-		this.findAreaWithBotByTypeName = function(typeName) {
+		this.findAreaWithBotByTypeName = function(typeName, team, onlyUndestroyed) {
 			return $filter('filter')(areas, function(area) {
-				return area.robot && area.robot.type.typeName == typeName
+				return area.robot && area.robot.type.typeName == typeName && (!team || team === area.robot.team) && (!onlyUndestroyed || !area.robot.destroyed)
 			})
 		}
 		

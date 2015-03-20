@@ -1,7 +1,9 @@
 'use strict'
 
 angular.module('Tribetron').factory('Robot', ['$interval', 'BattleLog', 'GameHandler', 'GameSettings', function($interval, BattleLog, GameHandler, GameSettings) {
-	var types = [Hunter, Box, Medic, Totter, Radiator, Psycho, Crate, Zipper, Multiplicator, Cannoneer, Sniper, Hacker, Destructor, Trasher, PsychoMedic, HotTot, MegaHunter, Titan, Tauron]
+	var types = [Hunter, Box, Medic, Totter, Radiator, Psycho, Crate, Zipper, Multiplicator, Cannoneer, 
+				Sniper, Hacker, Destructor, Trasher, PsychoMedic, HotTot, MegaHunter, Titan, Tauron, Colossus,
+				CombinatorAtomitum, CombinatorPlutan]
 	
 	function Hunter() {
 		this.takeTurn = function(bot, map, team) {
@@ -516,6 +518,86 @@ angular.module('Tribetron').factory('Robot', ['$interval', 'BattleLog', 'GameHan
 		this.intelligence = 'medium'
 		this.typeName = 'titan'
 		this.description = 'Titan delivers massive damage from range and even more at melee combat.'
+	}
+	
+	function Colossus() {
+		this.takeTurn = function(bot, map, team) {
+			var area = map.findAreaWhereBotIs(bot)
+			var opponentAreas = map.findOpponents(team, true)
+			var closestOpponent = area.findClosest(opponentAreas)
+			if (area.calculateDistance(closestOpponent) < 2) {
+				if (closestOpponent.robot.destroyed) {
+					BattleLog.add('Colossus crushes enemy under its treadmills')
+					closestOpponent.robot.team.removeBot(closestOpponent.robot)
+					closestOpponent.setRobot()
+					map.moveBot(area, closestOpponent)
+				} else closestOpponent.robot.receiveDamage('Colossus', this.meleeDamage, map)
+			} else {
+				BattleLog.add('Colossus moves towards enemy.')
+				map.moveBotTowardsUsingFinder(area, closestOpponent, false)
+			}
+		}
+		this.levelRequirement = 6
+		this.price = 150
+		this.maxHealth = 75
+		this.meleeDamage = 30
+		this.intelligence = 'medium'
+		this.typeName = 'colossus'
+		this.description = 'Colossus crushes any enemy under its treadmills.'
+	}
+	
+	function CombinatorAtomitum() {
+		this.takeTurn = function(bot, map, team) {
+			var area = map.findAreaWhereBotIs(bot)
+			var targets = map.findAreaWithBotByTypeName(new CombinatorPlutan().typeName, team, true)
+			if (targets && targets.length > 0) {
+				var closestTarget = area.findClosest(targets)
+				var distance = area.calculateDistance(closestTarget)
+				if (distance < 2) { 
+					bot.type = new Colossus() //for now
+					bot.resetHealth()
+					team.removeBot(closestTarget.robot)
+					GameHandler.getGameState().removeBotFromQueue(closestTarget.robot)
+					closestTarget.setRobot()
+				} else {
+					BattleLog.add('Atomitum moves towards Plutan.')
+					map.moveBotTowardsUsingFinder(area, closestTarget, false)
+				}
+			} else BattleLog.add('Atomitum finds no suitable targets to combine with')
+		}
+		this.levelRequirement = 4
+		this.price = 30
+		this.maxHealth = 20
+		this.intelligence = 'medium'
+		this.typeName = 'atomitum'
+		this.description = 'Atomitum tries to reach its other half, Plutan, and combine with it into Colossus.'
+	}
+	
+	function CombinatorPlutan() {
+		this.takeTurn = function(bot, map, team) {
+			var area = map.findAreaWhereBotIs(bot)
+			var targets = map.findAreaWithBotByTypeName(new CombinatorAtomitum().typeName, team, true)
+			if (targets && targets.length > 0) {
+				var closestTarget = area.findClosest(targets)
+				var distance = area.calculateDistance(closestTarget)
+				if (distance < 2) { 
+					bot.type = new Colossus() //for now
+					bot.resetHealth()
+					team.removeBot(closestTarget.robot)
+					GameHandler.getGameState().removeBotFromQueue(closestTarget.robot)
+					closestTarget.setRobot()
+				} else {
+					BattleLog.add('Plutan moves towards Atomitum.')
+					map.moveBotTowardsUsingFinder(area, closestTarget, false)
+				}
+			} else BattleLog.add('Plutan finds no suitable targets to combine with')
+		}
+		this.levelRequirement = 4
+		this.price = 32
+		this.maxHealth = 22
+		this.intelligence = 'medium'
+		this.typeName = 'plutan'
+		this.description = 'Plutan tries to reach its other half, Atomitum, and combine with it into Colossus.'
 	}
 	
 	function Robot(type) {
