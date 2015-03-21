@@ -559,6 +559,17 @@ angular.module('Tribetron').factory('Robot', ['$interval', 'BattleLog', 'GameHan
 	}
 	
 	function CombinatorAtomitum() {
+		this.seekEnemyInstead = function(bot, map, team) {
+			var area = map.findAreaWhereBotIs(bot)
+			var opponentAreas = map.findOpponents(team, true)
+			var closestOpponent = area.findClosest(opponentAreas)
+			if (area.calculateDistance(closestOpponent) < 2) {
+				closestOpponent.robot.receiveDamage('Atomitum', this.meleeDamage, map)
+			} else {
+				BattleLog.add('Atomitum moves towards enemy.')
+				map.moveBotTowardsUsingFinder(area, closestOpponent, false)
+			}
+		}
 		this.takeTurn = function(bot, map, team) {
 			var area = map.findAreaWhereBotIs(bot)
 			var targets = map.findAreaWithBotByTypeName(new CombinatorPlutan().typeName, team, true)
@@ -575,17 +586,30 @@ angular.module('Tribetron').factory('Robot', ['$interval', 'BattleLog', 'GameHan
 					BattleLog.add('Atomitum moves towards Plutan.')
 					map.moveBotTowardsUsingFinder(area, closestTarget, false)
 				}
-			} else BattleLog.add('Atomitum finds no suitable targets to combine with')
+			} else this.seekEnemyInstead(bot, map, team)
 		}
 		this.levelRequirement = 4
 		this.price = 30
 		this.maxHealth = 20
+		this.meleeDamage = 5
 		this.intelligence = 'medium'
 		this.typeName = 'atomitum'
 		this.description = 'Atomitum tries to reach its other half, Plutan, and combine with it into Colossus.'
 	}
 	
 	function CombinatorPlutan() {
+		this.seekEnemyInstead = function(bot, map, team) {
+			var area = map.findAreaWhereBotIs(bot)
+			var opponentAreas = map.findOpponents(team, true)
+			var closestOpponent = area.findClosest(opponentAreas)
+			if (area.calculateDistance(closestOpponent) < 2) {
+				closestOpponent.robot.receiveDamage('Plutan', this.meleeDamage, map)
+			} else {
+				BattleLog.add('Plutan moves towards enemy.')
+				map.moveBotTowardsUsingFinder(area, closestOpponent, false)
+			}
+		}
+		
 		this.takeTurn = function(bot, map, team) {
 			var area = map.findAreaWhereBotIs(bot)
 			var targets = map.findAreaWithBotByTypeName(new CombinatorAtomitum().typeName, team, true)
@@ -602,11 +626,12 @@ angular.module('Tribetron').factory('Robot', ['$interval', 'BattleLog', 'GameHan
 					BattleLog.add('Plutan moves towards Atomitum.')
 					map.moveBotTowardsUsingFinder(area, closestTarget, false)
 				}
-			} else BattleLog.add('Plutan finds no suitable targets to combine with')
+			} else this.seekEnemyInstead(bot, map, team)
 		}
 		this.levelRequirement = 4
 		this.price = 32
 		this.maxHealth = 22
+		this.meleeDamage = 6
 		this.intelligence = 'medium'
 		this.typeName = 'plutan'
 		this.description = 'Plutan tries to reach its other half, Atomitum, and combine with it into Colossus.'
