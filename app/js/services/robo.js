@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('Tribetron').factory('Robot', ['$interval', 'BattleLog', 'GameHandler', 'GameSettings', function($interval, BattleLog, GameHandler, GameSettings) {
+angular.module('Tribetron').factory('Robot', ['$timeout', 'BattleLog', 'GameHandler', 'GameSettings', function($timeout, BattleLog, GameHandler, GameSettings) {
 	var types = [Hunter, Box, Medic, Totter, Radiator, Psycho, Crate, Zipper, Multiplicator, Cannoneer, 
 				Sniper, Hacker, Destructor, Trasher, PsychoMedic, HotTot, MegaHunter, Titan, Tauron, Colossus,
 				CombinatorAtomitum, CombinatorPlutan]
@@ -667,9 +667,9 @@ angular.module('Tribetron').factory('Robot', ['$interval', 'BattleLog', 'GameHan
 			}
 			this.damaged = damage
 			var thisRobot = this
-			$interval(function() {
-				thisRobot.damaged--		
-			}, 50 * GameSettings.getGameSpeed(), damage)
+			$timeout(function() {
+				thisRobot.damaged = 0	
+			}, 100 * GameSettings.getGameSpeed())
 		}
 		this.receiveHealing = function(source, heal) {
 			this.destroyed = false

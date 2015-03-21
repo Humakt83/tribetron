@@ -31,7 +31,7 @@ angular.module('Tribetron').factory('AreaMap', ['$filter', '$timeout', 'GameSett
 		this.setExplosion = function() {
 			this.explosion = true
 			var thisArea = this
-			$timeout(function() { thisArea.explosion = false}, 75 * GameSettings.getGameSpeed())
+			$timeout(function() { thisArea.explosion = false}, 100 * GameSettings.getGameSpeed())
 		}
 		this.xCoord = xCoord
 		this.yCoord = yCoord
