@@ -14,6 +14,8 @@
 							</div>							
 							<div ng-if="area.trap" class="trap" ng-class="area.trap.trapType.cssName"></div>
 							<div ng-if="area.loot" class="loot" ng-class="area.loot.cssName"></div>
+							<img ng-if="area.robot" class="hit" ng-hide="area.robot.damaged < 1" src="img/hit.png" />
+							<img ng-if="area.explosion" class="explosion" ng-hide="!area.explosion" src="img/explosion.png" />
 						</td>
 					</tr>
 				</tbody>
