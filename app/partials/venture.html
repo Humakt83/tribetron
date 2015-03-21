@@ -2,7 +2,7 @@
 	<div class="row">
 		<div class="col-xs-12">
 		
-			<table class="table-bordered game">
+			<table class="table-bordered game adventure">
 				<tbody>
 					<tr ng-repeat="row in map.rows track by $index">
 						<td ng-repeat="area in map.getAreasByRow($index)" ng-class="area.isWall ? 'wall' : clickableClass(area)" ng-click="playerMove(area.xCoord, area.yCoord)">

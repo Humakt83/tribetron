@@ -82,6 +82,11 @@ table.game td.floor-clickable:hover {
 	cursor: pointer;
 }
 
+table.adventure {
+	border-color: black;
+	border-width: 10px;
+}
+
 .touchable {
 	cursor: pointer
 }
