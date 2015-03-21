@@ -161,15 +161,25 @@ angular.module('Tribetron').factory('Robot', ['$interval', 'BattleLog', 'GameHan
 			var area = map.findAreaWhereBotIs(bot)
 			var areasNear = map.findAreasCloseToArea(area)
 			var areaToMove = areasNear[Math.floor(Math.random() * areasNear.length)]
-			if (areaToMove.robot) {
-				bot.receiveDamage('self', this.meleeDamage)
+			if (areaToMove.robot != undefined && areaToMove.robot != null) {
+				bot.receiveDamage('self', this.meleeDamage, map)
 				areaToMove.robot.receiveDamage('Totter', this.meleeDamage, map)
 			} else if (areaToMove.isWall) {
-				bot.receiveDamage('Wall', this.meleeDamage)
+				bot.receiveDamage('Wall', this.meleeDamage, map)
 			} else {
 				BattleLog.add('Totter randomly tots around')
 				map.moveBot(area, areaToMove)
 			}
+		}
+		this.destroyEffect = function(bot, map, team) {
+			var area = map.findAreaWhereBotIs(bot)
+			var areasNear = map.findAreasCloseToArea(area)
+			angular.forEach(areasNear, function(areaNear) {
+				if (areaNear.robot) areaNear.robot.receiveDamage('Totter', bot.type.meleeDamage, map)
+			})
+			area.setRobot()
+			team.removeBot(bot)
+			GameHandler.getGameState().removeBotFromQueue(bot)
 		}
 		this.levelRequirement = 1
 		this.price = 1
@@ -177,7 +187,7 @@ angular.module('Tribetron').factory('Robot', ['$interval', 'BattleLog', 'GameHan
 		this.meleeDamage = 8
 		this.intelligence = 'insane'
 		this.typeName = 'totter'
-		this.description = 'Totter tots around randomly until hitting obstacle, damaging itself and the target greatly in the process'
+		this.description = 'Totter tots around randomly until hitting obstacle, damaging itself and the target greatly in the process. Will explode when destroyed damaging surrounding bots.'
 	}
 	
 	function HotTot() {
@@ -620,6 +630,7 @@ angular.module('Tribetron').factory('Robot', ['$interval', 'BattleLog', 'GameHan
 			return this.type.typeName + postfix
 		}
 		this.receiveDamage = function(source, damage, map) {
+			if (this.destroyed) return
 			this.currentHealth = Math.max(0, (this.currentHealth - damage))
 			BattleLog.add(this.type.typeName + ' receives ' + damage + ' damage from ' + source) 
 			if (this.currentHealth <= 0) {
