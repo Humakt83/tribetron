@@ -175,6 +175,7 @@ angular.module('Tribetron').factory('Robot', ['$interval', 'BattleLog', 'GameHan
 			var area = map.findAreaWhereBotIs(bot)
 			var areasNear = map.findAreasCloseToArea(area)
 			area.setRobot()
+			area.setExplosion()
 			angular.forEach(areasNear, function(areaNear) {
 				if (areaNear.robot) areaNear.robot.receiveDamage('Totter', bot.type.meleeDamage, map)
 			})			
@@ -212,6 +213,7 @@ angular.module('Tribetron').factory('Robot', ['$interval', 'BattleLog', 'GameHan
 			var botArea = map.findAreaWhereBotIs(bot)
 			var areas = map.findAreasCloseToArea(botArea)
 			botArea.setRobot()
+			botArea.setExplosion()
 			team.removeBot(bot)
 			areas.push(botArea)
 			GameHandler.getGameState().removeBotFromQueue(bot)

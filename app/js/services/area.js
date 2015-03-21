@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('Tribetron').factory('AreaMap', ['$filter', function($filter) {
+angular.module('Tribetron').factory('AreaMap', ['$filter', '$timeout', 'GameSettings', function($filter, $timeout, GameSettings) {
 
 	
 	function Area(xCoord, yCoord, isWall) {
@@ -28,12 +28,18 @@ angular.module('Tribetron').factory('AreaMap', ['$filter', function($filter) {
 		this.setLoot = function(loot) {
 			this.loot = loot
 		}
+		this.setExplosion = function() {
+			this.explosion = true
+			var thisArea = this
+			$timeout(function() { thisArea.explosion = false}, 75 * GameSettings.getGameSpeed())
+		}
 		this.xCoord = xCoord
 		this.yCoord = yCoord
 		this.isWall = isWall
 		this.robot = null
 		this.trap = null
 		this.loot = null
+		this.explosion = false
 	}
 	
 	function Coord(x, y) {
