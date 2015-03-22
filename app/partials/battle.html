@@ -19,8 +19,8 @@
 					</tr>
 				</tbody>
 			</table>
-			<button class="btn btn-primary" ng-click="pickAction('Attack')" ng-disabled="waitingForPlayerTurn">Attack</button>
-			<button class="btn btn-primary" ng-click="pickAction('Repair')" ng-disabled="waitingForPlayerTurn">Repair</button>
+			<button class="btn btn-primary" ng-click="pickAction('Attack')" ng-disabled="waitingForPlayerTurn || gameState.isOver()">Attack</button>
+			<button class="btn btn-primary" ng-click="pickAction('Repair')" ng-disabled="waitingForPlayerTurn || gameState.isOver()">Repair</button>
 			<button ng-click="settings.decreaseSpeed()" class="btn btn-default" ng-disabled="!settings.canDecreaseSpeed()">- Speed</button>
 			<button ng-click="settings.increaseSpeed()" class="btn btn-default" ng-disabled="!settings.canIncreaseSpeed()">+ Speed</button>
 			<span>{{gameState.round}}/{{gameState.maxRounds}}</span>
@@ -28,6 +28,10 @@
 		</div>
 		
 		<div class="col-xs-3 battle-info">
+			<div class="row">
+				<h1>{{opponent.type.name}}</h1>
+				<strong>{{opponentTaunt}}</strong>
+			</div>
 		
 			<div ng-repeat="team in teams" class="row">
 				<h1>{{team.name}}</h1>

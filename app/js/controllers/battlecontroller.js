@@ -1,7 +1,7 @@
 'use strict'
 
-angular.module('Tribetron').controller('BattleController', ['$scope', '$interval', '$location', 'AreaMap', 'Robot', 'Trap', 'Team', 'GameHandler', 'Player', 'Campaign', 'GameSettings', 'InfoOpener', 'Abilities', 
-		function($scope, $interval, $location, AreaMap, Robot, Trap, Team, GameHandler, Player, Campaign, GameSettings, InfoOpener, Abilities) {
+angular.module('Tribetron').controller('BattleController', ['$scope', '$interval', '$location', 'AreaMap', 'Robot', 'Trap', 'Team', 'GameHandler', 'Player', 'Campaign', 'GameSettings', 'InfoOpener', 'Abilities', 'AI', 
+		function($scope, $interval, $location, AreaMap, Robot, Trap, Team, GameHandler, Player, Campaign, GameSettings, InfoOpener, Abilities, AI) {
 	
 	$scope.player = Player.getPlayer()
 	
@@ -52,6 +52,7 @@ angular.module('Tribetron').controller('BattleController', ['$scope', '$interval
 		Campaign.getScenario(Campaign.getCampaign().currentScenario).success(function(result) {
 			var width = result.areaWidth, height = result.areaHeight, robotsPerTeam = result.maxRoster, numberOfRounds = result.rounds
 			var traps = result.traps ? result.traps : []
+			$scope.opponent = AI.createOpponent(AI.getOpponentByName('Base'))
 			$scope.autoPlayOn = undefined
 			$scope.playToggle = 'Play'
 			$scope.reward = result.reward
@@ -143,6 +144,7 @@ angular.module('Tribetron').controller('BattleController', ['$scope', '$interval
 	$scope.doAction = function(area) {
 		if (!$scope.actionPossible(area)) return
 		Abilities.getAbility($scope.action)($scope.player.name, area.robot, $scope.map)
+		$scope.opponentTaunt = $scope.opponent.playTurn($scope.enemyTeam, $scope.map)
 		$scope.play()
 	}
 	

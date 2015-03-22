@@ -3,12 +3,12 @@
 angular.module('Tribetron').factory('Abilities', [function() {
 
 	var repair = function(source, bot) {
-		if (!bot.destroyed)	bot.receiveHealing(source, 3)
+		if (!bot.destroyed)	bot.receiveHealing(source, Math.max(1, Math.floor(bot.type.maxHealth * 0.1)))
 	}
 	
 	var attack = function(source, bot, map) {
 		if (!bot.destroyed) {
-			var damage = Math.max(1, Math.floor(bot.type.maxHealth * 0.1))
+			var damage = Math.max(1, Math.floor(bot.type.maxHealth * 0.15))
 			bot.receiveDamage(source, damage, map)
 		}
 	}
