@@ -3,7 +3,7 @@
 angular.module('Tribetron').factory('Robot', ['$timeout', 'BattleLog', 'GameHandler', 'GameSettings', function($timeout, BattleLog, GameHandler, GameSettings) {
 	var types = [Hunter, Box, Medic, Totter, Radiator, Psycho, Crate, Zipper, Multiplicator, Cannoneer, 
 				Sniper, Hacker, Destructor, Trasher, PsychoMedic, HotTot, MegaHunter, Titan, Tauron, Colossus,
-				CombinatorAtomitum, CombinatorPlutan]
+				CombinatorAtomitum, CombinatorPlutan, Disablor]
 	
 	function Hunter() {
 		this.takeTurn = function(bot, map, team) {
@@ -460,6 +460,28 @@ angular.module('Tribetron').factory('Robot', ['$timeout', 'BattleLog', 'GameHand
 		this.intelligence = 'high'
 		this.typeName = 'hacker'
 		this.description = 'Hacker turns enemies to allies until end of combat.'
+	}
+	
+	function Disablor() {
+		this.takeTurn = function(bot, map, team) {
+			var area = map.findAreaWhereBotIs(bot)
+			var opponentAreas = map.findOpponents(team)
+			var closestOpponent = area.findClosest(opponentAreas)
+			if (area.calculateDistance(closestOpponent) <= this.range) {
+				BattleLog.add('Disablor disables enemy')
+				closestOpponent.robot.stun(1)
+			} else {
+				BattleLog.add('Disablor moves towards enemy.')
+				map.moveBotTowardsUsingFinder(area, closestOpponent, true)
+			}
+		}
+		this.levelRequirement = 3
+		this.price = 20
+		this.maxHealth = 7
+		this.range = 2
+		this.intelligence = 'high'
+		this.typeName = 'disablor'
+		this.description = 'Disablor disables any enemy at range for a turn.'
 	}
 	
 	function Destructor() {
