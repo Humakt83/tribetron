@@ -709,6 +709,15 @@ angular.module('Tribetron').factory('Robot', ['$timeout', 'BattleLog', 'GameHand
 		getTypes : function() {
 			return types
 		},
-		getTypesAsObjects: getTypesAsObjects
+		getTypesAsObjects: getTypesAsObjects,
+		getDetails: function(botType) {
+			var details = []
+			angular.forEach(Object.keys(botType), function(key) {
+				if (botType.hasOwnProperty(key) && !(botType[key] instanceof Function) && key !== '$$hashKey' && key != 'typeName' && key != 'description') {
+					details.push(key + ': ' + botType[key])
+				}
+			})
+			return details		
+		}
 	}
 }])

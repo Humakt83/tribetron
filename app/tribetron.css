@@ -749,6 +749,17 @@ p.detail {
 	width: 550px;
 }
 
+.info-popup-bot-info {
+	padding-top: 3px;
+	padding-left: 7px;
+	padding-bottom: 3px;
+}
+
+.info-popup-bot-info .bot-name {
+	font-size: larger;
+	font-weight: bolder;
+}
+
 /* modalhack: */
 .modal-open {
 	overflow: auto; 

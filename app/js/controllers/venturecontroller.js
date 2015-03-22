@@ -1,7 +1,7 @@
 'use strict'
 
-angular.module('Tribetron').controller('VentureController', ['$scope', '$interval', '$location', 'AreaMap', 'Robot', 'Trap', 'Team', 'GameHandler', 'GameSettings', 'Campaign', 'Player', 'Loot',
-		function($scope, $interval, $location, AreaMap, Robot, Trap, Team, GameHandler, GameSettings, Campaign, Player, Loot) {
+angular.module('Tribetron').controller('VentureController', ['$scope', '$interval', '$location', 'AreaMap', 'Robot', 'Trap', 'Team', 'GameHandler', 'GameSettings', 'Campaign', 'Player', 'Loot', 'InfoOpener',
+		function($scope, $interval, $location, AreaMap, Robot, Trap, Team, GameHandler, GameSettings, Campaign, Player, Loot, InfoOpener) {
 	
 	$scope.player = Player.getPlayer()
 	
@@ -11,6 +11,7 @@ angular.module('Tribetron').controller('VentureController', ['$scope', '$interva
 	}
 	
 	$scope.settings = GameSettings
+	$scope.infoOpener = InfoOpener
 
 	
 	function init() {
