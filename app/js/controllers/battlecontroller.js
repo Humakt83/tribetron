@@ -1,7 +1,7 @@
 'use strict'
 
-angular.module('Tribetron').controller('BattleController', ['$scope', '$interval', '$location', 'AreaMap', 'Robot', 'Trap', 'Team', 'GameHandler', 'Player', 'Campaign', 'GameSettings', 'InfoOpener', 
-		function($scope, $interval, $location, AreaMap, Robot, Trap, Team, GameHandler, Player, Campaign, GameSettings, InfoOpener) {
+angular.module('Tribetron').controller('BattleController', ['$scope', '$interval', '$location', 'AreaMap', 'Robot', 'Trap', 'Team', 'GameHandler', 'Player', 'Campaign', 'GameSettings', 'InfoOpener', 'Abilities', 
+		function($scope, $interval, $location, AreaMap, Robot, Trap, Team, GameHandler, Player, Campaign, GameSettings, InfoOpener, Abilities) {
 	
 	$scope.player = Player.getPlayer()
 	
@@ -86,27 +86,23 @@ angular.module('Tribetron').controller('BattleController', ['$scope', '$interval
 	}
 	
 	$scope.play = function() {
+		$scope.waitingForPlayerTurn = true
+		var round = $scope.gameState.round
 		$scope.autoPlayOn = $interval(function() {
-            if (!$scope.gameState.isOver()) {
+            if (!$scope.gameState.isOver() && $scope.gameState.round == round) {
               $scope.gameState.nextRobot().takeTurn($scope.map)
 			  angular.forEach($scope.teams, function(team) { team.updateBotCount() })
             } else {
               $scope.stop();
             }
           }, 100 * GameSettings.getGameSpeed());
-		  $scope.playToggle = 'Pause' 
-	}
-	
-	$scope.togglePlay = function() {
-		if ($scope.autoPlayOn) $scope.stop()
-		else $scope.play()
 	}
 	
 	$scope.stop = function() {
 		if (!$scope.autoPlayOn) return
 		$interval.cancel($scope.autoPlayOn)
 		$scope.autoPlayOn = undefined
-		$scope.playToggle = 'Play' 
+		$scope.waitingForPlayerTurn = false
 	}
 	
 	$scope.continueGame = function() {
@@ -122,6 +118,32 @@ angular.module('Tribetron').controller('BattleController', ['$scope', '$interval
 	
 	$scope.backToMain = function() {
 		$location.path('/')
+	}
+	
+	$scope.pickAction = function(action) {
+		$scope.action = action
+	}
+	
+	$scope.actionPossible = function(area) {
+		if ($scope.waitingForPlayerTurn || !$scope.action) return false
+		var actionPossible
+		switch ($scope.action) {
+			case 'Repair': 
+				actionPossible = area.robot && !area.robot.destroyed && area.robot.currentHealth < area.robot.type.maxHealth
+				break
+			case 'Attack': 
+				actionPossible = area.robot && !area.robot.destroyed
+				break
+			default:
+				actionPossible = false
+		}
+		return actionPossible
+	}
+	
+	$scope.doAction = function(area) {
+		if (!$scope.actionPossible(area)) return
+		Abilities.getAbility($scope.action)($scope.player.name, area.robot, $scope.map)
+		$scope.play()
 	}
 	
 	if (Team.getPlayerTeam()) init()

@@ -5,7 +5,7 @@
 			<table class="table-bordered game">
 				<tbody>
 					<tr ng-repeat="row in map.rows track by $index">
-						<td ng-repeat="area in map.getAreasByRow($index)" ng-class="area.isWall ? 'wall' : 'floor'">
+						<td ng-repeat="area in map.getAreasByRow($index)" ng-class="{'touchable': actionPossible(area), 'wall': area.isWall, 'floor': !area.isWall}" ng-click="doAction(area)">
 							<div ng-if="area.robot" ng-class="area.robot.getTypeClass()" class="robot" ng-info-click="infoOpener.openBotInfo($event)" ng-bot="{{area.robot.type.typeName}}"></div>
 							<div ng-if="area.robot && area.robot.destroyed" class="broken"></div>
 							<div ng-if="area.robot && !area.robot.destroyed && area.robot.stunned > 0" class="stunned"></div>							
@@ -19,9 +19,10 @@
 					</tr>
 				</tbody>
 			</table>
-			<button class="btn btn-primary" ng-click="togglePlay()" ng-disabled="gameState.isOver()">{{playToggle}}</button>
-			<button ng-click="settings.decreaseSpeed(); stop()" class="btn btn-default" ng-disabled="!settings.canDecreaseSpeed()">- Speed</button>
-			<button ng-click="settings.increaseSpeed(); stop()" class="btn btn-default" ng-disabled="!settings.canIncreaseSpeed()">+ Speed</button>
+			<button class="btn btn-primary" ng-click="pickAction('Attack')" ng-disabled="waitingForPlayerTurn">Attack</button>
+			<button class="btn btn-primary" ng-click="pickAction('Repair')" ng-disabled="waitingForPlayerTurn">Repair</button>
+			<button ng-click="settings.decreaseSpeed()" class="btn btn-default" ng-disabled="!settings.canDecreaseSpeed()">- Speed</button>
+			<button ng-click="settings.increaseSpeed()" class="btn btn-default" ng-disabled="!settings.canIncreaseSpeed()">+ Speed</button>
 			<span>{{gameState.round}}/{{gameState.maxRounds}}</span>
 			
 		</div>
