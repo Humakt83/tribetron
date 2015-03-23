@@ -7,5 +7,6 @@
 "rounds": 20,
 "rosterOpponent": ["crate", "box", "zipper", "zipper", "medic", "medic", "hunter", "hunter", "destructor"],
 "opponentTeamName": "Hungians",
+"opponent": "Base",
 "traps": ["Mine", "Mine", "Plasma pool", "Stun mine", "Stun mine"]
 }

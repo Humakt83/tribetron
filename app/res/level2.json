@@ -6,5 +6,6 @@
 "rounds": 15,
 "rosterOpponent": ["box", "box", "zipper", "box", "zipper"],
 "opponentTeamName": "Zibunians",
+"opponent": "NPE",
 "traps": ["Stun mine", "Mine", "Plasma pool"]
 }

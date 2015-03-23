@@ -6,5 +6,6 @@
 "maxRoster": 6,
 "rounds": 25,
 "rosterOpponent": ["box", "box", "zipper", "hunter", "medic", "crate"],
-"opponentTeamName": "Nepenians"
+"opponentTeamName": "Nepenians",
+"opponent": "Base"
 }

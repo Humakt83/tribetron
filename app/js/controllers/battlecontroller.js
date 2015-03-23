@@ -52,7 +52,7 @@ angular.module('Tribetron').controller('BattleController', ['$scope', '$interval
 		Campaign.getScenario(Campaign.getCampaign().currentScenario).success(function(result) {
 			var width = result.areaWidth, height = result.areaHeight, robotsPerTeam = result.maxRoster, numberOfRounds = result.rounds
 			var traps = result.traps ? result.traps : []
-			$scope.opponent = AI.createOpponent(AI.getOpponentByName('Base'))
+			$scope.opponent = AI.createOpponent(AI.getOpponentByName(result.opponent))
 			$scope.autoPlayOn = undefined
 			$scope.playToggle = 'Play'
 			$scope.reward = result.reward

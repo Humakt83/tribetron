@@ -6,5 +6,6 @@
 "rounds": 20,
 "rosterOpponent": ["totter", "totter", "totter", "psycho", "psycho-medic", "psycho", "totter", "totter"],
 "opponentTeamName": "Insatrons",
+"opponent": "NPE",
 "traps": ["Stun mine", "Stun mine", "Stun mine", "Stun mine"]
 }

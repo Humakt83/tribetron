@@ -6,5 +6,6 @@
 "rounds": 20,
 "rosterOpponent": ["box", "box", "box", "unknown", "unknown", "unknown", "unknown", "unknown", "unknown"],
 "opponentTeamName": "Randumians",
+"opponent": "Base",
 "traps": ["Mine", "Mine", "Mine", "Stun mine", "Stun mine"]
 }

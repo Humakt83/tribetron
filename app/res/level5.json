@@ -7,5 +7,6 @@
 "rounds": 20,
 "rosterOpponent": ["crate", "crate", "crate", "zipper", "zipper", "sniper", "cannoneer", "cannoneer"],
 "opponentTeamName": "Rangulans",
+"opponent": "Base",
 "traps": ["Mine", "Mine", "Mine", "Mine"]
 }

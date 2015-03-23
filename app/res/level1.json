@@ -6,5 +6,6 @@
 "maxRoster": 4,
 "rounds": 15,
 "rosterOpponent": ["hunter", "box", "zipper", "box"],
-"opponentTeamName": "Nullians"
+"opponentTeamName": "Nullians",
+"opponent": "NPE"
 }
