@@ -1,0 +1,304 @@
+{
+  "type" : "venture",
+  "rows" : [ [ {
+    "object" : "money"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "money"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "treasure"
+  } ], [ {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  } ], [ {
+    "object" : "floor"
+  }, {
+    "object" : "stunmine"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "mine"
+  }, {
+    "object" : "mine"
+  }, {
+    "object" : "mine"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  } ], [ {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  } ], [ {
+    "object" : "player"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  } ], [ {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  } ], [ {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "destructor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "stunmine"
+  }, {
+    "object" : "stunmine"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  } ], [ {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  } ], [ {
+    "object" : "colossus"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  } ], [ {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  } ] ]
+}

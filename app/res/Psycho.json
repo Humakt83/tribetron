@@ -1,0 +1,304 @@
+{
+  "type" : "venture",
+  "rows" : [ [ {
+    "object" : "cannoneer"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "money"
+  } ], [ {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "hunter"
+  } ], [ {
+    "object" : "player"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "box"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "money"
+  } ], [ {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  } ], [ {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "hottot"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "hottot"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  } ], [ {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "money"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "hottot"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  } ], [ {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "money"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "psycho"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  } ], [ {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  } ], [ {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "psycho"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  } ], [ {
+    "object" : "money"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "treasure"
+  } ] ]
+}

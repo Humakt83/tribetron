@@ -1,0 +1,304 @@
+{
+  "type" : "venture",
+  "rows" : [ [ {
+    "object" : "plutan"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "stunmine"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "atomitum"
+  } ], [ {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "treasure"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  } ], [ {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "crate"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  } ], [ {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  } ], [ {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  } ], [ {
+    "object" : "player"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "plasma"
+  }, {
+    "object" : "plasma"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "crate"
+  }, {
+    "object" : "money"
+  }, {
+    "object" : "money"
+  }, {
+    "object" : "money"
+  }, {
+    "object" : "money"
+  }, {
+    "object" : "floor"
+  } ], [ {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  } ], [ {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  } ], [ {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  } ], [ {
+    "object" : "atomitum"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "stunmine"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "plutan"
+  } ] ]
+}
