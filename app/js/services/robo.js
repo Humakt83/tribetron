@@ -697,6 +697,11 @@ angular.module('Tribetron').factory('Robot', ['$timeout', 'BattleLog', 'GameHand
 			this.destroyed = false
 			this.currentHealth = Math.min(this.type.maxHealth, (this.currentHealth + heal))
 			BattleLog.add(source + ' heals ' + this.type.typeName + ' for ' + heal + ' health')
+			this.beingHealed = true
+			var thisRobot = this
+			$timeout(function() {
+				thisRobot.beingHealed = false
+			}, 100 * GameSettings.getGameSpeed())
 		}
 		this.isInjured = function() {
 			return this.currentHealth < this.type.maxHealth

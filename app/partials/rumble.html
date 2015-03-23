@@ -43,6 +43,7 @@
 							</div>
 							<div ng-if="area.trap" class="trap" ng-class="area.trap.trapType.cssName"></div>
 							<img ng-if="area.robot" class="hit" ng-hide="area.robot.damaged < 1" src="img/hit.png" />
+							<img ng-if="area.robot" class="heal" ng-hide="!area.robot.beingHealed" src="img/repair.png" />
 							<img ng-if="area.explosion" class="explosion" ng-hide="!area.explosion" src="img/explosion.png" />
 						</td>
 					</tr>
