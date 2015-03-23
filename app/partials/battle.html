@@ -1,6 +1,18 @@
 <div class="container">
 	<div class="row">
-		<div class="col-xs-9">
+		<div class="col-xs-2 battle-info">
+			<button class="btn btn-primary" ng-click="pickAction('Attack')" ng-disabled="waitingForPlayerTurn || gameState.isOver()">Attack</button>
+			<button class="btn btn-primary" ng-click="pickAction('Repair')" ng-disabled="waitingForPlayerTurn || gameState.isOver()">Repair</button>
+			<div class="row">
+				<h1>{{team.name}}</h1>
+				<span ng-repeat="botsByType in team.botsByTypeAlive"><span class="robot-small" ng-class="bot.getTypeClass()" ng-repeat="bot in botsByType.bots"></span></span>
+			</div>
+			<div class="row" style="padding-top: 5px;">
+				<button ng-click="settings.decreaseSpeed()" class="btn btn-default" ng-disabled="!settings.canDecreaseSpeed()">- Speed</button>
+				<button ng-click="settings.increaseSpeed()" class="btn btn-default" ng-disabled="!settings.canIncreaseSpeed()">+ Speed</button>
+			</div>
+		</div>
+		<div class="col-xs-8">
 		
 			<table class="table-bordered game">
 				<tbody>
@@ -20,30 +32,24 @@
 					</tr>
 				</tbody>
 			</table>
-			<button class="btn btn-primary" ng-click="pickAction('Attack')" ng-disabled="waitingForPlayerTurn || gameState.isOver()">Attack</button>
-			<button class="btn btn-primary" ng-click="pickAction('Repair')" ng-disabled="waitingForPlayerTurn || gameState.isOver()">Repair</button>
-			<button ng-click="settings.decreaseSpeed()" class="btn btn-default" ng-disabled="!settings.canDecreaseSpeed()">- Speed</button>
-			<button ng-click="settings.increaseSpeed()" class="btn btn-default" ng-disabled="!settings.canIncreaseSpeed()">+ Speed</button>
-			<span>{{gameState.round}}/{{gameState.maxRounds}}</span>
-			
-		</div>
-		
-		<div class="col-xs-3 battle-info">
-			<div class="row">
-				<h1>{{opponent.type.name}}</h1>
-				<strong>{{opponentTaunt}}</strong>
-			</div>
-		
-			<div ng-repeat="team in teams" class="row">
-				<h1>{{team.name}}</h1>
-				<strong style="float:left;">Bots left&nbsp;</strong> <span ng-repeat="botsByType in team.botsByTypeAlive"><span class="robot-small" ng-class="bot.getTypeClass()" ng-repeat="bot in botsByType.bots"></span></span>
-			</div>
-			
+			<span><strong>Round {{gameState.round}}/{{gameState.maxRounds}}</strong></span>
 			<div ng-show="gameState.isOver()" class="row">
 				<h1>Game Over!</h1>
 				<p style="white-space: pre;">{{winMessage()}}</p>
 				<button ng-show="victorious" ng-click="continueGame()" class="btn btn-primary">Continue Campaign</button>
 				<button ng-show="!victorious" ng-click="backToMain()" class="btn btn-primary">Continue to Main Menu</button>
+			</div>
+		</div>
+		
+		<div class="col-xs-2 battle-info">
+			<div class="row">
+				<h1>{{opponent.type.name}}</h1>
+				<img class="opponent-portrait" src="{{opponent.type.image}}" /><br />
+				<strong>{{opponentTaunt}}</strong>
+			</div>
+			<div class="row">
+				<h1>{{enemyTeam.name}}</h1>
+				<span ng-repeat="botsByType in enemyTeam.botsByTypeAlive"><span class="robot-small" ng-class="bot.getTypeClass()" ng-repeat="bot in botsByType.bots"></span></span>
 			</div>
 		</div>
 	

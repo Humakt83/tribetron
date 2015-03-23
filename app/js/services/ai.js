@@ -3,17 +3,21 @@
 angular.module('Tribetron').factory('AI', ['Abilities', function(Abilities) {
 
 	var opponents = [NPE, Base]
-
+	var imgPrefix = 'img/', imgPostfix = '.png'
+	
 	function NPE() {
 		this.taunts = ['Null pointer exception', 'Index out of array bounds', '...', 'Undefined is not defined']
 		this.intelligence = 'none'
 		this.name = 'NPE'
+		this.image = imgPrefix + 'NPEopponent' + imgPostfix
 	}
 	
 	function Base() {
-		this.taunts = ['All your base are belong to us', 'Evening gentlemen', 'Ha ha ha', 'What you say!']
+		this.taunts = ['All your base are belong to us', 'Evening gentlemen', 'Ha ha ha', 'What you say!', 'Somebody set up us the bomb', 'Main screen turn on', 
+			'You have no chance to survive make your time', 'Move `ZIG`', 'For great justice']
 		this.intelligence = 'low'
 		this.name = 'Base'
+		this.image = imgPrefix + 'baseopponent' + imgPostfix
 	}
 	
 	function Opponent(type) {
