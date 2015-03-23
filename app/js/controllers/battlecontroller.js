@@ -70,6 +70,8 @@ angular.module('Tribetron').controller('BattleController', ['$scope', '$interval
 			placeTraps(traps)
 			
 			$scope.gameState = GameHandler.createGameState([$scope.team, $scope.enemyTeam], numberOfRounds)
+			
+			$scope.opponentTaunt = $scope.opponent.type.helloMessage
 		})
 	}
 	

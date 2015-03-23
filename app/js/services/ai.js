@@ -6,15 +6,18 @@ angular.module('Tribetron').factory('AI', ['Abilities', function(Abilities) {
 	var imgPrefix = 'img/', imgPostfix = '.png'
 	
 	function NPE() {
-		this.taunts = ['Null pointer exception', 'Index out of array bounds', '...', 'Undefined is not defined']
+		this.taunts = ['Null pointer exception', 'Index out of array bounds', '...', 'Undefined is not defined', 'There is no message for this error', 'An error occurred while displaying previous error',
+			'User error - replace user', 'No error occurred', 'BlueScreen has performed an illegal operation']
+		this.helloMessage = 'Hello World'
 		this.intelligence = 'none'
 		this.name = 'NPE'
 		this.image = imgPrefix + 'NPEopponent' + imgPostfix
 	}
 	
 	function Base() {
-		this.taunts = ['All your base are belong to us', 'Evening gentlemen', 'Ha ha ha', 'What you say!', 'Somebody set up us the bomb', 'Main screen turn on', 
+		this.taunts = ['All your base are belong to us', 'Ha ha ha', 'What you say!', 'Somebody set up us the bomb', 'Main screen turn on', 
 			'You have no chance to survive make your time', 'Move `ZIG`', 'For great justice']
+		this.helloMessage = 'Evening gentlemen'
 		this.intelligence = 'low'
 		this.name = 'Base'
 		this.image = imgPrefix + 'baseopponent' + imgPostfix
