@@ -3,7 +3,7 @@
 angular.module('Tribetron').factory('Robot', ['$timeout', 'BattleLog', 'GameHandler', 'GameSettings', function($timeout, BattleLog, GameHandler, GameSettings) {
 	var types = [Hunter, Box, Medic, Totter, Radiator, Psycho, Crate, Zipper, Multiplicator, Cannoneer, 
 				Sniper, Hacker, Destructor, Trasher, PsychoMedic, HotTot, MegaHunter, Titan, Tauron, Colossus,
-				CombinatorAtomitum, CombinatorPlutan, Disablor, Doctor]
+				CombinatorAtomitum, CombinatorPlutan, Disablor, Doctor, Emanator]
 	
 	function Hunter() {
 		this.takeTurn = function(bot, map, team) {
@@ -282,6 +282,33 @@ angular.module('Tribetron').factory('Robot', ['$timeout', 'BattleLog', 'GameHand
 		this.intelligence = 'low'
 		this.typeName = 'radiator'
 		this.description = 'Radiator seeks out enemies and inflicts damage to all the robots surrounding itself.'
+	}
+	
+	function Emanator() {
+		this.radiateDamage = function(map, area, bot) {
+			var areasNear = map.findAreasCloseToArea(area)
+			angular.forEach(areasNear, function(areaNear) {
+				if (areaNear.robot) areaNear.robot.receiveDamage('Emanator', bot.type.radiationDamage, map)
+			})
+		}
+		this.takeTurn = function(bot, map, team) {
+			var area = map.findAreaWhereBotIs(bot)
+			var opponentAreas = map.findOpponents(team)
+			var closestOpponent = area.findClosest(opponentAreas)
+			if (area.calculateDistance(closestOpponent) < 2) {
+				this.radiateDamage(map, area, bot)
+			} else {
+				BattleLog.add('Emanator moves towards enemy.')
+				map.moveBotTowardsUsingFinder(area, closestOpponent)
+			}
+		}
+		this.levelRequirement = 3
+		this.price = 25
+		this.maxHealth = 19
+		this.radiationDamage = 9
+		this.intelligence = 'medium'
+		this.typeName = 'emanator'
+		this.description = 'Emanator seeks out enemies and emits damage to all the robots surrounding itself.'
 	}
 	
 	function Cannoneer() {
