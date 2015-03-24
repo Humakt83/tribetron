@@ -1,10 +1,16 @@
 angular.module('Tribetron').controller('BotInfo', ['$scope', '$modalInstance', 'Player', 'Robot', 'botTypeName', function ($scope, $modalInstance, Player, Robot, botTypeName) {
+	
 	$scope.botTypeName = botTypeName
-	angular.forEach(Robot.getTypesAsObjects(), function(robotType) {
-		if (robotType.typeName == botTypeName) {
-			$scope.robotDetails = Robot.getDetails(robotType)
-		}
-	})
+	
+	if (botTypeName === 'avatar') {
+		$scope.robotDetails = Robot.getDetails(Player.getPlayer().avatar.type)
+	} else {
+		angular.forEach(Robot.getTypesAsObjects(), function(robotType) {
+			if (robotType.typeName == botTypeName) {
+				$scope.robotDetails = Robot.getDetails(robotType)
+			}
+		})
+	}
 	
     $scope.cancel = function () {
 		$modalInstance.dismiss('cancel')
