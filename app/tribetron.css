@@ -560,6 +560,24 @@ p.detail {
 	display: block;
 }
 
+.doctor:before {
+	background: url(img/doctorbot.png);
+	width: 100%;
+	height: 100%;
+	content: "";
+    background-size: 100%;
+	display: block;
+}
+
+.doctor_enemy:before {
+	background: url(img/doctorbot2.png);
+	width: 100%;
+	height: 100%;
+	content: "";
+    background-size: 100%;
+	display: block;
+}
+
 .unknown:before {
 	background: url(img/unknown.png);
 	width: 100%;

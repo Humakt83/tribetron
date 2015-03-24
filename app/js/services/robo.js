@@ -3,7 +3,7 @@
 angular.module('Tribetron').factory('Robot', ['$timeout', 'BattleLog', 'GameHandler', 'GameSettings', function($timeout, BattleLog, GameHandler, GameSettings) {
 	var types = [Hunter, Box, Medic, Totter, Radiator, Psycho, Crate, Zipper, Multiplicator, Cannoneer, 
 				Sniper, Hacker, Destructor, Trasher, PsychoMedic, HotTot, MegaHunter, Titan, Tauron, Colossus,
-				CombinatorAtomitum, CombinatorPlutan, Disablor]
+				CombinatorAtomitum, CombinatorPlutan, Disablor, Doctor]
 	
 	function Hunter() {
 		this.takeTurn = function(bot, map, team) {
@@ -154,6 +154,28 @@ angular.module('Tribetron').factory('Robot', ['$timeout', 'BattleLog', 'GameHand
 		this.intelligence = 'medium'
 		this.typeName = 'medic'
 		this.description = 'Medic tries to help the closest injured ally.'
+	}
+	
+	function Doctor() {
+		this.takeTurn = function(bot, map, team) {
+			var area = map.findAreaWhereBotIs(bot)
+			var injuredAreas = map.findInjuredAllies(team, bot)
+			if (injuredAreas.length > 0) {
+				var closestInjured = area.findClosest(injuredAreas)
+				if (area.calculateDistance(closestInjured) < 2) closestInjured.robot.receiveHealing('Doctor', this.heal)
+				else {
+					map.moveBotTowardsUsingFinder(area, closestInjured)
+					BattleLog.add('Doctor moves towards injured ally')
+				}
+			} else BattleLog.add('Doctor does nothing.')
+		}
+		this.levelRequirement = 4
+		this.price = 32
+		this.heal = 12
+		this.maxHealth = 24
+		this.intelligence = 'medium'
+		this.typeName = 'doctor'
+		this.description = 'Upgraded version of Medic, Doctor rushes to heal closest injured or fallen ally.'
 	}
 	
 	function Totter() {
