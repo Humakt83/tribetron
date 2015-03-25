@@ -1,9 +1,9 @@
 'use strict'
 
-angular.module('Tribetron').factory('Robot', ['$timeout', 'BattleLog', 'GameHandler', 'GameSettings', function($timeout, BattleLog, GameHandler, GameSettings) {
+angular.module('Tribetron').factory('Robot', ['$timeout', 'BattleLog', 'GameHandler', 'GameSettings', 'Trap', function($timeout, BattleLog, GameHandler, GameSettings, Trap) {
 	var types = [Hunter, Box, Medic, Totter, Radiator, Psycho, Crate, Zipper, Multiplicator, Cannoneer, 
 				Sniper, Hacker, Destructor, Trasher, PsychoMedic, HotTot, MegaHunter, Titan, Tauron, Colossus,
-				CombinatorAtomitum, CombinatorPlutan, Disablor, Doctor, Emanator]
+				CombinatorAtomitum, CombinatorPlutan, Disablor, Doctor, Emanator, Trapper]
 	
 	function Hunter() {
 		this.takeTurn = function(bot, map, team) {
@@ -706,6 +706,29 @@ angular.module('Tribetron').factory('Robot', ['$timeout', 'BattleLog', 'GameHand
 		this.intelligence = 'medium'
 		this.typeName = 'plutan'
 		this.description = 'Plutan tries to reach its other half, Atomitum, and combine with it into Colossus.'
+	}
+	
+	function Trapper() {
+		this.takeTurn = function(bot, map, team) {
+			var area = map.findAreaWhereBotIs(bot)
+			var opponentAreas = map.findOpponents(team, true)
+			var closestOpponent = area.findClosest(opponentAreas)
+			if (area.calculateDistance(closestOpponent) < 3) {
+				if (map.moveBotAway(area, closestOpponent)) {
+					area.setTrap(Trap.createTrap(Trap.getTrapTypes()[0]))
+					BattleLog.add('Trapper lays a mine')
+				}
+			} else {
+				BattleLog.add('Trapper moves towards enemy.')
+				map.moveBotTowardsUsingFinder(area, closestOpponent, true)
+			}
+		}
+		this.levelRequirement = 2
+		this.price = 22
+		this.maxHealth = 23
+		this.intelligence = 'high'
+		this.typeName = 'trapper'
+		this.description = 'Trapper lays trap for its enemies.'
 	}
 	
 	function Robot(type) {
