@@ -1,7 +1,11 @@
 'use strict'
 
 angular.module('Tribetron').factory('Abilities', [function() {
-
+	
+	var calculateDamage = function(bot) {
+		return Math.max(1, Math.floor(bot.type.maxHealth * 0.15))
+	}
+	
 	function Repair() {
 		this.activate = function(source, bot) {
 			if (!bot.destroyed) {
@@ -17,7 +21,7 @@ angular.module('Tribetron').factory('Abilities', [function() {
 	function Attack() {
 		this.activate = function(source, bot, map) {
 			if (!bot.destroyed) {
-				var damage = Math.max(1, Math.floor(bot.type.maxHealth * 0.15))
+				var damage = calculateDamage(bot)
 				bot.receiveDamage(source, damage, map)
 				return true
 			}
@@ -56,6 +60,9 @@ angular.module('Tribetron').factory('Abilities', [function() {
 			return _.find(abilities, function(ability) {
 				return ability.name === name
 			})
+		},
+		wouldAttackDestroyBot : function(bot) {
+			return bot.currentHealth <= calculateDamage(bot)
 		}
 	}
 }])

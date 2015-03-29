@@ -2,7 +2,7 @@
 
 angular.module('Tribetron').factory('AI', ['Abilities', function(Abilities) {
 
-	var opponents = [NPE, Base]
+	var opponents = [NPE, Base, Mega]
 	var imgPrefix = 'img/', imgPostfix = '.png'
 	
 	function NPE() {
@@ -23,6 +23,15 @@ angular.module('Tribetron').factory('AI', ['Abilities', function(Abilities) {
 		this.image = imgPrefix + 'baseopponent' + imgPostfix
 	}
 	
+	function Mega() {
+		this.taunts = ['I’ll crush you with my bare hands!', 'Why throw away your life so recklessly?', 'We´ll see who´s ready for the scrap heap!',
+			 'I´ll reduce you to titanium fragments', 'I´ve got morons on my team!']
+		this.helloMessage = 'Peace through tyranny.'
+		this.intelligence = 'medium'
+		this.name = 'Mega'
+		this.image = imgPrefix + 'megaopponent' + imgPostfix
+	}
+	
 	function Opponent(type) {
 		this.playLowIntelligenceTurn = function(team, map) {
 			var allies = map.findInjuredAllies(team, 'none', true)
@@ -31,18 +40,55 @@ angular.module('Tribetron').factory('AI', ['Abilities', function(Abilities) {
 			} else {
 				var opponents = map.findOpponents(team)
 				Abilities.getAbilityByName('Attack').activate(this.type.name, opponents[0].robot, map)
-			}
-			
+			}			
 		}
+		
+		this.playMediumIntelligenceTurn = function(team, map) {
+			function tryToUseTeleport() {
+				function findDangerousBotAndPlaceThemNextToOpponent(type) {
+					var dangerous = map.findAreaWithBotByTypeName(type, undefined, true)
+					if (dangerous.length > 0) {
+						var closest = map.findClosestOpponent(dangerous[0], team)
+						if (dangerous[0].calculateDistance(closest) > 2) {
+							var areasClose = map.findAreasCloseToArea(closest)
+							var areaToTeleport = _.find(areasClose, function(area) {
+								return map.botCanBePlacedOnArea(area)
+							})
+							if (areaToTeleport) {
+								map.moveBot(dangerous[0], areaToTeleport)
+								return true
+							}
+						}						
+					}
+					return false
+				}
+				var usedTeleport = findDangerousBotAndPlaceThemNextToOpponent('hottot')
+				usedTeleport = usedTeleport || findDangerousBotAndPlaceThemNextToOpponent('psycho')
+				usedTeleport = usedTeleport || findDangerousBotAndPlaceThemNextToOpponent('totter')
+				return usedTeleport
+			}
+			var destroyableOpponent = _.find(map.findOpponents(team), function(opponentArea) {
+				return Abilities.wouldAttackDestroyBot(opponentArea.robot)
+			})
+			if (destroyableOpponent) {
+				Abilities.getAbilityByName('Attack').activate(this.type.name, destroyableOpponent.robot, map)
+			} else if(!tryToUseTeleport()) {
+				this.playLowIntelligenceTurn(team, map)
+			}
+		}
+		
 		this.playTurn = function(team, map) {
 			switch(this.type.intelligence) {
 				case 'none':
-					break;
+					break
 				case 'low':
 					this.playLowIntelligenceTurn(team, map)
-					break;
+					break
+				case 'medium':
+					this.playMediumIntelligenceTurn(team, map)
+					break
 				default:
-					break;
+					break
 			}
 			return this.type.taunts[Math.floor(Math.random() * this.type.taunts.length)]
 		}

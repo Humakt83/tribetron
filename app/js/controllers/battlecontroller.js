@@ -149,7 +149,7 @@ angular.module('Tribetron').controller('BattleController', ['$scope', '$interval
 	
 	$scope.doAction = function(area) {
 		if (!$scope.actionPossible(area)) return
-		if ($scope.action.activate($scope.player.name, area.robot, $scope.map, area)) {
+		if ($scope.action.activate($scope.player.name, area.robot, $scope.map, area) && !$scope.gameState.isOver()) {
 			$scope.opponentTaunt = $scope.opponent.playTurn($scope.enemyTeam, $scope.map)
 			$scope.play()
 		}

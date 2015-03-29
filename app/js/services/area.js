@@ -179,6 +179,10 @@ angular.module('Tribetron').factory('AreaMap', ['$filter', '$timeout', 'GameSett
 				return area.robot && (includeDestroyed || !area.robot.destroyed) && area.robot.team !== team 
 			})
 		}
+		this.findClosestOpponent = function(botArea, team, includeDestroyed) {
+			var opponents = this.findOpponents(team, includeDestroyed)
+			return botArea.findClosest(_.filter(opponents, function(opp) { return opp !== botArea }))
+		}		
 		this.findInjuredAllies = function(team, bot, doNotIncludeDestroyed) {
 			return $filter('filter')(areas, function(area) { 
 				return area.robot && area.robot.isInjured() && area.robot.team === team && area.robot !== bot && (!doNotIncludeDestroyed || !area.robot.destroyed)

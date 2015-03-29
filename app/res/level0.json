@@ -1,10 +1,10 @@
 {
 "reward": 15,
-"areaWidth": 7,
+"areaWidth": 10,
 "areaHeight": 7,
 "maxRoster": 3,
 "rounds": 10,
-"rosterOpponent": ["totter", "totter", "totter", "totter"],
+"rosterOpponent": ["totter", "totter", "totter", "totter", "totter", "totter", "totter"],
 "opponentTeamName": "Totters",
-"opponent": "Base"
+"opponent": "Mega"
 }
