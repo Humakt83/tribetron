@@ -95,7 +95,7 @@ angular.module('Tribetron').controller('VentureController', ['$scope', '$interva
               $interval.cancel($scope.monstersTurn)
 			  $scope.monstersTurnPlaying = false
             }
-          }, 100 * GameSettings.getGameSpeed())
+          }, 50 * GameSettings.getGameSpeed())
 	}
 	
 	$scope.playerMove = function(x, y) {
