@@ -2,36 +2,60 @@
 
 angular.module('Tribetron').factory('Abilities', [function() {
 
-	var repair = function(source, bot) {
-		if (!bot.destroyed)	bot.receiveHealing(source, Math.max(1, Math.floor(bot.type.maxHealth * 0.1)))
-	}
-	
-	var attack = function(source, bot, map) {
-		if (!bot.destroyed) {
-			var damage = Math.max(1, Math.floor(bot.type.maxHealth * 0.15))
-			bot.receiveDamage(source, damage, map)
+	function Repair() {
+		this.activate = function(source, bot) {
+			if (!bot.destroyed) {
+				bot.receiveHealing(source, Math.max(1, Math.floor(bot.type.maxHealth * 0.1)))
+				return true
+			}
+			return false
 		}
+		this.name = 'Repair'
+		this.levelRequirement = 1
 	}
 	
-	var abilityNames = ['Repair', 'Attack']
+	function Attack() {
+		this.activate = function(source, bot, map) {
+			if (!bot.destroyed) {
+				var damage = Math.max(1, Math.floor(bot.type.maxHealth * 0.15))
+				bot.receiveDamage(source, damage, map)
+				return true
+			}
+			return false
+		}
+		this.name = 'Attack'
+		this.levelRequirement = 1
+	}
+	
+	function Teleport() {
+		this.activate = function(source, bot, map, targetArea) {
+			if (!this.selectedBot) {
+				this.selectedBot = bot
+				return false
+			} else if (targetArea.isEmpty()){
+				map.moveBot(map.findAreaWhereBotIs(this.selectedBot), targetArea)
+				this.selectedBot = undefined
+				return true
+			} else {
+				this.selectedBot = undefined
+				return false
+			}
+		}
+		this.selectedBot = undefined
+		this.name = 'Teleport'
+		this.levelRequirement = 3
+	}
+	
+	var abilities = [new Attack(), new Repair(), new Teleport()]
 	
 	return {
-		getAbilityNames : function() {
+		getAbilities : function() {
 			return abilities
 		},
-		getAbility : function(abilityName) {
-			var ability
-			switch(abilityName) {
-				case abilityNames[0]: 
-					ability = repair
-					break;
-				case abilityNames[1]:
-					ability = attack
-					break;
-				default:
-					throw 'Invalid ability: ' + abilityName
-			}
-			return ability
+		getAbilityByName : function(name) {
+			return _.find(abilities, function(ability) {
+				return ability.name === name
+			})
 		}
 	}
 }])

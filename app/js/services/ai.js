@@ -27,10 +27,10 @@ angular.module('Tribetron').factory('AI', ['Abilities', function(Abilities) {
 		this.playLowIntelligenceTurn = function(team, map) {
 			var allies = map.findInjuredAllies(team, 'none', true)
 			if (allies && allies.length > 0) {
-				Abilities.getAbility('Repair')(this.type.name, allies[0].robot, map)
+				Abilities.getAbilityByName('Repair').activate(this.type.name, allies[0].robot, map)
 			} else {
 				var opponents = map.findOpponents(team)
-				Abilities.getAbility('Attack')(this.type.name, opponents[0].robot, map)
+				Abilities.getAbilityByName('Attack').activate(this.type.name, opponents[0].robot, map)
 			}
 			
 		}

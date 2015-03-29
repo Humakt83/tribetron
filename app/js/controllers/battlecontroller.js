@@ -12,6 +12,7 @@ angular.module('Tribetron').controller('BattleController', ['$scope', '$interval
 	
 	$scope.settings = GameSettings
 	$scope.infoOpener = InfoOpener
+	$scope.abilities = Abilities.getAbilities()
 	
 	function init() {
 		var createTeamWithRobots = function(teamName, amountOfRobots, rosterOpponent) {
@@ -130,13 +131,16 @@ angular.module('Tribetron').controller('BattleController', ['$scope', '$interval
 	$scope.actionPossible = function(area) {
 		if ($scope.waitingForPlayerTurn || !$scope.action) return false
 		var actionPossible
-		switch ($scope.action) {
+		switch ($scope.action.name) {
 			case 'Repair': 
 				actionPossible = area.robot && !area.robot.destroyed && area.robot.currentHealth < area.robot.type.maxHealth
 				break
 			case 'Attack': 
 				actionPossible = area.robot && !area.robot.destroyed
 				break
+			case 'Teleport':
+				actionPossible = area.robot && !$scope.action.selectedBot || ($scope.action.selectedBot && area.isEmpty())
+				break;
 			default:
 				actionPossible = false
 		}
@@ -145,9 +149,10 @@ angular.module('Tribetron').controller('BattleController', ['$scope', '$interval
 	
 	$scope.doAction = function(area) {
 		if (!$scope.actionPossible(area)) return
-		Abilities.getAbility($scope.action)($scope.player.name, area.robot, $scope.map)
-		$scope.opponentTaunt = $scope.opponent.playTurn($scope.enemyTeam, $scope.map)
-		$scope.play()
+		if ($scope.action.activate($scope.player.name, area.robot, $scope.map, area)) {
+			$scope.opponentTaunt = $scope.opponent.playTurn($scope.enemyTeam, $scope.map)
+			$scope.play()
+		}
 	}
 	
 	if (Team.getPlayerTeam()) init()

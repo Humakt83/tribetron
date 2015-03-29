@@ -1,8 +1,7 @@
 <div class="container">
 	<div class="row">
 		<div class="col-xs-2 battle-info">
-			<button class="btn btn-primary" ng-click="pickAction('Attack')" ng-disabled="waitingForPlayerTurn || gameState.isOver()">Attack</button>
-			<button class="btn btn-primary" ng-click="pickAction('Repair')" ng-disabled="waitingForPlayerTurn || gameState.isOver()">Repair</button>
+			<button ng-repeat="ability in abilities" class="btn btn-primary" ng-click="pickAction(ability)" ng-hide="player.level < ability.levelRequirement" ng-disabled="waitingForPlayerTurn || gameState.isOver()">{{ability.name}}</button>
 			<div class="row">
 				<h1>{{team.name}}</h1>
 				<span ng-repeat="botsByType in team.botsByTypeAlive"><span class="robot-small" ng-class="bot.getTypeClass()" ng-repeat="bot in botsByType.bots"></span></span>
