@@ -1,5 +1,14 @@
 <div class="info-popup-bot-info">
-	<span class="bot-name">{{botTypeName | capitalize}}</span><br />
-	<p class="detail" ng-repeat="detail in robotDetails">{{detail | capitalize | spacify}}</p>
-	<button class="btn btn-xs btn-primary" ng-click="cancel()">Close</button>
+	<div class="modal-header">
+		<span class="bot-name">{{botTypeName | capitalize}}</span>
+	</div>
+	<div class="modal-body">
+		<div class="info-detail">
+			<p ng-repeat="detail in robotDetails">{{detail | capitalize | spacify}}</p>
+		</div>
+		<p class="info-detail">{{description}}</p>		
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" ng-click="cancel()">Close</button>
+	</div>
 </div>

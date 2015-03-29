@@ -101,6 +101,20 @@ p.detail {
 	margin: 0 0 0;
 }
 
+.info-detail {
+	background: rgb(118, 118, 118);
+	color: white;
+	padding: 1px;
+	padding-left: 5px;
+	border-radius: 5px;
+	border-color: rgb(118, 118, 118);
+	margin-bottom: 3px;
+}
+
+.info-detail p {
+	margin-bottom: 1px;
+}
+
 .battle-log {
 	width: 400px;
 	height: 400px;
@@ -127,9 +141,10 @@ p.detail {
 }
 
 .robot-small {
-	width: 20px;
-	height: 20px;
+	width: 25px;
+	height: 25px;
 	float: left;
+	margin-right: 1px;
 }
 
 .robot-large {
