@@ -648,7 +648,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', 'BattleLog', 'GameHand
 				var closestTarget = area.findClosest(targets)
 				var distance = area.calculateDistance(closestTarget)
 				if (distance < 2) { 
-					bot.type = new Colossus() //for now
+					bot.type = new Colossus()
 					bot.resetHealth()
 					team.removeBot(closestTarget.robot)
 					GameHandler.getGameState().removeBotFromQueue(closestTarget.robot)
@@ -688,7 +688,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', 'BattleLog', 'GameHand
 				var closestTarget = area.findClosest(targets)
 				var distance = area.calculateDistance(closestTarget)
 				if (distance < 2) { 
-					bot.type = new Colossus() //for now
+					bot.type = new Colossus()
 					bot.resetHealth()
 					team.removeBot(closestTarget.robot)
 					GameHandler.getGameState().removeBotFromQueue(closestTarget.robot)
