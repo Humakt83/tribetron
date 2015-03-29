@@ -1,9 +1,11 @@
 'use strict'
 
-angular.module('Tribetron').controller('MainController', ['$scope', '$location', '$modal', 'Player', function($scope, $location, $modal, Player) {
-
+angular.module('Tribetron').controller('MainController', ['$scope', '$location', '$modal', 'Player', 'Campaign', function($scope, $location, $modal, Player, Campaign) {
+	
+	Campaign.reset()
+	Player.reset()
+	
 	$scope.newCampaign = function() {
-		Player.reset()
 		$modal.open({
 			templateUrl: './partials/player.html',
 			controller: 'PlayerController'
