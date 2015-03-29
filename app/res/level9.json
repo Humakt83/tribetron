@@ -6,6 +6,6 @@
 "rounds": 25,
 "rosterOpponent": ["crate", "crate", "crate", "hacker", "hacker", "trasher", "trasher", "psycho", "medic", "psycho-medic"],
 "opponentTeamName": "Hakulons",
-"opponent": "Base",
+"opponent": "Mega",
 "traps": ["Mine", "Mine", "Mine", "Stun mine", "Stun mine", "Plasma pool", "Plasma pool"]
 }

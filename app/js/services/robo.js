@@ -600,6 +600,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', 'BattleLog', 'GameHand
 		this.range = 5
 		this.intelligence = 'medium'
 		this.typeName = 'titan'
+		this.cannotBeTeleported = true
 		this.description = 'Titan delivers massive damage from range and even more at melee combat.'
 	}
 	
@@ -626,6 +627,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', 'BattleLog', 'GameHand
 		this.meleeDamage = 30
 		this.intelligence = 'medium'
 		this.typeName = 'colossus'
+		this.cannotBeTeleported = true
 		this.description = 'Colossus crushes any enemy under its treadmills.'
 	}
 	
@@ -665,6 +667,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', 'BattleLog', 'GameHand
 		this.meleeDamage = 5
 		this.intelligence = 'medium'
 		this.typeName = 'atomitum'
+		this.cannotBeTeleported = true
 		this.description = 'Atomitum tries to reach its other half, Plutan, and combine with it into Colossus.'
 	}
 	
@@ -705,6 +708,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', 'BattleLog', 'GameHand
 		this.meleeDamage = 6
 		this.intelligence = 'medium'
 		this.typeName = 'plutan'
+		this.cannotBeTeleported = true
 		this.description = 'Plutan tries to reach its other half, Atomitum, and combine with it into Colossus.'
 	}
 	
