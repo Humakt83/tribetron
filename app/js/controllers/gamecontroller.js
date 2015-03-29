@@ -1,6 +1,8 @@
 'use strict'
 
-angular.module('Tribetron').controller('GameController', ['$scope', '$location', 'Campaign', 'Player', function($scope, $location, Campaign, Player) {
+angular.module('Tribetron').controller('GameController', ['$scope', '$location', 'Campaign', 'Player', 'InfoOpener', function($scope, $location, Campaign, Player, InfoOpener) {
+	
+	$scope.infoOpener = InfoOpener
 	
 	function initCampaign() {
 		$scope.started = true

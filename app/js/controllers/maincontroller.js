@@ -8,7 +8,8 @@ angular.module('Tribetron').controller('MainController', ['$scope', '$location',
 	$scope.newCampaign = function() {
 		$modal.open({
 			templateUrl: './partials/player.html',
-			controller: 'PlayerController'
+			controller: 'PlayerController',
+			size: 'sm'
 		})
 	}
 
