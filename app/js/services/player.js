@@ -21,7 +21,7 @@ angular.module('Tribetron').factory('Player', ['Team', 'Robot', function(Team, R
 			this.avatar.type.meleeDamage += 2
 		}
 		this.name = playerName
-		this.money = 0
+		this.money = 5
 		this.team = Team.createPlayerTeam(teamName, [])
 		this.level = 1
 		this.avatar = Robot.createRobot(new Avatar())
