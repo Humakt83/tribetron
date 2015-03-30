@@ -11,13 +11,15 @@
 		</div>
 		
 		<div class="col-xs-offset-1 col-xs-3 pairs-info">
+			<p><strong>Pieces player:</strong> {{conquest.getAmountOfPieces(true)}}</p>
+			<p><strong>Pieces opponent:</strong> {{conquest.getAmountOfPieces(false)}}</p>
 			<p><strong>Reward</strong>: {{reward}} tribs</p>
 			<div class="btn-group">
 				<button class="btn btn-default" ng-disabled="victory" ng-click="skip()">Skip</button>
 				<button class="btn btn-success" ng-disabled="!victory" ng-click="win()">Continue</button>
 			</div>
-			<p ng-if="pairsOver">
-				{{pairsOverText}}
+			<p ng-if="conquestOver">
+				{{conquestOverText}}
 			</p>
 		</div>
 	</div>

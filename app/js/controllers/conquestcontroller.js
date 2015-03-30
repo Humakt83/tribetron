@@ -74,6 +74,11 @@ angular.module('Tribetron').controller('ConquestController', ['$scope', '$locati
 				return conquestPiece.owned && conquestPiece.playerPiece === player
 			}).length
 		}
+		this.getAmountOfFreePieces = function() {
+			return $filter('filter')(_.flatten(this.gameTable), function(conquestPiece) {
+				return !conquestPiece.owned
+			}).length
+		}
 		this.getPiece = function(x, y) {
 			return _.find(_.flatten(this.gameTable), function(piece) {
 				return piece.xPosition == x && piece.yPosition == y
@@ -126,9 +131,19 @@ angular.module('Tribetron').controller('ConquestController', ['$scope', '$locati
 		return false
 	}
 
+	if (!Player.getPlayer()) {
+		//$location.path('/')
+		//return
+	}
+	
 	$scope.conquest = new Conquest()
 	
 	$scope.selectPiece = function(piece) {
+		function gameOver() {
+			$scope.win = $scope.conquest.getSelectablePieces(true) > $scope.conquest.getSelectablePieces(false)
+			$scope.conquestOver = true
+			$scope.conquestOverText = $scope.win ? 'You have won this conquest, collect your reward and continue campaign' : 'Your defeat is shameful but campaign can still be continued'
+		}
 		if ($scope.conquest.isSelectable(piece, true)) {
 			if (!$scope.selectedPiece) {
 				$scope.selectedPiece = piece
@@ -137,13 +152,11 @@ angular.module('Tribetron').controller('ConquestController', ['$scope', '$locati
 				$scope.selectedPiece = undefined
 				playAITurn()
 				while ($scope.conquest.getSelectablePieces(true).length < 1 && playAITurn()) {}
+				if ($scope.conquest.getAmountOfFreePieces() < 1) {
+					gameOver()
+				}
 			}
 		}
-	}
-	
-	if (!Player.getPlayer()) {
-		//$location.path('/')
-		//return
 	}
 	
 	$scope.skip = function() {
