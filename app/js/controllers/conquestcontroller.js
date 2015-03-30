@@ -121,7 +121,9 @@ angular.module('Tribetron').controller('ConquestController', ['$scope', '$locati
 			var equalMoves = $filter('filter')(fromToScoreMap, function(fromToScore) { return fromToScore.score == moveWithMaxScore.score})
 			var moveToMake = equalMoves[Math.floor(Math.random() * equalMoves.length)]
 			$scope.conquest.movePiece(moveToMake.from, moveToMake.to)
+			return true
 		}
+		return false
 	}
 
 	$scope.conquest = new Conquest()
@@ -134,6 +136,7 @@ angular.module('Tribetron').controller('ConquestController', ['$scope', '$locati
 				$scope.conquest.movePiece($scope.selectedPiece, piece)
 				$scope.selectedPiece = undefined
 				playAITurn()
+				while ($scope.conquest.getSelectablePieces(true).length < 1 && playAITurn()) {}
 			}
 		}
 	}
