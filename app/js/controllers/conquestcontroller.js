@@ -1,10 +1,7 @@
 'use strict'
 
-angular.module('Tribetron').controller('ConquestController', ['$scope', '$location', '$filter', 'Player', function($scope, $location, $filter, Player) {
+angular.module('Tribetron').controller('ConquestController', ['$scope', '$location', '$filter', 'Player', 'Campaign', function($scope, $location, $filter, Player, Campaign) {
 
-	var width = 7, height = 7, reward = 50
-	
-	
 	function ConquestPiece(xPosition, yPosition, playerPiece, owned) {
 		this.getClass = function() {
 			if (!this.owned) 
@@ -31,7 +28,7 @@ angular.module('Tribetron').controller('ConquestController', ['$scope', '$locati
 		this.yPosition = yPosition
 	}
 	
-	function Conquest() {
+	function Conquest(width, height) {
 		this.hasMovableArea = function(conquestPiece) {
 			return $scope.conquest.getMovableAreas(conquestPiece).length > 0
 		}
@@ -132,11 +129,14 @@ angular.module('Tribetron').controller('ConquestController', ['$scope', '$locati
 	}
 
 	if (!Player.getPlayer()) {
-		//$location.path('/')
-		//return
+		$location.path('/')
+		return
 	}
 	
-	$scope.conquest = new Conquest()
+	Campaign.getScenario(Campaign.getCampaign().currentScenario).success(function(result) {
+		$scope.reward = result.reward
+		$scope.conquest = new Conquest(result.width, result.height)
+	})
 	
 	$scope.selectPiece = function(piece) {
 		function gameOver() {

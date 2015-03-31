@@ -49,6 +49,10 @@ angular.module('Tribetron').controller('GameController', ['$scope', '$location',
 		$location.path('/pairs')
 	}
 	
+	$scope.goToConquest = function() {
+		$location.path('/conquest')
+	}
+	
 	$scope.goToAdventure = function() {
 		$location.path('/venture')
 	}

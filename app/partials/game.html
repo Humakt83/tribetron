@@ -28,10 +28,18 @@
 					<button ng-click="goToShop()" style="float:right; margin-right: 15px;" class="btn btn-primary">Shop</button>
 				</div>
 			</div>
+			
 			<div ng-if="scenario.type && scenario.type == 'pairs'">
 				<div class="row">
 					<strong>Reward: {{scenario.reward}} tribs</strong>
 					<button ng-click="goToPairs()" style="float:right; margin-right: 15px;" class="btn btn-primary">Memory Challenge</button>
+				</div>
+			</div>
+			
+			<div ng-if="scenario.type && scenario.type == 'conquest'">
+				<div class="row">
+					<strong>Reward: {{scenario.reward}} tribs</strong>
+					<button ng-click="goToConquest()" style="float:right; margin-right: 15px;" class="btn btn-primary">Conquest</button>
 				</div>
 			</div>
 			
