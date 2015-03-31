@@ -93,6 +93,11 @@ table.adventure {
 	border-width: 10px;
 }
 
+table.conquest {
+	border-color: black;
+	border-width: 10px;
+}
+
 .touchable {
 	cursor: pointer
 }

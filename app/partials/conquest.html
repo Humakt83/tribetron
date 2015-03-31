@@ -1,7 +1,7 @@
 <div class="container">
 	<div class="row">
 		<div class="col-xs-8">
-			<table class="table-bordered game">
+			<table class="table-bordered game conquest">
 				<tr ng-repeat="row in conquest.gameTable track by $index">
 					<td class="floor" ng-repeat="piece in row" ng-class="{'floor-clickable' : conquest.isSelectable(piece, true)}" ng-click="selectPiece(piece)">
 						<div class="robot" ng-class="piece.getClass()"></div>
