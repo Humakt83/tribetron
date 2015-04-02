@@ -10,7 +10,7 @@ describe('Testing bots', function() {
 		robotService = Robot
 	}))
 	
-	it('robot should be defined', function() {
+	it('service should be defined', function() {
 		expect(robotService).toBeDefined()
 	})
 	
@@ -25,6 +25,12 @@ describe('Testing bots', function() {
 			expect(new botType().description).toBeDefined()
 			expect(new botType().levelRequirement).toBeDefined()
 		})
+	})
+	
+	it('returns details of given bot type', function() {
+		var details = robotService.getDetails(new (robotService.getTypes()[0])())
+		expect(details.length).toBeGreaterThan(0)
+		expect(details).toContain('levelRequirement: 1')
 	})
 	
 	it('creates robot with type', function() {
