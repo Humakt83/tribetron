@@ -34,5 +34,14 @@ describe('Testing bots', function() {
 		expect(bot.currentHealth).toBeDefined()
 		expect(bot.type).toBeDefined()
 	})
+	
+	it('robot is destroyed if it receives more damage than its current health', function() {
+		var bot = robotService.createRobot(new (robotService.getTypes()[1])())
+		expect(bot.destroyed).toBeFalsy()
+		expect(bot.currentHealth).toEqual(bot.type.maxHealth)
+		bot.receiveDamage('test', 900)
+		expect(bot.destroyed).toBeTruthy()
+		expect(bot.currentHealth).toEqual(0)
+	})
 
 })
