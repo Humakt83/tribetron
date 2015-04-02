@@ -43,5 +43,14 @@ describe('Testing bots', function() {
 		expect(bot.destroyed).toBeTruthy()
 		expect(bot.currentHealth).toEqual(0)
 	})
+	
+	it('destroyed robot will be undestroyed if it receives healing', function() {
+		var bot = robotService.createRobot(new (robotService.getTypes()[1])())
+		bot.receiveDamage('test', 900)
+		expect(bot.destroyed).toBeTruthy()
+		bot.receiveHealing('test', 2)
+		expect(bot.destroyed).toBeFalsy()
+		expect(bot.currentHealth).toEqual(2)
+	})
 
 })
