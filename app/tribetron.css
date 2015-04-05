@@ -138,6 +138,11 @@ p.detail {
 	background: rgb(10,255,10);
 }
 
+.health-bar_enemy {
+	height: 100%;
+	background: #00FFFF;
+}
+
 .robot {
 	z-index: 5;
 	width: 50px;
