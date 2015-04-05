@@ -13,6 +13,8 @@ angular.module('Tribetron').controller('BattleController', ['$scope', '$interval
 	$scope.settings = GameSettings
 	$scope.infoOpener = InfoOpener
 	$scope.abilities = Abilities.getAbilities()
+	$scope.action = undefined
+	
 	
 	function init() {
 		var createTeamWithRobots = function(teamName, amountOfRobots, rosterOpponent) {
@@ -125,11 +127,12 @@ angular.module('Tribetron').controller('BattleController', ['$scope', '$interval
 	}
 	
 	$scope.pickAction = function(action) {
+		if ($scope.action && $scope.action.selectedBot) $scope.action.selectedBot = undefined
 		$scope.action = action
 	}
 	
 	$scope.actionPossible = function(area) {
-		if ($scope.waitingForPlayerTurn || !$scope.action) return false
+		if ($scope.waitingForPlayerTurn || !$scope.action || $scope.gameState.isOver()) return false
 		var actionPossible
 		switch ($scope.action.name) {
 			case 'Repair': 
