@@ -543,7 +543,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 				map.moveBotTowardsUsingFinder(area, closestOpponent, true)
 			}
 		}
-		this.levelRequirement = 5
+		this.levelRequirement = 4
 		this.price = 25
 		this.maxHealth = 6
 		this.intelligence = 'high'
