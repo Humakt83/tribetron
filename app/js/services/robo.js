@@ -54,7 +54,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', 'BattleLog', 'GameHand
 				}
 			})
 		}
-		this.levelRequirement = 5
+		this.levelRequirement = 6
 		this.price = 50
 		this.maxHealth = 30
 		this.meleeDamage = 15
@@ -276,7 +276,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', 'BattleLog', 'GameHand
 			}
 		}
 		this.levelRequirement = 1
-		this.price = 10
+		this.price = 5
 		this.maxHealth = 9
 		this.radiationDamage = 4
 		this.intelligence = 'low'
@@ -357,7 +357,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', 'BattleLog', 'GameHand
 		}
 		this.levelRequirement = 2
 		this.price = 20
-		this.maxHealth = 15
+		this.maxHealth = 17
 		this.meleeDamage = 10
 		this.intelligence = 'insane'
 		this.typeName = 'psycho'
@@ -503,7 +503,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', 'BattleLog', 'GameHand
 				map.moveBotTowardsUsingFinder(area, closestOpponent, true)
 			}
 		}
-		this.levelRequirement = 4
+		this.levelRequirement = 5
 		this.price = 25
 		this.maxHealth = 6
 		this.intelligence = 'high'
@@ -592,7 +592,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', 'BattleLog', 'GameHand
 				map.moveBotTowardsUsingFinder(area, closestOpponent, false)
 			}
 		}
-		this.levelRequirement = 6
+		this.levelRequirement = 7
 		this.price = 120
 		this.maxHealth = 50
 		this.rangedDamage = 15
@@ -621,7 +621,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', 'BattleLog', 'GameHand
 				map.moveBotTowardsUsingFinder(area, closestOpponent, false)
 			}
 		}
-		this.levelRequirement = 6
+		this.levelRequirement = 7
 		this.price = 150
 		this.maxHealth = 75
 		this.meleeDamage = 30
@@ -661,7 +661,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', 'BattleLog', 'GameHand
 				}
 			} else this.seekEnemyInstead(bot, map, team)
 		}
-		this.levelRequirement = 4
+		this.levelRequirement = 5
 		this.price = 30
 		this.maxHealth = 20
 		this.meleeDamage = 5
@@ -702,7 +702,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', 'BattleLog', 'GameHand
 				}
 			} else this.seekEnemyInstead(bot, map, team)
 		}
-		this.levelRequirement = 4
+		this.levelRequirement = 5
 		this.price = 32
 		this.maxHealth = 22
 		this.meleeDamage = 6
