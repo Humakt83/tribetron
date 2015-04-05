@@ -1,9 +1,9 @@
 'use strict'
 
-angular.module('Tribetron').factory('Robot', ['$timeout', 'BattleLog', 'GameHandler', 'GameSettings', 'Trap', function($timeout, BattleLog, GameHandler, GameSettings, Trap) {
+angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog', 'GameHandler', 'GameSettings', 'Trap', function($timeout, $filter, BattleLog, GameHandler, GameSettings, Trap) {
 	var types = [Hunter, Box, Medic, Totter, Radiator, Psycho, Crate, Zipper, Multiplicator, Cannoneer, 
 				Sniper, Hacker, Destructor, Trasher, PsychoMedic, HotTot, MegaHunter, Titan, Tauron, Colossus,
-				CombinatorAtomitum, CombinatorPlutan, Disablor, Doctor, Emanator, Trapper]
+				CombinatorAtomitum, CombinatorPlutan, Disablor, Doctor, Emanator, Trapper, Cannon]
 	
 	function Hunter() {
 		this.takeTurn = function(bot, map, team) {
@@ -335,6 +335,46 @@ angular.module('Tribetron').factory('Robot', ['$timeout', 'BattleLog', 'GameHand
 		this.intelligence = 'low'
 		this.typeName = 'cannoneer'
 		this.description = 'While unable to move, Cannoneer strikes opponents from afar damaging it and all the surrounding targets'
+	}
+	
+	function Cannon() {
+		this.inflictDamage = function(map, area, bot) {
+			var areasNear = map.findAreasCloseToArea(area)
+			areasNear = _.flatten(_.map(areasNear, function(arnear) {
+				var areasClose = map.findAreasCloseToArea(arnear)
+				areasClose.push(arnear)
+				return areasClose
+			}))
+			areasNear.push(area)
+			areasNear = _.uniq(areasNear)
+			areasNear = $filter('filter')(areasNear, function(an) { return an.robot && !an.robot.destroyed })
+			angular.forEach(areasNear, function(areaNear) {
+				areaNear.robot.receiveDamage('Cannon', bot.type.explosiveDamage, map)
+			})
+			area.setExplosion(true)
+		}
+		this.takeTurn = function(bot, map, team) {
+			var area = map.findAreaWhereBotIs(bot)
+			var opponentAreas = map.findOpponents(team)
+			var closestOpponent = area.findClosest(opponentAreas)
+			var distance = area.calculateDistance(closestOpponent)
+			if (distance < 2) {
+				if (map.moveBotAway(area, closestOpponent)) BattleLog.add('Cannon moves away from the enemy')
+			} else if (distance <= this.range) {
+				this.inflictDamage(map, closestOpponent, bot)
+			} else {
+				BattleLog.add('Cannon moves towards enemy.')
+				map.moveBotTowardsUsingFinder(area, closestOpponent)
+			}
+		}
+		this.levelRequirement = 6
+		this.price = 70
+		this.maxHealth = 20
+		this.explosiveDamage = 9
+		this.range = 8
+		this.intelligence = 'medium'
+		this.typeName = 'cannon'
+		this.description = 'Volleys from Cannon, inflict explosive damage to target and surrounding bots. Unable to attack if enemy is in close range, so Cannon tries to retreat.'
 	}
 	
 	function Psycho() {
