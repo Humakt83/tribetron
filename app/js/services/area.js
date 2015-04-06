@@ -176,6 +176,12 @@ angular.module('Tribetron').factory('AreaMap', ['$filter', '$timeout', 'GameSett
 			})
 		}
 		
+		this.findAreaWithOpponentsBotByTypeName = function(typeName, team) {
+			return $filter('filter')(areas, function(area) {
+				return area.robot && area.robot.type.typeName == typeName && team !== area.robot.team && !area.robot.destroyed
+			})
+		}
+		
 		this.findOpponents = function(team, includeDestroyed) {
 			return $filter('filter')(areas, function(area) { 
 				return area.robot && (includeDestroyed || !area.robot.destroyed) && area.robot.team !== team 

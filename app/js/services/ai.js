@@ -67,12 +67,25 @@ angular.module('Tribetron').factory('AI', ['Abilities', function(Abilities) {
 				usedTeleport = usedTeleport || findDangerousBotAndPlaceThemNextToOpponent('totter')
 				return usedTeleport
 			}
+			function tryToStunDangerousOpponent(source) {
+				var dangerousTypes = ['titan', 'colossus', 'cannon']
+				var foundOne = undefined
+				angular.forEach(dangerousTypes, function(typeName) {
+					if (!foundOne) {
+						var dangerousBots = map.findAreaWithOpponentsBotByTypeName(typeName, team)
+						if (dangerousBots.length > 0) {
+							foundOne = dangerousBots[0]
+						}
+					}
+				})				
+				return foundOne ? Abilities.getAbilityByName('Stun').activate(source, foundOne.robot) : false
+			}
 			var destroyableOpponent = _.find(map.findOpponents(team), function(opponentArea) {
 				return Abilities.wouldAttackDestroyBot(opponentArea.robot)
 			})
 			if (destroyableOpponent) {
 				Abilities.getAbilityByName('Attack').activate(this.type.name, destroyableOpponent.robot, map)
-			} else if(!tryToUseTeleport()) {
+			} else if(!tryToUseTeleport() && !tryToStunDangerousOpponent(this.type.name)) {
 				this.playLowIntelligenceTurn(team, map)
 			}
 		}
