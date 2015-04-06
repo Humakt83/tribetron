@@ -50,7 +50,19 @@ angular.module('Tribetron').factory('Abilities', [function() {
 		this.levelRequirement = 3
 	}
 	
-	var abilities = [new Attack(), new Repair(), new Teleport()]
+	function Stun() {
+		this.activate = function(source, bot) {
+			if (!bot.destroyed) {
+				bot.stun(1)
+				return true
+			}
+			return false
+		}
+		this.name = 'Stun'
+		this.levelRequirement = 2
+	}
+	
+	var abilities = [new Attack(), new Repair(), new Stun(), new Teleport()]
 	
 	return {
 		getAbilities : function() {

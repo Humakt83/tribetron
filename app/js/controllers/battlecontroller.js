@@ -144,6 +144,9 @@ angular.module('Tribetron').controller('BattleController', ['$scope', '$interval
 			case 'Teleport':
 				actionPossible = (area.robot && !$scope.action.selectedBot && !area.robot.type.cannotBeTeleported) || ($scope.action.selectedBot && area.isEmpty())
 				break;
+			case 'Stun':
+				actionPossible = area.robot && !area.robot.destroyed
+				break;
 			default:
 				actionPossible = false
 		}
