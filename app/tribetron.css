@@ -5,10 +5,15 @@ body {
   background: linear-gradient(to right, rgba(100, 100, 100, 0), rgba(200, 200, 200, 1)); /* Standard syntax */
 }
 
+.container {
+	width: 1700px;
+}
+
 .title {
 	width: 500px;
 	height: 100px;
-	margin-left: 400px;
+	margin-left: auto;
+	margin-right: auto;
 	padding: 5px;
 }
 
@@ -38,6 +43,10 @@ body {
 .rumble-input-number-group .input-group {
 	width: 100px;
 	display: table;
+}
+
+.rumble-table-container {
+	padding-left: 0px;
 }
 
 .pairs-info {
