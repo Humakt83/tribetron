@@ -140,7 +140,7 @@ angular.module('Tribetron').controller('ConquestController', ['$scope', '$locati
 	
 	$scope.selectPiece = function(piece) {
 		function gameOver() {
-			$scope.win = $scope.conquest.getSelectablePieces(true) > $scope.conquest.getSelectablePieces(false)
+			$scope.win = $scope.conquest.getAmountOfPieces(true) > $scope.conquest.getAmountOfPieces(false)
 			$scope.conquestOver = true
 			$scope.conquestOverText = $scope.win ? 'You have won this conquest, collect your reward and continue campaign' : 'Your defeat is shameful but campaign can still be continued'
 		}
