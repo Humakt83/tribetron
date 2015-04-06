@@ -47,7 +47,7 @@ angular.module('Tribetron').factory('Abilities', [function() {
 		}
 		this.selectedBot = undefined
 		this.name = 'Teleport'
-		this.levelRequirement = 3
+		this.levelRequirement = 5
 	}
 	
 	function Stun() {
@@ -59,7 +59,7 @@ angular.module('Tribetron').factory('Abilities', [function() {
 			return false
 		}
 		this.name = 'Stun'
-		this.levelRequirement = 2
+		this.levelRequirement = 3
 	}
 	
 	var abilities = [new Attack(), new Repair(), new Stun(), new Teleport()]
