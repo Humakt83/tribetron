@@ -1,0 +1,11 @@
+{
+"reward": 130,
+"areaWidth": 20,
+"areaHeight": 10,
+"maxRoster": 10,
+"rounds": 35,
+"rosterOpponent": ["megaHunter", "emanator", "emanator", "hacker", "trapper", "plutan", "atomitum", "plutan", "atomitum", "titan", "doctor", "doctor", "cannon", "cannon"],
+"opponentTeamName": "Hurdians",
+"opponent": "Mega",
+"traps": ["Mine", "Mine", "Mine", "Stun mine", "Stun mine", "Plasma pool", "Plasma pool", "Stun mine", "Plasma pool"]
+}

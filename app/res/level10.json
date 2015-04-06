@@ -4,6 +4,7 @@
 "areaHeight": 10,
 "maxRoster": 10,
 "rounds": 30,
+"levelup": true,
 "rosterOpponent": ["crate", "hunter", "box", "zipper", "hacker", "trasher", "cannoneer", "psycho", "medic", "psycho-medic", "destructor", "multiplicator", "destructor", "radiator", "totter"],
 "opponentTeamName": "Utimulons",
 "opponent": "Mega",
