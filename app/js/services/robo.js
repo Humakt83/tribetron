@@ -910,6 +910,12 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 				}
 			})
 			return details		
+		},
+		createRobotUsingTypeName : function(typeName) {
+			var type = _.find(getTypesAsObjects(), function(type) { return type.typeName === typeName})
+			if (!type) 
+				throw 'Could not find bot type with typename: ' + typeName
+			return new Robot(type)
 		}
 	}
 }])

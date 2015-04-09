@@ -2,12 +2,14 @@
 
 describe('Testing bots', function() {
 	
-	var robotService
+	var robotService, log
 	
 	beforeEach(module('Tribetron'))
 	
-	beforeEach(inject(function(Robot) {
+	beforeEach(inject(function(Robot, BattleLog) {
 		robotService = Robot
+		log = BattleLog.getLog()
+		log.reset()
 	}))
 	
 	it('service should be defined', function() {
@@ -57,6 +59,24 @@ describe('Testing bots', function() {
 		bot.receiveHealing('test', 2)
 		expect(bot.destroyed).toBeFalsy()
 		expect(bot.currentHealth).toEqual(2)
+	})
+	
+	describe('Box', function() {
+		
+		it('does nothing', function() {
+			robotService.createRobotUsingTypeName('box').takeTurn()
+			expect(log.log[0]).toEqual('Box does nothing.\n')
+		})
+		
+	})
+	
+	describe('Crate', function() {
+		
+		it('does nothing', function() {
+			robotService.createRobotUsingTypeName('crate').takeTurn()
+			expect(log.log[0]).toEqual('Crate does nothing.\n')
+		})
+		
 	})
 
 })
