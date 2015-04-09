@@ -3,7 +3,7 @@
 angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog', 'GameHandler', 'GameSettings', 'Trap', function($timeout, $filter, BattleLog, GameHandler, GameSettings, Trap) {
 	var types = [Hunter, Box, Medic, Totter, Radiator, Psycho, Crate, Zipper, Multiplicator, Cannoneer, 
 				Sniper, Hacker, Destructor, Trasher, PsychoMedic, HotTot, MegaHunter, Titan, Tauron, Colossus,
-				CombinatorAtomitum, CombinatorPlutan, Disablor, Doctor, Emanator, Trapper, Cannon]
+				CombinatorAtomitum, CombinatorPlutan, Disablor, Doctor, Emanator, Trapper, Cannon, Bomb]
 	
 	function Hunter() {
 		this.takeTurn = function(bot, map, team) {
@@ -375,6 +375,55 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 		this.intelligence = 'medium'
 		this.typeName = 'cannon'
 		this.description = 'Volleys from Cannon, inflict explosive damage to target and surrounding bots. Unable to attack if enemy is in close range, so Cannon tries to retreat.'
+	}
+	
+	function Bomb() {
+		this.takeTurn = function(bot, map, team) {
+			this.turnsToExplode--
+			if (this.turnsToExplode < 1) {
+				BattleLog.add('Timer is up for bomb.')
+				this.destroyEffect(bot, map, team)
+			} else this.normalTurn(bot, map, team)
+		}
+		this.normalTurn = function(bot, map, team) {
+			var area = map.findAreaWhereBotIs(bot)
+			var opponentAreas = map.findOpponents(team)
+			var closestOpponent = area.findClosest(opponentAreas)
+			if (area.calculateDistance(closestOpponent) < 2) {
+				closestOpponent.robot.receiveDamage('Bomb', this.meleeDamage, map)
+			} else {
+				BattleLog.add('Bomb moves towards enemy.')
+				map.moveBotTowards(area, closestOpponent)
+			}
+		}
+		this.destroyEffect = function(bot, map, team) {
+			var area = map.findAreaWhereBotIs(bot)			
+			var areasNear = map.findAreasCloseToArea(area)
+			areasNear = _.flatten(_.map(areasNear, function(arnear) {
+				var areasClose = map.findAreasCloseToArea(arnear)
+				areasClose.push(arnear)
+				return areasClose
+			}))
+			areasNear.push(area)
+			areasNear = _.uniq(areasNear)
+			areasNear = $filter('filter')(areasNear, function(an) { return an.robot && !an.robot.destroyed })
+			angular.forEach(areasNear, function(areaNear) {
+				areaNear.robot.receiveDamage('Cannon', bot.type.explosiveDamage, map)
+			})
+			area.setRobot()
+			area.setExplosion(true)	
+			team.removeBot(bot)
+			GameHandler.getGameState().removeBotFromQueue(bot)
+		}
+		this.levelRequirement = 3
+		this.price = 28
+		this.maxHealth = 18
+		this.explosiveDamage = 14
+		this.meleeDamage = 2
+		this.turnsToExplode = 8
+		this.intelligence = 'low'
+		this.typeName = 'bomb'
+		this.description = 'Bomb will inflict great explosive damage upon its destruction.'
 	}
 	
 	function Psycho() {
