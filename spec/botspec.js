@@ -2,14 +2,17 @@
 
 describe('Testing bots', function() {
 	
-	var robotService, log
+	var robotService, log, map, team, mapService
 	
 	beforeEach(module('Tribetron'))
 	
-	beforeEach(inject(function(Robot, BattleLog) {
+	beforeEach(inject(function(Robot, BattleLog, AreaMap, Team) {
 		robotService = Robot
 		log = BattleLog.getLog()
 		log.reset()
+		map = AreaMap.createMap(10, 10)
+		mapService = AreaMap
+		team = Team
 	}))
 	
 	it('service should be defined', function() {
@@ -78,5 +81,34 @@ describe('Testing bots', function() {
 		})
 		
 	})
-
+	
+	describe('Hunter', function() {
+		
+		var createTeamWithRobotAndPlaceOnMap = function(isEnemy, x, y) {
+			var hunter = robotService.createRobotUsingTypeName('hunter')
+			map.tryToPlaceRobot(hunter, mapService.createCoord(x,y))
+			team.createTeam('name', [hunter], isEnemy)
+			return hunter
+		}
+		
+		var calculateDistanceBetweenBots = function(bot, enemyBot) {
+			return map.findAreaWhereBotIs(bot).calculateDistance(map.findAreaWhereBotIs(enemyBot))
+		}
+		
+		it('moves towards enemy', function() {
+			var hunter = createTeamWithRobotAndPlaceOnMap(false, 1, 1)
+			var enemy = createTeamWithRobotAndPlaceOnMap(true, 5, 1)
+			expect(calculateDistanceBetweenBots(hunter, enemy)).toEqual(4)
+			hunter.takeTurn(map)
+			expect(calculateDistanceBetweenBots(hunter, enemy)).toEqual(3)
+		})
+		
+		it('attacks enemy next to it', function() {
+			var hunter = createTeamWithRobotAndPlaceOnMap(false, 1, 1)
+			var enemy = createTeamWithRobotAndPlaceOnMap(true, 1, 2)
+			expect(enemy.currentHealth).toEqual(enemy.type.maxHealth)
+			hunter.takeTurn(map)
+			expect(enemy.currentHealth).toBeLessThan(enemy.type.maxHealth)
+		})
+	})
 })
