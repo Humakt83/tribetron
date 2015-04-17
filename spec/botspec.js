@@ -83,32 +83,56 @@ describe('Testing bots', function() {
 	})
 	
 	describe('Hunter', function() {
-		
-		var createTeamWithRobotAndPlaceOnMap = function(isEnemy, x, y) {
-			var hunter = robotService.createRobotUsingTypeName('hunter')
-			map.tryToPlaceRobot(hunter, mapService.createCoord(x,y))
-			team.createTeam('name', [hunter], isEnemy)
-			return hunter
-		}
-		
-		var calculateDistanceBetweenBots = function(bot, enemyBot) {
-			return map.findAreaWhereBotIs(bot).calculateDistance(map.findAreaWhereBotIs(enemyBot))
-		}
-		
+	
 		it('moves towards enemy', function() {
-			var hunter = createTeamWithRobotAndPlaceOnMap(false, 1, 1)
-			var enemy = createTeamWithRobotAndPlaceOnMap(true, 5, 1)
+			var hunter = createTeamWithRobotAndPlaceOnMap('hunter', false, 1, 1)
+			var enemy = createTeamWithRobotAndPlaceOnMap('hunter', true, 5, 1)
 			expect(calculateDistanceBetweenBots(hunter, enemy)).toEqual(4)
 			hunter.takeTurn(map)
 			expect(calculateDistanceBetweenBots(hunter, enemy)).toEqual(3)
 		})
 		
 		it('attacks enemy next to it', function() {
-			var hunter = createTeamWithRobotAndPlaceOnMap(false, 1, 1)
-			var enemy = createTeamWithRobotAndPlaceOnMap(true, 1, 2)
+			var hunter = createTeamWithRobotAndPlaceOnMap('hunter', false, 1, 1)
+			var enemy = createTeamWithRobotAndPlaceOnMap('hunter', true, 1, 2)
 			expect(enemy.currentHealth).toEqual(enemy.type.maxHealth)
 			hunter.takeTurn(map)
 			expect(enemy.currentHealth).toBeLessThan(enemy.type.maxHealth)
 		})
 	})
+	
+	describe('Psycho', function() {
+	
+		it('charges enemy bot on the same line', function() {
+			var psycho = createTeamWithRobotAndPlaceOnMap('psycho', false, 1, 1)
+			var enemy = createTeamWithRobotAndPlaceOnMap('hunter', true, 1, 6)
+			psycho.takeTurn(map)
+			expect(enemy.currentHealth).toBeLessThan(enemy.type.maxHealth)
+		})
+		
+		it('charges ally on the same line', function() {
+			var psycho = createTeamWithRobotAndPlaceOnMap('psycho', false, 1, 1)
+			var ally = createTeamWithRobotAndPlaceOnMap('box', false, 6, 1)
+			psycho.takeTurn(map)
+			expect(ally.currentHealth).toBeLessThan(ally.type.maxHealth)
+		})
+		
+		it('does nothing when there is no target on the same line', function() {
+			var psycho = createTeamWithRobotAndPlaceOnMap('psycho', false, 1, 1)
+			var enemy = createTeamWithRobotAndPlaceOnMap('hunter', true, 6, 2)
+			psycho.takeTurn(map)
+			expect(enemy.currentHealth).toEqual(enemy.type.maxHealth)
+		})
+	})
+	
+	var createTeamWithRobotAndPlaceOnMap = function(botTypeName, isEnemy, x, y) {
+		var bot = robotService.createRobotUsingTypeName(botTypeName)
+		map.tryToPlaceRobot(bot, mapService.createCoord(x,y))
+		team.createTeam('name', [bot], isEnemy)
+		return bot
+	}
+		
+	var calculateDistanceBetweenBots = function(bot, enemyBot) {
+		return map.findAreaWhereBotIs(bot).calculateDistance(map.findAreaWhereBotIs(enemyBot))
+	}
 })
