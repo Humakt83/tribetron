@@ -81,21 +81,35 @@ table.game td {
 }
 
 table.game td.wall {
-	background: black;
+	background: -webkit-linear-gradient(right, rgb(0, 0, 0), rgb(25, 25, 25), rgb(0, 0, 0));
+	background: -o-linear-gradient(right, rgb(0, 0, 0), rgb(25, 25, 25), rgb(0, 0, 0));
+	background: -moz-linear-gradient(right, rgb(0, 0, 0), rgb(25, 25, 25), rgb(0, 0, 0));
+	background: linear-gradient(to right, rgb(0, 0, 0), rgb(25, 25, 25), rgb(0, 0, 0));
 }
 
 table.game td.floor {
 	background: grey;
+	background: -webkit-linear-gradient(right, rgb(105, 105, 105), rgb(115, 115, 115), rgb(105, 105, 105));
+	background: -o-linear-gradient(right, rgb(105, 105, 105), rgb(115, 115, 115), rgb(105, 105, 105));
+	background: -moz-linear-gradient(right, rgb(105, 105, 105), rgb(115, 115, 115), rgb(105, 105, 105));
+	background: linear-gradient(to right, rgb(105, 105, 105), rgb(115, 115, 115), rgb(105, 105, 105));
 }
 
 table.game td.floor-clickable {
 	background: rgb(10,255,10);
+	background: -webkit-linear-gradient(right, rgb(10, 255, 10), rgb(50, 225, 50), rgb(10, 255, 10));
+	background: -o-linear-gradient(right, rgb(10, 255, 10), rgb(50, 225, 50), rgb(10, 255, 10));
+	background: -moz-linear-gradient(right, rgb(10, 255, 10), rgb(50, 225, 50), rgb(10, 255, 10));
+	background: linear-gradient(to right, rgb(10, 255, 10), rgb(50, 225, 50), rgb(10, 255, 10));
 	cursor: pointer;
 }
 
 table.game td.floor-clickable:hover {
 	background: rgb(10,200,10);
-	cursor: pointer;
+	background: -webkit-linear-gradient(right, rgb(10, 200, 10), rgb(50, 220, 50), rgb(10, 200, 10));
+	background: -o-linear-gradient(right, rgb(10, 200, 10), rgb(50, 220, 50), rgb(10, 200, 10));
+	background: -moz-linear-gradient(right, rgb(10, 200, 10), rgb(50, 220, 50), rgb(10, 200, 10));
+	background: linear-gradient(to right, rgb(10, 200, 10), rgb(50, 220, 50), rgb(10, 200, 10));
 }
 
 table.adventure {
@@ -158,6 +172,18 @@ p.detail {
 	width: 50px;
 	height: 50px;
 	position: relative;
+	-webkit-filter: brightness(1.00);
+	filter: brightness(1.00);
+}
+
+.robot_animated {
+	-webkit-filter: brightness(1.35);
+	filter: brightness(1.35);
+}
+
+.robot:hover {
+	-webkit-filter: brightness(1.35);
+	filter: brightness(1.35);
 }
 
 .robot-small {

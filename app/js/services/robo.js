@@ -825,7 +825,15 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 	}
 	
 	function Robot(type) {
+		this.animate = function() {
+			this.myTurn = true
+			var thisRobot = this
+			$timeout(function() {
+				thisRobot.myTurn = false
+			}, 100 * GameSettings.getGameSpeed())
+		}
 		this.takeTurn = function(map) {
+			this.animate()
 			if (this.stunned < 1) {
 				this.type.takeTurn(this, map, this.team)
 			} else {
@@ -841,7 +849,8 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 		}
 		this.getTypeClass = function() {
 			var postfix = this.team.isEnemy ? '_enemy' : ''
-			return this.type.typeName + postfix
+			var turnClass = this.myTurn ? ' robot_animated' : ''
+			return this.type.typeName + postfix + turnClass
 		}
 		this.receiveDamage = function(source, damage, map) {
 			if (this.destroyed) return
@@ -884,10 +893,11 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 			this.currentHealth = this.type.maxHealth
 		}
 		this.stunned = 0
-		this.type = type;
-		this.destroyed = false;
+		this.type = type
+		this.destroyed = false
 		this.currentHealth = this.type.maxHealth
 		this.damaged = 0
+		this.myTurn = false
 	}
 	
 	var getTypesAsObjects = function() {
