@@ -1,9 +1,81 @@
 {
   "type" : "venture",
   "rows" : [ [ {
+    "object" : "player"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "radiator"
+  }, {
     "object" : "floor"
   }, {
     "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "toolkit"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "treasure"
+  } ], [ {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "totter"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "totter"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "stunmine"
+  } ], [ {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "plasma"
   }, {
     "object" : "floor"
   }, {
@@ -12,6 +84,80 @@
     "object" : "floor"
   }, {
     "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  } ], [ {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  } ], [ {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  } ], [ {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
   }, {
     "object" : "floor"
   }, {
@@ -19,171 +165,57 @@
   }, {
     "object" : "box"
   }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  } ], [ {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
+    "object" : "stunmine"
   }, {
     "object" : "crate"
   }, {
-    "object" : "plasma"
+    "object" : "floor"
   }, {
     "object" : "floor"
   }, {
-    "object" : "wall"
+    "object" : "floor"
   }, {
     "object" : "floor"
   }, {
-    "object" : "treasure"
-  }, {
-    "object" : "wall"
-  } ], [ {
     "object" : "floor"
-  }, {
-    "object" : "player"
-  }, {
-    "object" : "wall"
   }, {
     "object" : "plasma"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
   } ], [ {
     "object" : "floor"
   }, {
-    "object" : "floor"
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
   }, {
     "object" : "wall"
   }, {
     "object" : "floor"
   }, {
-    "object" : "floor"
+    "object" : "wall"
   }, {
     "object" : "wall"
   }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
+    "object" : "wall"
   }, {
     "object" : "wall"
   }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
     "object" : "wall"
   }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
     "object" : "wall"
-  } ], [ {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  } ], [ {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "stunmine"
   }, {
     "object" : "floor"
   } ], [ {
     "object" : "floor"
   }, {
-    "object" : "floor"
+    "object" : "wall"
+  }, {
+    "object" : "wall"
   }, {
     "object" : "wall"
   }, {
@@ -191,105 +223,63 @@
   }, {
     "object" : "floor"
   }, {
-    "object" : "wall"
+    "object" : "floor"
+  }, {
+    "object" : "floor"
   }, {
     "object" : "floor"
   }, {
     "object" : "floor"
   }, {
-    "object" : "wall"
-  }, {
     "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
   }, {
     "object" : "wall"
   }, {
-    "object" : "floor"
+    "object" : "wall"
+  }, {
+    "object" : "wall"
   }, {
     "object" : "floor"
   } ], [ {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  } ], [ {
-    "object" : "floor"
-  }, {
     "object" : "hunter"
   }, {
     "object" : "wall"
   }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
+    "object" : "wall"
   }, {
     "object" : "wall"
   }, {
-    "object" : "hunter"
+    "object" : "floor"
+  }, {
+    "object" : "totter"
   }, {
     "object" : "floor"
   }, {
-    "object" : "floor"
+    "object" : "totter"
+  }, {
+    "object" : "totter"
   }, {
     "object" : "floor"
   }, {
-    "object" : "floor"
+    "object" : "totter"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
   }, {
     "object" : "floor"
   } ], [ {
-    "object" : "floor"
-  }, {
     "object" : "money"
   }, {
     "object" : "wall"
   }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
+    "object" : "wall"
   }, {
     "object" : "wall"
   }, {
-    "object" : "floor"
+    "object" : "money"
   }, {
     "object" : "floor"
   }, {
@@ -300,5 +290,15 @@
     "object" : "floor"
   }, {
     "object" : "floor"
+  }, {
+    "object" : "toolkit"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "money"
   } ] ]
 }

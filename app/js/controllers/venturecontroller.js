@@ -111,7 +111,7 @@ angular.module('Tribetron').controller('VentureController', ['$scope', '$interva
 		}
 		function handleLoot(lootArea) {
 			var loot = lootArea.loot
-			$scope.player.money += loot.baseValue
+			loot.pickup($scope.player)
 			if (loot.goal) {
 				$scope.ventureOver = true
 			} else {
