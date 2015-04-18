@@ -2,8 +2,8 @@
 	
 	<div class="row">
 		<button ng-click="newGame()" class="btn btn-primary">New Game</button>
-		<button ng-click="settings.decreaseSpeed(); stop()" class="btn btn-default" ng-disabled="!settings.canDecreaseSpeed()">- Speed</button>
-		<button ng-click="settings.increaseSpeed(); stop()" class="btn btn-default" ng-disabled="!settings.canIncreaseSpeed()">+ Speed</button>
+		<button ng-click="settings.decreaseSpeed()" class="btn btn-default" ng-disabled="!settings.canDecreaseSpeed()">- Speed</button>
+		<button ng-click="settings.increaseSpeed()" class="btn btn-default" ng-disabled="!settings.canIncreaseSpeed()">+ Speed</button>
 		<button ng-click="showMapOptions = !showMapOptions" class="btn btn-default">{{showMapOptions ? "Hide" : "Show"}} Map Options</button>
 	</div>
 
