@@ -43,7 +43,6 @@ angular.module('Tribetron').factory('GameHandler', ['BattleLog', function(Battle
 		
 		this.removeBotFromQueue = function(bot) {
 			this.robotQueue.splice(this.robotQueue.indexOf(bot), 1)
-			this.robotQueue = _.compact(this.robotQueue)
 		}
 		
 		this.getWinner = function() {
