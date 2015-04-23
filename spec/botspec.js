@@ -125,6 +125,50 @@ describe('Testing bots', function() {
 		})
 	})
 	
+	describe('Medic', function() {
+		
+		it('does nothing when no ally is injured', function() {
+			var medic = createTeamWithRobotAndPlaceOnMap('medic', false, 1, 1)
+			medic.takeTurn(map)
+			expect(log.log[0]).toEqual('Medic does nothing.\n')
+		})
+		
+		it('moves towards injured ally', function() {
+			var medic = createTeamWithRobotAndPlaceOnMap('medic', false, 1, 1)
+			var ally = createRobotIntoTeamAndPlaceOnMap('hunter', medic.team, 1, 4)
+			expect(calculateDistanceBetweenBots(medic, ally)).toEqual(3)
+			ally.receiveDamage('test', 3)
+			medic.takeTurn(map)
+			expect(calculateDistanceBetweenBots(medic, ally)).toEqual(2)
+		})
+		
+		it('heals injured ally', function() {
+			var medic = createTeamWithRobotAndPlaceOnMap('medic', false, 1, 1)
+			var ally = createRobotIntoTeamAndPlaceOnMap('box', medic.team, 1, 2)
+			ally.receiveDamage('test', 2)
+			expect(ally.currentHealth).not.toEqual(ally.type.maxHealth)
+			medic.takeTurn(map)
+			expect(ally.currentHealth).toEqual(ally.type.maxHealth)
+		})
+		
+		it('revives destroyed ally', function() {
+			var medic = createTeamWithRobotAndPlaceOnMap('medic', false, 1, 1)
+			var ally = createRobotIntoTeamAndPlaceOnMap('hunter', medic.team, 1, 2)
+			ally.receiveDamage('test', 9000)
+			expect(ally.destroyed).toBeTruthy()
+			medic.takeTurn(map)
+			expect(ally.destroyed).toBeFalsy()
+		})
+		
+	})
+	
+	var createRobotIntoTeamAndPlaceOnMap = function(botTypeName, team, x, y) {
+		var bot = robotService.createRobotUsingTypeName(botTypeName)
+		map.tryToPlaceRobot(bot, mapService.createCoord(x,y))
+		team.addBot(bot)
+		return bot
+	}
+	
 	var createTeamWithRobotAndPlaceOnMap = function(botTypeName, isEnemy, x, y) {
 		var bot = robotService.createRobotUsingTypeName(botTypeName)
 		map.tryToPlaceRobot(bot, mapService.createCoord(x,y))
