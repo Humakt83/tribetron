@@ -12,6 +12,7 @@ angular.module('Tribetron').controller('BattleController', ['$scope', '$interval
 	
 	$scope.settings = GameSettings
 	$scope.infoOpener = InfoOpener
+	Abilities.reset()
 	$scope.abilities = Abilities.getAbilities()
 	$scope.action = undefined
 	
@@ -150,13 +151,14 @@ angular.module('Tribetron').controller('BattleController', ['$scope', '$interval
 			default:
 				actionPossible = false
 		}
-		return actionPossible
+		return $scope.action.cooldownLeft > 0 ? false : actionPossible;
 	}
 	
 	$scope.doAction = function(area) {
 		if (!$scope.actionPossible(area)) return
 		if ($scope.action.activate($scope.player.name, area.robot, $scope.map, area) && !$scope.gameState.isOver()) {
 			$scope.opponentTaunt = $scope.opponent.playTurn($scope.enemyTeam, $scope.map)
+			Abilities.reduceCooldowns()
 			$scope.play()
 		}
 	}

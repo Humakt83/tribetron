@@ -2,6 +2,8 @@
 
 angular.module('Tribetron').factory('Abilities', [function() {
 	
+	var imagePrefix = 'img/', imagePostfix = '.png'
+	
 	var calculateDamage = function(bot) {
 		return Math.max(1, Math.floor(bot.type.maxHealth * 0.15))
 	}
@@ -16,6 +18,7 @@ angular.module('Tribetron').factory('Abilities', [function() {
 		}
 		this.name = 'Repair'
 		this.levelRequirement = 1
+		this.image= imagePrefix + 'repair' + imagePostfix
 	}
 	
 	function Attack() {
@@ -29,6 +32,7 @@ angular.module('Tribetron').factory('Abilities', [function() {
 		}
 		this.name = 'Attack'
 		this.levelRequirement = 1
+		this.image= imagePrefix + 'hit' + imagePostfix
 	}
 	
 	function Teleport() {
@@ -39,6 +43,7 @@ angular.module('Tribetron').factory('Abilities', [function() {
 			} else if (targetArea.isEmpty()){
 				map.moveBot(map.findAreaWhereBotIs(this.selectedBot), targetArea)
 				this.selectedBot = undefined
+				this.cooldownLeft = this.cooldown
 				return true
 			} else {
 				this.selectedBot = undefined
@@ -48,18 +53,25 @@ angular.module('Tribetron').factory('Abilities', [function() {
 		this.selectedBot = undefined
 		this.name = 'Teleport'
 		this.levelRequirement = 5
+		this.image= imagePrefix + 'teleport' + imagePostfix
+		this.cooldown = 3
+		this.cooldownLeft = 0
 	}
 	
 	function Stun() {
-		this.activate = function(source, bot) {
+		this.activate = function(source, bot, doNotSetCooldown) {
 			if (!bot.destroyed) {
 				bot.stun(1)
+				if (doNotSetCooldown != true) this.cooldownLeft = this.cooldown
 				return true
 			}
 			return false
 		}
 		this.name = 'Stun'
 		this.levelRequirement = 3
+		this.image= imagePrefix + 'stun' + imagePostfix
+		this.cooldown = 2
+		this.cooldownLeft = 0
 	}
 	
 	var abilities = [new Attack(), new Repair(), new Stun(), new Teleport()]
@@ -75,6 +87,20 @@ angular.module('Tribetron').factory('Abilities', [function() {
 		},
 		wouldAttackDestroyBot : function(bot) {
 			return bot.currentHealth <= calculateDamage(bot)
+		},
+		reduceCooldowns : function() {
+			angular.forEach(abilities, function(ability) {
+				if (ability.cooldown) {
+					ability.cooldownLeft = Math.max(0, ability.cooldownLeft - 1)
+				}
+			})
+		},
+		reset : function() {
+			angular.forEach(abilities, function(ability) {
+				if (ability.cooldown) {
+					ability.cooldownLeft = 0
+				}
+			})
 		}
 	}
 }])

@@ -78,7 +78,7 @@ angular.module('Tribetron').factory('AI', ['Abilities', function(Abilities) {
 						}
 					}
 				})				
-				return foundOne ? Abilities.getAbilityByName('Stun').activate(source, foundOne.robot) : false
+				return foundOne ? Abilities.getAbilityByName('Stun').activate(source, foundOne.robot, true) : false
 			}
 			var destroyableOpponent = _.find(map.findOpponents(team), function(opponentArea) {
 				return Abilities.wouldAttackDestroyBot(opponentArea.robot)
