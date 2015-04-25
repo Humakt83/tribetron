@@ -712,6 +712,24 @@ p.detail {
 	display: block;
 }
 
+.lazor:before {
+	background: url(img/lazorbot.png);
+	width: 100%;
+	height: 100%;
+	content: "";
+    background-size: 100%;
+	display: block;
+}
+
+.lazor_enemy:before {
+	background: url(img/lazorbot2.png);
+	width: 100%;
+	height: 100%;
+	content: "";
+    background-size: 100%;
+	display: block;
+}
+
 .unknown:before {
 	background: url(img/unknown.png);
 	width: 100%;

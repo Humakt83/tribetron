@@ -19,6 +19,15 @@ angular.module('Tribetron').factory('AreaMap', ['$filter', '$timeout', 'GameSett
 			})
 			return closest
 		}
+		this.isBetween = function(from, to) {
+			if (from.xCoord === to.xCoord && this.xCoord === from.xCoord) {
+				return (this.yCoord > from.yCoord && this.yCoord < to.yCoord) || (this.yCoord < from.yCoord && this.yCoord > to.yCoord)
+			}
+			if (from.yCoord === to.yCoord && this.yCoord === from.yCoord) {
+				return (this.xCoord > from.xCoord && this.xCoord < to.xCoord) || (this.xCoord < from.xCoord && this.xCoord > to.xCoord)
+			}			
+			return false
+		}
 		this.setRobot = function(robot) {
 			this.robot = robot
 		}
@@ -209,6 +218,12 @@ angular.module('Tribetron').factory('AreaMap', ['$filter', '$timeout', 'GameSett
 		this.botCanBePlacedOnArea = function(area) {
 			return area && !area.isWall && !area.robot
 		}
+		this.getAreasBetween = function(from, to) {
+			if (!this.areaCanbeReachedInStraightLine(from, to)) return
+			return $filter('filter')(areas, function(area) {
+				return area.isBetween(from, to)
+			})
+		}
 		this.tryToPlaceRobot = function(robot, coord) {
 			var areaByCoord  = this.getAreaByCoord(coord)
 			if (this.botCanBePlacedOnArea(areaByCoord)) {
@@ -261,6 +276,9 @@ angular.module('Tribetron').factory('AreaMap', ['$filter', '$timeout', 'GameSett
 		},
 		createCoord: function(x, y) {
 			return new Coord(x, y)
+		},
+		createArea: function(x,y, wall) {
+			return new Area(x,y, wall)
 		}
 	}
 }])

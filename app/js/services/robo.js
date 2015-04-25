@@ -1,9 +1,11 @@
 'use strict'
 
-angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog', 'GameHandler', 'GameSettings', 'Trap', function($timeout, $filter, BattleLog, GameHandler, GameSettings, Trap) {
+angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog', 'GameHandler', 'GameSettings', 'Trap', 'AreaMap', 
+		function($timeout, $filter, BattleLog, GameHandler, GameSettings, Trap, AreaMap) {
+	
 	var types = [Hunter, Box, Medic, Totter, Radiator, Psycho, Crate, Zipper, Multiplicator, Cannoneer, 
 				Sniper, Hacker, Destructor, Trasher, PsychoMedic, HotTot, MegaHunter, Titan, Tauron, Colossus,
-				CombinatorAtomitum, CombinatorPlutan, Disablor, Doctor, Emanator, Trapper, Cannon, Bomb]
+				CombinatorAtomitum, CombinatorPlutan, Disablor, Doctor, Emanator, Trapper, Cannon, Bomb, Lazor]
 	
 	function Hunter() {
 		this.takeTurn = function(bot, map, team) {
@@ -83,6 +85,42 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 		this.intelligence = 'low'
 		this.typeName = 'zipper'
 		this.description = 'Zipper prefers to attack opponent from range but will not retreat from close combat either.'
+	}
+	
+	function Lazor() {
+		this.fireLazer = function(map, botArea, targetArea) {
+			function createAreaTowardsTargetArea() {
+				if (botArea.xCoord === targetArea.xCoord) return AreaMap.createArea(botArea.xCoord, (botArea.yCoord - targetArea.yCoord) * -map.height)
+				else return AreaMap.createArea((botArea.xCoord - targetArea.xCoord) * -map.width, botArea.yCoord)
+			}
+			var thisRangedDamage = this.rangedDamage
+			var areaTowardsTargetArea = createAreaTowardsTargetArea()
+			angular.forEach(map.getAreasBetween(botArea, areaTowardsTargetArea), function(area) {
+				if (area.robot)	area.robot.receiveDamage('Lazor', thisRangedDamage, map)
+			})
+		}
+		this.takeTurn = function(bot, map, team) {
+			var area = map.findAreaWhereBotIs(bot)
+			var opponentAreas = map.findOpponents(team)
+			var opponentAreaOnSameLine = _.find(opponentAreas, function(opponentArea) {
+				return map.areaCanbeReachedInStraightLine(area, opponentArea)
+			})
+			if (opponentAreaOnSameLine) 
+				this.fireLazer(map, area, opponentAreaOnSameLine)
+			else {
+				BattleLog.add('Lazor moves towards enemy.')
+				var closestOpponent = area.findClosest(opponentAreas)
+				map.moveBotTowards(area, closestOpponent)
+			}
+		}
+		this.levelRequirement = 4
+		this.price = 35
+		this.maxHealth = 15
+		this.rangedDamage = 5
+		this.range = 9000
+		this.intelligence = 'low'
+		this.typeName = 'lazor'
+		this.description = 'Lazor attacks every bot in the same line with lazer.'
 	}
 	
 	function Sniper() {
@@ -183,9 +221,9 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 			var area = map.findAreaWhereBotIs(bot)
 			var areasNear = map.findAreasCloseToArea(area)
 			var areaToMove = areasNear[Math.floor(Math.random() * areasNear.length)]
-			if (areaToMove.robot != undefined && areaToMove.robot != null) {
+			if (areaToMove.robot) {
 				bot.receiveDamage('self', this.meleeDamage, map)
-				areaToMove.robot.receiveDamage('Totter', this.meleeDamage, map)
+				if (areaToMove.robot) areaToMove.robot.receiveDamage('Totter', this.meleeDamage, map)
 			} else if (areaToMove.isWall) {
 				bot.receiveDamage('Wall', this.meleeDamage, map)
 			} else {
@@ -408,7 +446,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 			areasNear = _.uniq(areasNear)
 			areasNear = $filter('filter')(areasNear, function(an) { return an.robot && !an.robot.destroyed })
 			angular.forEach(areasNear, function(areaNear) {
-				areaNear.robot.receiveDamage('Cannon', bot.type.explosiveDamage, map)
+				if (areaNear.robot) areaNear.robot.receiveDamage('Bomb', bot.type.explosiveDamage, map)
 			})
 			area.setRobot()
 			area.setExplosion(true)	

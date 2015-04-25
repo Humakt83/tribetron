@@ -162,6 +162,36 @@ describe('Testing bots', function() {
 		
 	})
 	
+	describe('Lazor', function() {
+	
+		it('attacks enemy bot on the same line', function() {
+			var lazor = createTeamWithRobotAndPlaceOnMap('lazor', false, 1, 6)
+			var enemy = createTeamWithRobotAndPlaceOnMap('hunter', true, 6, 6)
+			lazor.takeTurn(map)
+			expect(enemy.currentHealth).toBeLessThan(enemy.type.maxHealth)
+		})
+		
+		it('does damage to multiple enemy bots on the same line', function() {
+			var lazor = createTeamWithRobotAndPlaceOnMap('lazor', false, 1, 1)
+			var enemy = createTeamWithRobotAndPlaceOnMap('hunter', true, 1, 6)
+			var enemy2 = createTeamWithRobotAndPlaceOnMap('crate', true, 1, 4)
+			var enemy3 = createTeamWithRobotAndPlaceOnMap('zipper', true, 1, 5)
+			lazor.takeTurn(map)
+			expect(enemy.currentHealth).toBeLessThan(enemy.type.maxHealth)
+			expect(enemy2.currentHealth).toBeLessThan(enemy2.type.maxHealth)
+			expect(enemy3.destroyed).toBeTruthy()
+		})
+		
+		it('does damage to allies on the same line as enemy', function() {
+			var lazor = createTeamWithRobotAndPlaceOnMap('lazor', false, 1, 1)
+			var enemy = createTeamWithRobotAndPlaceOnMap('hunter', true, 1, 6)
+			var ally = createRobotIntoTeamAndPlaceOnMap('medic', lazor.team, 1, 4)
+			lazor.takeTurn(map)
+			expect(enemy.currentHealth).toBeLessThan(enemy.type.maxHealth)
+			expect(ally.currentHealth).toBeLessThan(ally.type.maxHealth)
+		})
+	})
+	
 	var createRobotIntoTeamAndPlaceOnMap = function(botTypeName, team, x, y) {
 		var bot = robotService.createRobotUsingTypeName(botTypeName)
 		map.tryToPlaceRobot(bot, mapService.createCoord(x,y))
