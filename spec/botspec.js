@@ -190,6 +190,22 @@ describe('Testing bots', function() {
 			expect(enemy.currentHealth).toBeLessThan(enemy.type.maxHealth)
 			expect(ally.currentHealth).toBeLessThan(ally.type.maxHealth)
 		})
+		
+		it('moves towards enemy using x-axis', function() {
+			var lazor = createTeamWithRobotAndPlaceOnMap('lazor', false, 1, 1)
+			var enemy = createTeamWithRobotAndPlaceOnMap('hunter', true, 2, 6)
+			lazor.takeTurn(map)
+			expect(map.findAreaWhereBotIs(lazor).xCoord).toEqual(2)
+			expect(map.findAreaWhereBotIs(lazor).yCoord).toEqual(1)
+		})
+		
+		it('moves towards enemy using y-axis', function() {
+			var lazor = createTeamWithRobotAndPlaceOnMap('lazor', false, 1, 6)
+			var enemy = createTeamWithRobotAndPlaceOnMap('hunter', true, 6, 3)
+			lazor.takeTurn(map)
+			expect(map.findAreaWhereBotIs(lazor).xCoord).toEqual(1)
+			expect(map.findAreaWhereBotIs(lazor).yCoord).toEqual(5)
+		})
 	})
 	
 	var createRobotIntoTeamAndPlaceOnMap = function(botTypeName, team, x, y) {

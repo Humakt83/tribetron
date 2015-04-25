@@ -110,7 +110,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 			else {
 				BattleLog.add('Lazor moves towards enemy.')
 				var closestOpponent = area.findClosest(opponentAreas)
-				map.moveBotTowards(area, closestOpponent)
+				map.moveBotTowardsCloserAxis(area, closestOpponent)
 			}
 		}
 		this.levelRequirement = 4
@@ -387,7 +387,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 			areasNear = _.uniq(areasNear)
 			areasNear = $filter('filter')(areasNear, function(an) { return an.robot && !an.robot.destroyed })
 			angular.forEach(areasNear, function(areaNear) {
-				areaNear.robot.receiveDamage('Cannon', bot.type.explosiveDamage, map)
+				if (areaNear.robot) areaNear.robot.receiveDamage('Cannon', bot.type.explosiveDamage, map)
 			})
 			area.setExplosion(true)
 		}

@@ -110,7 +110,7 @@ angular.module('Tribetron').factory('AreaMap', ['$filter', '$timeout', 'GameSett
 			var xDistance = botArea.xCoord - targetArea.xCoord
 			var yDistance = botArea.yCoord - targetArea.yCoord
 			var moveOptions = [], thisMap = this
-			if (Math.abs(xDistance) >= Math.abs(yDistance) || (Math.abs(xDistance) == Math.abs(yDistance) && Math.floor(Math.random()) == 1)) {
+			if (Math.abs(xDistance) >= Math.abs(yDistance)) {
 				moveOptions.push(this.getAreaByCoord(new Coord(botArea.xCoord + (Math.sign(xDistance) * -1), botArea.yCoord)))
 				if (yDistance != 0) moveOptions.push(this.getAreaByCoord(new Coord(botArea.xCoord, botArea.yCoord + (Math.sign(yDistance) * -1))))
 				moveOptions.push(_.shuffle([
@@ -124,6 +124,15 @@ angular.module('Tribetron').factory('AreaMap', ['$filter', '$timeout', 'GameSett
 					this.getAreaByCoord(new Coord(botArea.xCoord -1, botArea.yCoord))]))
 			}
 			return _.find(_.compact(_.flatten(moveOptions)), function(option) { return thisMap.moveBot(botArea, option) })
+		}
+		
+		this.moveBotTowardsCloserAxis = function(botArea, targetArea) {
+			var xDistance = botArea.xCoord - targetArea.xCoord
+			var yDistance = botArea.yCoord - targetArea.yCoord
+			if (Math.abs(xDistance) > Math.abs(yDistance)) {
+				return this.moveBot(botArea, this.getAreaByCoord(new Coord(botArea.xCoord, botArea.yCoord + (Math.sign(yDistance) * -1))))
+			} 
+			return this.moveBot(botArea, this.getAreaByCoord(new Coord(botArea.xCoord + (Math.sign(xDistance) * -1), botArea.yCoord)))
 		}
 		
 		this.moveBotAway = function(botArea, fromArea) {
