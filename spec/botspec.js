@@ -2,17 +2,18 @@
 
 describe('Testing bots', function() {
 	
-	var robotService, log, map, team, mapService
+	var robotService, log, map, team, mapService, gameHandler
 	
 	beforeEach(module('Tribetron'))
 	
-	beforeEach(inject(function(Robot, BattleLog, AreaMap, Team) {
+	beforeEach(inject(function(Robot, BattleLog, AreaMap, Team, GameHandler) {
 		robotService = Robot
 		log = BattleLog.getLog()
 		log.reset()
 		map = AreaMap.createMap(10, 10)
 		mapService = AreaMap
 		team = Team
+		gameHandler = GameHandler
 	}))
 	
 	it('service should be defined', function() {
@@ -205,6 +206,39 @@ describe('Testing bots', function() {
 			lazor.takeTurn(map)
 			expect(map.findAreaWhereBotIs(lazor).xCoord).toEqual(1)
 			expect(map.findAreaWhereBotIs(lazor).yCoord).toEqual(5)
+		})
+	})
+	
+	describe('Multiplicator', function() {
+		
+		it('removes itself after enough time has passed', function() {
+			var multiplicator = createTeamWithRobotAndPlaceOnMap('multiplicator', false, 1, 1)
+			var enemy = createTeamWithRobotAndPlaceOnMap('lazor', true, 1, 2)
+			gameHandler.createGameState(multiplicator.team, enemy.team, 25);
+			var team = multiplicator.team
+			multiplicator.takeTurn(map)
+			expect(team.robots.length).toEqual(1)
+			multiplicator.takeTurn(map)
+			multiplicator.takeTurn(map)
+			expect(team.robots.length).toEqual(0)
+		})
+		
+		it('creates a clone of itself when no enemy is close', function() {
+			var multiplicator = createTeamWithRobotAndPlaceOnMap('multiplicator', false, 3, 5)			
+			var enemy = createTeamWithRobotAndPlaceOnMap('box', true, 1, 2)
+			gameHandler.createGameState(multiplicator.team, enemy.team, 25);
+			multiplicator.takeTurn(map)
+			expect(multiplicator.team.robots.length).toEqual(2)
+			multiplicator.takeTurn(map)
+			expect(multiplicator.team.robots.length).toEqual(3)
+		})
+		
+		it('deals damage to enemy instead of creating a clone', function() {
+			var multiplicator = createTeamWithRobotAndPlaceOnMap('multiplicator', false, 1, 1)
+			var enemy = createTeamWithRobotAndPlaceOnMap('box', true, 1, 2)
+			multiplicator.takeTurn(map)
+			expect(enemy.currentHealth).toBeLessThan(enemy.type.maxHealth)
+			expect(multiplicator.team.robots.length).toEqual(1)
 		})
 	})
 	
