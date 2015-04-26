@@ -38,11 +38,16 @@ angular.module('Tribetron').factory('GameHandler', ['BattleLog', function(Battle
 		}
 		
 		this.addBotToQueue = function(bot) {
-			this.robotQueue.push(bot)
+			this.robotQueue.unshift(bot)
+			this.robotTurn += 1
 		}
 		
 		this.removeBotFromQueue = function(bot) {
-			this.robotQueue.splice(this.robotQueue.indexOf(bot), 1)
+			var indexOfBot = this.robotQueue.indexOf(bot)
+			if (indexOfBot <= this.robotTurn && indexOfBot > -1) {
+				this.robotTurn -= 1
+			}
+			this.robotQueue.splice(indexOfBot, 1)
 		}
 		
 		this.getWinner = function() {

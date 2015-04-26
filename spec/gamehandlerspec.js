@@ -41,6 +41,39 @@ describe('Testing GameHandler', function() {
 				}
 			})
 		})
+		
+		it('removes a bot from queue', function() {
+			addBotsToTeam(teamA, [createBot(), createBot(), createBot()])
+			addBotsToTeam(teamB, [createBot(), createBot(), createBot()])
+			var gameState = gameHandler.createGameState([teamA, teamB], 15)
+			var botQueue = gameState.robotQueue
+			gameState.removeBotFromQueue(teamA.robots[0])
+			expect(botQueue.length).toEqual(5)
+			expect(gameState.robotTurn).toEqual(-1)
+		})
+		
+		it('removes a bot from queue and decreases turn counter', function() {
+			addBotsToTeam(teamA, [createBot(), createBot(), createBot()])
+			addBotsToTeam(teamB, [createBot(), createBot(), createBot()])
+			var gameState = gameHandler.createGameState([teamA, teamB], 15)
+			gameState.nextRobot()
+			gameState.nextRobot()
+			expect(gameState.robotTurn).toEqual(2)
+			gameState.removeBotFromQueue(teamA.robots[0])
+			expect(gameState.robotTurn).toEqual(1)
+			gameState.removeBotFromQueue(teamB.robots[0])
+			expect(gameState.robotTurn).toEqual(0)
+		})
+		
+		it('adds a bot to the beginning of a queue and increases turn counter', function() {
+			addBotsToTeam(teamA, [createBot(), createBot(), createBot()])
+			addBotsToTeam(teamB, [createBot(), createBot(), createBot()])
+			var gameState = gameHandler.createGameState([teamA, teamB], 15)
+			var bot = createBot()
+			gameState.addBotToQueue(bot)
+			expect(gameState.robotTurn).toEqual(1)
+			expect(gameState.robotQueue.indexOf(bot)).toEqual(0)
+		})
 	})
 	
 	var createBot = function() {
