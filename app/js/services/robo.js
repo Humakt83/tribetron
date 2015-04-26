@@ -588,11 +588,16 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 				closestOpponent.robot.receiveDamage('Multiplicator', this.meleeDamage, map)
 			else {
 				var botClone = new Robot(_.find(getTypesAsObjects(), function(typeAsObject) { return bot.type.typeName === typeAsObject.typeName}))
+				area.setRobot(botClone)
+				team.addBot(botClone)
+				GameHandler.getGameState().addBotToQueue(botClone)
 				if (map.moveBotTowards(area, closestOpponent)) {
-					BattleLog.add('Multiplicator moves towards enemy and leaves a clone behind.')
-					area.robot = botClone
-					team.addBot(botClone)
-					GameHandler.getGameState().addBotToQueue(botClone)
+					BattleLog.add('Multiplicator creates a clone.')
+					area.setRobot(bot)					
+				} else {
+					area.setRobot(bot)
+					team.removeBot(botClone)
+					GameHandler.getGameState().removeBotFromQueue(botClone)
 				}
 			}
 		}

@@ -240,6 +240,21 @@ describe('Testing bots', function() {
 			expect(enemy.currentHealth).toBeLessThan(enemy.type.maxHealth)
 			expect(multiplicator.team.robots.length).toEqual(1)
 		})
+		
+		it('created clone is created into a spot that is closer to enemy while original remains in the original spot', function() {
+			var multiplicator = createTeamWithRobotAndPlaceOnMap('multiplicator', false, 1, 1)
+			var enemy = createTeamWithRobotAndPlaceOnMap('lazor', true, 1, 6)
+			gameHandler.createGameState(multiplicator.team, enemy.team, 25);
+			multiplicator.takeTurn(map)
+			expect(multiplicator.type.lifeSpan).toEqual(2)
+			expect(multiplicator === map.getAreaByCoord(mapService.createCoord(1,1)).robot).toBeTruthy()
+			var clone = map.getAreaByCoord(mapService.createCoord(1,2)).robot
+			expect(clone.type.lifeSpan).toEqual(3)			
+			clone.takeTurn(map)
+			expect(clone.type.lifeSpan).toEqual(2)
+			expect(clone === map.getAreaByCoord(mapService.createCoord(1,2)).robot).toBeTruthy()
+			expect(map.getAreaByCoord(mapService.createCoord(1,2)).robot.type.typeName).toEqual('multiplicator')
+		})
 	})
 	
 	var createRobotIntoTeamAndPlaceOnMap = function(botTypeName, team, x, y) {
