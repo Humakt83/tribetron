@@ -257,6 +257,46 @@ describe('Testing bots', function() {
 		})
 	})
 	
+	describe('Nuka', function() {
+		
+		it('moves towards enemy', function() {
+			var nuka = createTeamWithRobotAndPlaceOnMap('nuka', false, 1, 1)
+			var enemy = createTeamWithRobotAndPlaceOnMap('crate', true, 1, 5)
+			nuka.takeTurn(map)				
+			expect(map.getAreaByCoord(mapService.createCoord(1,2)).robot).toEqual(nuka)
+		})
+		
+		it('explodes when countdown reaches zero', function() {
+			var nuka = createTeamWithRobotAndPlaceOnMap('nuka', false, 1, 1)
+			var nukasTeam = nuka.team
+			var enemy = createTeamWithRobotAndPlaceOnMap('crate', true, 5, 5)
+			gameHandler.createGameState(nukasTeam, enemy.team, 25);
+			for (var i = nuka.type.turnsToExplode; i > 0; i--) {
+				expect(nukasTeam.robots.length).toEqual(1)
+				nuka.takeTurn(map)				
+			}
+			expect(nukasTeam.robots.length).toEqual(0)
+		})
+		
+		it('explodes when destroyed damaging all surrounding bots', function() {
+			var nuka = createTeamWithRobotAndPlaceOnMap('nuka', false, 1, 1)
+			var ally = createRobotIntoTeamAndPlaceOnMap('medic', nuka.team, 1, 2)
+			var allyCrate = createRobotIntoTeamAndPlaceOnMap('crate', nuka.team, 2, 1)
+			var allyCrate2 = createRobotIntoTeamAndPlaceOnMap('crate', nuka.team, 1, 5)
+			var enemy = createTeamWithRobotAndPlaceOnMap('crate', true, 1, 4)
+			var enemyColossus = createRobotIntoTeamAndPlaceOnMap('colossus', enemy.team, 3, 1)
+			gameHandler.createGameState(nuka.team, enemy.team, 25);
+			nuka.receiveDamage('test', 30, map)
+			expect(ally.destroyed).toBeTruthy()
+			expect(allyCrate.destroyed).toBeTruthy()
+			expect(enemy.destroyed).toBeTruthy()
+			expect(allyCrate2.destroyed).toBeFalsy()
+			expect(enemyColossus.destroyed).toBeFalsy()
+			expect(enemyColossus.currentHealth).toEqual(45)
+		})
+		
+	})
+	
 	var createRobotIntoTeamAndPlaceOnMap = function(botTypeName, team, x, y) {
 		var bot = robotService.createRobotUsingTypeName(botTypeName)
 		map.tryToPlaceRobot(bot, mapService.createCoord(x,y))
