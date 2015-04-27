@@ -7,6 +7,13 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 				Sniper, Hacker, Destructor, Trasher, PsychoMedic, HotTot, MegaHunter, Titan, Tauron, Colossus,
 				CombinatorAtomitum, CombinatorPlutan, Disablor, Doctor, Emanator, Trapper, Cannon, Bomb, Lazor, Nuka]
 	
+	var moveToClosestReachableOpponent = function(map, botArea, closestOpponent, opponentAreas, avoidTraps) {
+		while (opponentAreas.length > 0 && closestOpponent && !map.moveBotTowardsUsingFinder(botArea, closestOpponent, avoidTraps)) {
+			opponentAreas.splice(opponentAreas.indexOf(closestOpponent), 1)
+			closestOpponent = botArea.findClosest(opponentAreas)
+		}
+	}
+	
 	function Hunter() {
 		this.takeTurn = function(bot, map, team) {
 			var area = map.findAreaWhereBotIs(bot)
@@ -37,7 +44,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 				closestOpponent.robot.receiveDamage('MegaHunter', this.meleeDamage, map)
 			else {
 				BattleLog.add('MegaHunter moves towards enemy.')
-				map.moveBotTowardsUsingFinder(area, closestOpponent)
+				moveToClosestReachableOpponent(map, area, closestOpponent, opponentAreas)
 			}
 		}
 		this.destroyEffect = function(bot, map, team) {
@@ -135,7 +142,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 				closestOpponent.robot.receiveDamage('Sniper', this.rangedDamage, map)
 			} else {
 				BattleLog.add('Sniper moves towards enemy.')
-				map.moveBotTowardsUsingFinder(area, closestOpponent)
+				moveToClosestReachableOpponent(map, area, closestOpponent, opponentAreas)
 			}
 		}
 		this.levelRequirement = 3
@@ -180,7 +187,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 				var closestInjured = area.findClosest(injuredAreas)
 				if (area.calculateDistance(closestInjured) < 2) closestInjured.robot.receiveHealing('Medic', this.heal)
 				else {
-					map.moveBotTowardsUsingFinder(area, closestInjured)
+					moveToClosestReachableOpponent(map, area, closestInjured, injuredAreas)
 					BattleLog.add('Medic moves towards injured ally')
 				}
 			} else BattleLog.add('Medic does nothing.')
@@ -202,7 +209,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 				var closestInjured = area.findClosest(injuredAreas)
 				if (area.calculateDistance(closestInjured) < 2) closestInjured.robot.receiveHealing('Doctor', this.heal)
 				else {
-					map.moveBotTowardsUsingFinder(area, closestInjured)
+					moveToClosestReachableOpponent(map, area, closestInjured, injuredAreas)
 					BattleLog.add('Doctor moves towards injured ally')
 				}
 			} else BattleLog.add('Doctor does nothing.')
@@ -337,7 +344,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 				this.radiateDamage(map, area, bot)
 			} else {
 				BattleLog.add('Emanator moves towards enemy.')
-				map.moveBotTowardsUsingFinder(area, closestOpponent)
+				moveToClosestReachableOpponent(map, area, closestOpponent, opponentAreas)
 			}
 		}
 		this.levelRequirement = 3
@@ -402,7 +409,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 				this.inflictDamage(map, closestOpponent, bot)
 			} else {
 				BattleLog.add('Cannon moves towards enemy.')
-				map.moveBotTowardsUsingFinder(area, closestOpponent)
+				moveToClosestReachableOpponent(map, area, closestOpponent, opponentAreas)
 			}
 		}
 		this.levelRequirement = 6
@@ -480,7 +487,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 				closestOpponent.robot.receiveDamage('Nuka', this.meleeDamage, map)
 			} else {
 				BattleLog.add('Nuka moves towards enemy.')
-				map.moveBotTowardsUsingFinder(area, closestOpponent)
+				moveToClosestReachableOpponent(map, area, closestOpponent, opponentAreas)
 			}
 		}
 		this.destroyEffect = function(bot, map, team) {
@@ -571,7 +578,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 				var closestInjured = area.findClosest(injuredAreas)
 				if (area.calculateDistance(closestInjured) < 2) closestInjured.robot.receiveHealing('Psycho-medic', this.heal)
 				else {
-					map.moveBotTowardsUsingFinder(area, closestInjured)
+					moveToClosestReachableOpponent(map, area, closestInjured, injuredAreas)
 					BattleLog.add('Psycho-medic moves towards injured ally')
 				}
 			} else BattleLog.add('Psycho-medic does nothing.')
@@ -687,7 +694,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 				BattleLog.add('Hacker waits for enemy to close in')
 			} else {
 				BattleLog.add('Hacker moves towards enemy.')
-				map.moveBotTowardsUsingFinder(area, closestOpponent, true)
+				moveToClosestReachableOpponent(map, area, closestOpponent, opponentAreas, true)
 			}
 		}
 		this.levelRequirement = 4
@@ -708,7 +715,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 				closestOpponent.robot.stun(1)
 			} else {
 				BattleLog.add('Disablor moves towards enemy.')
-				map.moveBotTowardsUsingFinder(area, closestOpponent, true)
+				moveToClosestReachableOpponent(map, area, closestOpponent, opponentAreas, true)
 			}
 		}
 		this.levelRequirement = 3
@@ -776,7 +783,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 				closestOpponent.robot.receiveDamage('Titan', distance < 2 ? this.meleeDamage : this.rangedDamage, map)
 			} else {
 				BattleLog.add('Titan moves towards enemy.')
-				map.moveBotTowardsUsingFinder(area, closestOpponent, false)
+				moveToClosestReachableOpponent(map, area, closestOpponent, opponentAreas)
 			}
 		}
 		this.levelRequirement = 7
@@ -805,7 +812,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 				} else closestOpponent.robot.receiveDamage('Colossus', this.meleeDamage, map)
 			} else {
 				BattleLog.add('Colossus moves towards enemy.')
-				map.moveBotTowardsUsingFinder(area, closestOpponent, false)
+				moveToClosestReachableOpponent(map, area, closestOpponent, opponentAreas)
 			}
 		}
 		this.levelRequirement = 7
@@ -827,7 +834,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 				closestOpponent.robot.receiveDamage('Atomitum', this.meleeDamage, map)
 			} else {
 				BattleLog.add('Atomitum moves towards enemy.')
-				map.moveBotTowardsUsingFinder(area, closestOpponent, false)
+				moveToClosestReachableOpponent(map, area, closestOpponent, opponentAreas)
 			}
 		}
 		this.takeTurn = function(bot, map, team) {
@@ -867,7 +874,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 				closestOpponent.robot.receiveDamage('Plutan', this.meleeDamage, map)
 			} else {
 				BattleLog.add('Plutan moves towards enemy.')
-				map.moveBotTowardsUsingFinder(area, closestOpponent, false)
+				moveToClosestReachableOpponent(map, area, closestOpponent, opponentAreas)
 			}
 		}
 		
@@ -911,7 +918,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 				}
 			} else {
 				BattleLog.add('Trapper moves towards enemy.')
-				map.moveBotTowardsUsingFinder(area, closestOpponent, true)
+				moveToClosestReachableOpponent(map, area, closestOpponent, opponentAreas, true)
 			}
 		}
 		this.levelRequirement = 2

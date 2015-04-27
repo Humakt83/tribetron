@@ -266,6 +266,19 @@ describe('Testing bots', function() {
 			expect(map.getAreaByCoord(mapService.createCoord(1,2)).robot).toEqual(nuka)
 		})
 		
+		it('moves towards enemy it can reach', function() {
+			var nuka = createTeamWithRobotAndPlaceOnMap('nuka', false, 1, 1)
+			var enemy = createTeamWithRobotAndPlaceOnMap('crate', true, 1, 4)
+			createRobotIntoTeamAndPlaceOnMap('colossus', enemy.team, 5, 1)
+			map.getAreaByCoord(mapService.createCoord(1,3)).isWall = true
+			map.getAreaByCoord(mapService.createCoord(1,5)).isWall = true
+			map.getAreaByCoord(mapService.createCoord(2,4)).isWall = true
+			nuka.takeTurn(map)
+			var area = map.findAreaWhereBotIs(nuka)
+			expect(area.xCoord).toEqual(2)
+			expect(area.yCoord).toEqual(1)
+		})
+		
 		it('explodes when countdown reaches zero', function() {
 			var nuka = createTeamWithRobotAndPlaceOnMap('nuka', false, 1, 1)
 			var nukasTeam = nuka.team
