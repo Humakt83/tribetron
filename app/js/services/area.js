@@ -42,7 +42,10 @@ angular.module('Tribetron').factory('AreaMap', ['$filter', '$timeout', 'GameSett
 			this.bigExplosion = big
 			this.nuke = nuke
 			var thisArea = this
-			$timeout(function() { thisArea.explosion = false}, 100 * GameSettings.getGameSpeed())
+			$timeout(function() { 
+				thisArea.explosion = false
+				thisArea.nuke = false
+			}, 100 * GameSettings.getGameSpeed())
 		}
 		this.isEmpty = function () {
 			return !(this.isWall || this.trap || this.robot)

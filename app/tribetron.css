@@ -885,11 +885,18 @@ p.detail {
 	left: -50px;
 }
 
-.explosion_nuke {
-	width: 200px;
-	height: 200px;
-	top: -75px;
-	left: -75px;
+.nuke {
+	width: 150px;
+	height: 150px;
+	top: -50px;
+	left: -50px;
+	z-index: 255;
+	opacity: 1;
+	position: absolute;
+}
+
+.nuke.ng-hide {
+  opacity: 0;
 }
 
 .hit.ng-hide-add.ng-hide-add-active, .hit-remove.ng-hide-add.ng-hide-add-active {
