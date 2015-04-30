@@ -10,7 +10,7 @@ describe('Testing bots', function() {
 		robotService = Robot
 		log = BattleLog.getLog()
 		log.reset()
-		map = AreaMap.createMap(10, 10)
+		map = AreaMap.createMap(12, 12)
 		mapService = AreaMap
 		team = Team
 		gameHandler = GameHandler
@@ -313,11 +313,22 @@ describe('Testing bots', function() {
 	describe('Cannoneer', function() {
 		
 		it('is unable to move', function() {
-		
+			var cannoneer = createTeamWithRobotAndPlaceOnMap('cannoneer', false, 1, 1)
+			var enemy = createTeamWithRobotAndPlaceOnMap('crate', true, 10, 10)
+			cannoneer.takeTurn(map)
+			expect(map.getAreaByCoord(mapService.createCoord(1,1)).robot).toEqual(cannoneer)
+			expect(enemy.currentHealth).toEqual(enemy.type.maxHealth)
 		})
 		
 		it('hits cluster of bots', function(){
-		
+			var cannoneer = createTeamWithRobotAndPlaceOnMap('cannoneer', false, 1, 1)
+			var enemy = createTeamWithRobotAndPlaceOnMap('crate', true, 1, 7)
+			var enemy2 = createRobotIntoTeamAndPlaceOnMap('colossus', enemy.team, 1, 6)
+			var enemy3 = createRobotIntoTeamAndPlaceOnMap('titan', enemy.team, 2, 6)
+			cannoneer.takeTurn(map)
+			angular.forEach([enemy, enemy2, enemy3], function(ene) {
+				expect(ene.currentHealth).toBeLessThan(ene.type.maxHealth);
+			})			
 		})
 	})
 	
