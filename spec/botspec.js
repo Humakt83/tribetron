@@ -310,6 +310,17 @@ describe('Testing bots', function() {
 		
 	})
 	
+	describe('Cannoneer', function() {
+		
+		it('is unable to move', function() {
+		
+		})
+		
+		it('hits cluster of bots', function(){
+		
+		})
+	})
+	
 	var createRobotIntoTeamAndPlaceOnMap = function(botTypeName, team, x, y) {
 		var bot = robotService.createRobotUsingTypeName(botTypeName)
 		map.tryToPlaceRobot(bot, mapService.createCoord(x,y))
