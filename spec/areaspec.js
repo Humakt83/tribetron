@@ -51,5 +51,23 @@ describe('Testing Areas and Map', function() {
 		expect(map.getAreaByCoord(areaService.createCoord(1, 1)).isWall).toBeFalsy()
 		expect(map.getAreaByCoord(areaService.createCoord(1, 2)).isWall).toBeFalsy()
 	})
+	
+	it('returns areas by column', function() {
+		var width = 9, height = 12
+		var map = areaService.createMap(width, height)
+		var areas = map.getAreasByColumn(8)
+		expect(areas[0].yCoord).toEqual(0)
+		expect(areas[11].yCoord).toEqual(11)
+		expect(areas.length).toEqual(height)
+	})
+	
+	it('returns areas by row', function() {
+		var width = 15, height = 12
+		var map = areaService.createMap(width, height)
+		var areas = map.getAreasByRow(11)
+		expect(areas[0].xCoord).toEqual(0)
+		expect(areas[14].xCoord).toEqual(14)
+		expect(areas.length).toEqual(width)
+	})
 
 })

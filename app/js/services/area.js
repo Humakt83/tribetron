@@ -219,10 +219,10 @@ angular.module('Tribetron').factory('AreaMap', ['$filter', '$timeout', 'GameSett
 			})
 		}
 		this.getAreasByRow = function(row) {
-			return $filter('filter')(areas, {'yCoord':row}, 'xCoord')
+			return $filter('filter')(areas, function(area) { return area.yCoord === row})
 		}
 		this.getAreasByColumn = function(column) {
-			return $filter('filter')(areas, {'xCoord':column}, 'yCoord')
+			return $filter('filter')(areas, function(area) { return area.xCoord === column})
 		}
 		this.getAreaByCoord = function(coord) {
 			var foundedArea = $filter('filter')(areas, {'yCoord': coord.y, 'xCoord': coord.x})
