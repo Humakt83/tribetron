@@ -332,6 +332,24 @@ describe('Testing bots', function() {
 		})
 	})
 	
+	describe('Sniper', function() {
+		
+		it('attacks enemy from afar', function() {
+			var sniper = createTeamWithRobotAndPlaceOnMap('sniper', false, 1, 1)
+			var enemy = createTeamWithRobotAndPlaceOnMap('crate', true, 1, 7)
+			sniper.takeTurn(map)
+			expect(enemy.currentHealth).toBeLessThan(enemy.type.maxHealth)
+		})
+		
+		it('retreats if the enemy is in melee range', function() {	
+			var sniper = createTeamWithRobotAndPlaceOnMap('sniper', false, 1, 2)
+			var enemy = createTeamWithRobotAndPlaceOnMap('crate', true, 1, 3)
+			sniper.takeTurn(map)
+			expect(enemy.currentHealth).toEqual(enemy.type.maxHealth)
+			expect(map.getAreaByCoord(mapService.createCoord(1,1)).robot).toEqual(sniper)
+		})
+	})
+	
 	var createRobotIntoTeamAndPlaceOnMap = function(botTypeName, team, x, y) {
 		var bot = robotService.createRobotUsingTypeName(botTypeName)
 		map.tryToPlaceRobot(bot, mapService.createCoord(x,y))
