@@ -12,7 +12,7 @@ angular.module('Tribetron').factory('Loot', [function() {
 		this.goal = true
 		this.name = 'Treasure'
 		this.cssName = 'treasure'
-		this.pickupMessage = 'Treasure is yours'
+		this.pickupMessage = 'Treasure!'
 	}
 	
 	function Money() {
@@ -23,7 +23,7 @@ angular.module('Tribetron').factory('Loot', [function() {
 		this.goal = false
 		this.name = 'Money'
 		this.cssName = 'money'
-		this.pickupMessage = 'You picked up some money'
+		this.pickupMessage = '+' + this.baseValue + ' tribs'
 	}
 	
 	function Toolkit() {
@@ -34,7 +34,7 @@ angular.module('Tribetron').factory('Loot', [function() {
 		this.goal = false
 		this.name = 'Toolkit'
 		this.cssName = 'toolkit'
-		this.pickupMessage = 'You repaired yourself with toolkit'
+		this.pickupMessage = '+ ' + this.baseValue + ' hp'
 	}
 	
 	return {

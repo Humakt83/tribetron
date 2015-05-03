@@ -1,7 +1,7 @@
 'use strict'
 
-angular.module('Tribetron').controller('VentureController', ['$scope', '$interval', '$location', 'AreaMap', 'Robot', 'Trap', 'Team', 'GameHandler', 'GameSettings', 'Campaign', 'Player', 'Loot', 'InfoOpener',
-		function($scope, $interval, $location, AreaMap, Robot, Trap, Team, GameHandler, GameSettings, Campaign, Player, Loot, InfoOpener) {
+angular.module('Tribetron').controller('VentureController', ['$scope', '$interval', '$location', '$timeout', 'AreaMap', 'Robot', 'Trap', 'Team', 'GameHandler', 'GameSettings', 'Campaign', 'Player', 'Loot', 'InfoOpener',
+		function($scope, $interval, $location, $timeout, AreaMap, Robot, Trap, Team, GameHandler, GameSettings, Campaign, Player, Loot, InfoOpener) {
 	
 	$scope.player = Player.getPlayer()
 	
@@ -13,6 +13,10 @@ angular.module('Tribetron').controller('VentureController', ['$scope', '$interva
 	$scope.settings = GameSettings
 	$scope.infoOpener = InfoOpener
 
+	$scope.displayMessage = function(message) {
+		$scope.message = message
+		$timeout(function() { $scope.message = undefined }, 700 * GameSettings.getGameSpeed())
+	}
 	
 	function init() {
 		var addBotToMap = function(objectName, area) {
@@ -78,6 +82,8 @@ angular.module('Tribetron').controller('VentureController', ['$scope', '$interva
 			
 			$scope.gameState = GameHandler.createGameState([$scope.avatar, $scope.monsters], 9000)
 		})
+		
+		$scope.displayMessage('Venture begins')
 	}
 	
 	init()
@@ -112,6 +118,7 @@ angular.module('Tribetron').controller('VentureController', ['$scope', '$interva
 		function handleLoot(lootArea) {
 			var loot = lootArea.loot
 			loot.pickup($scope.player)
+			$scope.displayMessage(loot.pickupMessage)
 			if (loot.goal) {
 				$scope.ventureOver = true
 			} else {

@@ -115,11 +115,20 @@ table.game td.floor-clickable:hover {
 table.adventure {
 	border-color: black;
 	border-width: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	position: relative;
 }
 
 table.conquest {
 	border-color: black;
 	border-width: 10px;
+}
+
+.centered {
+	margin-left: auto;
+	margin-right: auto;
+	position: relative;
 }
 
 .touchable {
@@ -920,7 +929,7 @@ p.detail {
   opacity: 0;
 }
 
-.heal.ng-hide-add.ng-hide-add-active, .heal-remove.ng-hide-add.ng-hide-add-active {
+.heal.ng-hide-add.ng-hide-add-active, .heal-remove.ng-hide-add.ng-hide-add-active, .venture-message.ng-hide-add.ng-hide-add-active{
   -webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.3s;
   -moz-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.3s;
   -o-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.3s;
@@ -1052,6 +1061,20 @@ p.detail {
 .ability-disabled {
 	opacity: 0.3;
 	cursor: default;
+}
+
+.venture-message {
+	position: absolute;
+	top: 45%;
+	left: 45%;
+	z-index: 999;
+	color: rgb(255, 100, 0);
+	font-size: 45px;
+	text-shadow: 3px 3px 3px rgb(200,50,0), 3px 3px 6px rgb(150,25,0);
+}
+
+.venture-message.ng-hide {
+  opacity: 0;
 }
 
 /* modalhack: */
