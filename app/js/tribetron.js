@@ -35,6 +35,10 @@ angular.module('Tribetron', ['ngRoute', 'ngAnimate', 'ui.bootstrap'])
 				templateUrl: './partials/conquest.html',
 				controller: 'ConquestController'
 			})
+			.when('/victory', {
+				templateUrl: './partials/victory.html',
+				controller: 'VictoryController'
+			})
 			.otherwise({
 				redirectTo: '/'
 			})

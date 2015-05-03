@@ -18,7 +18,7 @@ angular.module('Tribetron').controller('GameController', ['$scope', '$location',
 		$scope.campaign = Campaign.getCampaign()
 		$scope.started = false
 		if ($scope.campaign.isCompleted()) {
-			$scope.completed = true
+			$location.path('/victory')
 		} else {
 			$scope.campaign.advanceCampaign()
 			Campaign.getScenario(Campaign.getCampaign().currentScenario).success(function(result) {
