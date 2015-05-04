@@ -11,8 +11,11 @@
     <link rel="stylesheet" href="bower_components/animate.css/animate.min.css"/>
     <link rel="stylesheet" href="tribetron.css"/>
   </head>
-  <body ng-app="Tribetron">
+  <body ng-app="Tribetron" onload="loadSound()">
 	<div class="title"></div>
+	<div class="sound-controls">
+		<img id="music" class="music" src="img/soundOn.png"/ onclick="toggleSound(this)" style="display: none;">
+	</div>
     <div class="container">
       <div ng-view></div>
     </div>
@@ -25,6 +28,8 @@
 	<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
 	<script src="bower_components/underscore/underscore-min.js"></script>
 	<script src="bower_components/pathfinding/pathfinding-browser.min.js"></script>
+	<script src="bower_components/SoundJS/lib/soundjs-0.6.0.min.js"></script>
+	<script src="js/sound.js"></script>
     <script src="js/tribetron.js"></script>
 	<script src="js/controllers/maincontroller.js"></script>
 	<script src="js/controllers/gamecontroller.js"></script>

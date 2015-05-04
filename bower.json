@@ -23,6 +23,7 @@
     "fontawesome": "~4.3.0",
     "underscore": "~1.8.2",
     "angular-bootstrap": "~0.12.1",
-    "pathfinding": "~0.4.16"
+    "pathfinding": "~0.4.16",
+    "SoundJS": "~0.6.0"
   }
 }

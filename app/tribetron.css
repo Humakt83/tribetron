@@ -1093,6 +1093,18 @@ p.detail {
 	background-color: rgb(255,255,255);
 }
 
+.sound-controls {
+	position: fixed;
+	top: 30px;
+	right: 50px;
+	z-index: 999;
+}
+
+img.music {
+	width: 25px;
+	height: 25px;
+}
+
 /* modalhack: */
 .modal-open {
 	overflow: auto; 

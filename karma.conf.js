@@ -28,7 +28,9 @@ module.exports = function(config) {
 
     // list of files to exclude
     exclude: [
-		'app/bower_components/angular-animate/'
+		'app/bower_components/angular-animate/',
+		'app/bower_components/SoundJS/**/*',
+		'app/js/sound.js'
     ],
 
 
