@@ -50,8 +50,13 @@ gulp.task('copy-json', function() {
     .pipe(gulp.dest('dist/res'));
 });
 
+gulp.task('copy-mp3', function() {
+  gulp.src('app/Tribetron.mp3')
+    .pipe(gulp.dest('dist/'));
+});
+
 gulp.task('build',
-  ['minify-css', 'minify-js', 'copy-html-files', 'copy-bower-components', 'copy-pictures', 'copy-json']
+  ['minify-css', 'minify-js', 'copy-html-files', 'copy-bower-components', 'copy-pictures', 'copy-json', 'copy-mp3']
 );
 
 gulp.task('build-start', ['build', 'serveDist']);
