@@ -14,7 +14,7 @@ function toggleSound() {
 	if (!playing) {
 		createjs.Sound.stop(soundID)
 	} else {
-		createjs.Sound.play(soundID)
+		createjs.Sound.play(soundID, {loop:-1})
 	}
 	music.attr('src', playing ? 'img/soundOff.png' : 'img/soundOn.png')
 }
