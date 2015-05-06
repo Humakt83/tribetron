@@ -1,7 +1,7 @@
 'use strict'
 
-angular.module('Tribetron').controller('VentureController', ['$scope', '$interval', '$location', '$timeout', 'AreaMap', 'Robot', 'Trap', 'Team', 'GameHandler', 'GameSettings', 'Campaign', 'Player', 'Loot', 'InfoOpener',
-		function($scope, $interval, $location, $timeout, AreaMap, Robot, Trap, Team, GameHandler, GameSettings, Campaign, Player, Loot, InfoOpener) {
+angular.module('Tribetron').controller('VentureController', ['$scope', '$interval', '$location', '$timeout', '$window', 'AreaMap', 'Robot', 'Trap', 'Team', 'GameHandler', 'GameSettings', 'Campaign', 'Player', 'Loot', 'InfoOpener',
+		function($scope, $interval, $location, $timeout, $window, AreaMap, Robot, Trap, Team, GameHandler, GameSettings, Campaign, Player, Loot, InfoOpener) {
 	
 	$scope.player = Player.getPlayer()
 	
@@ -125,10 +125,10 @@ angular.module('Tribetron').controller('VentureController', ['$scope', '$interva
 				lootArea.setLoot()
 			}
 		}
-		if ($scope.ventureOver || $scope.player.avatar.destroyed || $scope.monstersTurnPlaying) return
+		if (!$scope.canPlayerMove()) return
 		var playerArea = $scope.map.findAreaWithBotByTypeName($scope.player.avatar.type.typeName)[0]
 		var areaClicked = $scope.map.getAreaByCoord(AreaMap.createCoord(x, y))
-		if (playerArea.calculateDistance(areaClicked) == 1 && !areaClicked.isWall) {
+		if (areaClicked && playerArea.calculateDistance(areaClicked) == 1 && !areaClicked.isWall) {
 			if (areaClicked.robot) {
 				handleEnemy(areaClicked)
 			} else if (areaClicked.loot) {
@@ -138,6 +138,10 @@ angular.module('Tribetron').controller('VentureController', ['$scope', '$interva
 			}
 			if (!$scope.ventureOver) moveMonsters()
 		}
+	}
+	
+	$scope.canPlayerMove = function() {
+		return !($scope.ventureOver || $scope.player.avatar.destroyed || $scope.monstersTurnPlaying)
 	}
 	
 	$scope.clickableClass = function(area) {
@@ -154,4 +158,25 @@ angular.module('Tribetron').controller('VentureController', ['$scope', '$interva
 	$scope.backToMain = function() {
 		$location.path('/')
 	}
+	
+	$scope.keydown = function(event) {
+		if([37,38,39,40].indexOf(event.keyCode) === -1 || !$scope.canPlayerMove()) return
+		var playerArea = $scope.map.findAreaWithBotByTypeName($scope.player.avatar.type.typeName)[0]
+		switch(event.keyCode) {
+			case 37:
+				$scope.playerMove(playerArea.xCoord - 1, playerArea.yCoord)
+				break
+			case 38:
+				$scope.playerMove(playerArea.xCoord, playerArea.yCoord - 1)
+				break
+			case 39:
+				$scope.playerMove(playerArea.xCoord + 1, playerArea.yCoord)
+				break
+			case 40:
+				$scope.playerMove(playerArea.xCoord, playerArea.yCoord + 1)
+				break
+		}
+	}
+	
+	$window.onkeydown = $scope.keydown;
 }])
