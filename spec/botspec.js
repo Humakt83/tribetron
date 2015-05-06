@@ -350,6 +350,21 @@ describe('Testing bots', function() {
 		})
 	})
 	
+	describe('MegaHunter', function() {
+		
+		it('moves towards enemy', function() {
+			
+		})
+		
+		it('when defeated will divide into hunters', function() {
+		
+		})
+		
+		it('only places hunters to tiles next to MegaHunter that are free', function() {
+		
+		})
+	})
+	
 	var createRobotIntoTeamAndPlaceOnMap = function(botTypeName, team, x, y) {
 		var bot = robotService.createRobotUsingTypeName(botTypeName)
 		map.tryToPlaceRobot(bot, mapService.createCoord(x,y))
