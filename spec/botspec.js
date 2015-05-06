@@ -353,15 +353,39 @@ describe('Testing bots', function() {
 	describe('MegaHunter', function() {
 		
 		it('moves towards enemy', function() {
-			
+			var mega = createTeamWithRobotAndPlaceOnMap('megaHunter', false, 1, 1)
+			var enemy = createTeamWithRobotAndPlaceOnMap('totter', true, 1, 5)
+			mega.takeTurn(map)				
+			expect(map.getAreaByCoord(mapService.createCoord(1,2)).robot).toEqual(mega)
 		})
 		
 		it('when defeated will divide into hunters', function() {
-		
+			var mega = createTeamWithRobotAndPlaceOnMap('megaHunter', false, 2, 2)
+			var team = mega.team
+			gameHandler.createGameState(team, [], 25);
+			mega.receiveDamage('test', 99, map)
+			
+			expect(map.getAreaByCoord(mapService.createCoord(1,2)).robot.type.typeName).toEqual('hunter')
+			expect(map.getAreaByCoord(mapService.createCoord(2,1)).robot.type.typeName).toEqual('hunter')
+			expect(map.getAreaByCoord(mapService.createCoord(2,2)).robot.type.typeName).toEqual('hunter')
+			expect(map.getAreaByCoord(mapService.createCoord(2,3)).robot.type.typeName).toEqual('hunter')
+			expect(map.getAreaByCoord(mapService.createCoord(3,2)).robot.type.typeName).toEqual('hunter')
+			expect(team.robots.length).toEqual(5)
 		})
 		
 		it('only places hunters to tiles next to MegaHunter that are free', function() {
-		
+			var mega = createTeamWithRobotAndPlaceOnMap('megaHunter', false, 2, 2)
+			var enemy = createTeamWithRobotAndPlaceOnMap('crate', true, 2, 3)
+			map.getAreaByCoord(mapService.createCoord(1,2)).isWall = true
+			var team = mega.team
+			gameHandler.createGameState(team, [], 25);
+			mega.receiveDamage('test', 99, map)
+			expect(map.getAreaByCoord(mapService.createCoord(1,2)).robot).toEqual(null)
+			expect(map.getAreaByCoord(mapService.createCoord(2,1)).robot.type.typeName).toEqual('hunter')
+			expect(map.getAreaByCoord(mapService.createCoord(2,3)).robot.type.typeName).toEqual('crate')
+			expect(map.getAreaByCoord(mapService.createCoord(2,2)).robot.type.typeName).toEqual('hunter')
+			expect(map.getAreaByCoord(mapService.createCoord(3,2)).robot.type.typeName).toEqual('hunter')
+			expect(team.robots.length).toEqual(3)
 		})
 	})
 	
