@@ -39,7 +39,7 @@ angular.module('Tribetron').factory('Loot', [function() {
 	
 	return {
 		getLootTypesAsObjects: function() {
-			return _.map(lootTypes, function(type) { return new type()})
+			return _.map(lootTypes, function(Type) { return new Type()})
 		}
 	}
 }])

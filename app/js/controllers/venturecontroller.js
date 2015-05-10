@@ -32,8 +32,8 @@ angular.module('Tribetron').controller('VentureController', ['$scope', '$interva
 		}
 		
 		var addTrapToMap = function(objectName, area) {
-			var trapType = _.find(Trap.getTrapTypes(), function(type) {
-				return new type().jsonName == objectName
+			var trapType = _.find(Trap.getTrapTypes(), function(Type) {
+				return new Type().jsonName == objectName
 			})
 			if (trapType) {
 				area.setTrap(Trap.createTrap(trapType))

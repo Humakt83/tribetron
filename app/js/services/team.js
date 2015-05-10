@@ -26,8 +26,8 @@ angular.module('Tribetron').factory('Team', ['$filter', 'Robot', function($filte
 		
 		this.botsPerTypeRemaining = function() {
 			var botsPerType = [], thisTeam = this
-			angular.forEach(Robot.getTypes(), function(type) {
-				var botType = new type()
+			angular.forEach(Robot.getTypes(), function(Type) {
+				var botType = new Type()
 				botsPerType.push(new BotsByType(botType.typeName, $filter('filter')(thisTeam.robots, function(bot) {
 					return bot.type.typeName === botType.typeName && !bot.destroyed
 				})))

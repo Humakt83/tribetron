@@ -116,13 +116,13 @@ angular.module('Tribetron').factory('AreaMap', ['$filter', '$timeout', 'GameSett
 			var moveOptions = [], thisMap = this
 			if (Math.abs(xDistance) >= Math.abs(yDistance)) {
 				moveOptions.push(this.getAreaByCoord(new Coord(botArea.xCoord + (Math.sign(xDistance) * -1), botArea.yCoord)))
-				if (yDistance != 0) moveOptions.push(this.getAreaByCoord(new Coord(botArea.xCoord, botArea.yCoord + (Math.sign(yDistance) * -1))))
+				if (yDistance !== 0) moveOptions.push(this.getAreaByCoord(new Coord(botArea.xCoord, botArea.yCoord + (Math.sign(yDistance) * -1))))
 				moveOptions.push(_.shuffle([
 					this.getAreaByCoord(new Coord(botArea.xCoord, botArea.yCoord + 1)), 
 					this.getAreaByCoord(new Coord(botArea.xCoord, botArea.yCoord - 1))]))
 			} else {
 				moveOptions.push(this.getAreaByCoord(new Coord(botArea.xCoord, botArea.yCoord + (Math.sign(yDistance) * -1))))
-				if (xDistance != 0) moveOptions.push(this.getAreaByCoord(new Coord(botArea.xCoord + (Math.sign(xDistance) * -1), botArea.yCoord)))
+				if (xDistance !== 0) moveOptions.push(this.getAreaByCoord(new Coord(botArea.xCoord + (Math.sign(xDistance) * -1), botArea.yCoord)))
 				moveOptions.push(_.shuffle([
 					this.getAreaByCoord(new Coord(botArea.xCoord + 1, botArea.yCoord)),
 					this.getAreaByCoord(new Coord(botArea.xCoord -1, botArea.yCoord))]))
@@ -145,13 +145,13 @@ angular.module('Tribetron').factory('AreaMap', ['$filter', '$timeout', 'GameSett
 			var moveOptions = [], thisMap = this
 			if (Math.abs(xDistance) >= Math.abs(yDistance) || (Math.abs(xDistance) == Math.abs(yDistance) && Math.floor(Math.random()) == 1)) {
 				moveOptions.push(this.getAreaByCoord(new Coord(botArea.xCoord + Math.sign(xDistance), botArea.yCoord)))
-				if (yDistance != 0) moveOptions.push(this.getAreaByCoord(new Coord(botArea.xCoord, botArea.yCoord + Math.sign(yDistance))))
+				if (yDistance !== 0) moveOptions.push(this.getAreaByCoord(new Coord(botArea.xCoord, botArea.yCoord + Math.sign(yDistance))))
 				moveOptions.push(_.shuffle([
 					this.getAreaByCoord(new Coord(botArea.xCoord, botArea.yCoord + 1)), 
 					this.getAreaByCoord(new Coord(botArea.xCoord, botArea.yCoord - 1))]))
 			} else {
 				moveOptions.push(this.getAreaByCoord(new Coord(botArea.xCoord, botArea.yCoord + Math.sign(yDistance))))
-				if (xDistance != 0) moveOptions.push(this.getAreaByCoord(new Coord(botArea.xCoord + Math.sign(xDistance), botArea.yCoord)))
+				if (xDistance !== 0) moveOptions.push(this.getAreaByCoord(new Coord(botArea.xCoord + Math.sign(xDistance), botArea.yCoord)))
 				moveOptions.push(_.shuffle([
 					this.getAreaByCoord(new Coord(botArea.xCoord + 1, botArea.yCoord)),
 					this.getAreaByCoord(new Coord(botArea.xCoord -1, botArea.yCoord))]))
@@ -162,7 +162,7 @@ angular.module('Tribetron').factory('AreaMap', ['$filter', '$timeout', 'GameSett
 		this.moveBotTowardsInStraightLine = function(botArea, targetArea) {
 			var xDistance = botArea.xCoord - targetArea.xCoord
 			var yDistance = botArea.yCoord - targetArea.yCoord
-			if (xDistance != 0)
+			if (xDistance !== 0)
 				this.moveBot(botArea, this.getAreaByCoord(new Coord(botArea.xCoord + (Math.sign(xDistance) * -1), botArea.yCoord)))
 			else
 				this.moveBot(botArea, this.getAreaByCoord(new Coord(botArea.xCoord, botArea.yCoord + (Math.sign(yDistance) * -1))))

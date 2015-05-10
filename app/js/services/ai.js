@@ -69,7 +69,7 @@ angular.module('Tribetron').factory('AI', ['Abilities', function(Abilities) {
 			}
 			function tryToStunDangerousOpponent(source) {
 				var dangerousTypes = ['titan', 'colossus', 'cannon']
-				var foundOne = undefined
+				var foundOne
 				angular.forEach(dangerousTypes, function(typeName) {
 					if (!foundOne) {
 						var dangerousBots = map.findAreaWithOpponentsBotByTypeName(typeName, team)
@@ -113,12 +113,12 @@ angular.module('Tribetron').factory('AI', ['Abilities', function(Abilities) {
 			return opponents
 		},
 		getOpponentByName : function(name) {
-			return _.find(opponents, function(type) {
-				return new type().name == name
+			return _.find(opponents, function(Type) {
+				return new Type().name == name
 			})
 		},
-		createOpponent : function(type) {
-			return new Opponent(new type())
+		createOpponent : function(Type) {
+			return new Opponent(new Type())
 		}
 	}
 }])

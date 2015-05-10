@@ -18,7 +18,7 @@ angular.module('Tribetron').factory('GameHandler', ['BattleLog', function(Battle
 		}
 		
 		this.nextRobot = function() {
-			var bot = undefined, attemptsCounter = 0
+			var bot, attemptsCounter = 0
 			while(!bot || bot.destroyed) {
 				if (attemptsCounter > this.robotQueue.length) throw "All robots have been destroyed"
 				bot = this.robotQueue[this.robotTurn]

@@ -21,8 +21,8 @@ angular.module('Tribetron').controller('RumbleController', ['$scope', '$interval
 		var createTeamWithRobots = function(teamName, amountOfRobots, isEnemy) {
 			var bots = []
 			for ( var i = 0; i < amountOfRobots; i++) {
-				var robotType = Robot.getTypes()[Math.floor(Math.random() * Robot.getTypes().length)]
-				bots.push(Robot.createRobot(new robotType()))
+				var RobotType = Robot.getTypes()[Math.floor(Math.random() * Robot.getTypes().length)]
+				bots.push(Robot.createRobot(new RobotType()))
 			}
 			return Team.createTeam(teamName, bots, isEnemy)
 		}

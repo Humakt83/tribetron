@@ -1,3 +1,5 @@
+'use strict'
+
 angular.module('Tribetron').controller('BotInfo', ['$scope', '$modalInstance', 'Player', 'Robot', 'botTypeName', function ($scope, $modalInstance, Player, Robot, botTypeName) {
 	
 	$scope.botTypeName = botTypeName

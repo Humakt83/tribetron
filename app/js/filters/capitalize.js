@@ -1,3 +1,5 @@
+'use strict'
+
 angular.module('Tribetron').filter('capitalize', function() {
     return function(input) {
 		var capitalizeFirstLetter = function(text) {

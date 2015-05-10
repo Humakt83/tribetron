@@ -62,7 +62,7 @@ angular.module('Tribetron').factory('Abilities', [function() {
 		this.activate = function(source, bot, doNotSetCooldown) {
 			if (!bot.destroyed) {
 				bot.stun(1)
-				if (doNotSetCooldown != true) this.cooldownLeft = this.cooldown
+				if (doNotSetCooldown !== true) this.cooldownLeft = this.cooldown
 				return true
 			}
 			return false

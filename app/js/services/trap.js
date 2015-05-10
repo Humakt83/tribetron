@@ -44,8 +44,8 @@ angular.module('Tribetron').factory('Trap', [function() {
 		getTrapTypes: function() {
 			return trapTypes
 		},
-		createTrap: function(trapType) {
-			return new Trap(new trapType())
+		createTrap: function(TrapType) {
+			return new Trap(new TrapType())
 		}
 	
 	}

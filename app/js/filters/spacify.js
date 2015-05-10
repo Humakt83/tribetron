@@ -1,3 +1,5 @@
+'use strict'
+
 angular.module('Tribetron').filter('spacify', function() {
     return function(input) {
 		var spacify = function(text) {

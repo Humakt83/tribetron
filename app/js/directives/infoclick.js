@@ -1,3 +1,5 @@
+'use strict'
+
 angular.module('Tribetron').directive('ngInfoClick', ['$parse', function($parse) {
     return function(scope, element, attrs) {
 		var fn = $parse(attrs.ngInfoClick);

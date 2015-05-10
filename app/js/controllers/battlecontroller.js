@@ -20,8 +20,8 @@ angular.module('Tribetron').controller('BattleController', ['$scope', '$interval
 	function init() {
 		var createTeamWithRobots = function(teamName, amountOfRobots, rosterOpponent) {
 			function createRandomRobot() {
-				var robotType = Robot.getTypes()[Math.floor(Math.random() * Robot.getTypes().length)]
-				return Robot.createRobot(new robotType())
+				var RobotType = Robot.getTypes()[Math.floor(Math.random() * Robot.getTypes().length)]
+				return Robot.createRobot(new RobotType())
 			}
 			var bots = []
 			angular.forEach(rosterOpponent, function(botType) {
@@ -44,8 +44,8 @@ angular.module('Tribetron').controller('BattleController', ['$scope', '$interval
 		
 		var placeTraps = function(traps) {
 			angular.forEach(traps, function(trap) {
-				var trapType = _.find(Trap.getTrapTypes(), function(type) {
-						return new type().name === trap;
+				var trapType = _.find(Trap.getTrapTypes(), function(Type) {
+						return new Type().name === trap;
 				})
 				$scope.map.placeTrapAtRandomFreeSpot(Trap.createTrap(trapType))
 			})			

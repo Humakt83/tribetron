@@ -584,7 +584,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 			} else BattleLog.add('Psycho-medic does nothing.')
 		}
 		this.takeTurn = function(bot, map, team) {
-			this.psychoMode = this.psychoMode || Math.floor(Math.random() * 10) == 0
+			this.psychoMode = this.psychoMode || Math.floor(Math.random() * 10) === 0
 			if (this.psychoMode) this.psychoTurn(bot, map, team)
 			else this.medicTurn(bot, map, team)
 		}
@@ -1006,7 +1006,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 	}
 	
 	var getTypesAsObjects = function() {
-			return _.map(types, function(type) { return new type()})
+			return _.map(types, function(Type) { return new Type()})
 		}
 	
 	return {

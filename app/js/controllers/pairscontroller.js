@@ -11,16 +11,16 @@ angular.module('Tribetron').controller('PairsController', ['$scope', '$location'
 		Campaign.getScenario(Campaign.getCampaign().currentScenario).success(function(result) {
 			
 			function generateRowsOfCards(cards) {
-				var rows = new Array()
+				var rows = []
 				var cardsPerRowRemaining = 4
 				var i = 0
-				rows[i] = new Array()
+				rows[i] = []
 				angular.forEach(cards, function(card) {
 					rows[i].push(card)
 					cardsPerRowRemaining--
 					if (cardsPerRowRemaining < 1) {
 						i++
-						rows[i] = new Array()
+						rows[i] = []
 						cardsPerRowRemaining = 4
 					}
 				})
@@ -31,7 +31,7 @@ angular.module('Tribetron').controller('PairsController', ['$scope', '$location'
 			$scope.maxClicks = result.maxClicks
 			$scope.clicks = 0
 			$scope.reward = result.reward
-			var cards = new Array()
+			var cards = []
 			$scope.cardsSelected = []
 			var types = Robot.getTypesAsObjects()
 			
@@ -98,6 +98,6 @@ angular.module('Tribetron').controller('PairsController', ['$scope', '$location'
 	}
 	
 	$scope.shouldFloat = function(indexValue) {
-		return indexValue != 0 && indexValue % 4 == 0 ? '': 'card-float'
+		return indexValue !== 0 && indexValue % 4 === 0 ? '': 'card-float'
 	}
 }])
