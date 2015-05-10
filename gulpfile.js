@@ -1,20 +1,28 @@
-'use strict';
+'use strict'
 
-var gulp = require('gulp');
-var uglify = require('gulp-uglify');
-var minifyCSS = require('gulp-minify-css');
-var clean = require('gulp-clean');
+var gulp = require('gulp')
+var uglify = require('gulp-uglify')
+var minifyCSS = require('gulp-minify-css')
+var clean = require('gulp-clean')
+var jshint = require('gulp-jshint')
+var stylish = require('jshint-stylish');
 
-var browserSync = require('browser-sync');
-var reload = browserSync.reload;
+var browserSync = require('browser-sync')
+var reload = browserSync.reload
 
-var karma = require('karma').server;
+var karma = require('karma').server
 
-gulp.task('default', ['serve']);
+gulp.task('default', ['serve'])
 
 gulp.task('clean', function() {
     gulp.src('dist/*')
-      .pipe(clean({force: true}));
+      .pipe(clean({force: true}))
+});
+
+gulp.task('lint', function() {
+  return gulp.src(['app/**/*.js', '!app/bower_components/**'])
+    .pipe(jshint({asi: true, globalstrict: true}))
+    .pipe(jshint.reporter(stylish));
 });
 
 gulp.task('minify-css', function() {
@@ -25,7 +33,7 @@ gulp.task('minify-css', function() {
 });
 
 gulp.task('minify-js', function() {
-  gulp.src(['app/collector.js','app/**/*.js', '!app/bower_components/**'])
+  gulp.src(['app/**/*.js', '!app/bower_components/**'])
     .pipe(uglify({}))
     .pipe(gulp.dest('dist/'))
 });
