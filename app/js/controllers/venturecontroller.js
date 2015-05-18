@@ -151,7 +151,7 @@ angular.module('Tribetron').controller('VentureController', ['$scope', '$interva
 	}
 	
 	$scope.continueCampaign = function() {
-		$scope.player.avatar.currentHealth = $scope.player.avatar.type.maxHealth
+		$scope.player.avatar.reset()
 		$location.path('/game')
 	}
 	

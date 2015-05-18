@@ -997,6 +997,10 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 		this.resetHealth = function() {
 			this.currentHealth = this.type.maxHealth
 		}
+		this.reset = function() {
+			this.cleanEffects()
+			this.resetHealth()
+		}
 		this.stunned = 0
 		this.type = type
 		this.destroyed = false
