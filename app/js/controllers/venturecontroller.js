@@ -91,12 +91,11 @@ angular.module('Tribetron').controller('VentureController', ['$scope', '$interva
 	function moveMonsters() {
 		$scope.gameState.robotTurn = 1
 		$scope.monstersTurnPlaying = true
-		var fullTurn = $scope.gameState.robotQueue.length
+		var round = $scope.gameState.round
 		$scope.monstersTurn = $interval(function() {			
-            if (!$scope.gameState.isOver() && (fullTurn > 1 || $scope.player.avatar.stunned > 0)) {
+            if (!$scope.gameState.isOver() && ($scope.gameState.round === round || $scope.player.avatar.stunned > 0)) {
               $scope.gameState.nextRobot().takeTurn($scope.map)
-			  angular.forEach($scope.teams, function(team) { team.updateBotCount() })
-			  fullTurn -= 1			  
+			  angular.forEach($scope.teams, function(team) { team.updateBotCount() })	  
             } else {
               $interval.cancel($scope.monstersTurn)
 			  $scope.monstersTurnPlaying = false
