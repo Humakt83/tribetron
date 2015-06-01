@@ -41,7 +41,7 @@
 			
 			<div ng-if="scenario.type && scenario.type == 'venture'">
 				<div class="row">
-					<strong>Adventure awaits</strong>
+					<strong>{{scenario.story ? scenario.story : 'Adventure awaits'}}</strong>
 					<button ng-click="goToAdventure()" style="float:right; margin-right: 15px;" class="btn btn-primary">Travel</button>
 				</div>
 			</div>
