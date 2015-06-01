@@ -1,0 +1,77 @@
+{
+  "type" : "venture",
+  "story" : "A small test. Nothing too difficult yet. Venture the maze and find the treasure.",
+  "rows" : [ [ {
+    "object" : "player"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "stunmine"
+  }, {
+    "object" : "hunter"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "money"
+  } ], [ {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "box"
+  } ], [ {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  } ], [ {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  } ], [ {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "plasma"
+  }, {
+    "object" : "radiator"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "box"
+  } ], [ {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "box"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "treasure"
+  } ] ]
+}

@@ -1,76 +1,14 @@
 {
   "type" : "venture",
-  "story" : "Run!",
+  "story" : "Who does not like explosions?",
   "rows" : [ [ {
     "object" : "wall"
   }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
     "object" : "wall"
   }, {
     "object" : "wall"
   }, {
-    "object" : "money"
-  }, {
-    "object" : "money"
-  } ], [ {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
     "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "stunmine"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "toolkit"
-  }, {
-    "object" : "money"
-  } ], [ {
-    "object" : "floor"
-  }, {
-    "object" : "stunmine"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "box"
-  }, {
-    "object" : "box"
-  } ], [ {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
   }, {
     "object" : "wall"
   }, {
@@ -78,128 +16,190 @@
   }, {
     "object" : "wall"
   }, {
-    "object" : "floor"
+    "object" : "wall"
   }, {
-    "object" : "floor"
+    "object" : "wall"
+  }, {
+    "object" : "wall"
   } ], [ {
     "object" : "wall"
   }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  } ], [ {
-    "object" : "colossus"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  } ], [ {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  } ], [ {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  } ], [ {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  } ], [ {
     "object" : "player"
   }, {
     "object" : "floor"
   }, {
     "object" : "floor"
   }, {
+    "object" : "stunmine"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "totter"
+  }, {
+    "object" : "bomb"
+  }, {
+    "object" : "wall"
+  } ], [ {
+    "object" : "wall"
+  }, {
     "object" : "floor"
   }, {
     "object" : "floor"
   }, {
-    "object" : "mine"
+    "object" : "floor"
   }, {
-    "object" : "destructor"
+    "object" : "floor"
+  }, {
+    "object" : "totter"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "stunmine"
+  }, {
+    "object" : "totter"
   }, {
     "object" : "wall"
+  } ], [ {
+    "object" : "wall"
+  }, {
+    "object" : "stunmine"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "totter"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "totter"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
   }, {
     "object" : "wall"
+  } ], [ {
+    "object" : "wall"
+  }, {
+    "object" : "totter"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "money"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "totter"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  } ], [ {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "stunmine"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "totter"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "bomb"
+  }, {
+    "object" : "wall"
+  } ], [ {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "totter"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "box"
+  }, {
+    "object" : "box"
+  }, {
+    "object" : "box"
+  }, {
+    "object" : "wall"
+  } ], [ {
+    "object" : "wall"
+  }, {
+    "object" : "totter"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "stunmine"
+  }, {
+    "object" : "totter"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "box"
+  }, {
+    "object" : "nuka"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  } ], [ {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "totter"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "bomb"
+  }, {
+    "object" : "box"
+  }, {
+    "object" : "floor"
   }, {
     "object" : "treasure"
+  }, {
+    "object" : "wall"
+  } ], [ {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
   } ] ]
 }

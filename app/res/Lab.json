@@ -1,25 +1,12 @@
 {
   "type" : "venture",
+  "story" : "Some test specimens have broken loose in the lab.",
   "rows" : [ [ {
-    "object" : "cannoneer"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
+    "object" : "multiplicator"
   }, {
     "object" : "floor"
   }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
+    "object" : "player"
   }, {
     "object" : "floor"
   }, {
@@ -29,7 +16,11 @@
   }, {
     "object" : "wall"
   }, {
-    "object" : "money"
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "multiplicator"
   } ], [ {
     "object" : "floor"
   }, {
@@ -37,14 +28,6 @@
   }, {
     "object" : "floor"
   }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
     "object" : "wall"
   }, {
     "object" : "floor"
@@ -56,221 +39,153 @@
     "object" : "floor"
   }, {
     "object" : "floor"
+  }, {
+    "object" : "floor"
+  } ], [ {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "money"
+  } ], [ {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  } ], [ {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  } ], [ {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  } ], [ {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  } ], [ {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "crate"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  } ], [ {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "money"
+  }, {
+    "object" : "medic"
+  }, {
+    "object" : "box"
   }, {
     "object" : "floor"
   }, {
     "object" : "hunter"
-  } ], [ {
-    "object" : "player"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "box"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "money"
-  } ], [ {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  } ], [ {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "hottot"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "hottot"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  } ], [ {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "money"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "hottot"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
   }, {
     "object" : "floor"
   } ], [ {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "money"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
+    "object" : "multiplicator"
   }, {
     "object" : "floor"
   }, {
-    "object" : "floor"
-  }, {
-    "object" : "psycho"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  } ], [ {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  } ], [ {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "psycho"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  } ], [ {
     "object" : "money"
   }, {
     "object" : "wall"
@@ -280,20 +195,6 @@
     "object" : "wall"
   }, {
     "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
   }, {
     "object" : "floor"
   }, {

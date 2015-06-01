@@ -5,7 +5,7 @@
 "maxRoster": 10,
 "rounds": 30,
 "levelup": true,
-"rosterOpponent": ["crate", "hunter", "box", "zipper", "hacker", "trasher", "cannoneer", "psycho", "medic", "psycho-medic", "destructor", "multiplicator", "destructor", "radiator", "totter"],
+"rosterOpponent": ["crate", "hunter", "box", "zipper", "hacker", "trasher", "cannoneer", "psycho", "medic", "psycho-medic", "destructor", "multiplicator", "destructor", "radiator", "lazor"],
 "opponentTeamName": "Utimulons",
 "opponent": "Mega",
 "traps": ["Mine", "Mine", "Mine", "Stun mine", "Stun mine", "Plasma pool", "Plasma pool", "Stun mine"]

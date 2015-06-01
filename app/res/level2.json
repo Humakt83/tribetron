@@ -5,7 +5,7 @@
 "areaHeight": 8,
 "maxRoster": 5,
 "rounds": 15,
-"rosterOpponent": ["box", "box", "zipper", "box", "zipper"],
+"rosterOpponent": ["box", "box", "zipper", "zipper", "zipper"],
 "opponentTeamName": "Zibunians",
 "opponent": "NPE",
 "traps": ["Stun mine", "Mine", "Plasma pool"]

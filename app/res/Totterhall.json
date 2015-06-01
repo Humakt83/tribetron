@@ -1,5 +1,6 @@
 {
   "type" : "venture",
+  "story" : "A sanitarium of insane robots. Best to avoid a direct confrontation and let the loonies sort themselves out.",
   "rows" : [ [ {
     "object" : "wall"
   }, {
@@ -20,106 +21,6 @@
     "object" : "wall"
   }, {
     "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  } ], [ {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "totter"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "totter"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "totter"
-  }, {
-    "object" : "wall"
-  } ], [ {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "totter"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "stunmine"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  } ], [ {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "stunmine"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "stunmine"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "totter"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
   } ], [ {
     "object" : "wall"
   }, {
@@ -135,13 +36,143 @@
   }, {
     "object" : "floor"
   }, {
+    "object" : "floor"
+  }, {
+    "object" : "toolkit"
+  }, {
+    "object" : "wall"
+  } ], [ {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "totter"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "totter"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "totter"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  } ], [ {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "totter"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "totter"
+  }, {
     "object" : "money"
   }, {
-    "object" : "floor"
+    "object" : "totter"
   }, {
     "object" : "floor"
   }, {
-    "object" : "stunmine"
+    "object" : "totter"
+  }, {
+    "object" : "wall"
+  } ], [ {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "totter"
+  }, {
+    "object" : "money"
+  }, {
+    "object" : "totter"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "totter"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  } ], [ {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "totter"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "totter"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "totter"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "totter"
+  }, {
+    "object" : "wall"
+  } ], [ {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "totter"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "totter"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "totter"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  } ], [ {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "totter"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "totter"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "totter"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  } ], [ {
+    "object" : "wall"
+  }, {
+    "object" : "toolkit"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "totter"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "totter"
   }, {
     "object" : "floor"
   }, {
@@ -151,136 +182,6 @@
   }, {
     "object" : "wall"
   } ], [ {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "stunmine"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  } ], [ {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "stunmine"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "totter"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "stunmine"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  } ], [ {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "totter"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "totter"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "totter"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  } ], [ {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "totter"
-  }, {
-    "object" : "wall"
-  } ], [ {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
     "object" : "wall"
   }, {
     "object" : "wall"

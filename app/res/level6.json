@@ -4,7 +4,7 @@
 "areaHeight": 10,
 "maxRoster": 7,
 "rounds": 20,
-"rosterOpponent": ["box", "box", "box", "cannoneer", "multiplicator", "radiator", "radiator", "multiplicator"],
+"rosterOpponent": ["box", "box", "box", "cannoneer", "multiplicator", "radiator", "radiator", "multiplicator", "multiplicator"],
 "opponentTeamName": "Mupilians",
 "opponent": "Base",
 "traps": ["Mine", "Mine", "Plasma pool", "Plasma pool", "Plasma pool", "Plasma pool"]

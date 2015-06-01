@@ -4,7 +4,7 @@
 "areaHeight": 7,
 "maxRoster": 4,
 "rounds": 15,
-"rosterOpponent": ["hunter", "box", "zipper", "box", "disablor"],
+"rosterOpponent": ["hunter", "box", "radiator", "box", "disablor"],
 "opponentTeamName": "Nullians",
 "opponent": "NPE"
 }

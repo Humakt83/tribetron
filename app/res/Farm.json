@@ -1,187 +1,7 @@
 {
   "type" : "venture",
-  "story" : "Run!",
+  "story" : "A robot farm. Mind where you step.",
   "rows" : [ [ {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "money"
-  }, {
-    "object" : "money"
-  } ], [ {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "stunmine"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "toolkit"
-  }, {
-    "object" : "money"
-  } ], [ {
-    "object" : "floor"
-  }, {
-    "object" : "stunmine"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "box"
-  }, {
-    "object" : "box"
-  } ], [ {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  } ], [ {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  } ], [ {
-    "object" : "colossus"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  } ], [ {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  } ], [ {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  } ], [ {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  } ], [ {
     "object" : "player"
   }, {
     "object" : "floor"
@@ -192,13 +12,193 @@
   }, {
     "object" : "floor"
   }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "trapper"
+  } ], [ {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
     "object" : "mine"
   }, {
-    "object" : "destructor"
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  } ], [ {
+    "object" : "floor"
   }, {
     "object" : "wall"
   }, {
     "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  } ], [ {
+    "object" : "mine"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "tauron"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "tauron"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "mine"
+  }, {
+    "object" : "floor"
+  } ], [ {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "tauron"
+  }, {
+    "object" : "money"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  } ], [ {
+    "object" : "floor"
+  }, {
+    "object" : "stunmine"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "money"
+  }, {
+    "object" : "tauron"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "stunmine"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  } ], [ {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "money"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "tauron"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  } ], [ {
+    "object" : "mine"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "tauron"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "tauron"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "mine"
+  } ], [ {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  } ], [ {
+    "object" : "toolkit"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "mine"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
   }, {
     "object" : "treasure"
   } ] ]

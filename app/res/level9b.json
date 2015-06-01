@@ -1,0 +1,11 @@
+{
+"reward": 60,
+"areaWidth": 16,
+"areaHeight": 10,
+"maxRoster": 9,
+"rounds": 25,
+"rosterOpponent": ["bomb", "bomb", "bomb", "totter", "totter", "totter", "totter", "totter", "hottot", "hottot", "hottot"],
+"opponentTeamName": "Elps",
+"opponent": "Mega",
+"traps": ["Mine", "Mine", "Mine", "Stun mine", "Stun mine", "Plasma pool", "Plasma pool"]
+}

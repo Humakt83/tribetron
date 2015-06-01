@@ -1,16 +1,12 @@
 {
   "type" : "venture",
-  "story" : "Run!",
+  "story" : "Hospital for robots. Menders will do you no harm, but their patients might.",
   "rows" : [ [ {
-    "object" : "wall"
+    "object" : "player"
   }, {
     "object" : "floor"
   }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
+    "object" : "hunter"
   }, {
     "object" : "floor"
   }, {
@@ -18,7 +14,11 @@
   }, {
     "object" : "wall"
   }, {
-    "object" : "money"
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "doctor"
   }, {
     "object" : "money"
   } ], [ {
@@ -26,145 +26,165 @@
   }, {
     "object" : "floor"
   }, {
-    "object" : "wall"
+    "object" : "floor"
   }, {
-    "object" : "wall"
+    "object" : "medic"
   }, {
-    "object" : "stunmine"
+    "object" : "floor"
   }, {
     "object" : "floor"
   }, {
     "object" : "wall"
+  }, {
+    "object" : "hunter"
+  }, {
+    "object" : "plasma"
+  }, {
+    "object" : "floor"
+  } ], [ {
+    "object" : "cannoneer"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  } ], [ {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  } ], [ {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  } ], [ {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
   }, {
     "object" : "wall"
   }, {
     "object" : "toolkit"
   }, {
+    "object" : "toolkit"
+  }, {
+    "object" : "toolkit"
+  }, {
+    "object" : "toolkit"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  } ], [ {
+    "object" : "wall"
+  }, {
+    "object" : "plasma"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  } ], [ {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "wall"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "plasma"
+  }, {
+    "object" : "floor"
+  } ], [ {
+    "object" : "floor"
+  }, {
+    "object" : "hunter"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "megaHunter"
+  }, {
+    "object" : "floor"
+  } ], [ {
     "object" : "money"
-  } ], [ {
-    "object" : "floor"
   }, {
-    "object" : "stunmine"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "box"
-  }, {
-    "object" : "box"
-  } ], [ {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  } ], [ {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  } ], [ {
-    "object" : "colossus"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  } ], [ {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  } ], [ {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  } ], [ {
-    "object" : "floor"
-  }, {
-    "object" : "wall"
+    "object" : "medic"
   }, {
     "object" : "floor"
   }, {
@@ -176,29 +196,9 @@
   }, {
     "object" : "wall"
   }, {
-    "object" : "wall"
-  }, {
     "object" : "floor"
   }, {
     "object" : "floor"
-  } ], [ {
-    "object" : "player"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "floor"
-  }, {
-    "object" : "mine"
-  }, {
-    "object" : "destructor"
-  }, {
-    "object" : "wall"
-  }, {
-    "object" : "wall"
   }, {
     "object" : "treasure"
   } ] ]
