@@ -1,7 +1,7 @@
 'use strict'
 
-angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog', 'GameHandler', 'GameSettings', 'Trap', 'AreaMap', 
-		function($timeout, $filter, BattleLog, GameHandler, GameSettings, Trap, AreaMap) {
+angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog', 'GameHandler', 'GameSettings', 'Trap', 'AreaMap', 'GraphicsUtil', 
+		function($timeout, $filter, BattleLog, GameHandler, GameSettings, Trap, AreaMap, GraphicsUtil) {
 	
 	var types = [Hunter, Box, Medic, Totter, Radiator, Psycho, Crate, Zipper, Multiplicator, Cannoneer, 
 				Sniper, Hacker, Destructor, Trasher, PsychoMedic, HotTot, MegaHunter, Titan, Tauron, Colossus,
@@ -105,6 +105,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 			angular.forEach(map.getAreasBetween(botArea, areaTowardsTargetArea), function(area) {
 				if (area.robot)	area.robot.receiveDamage('Lazor', thisRangedDamage, map)
 			})
+			GraphicsUtil.drawLazer(botArea, targetArea)
 		}
 		this.takeTurn = function(bot, map, team) {
 			var area = map.findAreaWhereBotIs(bot)
