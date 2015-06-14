@@ -23,6 +23,12 @@ angular.module('Tribetron').controller('MainController', ['$scope', '$location',
 			controller: 'HelpController'
 		})
 	}
+	
+	$scope.video = function() {
+		var element = angular.element('<iframe width="560" height="315" src="https://www.youtube.com/embed/IvXx1uRfhOw" frameborder="0" allowfullscreen></iframe>')
+		angular.element('.battle-image').append(element)
+		$scope.videoShown = true;
+	}
 
 }])
 
