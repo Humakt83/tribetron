@@ -1,0 +1,505 @@
+body
+  background: -webkit-linear-gradient(left, rgba(100, 100, 100, 0), rgba(200, 200, 200, 1))
+  background: -o-linear-gradient(right, rgba(100, 100, 100, 0), rgba(200, 200, 200, 1))
+  background: -moz-linear-gradient(right, rgba(100, 100, 100, 0), rgba(200, 200, 200, 1))
+  background: linear-gradient(to right, rgba(100, 100, 100, 0), rgba(200, 200, 200, 1))
+
+.container
+  width: 1700px
+  max-width: 100%
+
+.title
+  width: 500px
+  height: 100px
+  margin-left: auto
+  margin-right: auto
+  padding: 5px
+  &:before
+    width: 100%
+    height: 100%
+    content: ""
+    background: url(img/title.png) no-repeat 0 0
+    background-size: 100%
+    display: block
+
+.battle-image
+  padding: 10px
+
+.scenario-info, .battle-info, .pairs-info
+  background-color: white
+  padding-left: 30px
+  padding-bottom: 20px
+  padding-top: 5px
+  border-radius: 10px
+  border: 3px solid
+  box-shadow: 10px 10px 5px #888888
+
+.rumble-input-number-group .input-group
+  width: 100px
+  display: table
+
+.rumble-table-container
+  padding-left: 0px
+
+.pairs-info
+  padding-top: 15px
+  min-height: 150px
+
+div.player-info
+  background-color: rgb(118, 118, 118)
+  padding-left: 30px
+  padding-bottom: 20px
+  border-radius: 10px
+  border: 3px solid black
+  box-shadow: 10px 10px 5px #888888
+  color: white
+  width: 500px
+  margin-right: 20px
+
+img.opponent-portrait
+  border: 5px solid black
+  width: 150px
+
+table
+  &.game td
+    width: 60px
+    height: 60px
+    min-height: 60px
+    min-width: 60px
+    position: relative
+    &.wall
+      background: -webkit-linear-gradient(right, rgb(0, 0, 0), rgb(25, 25, 25), rgb(0, 0, 0))
+      background: -o-linear-gradient(right, rgb(0, 0, 0), rgb(25, 25, 25), rgb(0, 0, 0))
+      background: -moz-linear-gradient(right, rgb(0, 0, 0), rgb(25, 25, 25), rgb(0, 0, 0))
+      background: linear-gradient(to right, rgb(0, 0, 0), rgb(25, 25, 25), rgb(0, 0, 0))
+    &.floor
+      background: grey
+      background: -webkit-linear-gradient(right, rgb(105, 105, 105), rgb(115, 115, 115), rgb(105, 105, 105))
+      background: -o-linear-gradient(right, rgb(105, 105, 105), rgb(115, 115, 115), rgb(105, 105, 105))
+      background: -moz-linear-gradient(right, rgb(105, 105, 105), rgb(115, 115, 115), rgb(105, 105, 105))
+      background: linear-gradient(to right, rgb(105, 105, 105), rgb(115, 115, 115), rgb(105, 105, 105))
+    &.floor-clickable
+      background: rgb(10, 255, 10)
+      background: -webkit-linear-gradient(right, rgb(10, 255, 10), rgb(50, 225, 50), rgb(10, 255, 10))
+      background: -o-linear-gradient(right, rgb(10, 255, 10), rgb(50, 225, 50), rgb(10, 255, 10))
+      background: -moz-linear-gradient(right, rgb(10, 255, 10), rgb(50, 225, 50), rgb(10, 255, 10))
+      background: linear-gradient(to right, rgb(10, 255, 10), rgb(50, 225, 50), rgb(10, 255, 10))
+      cursor: pointer
+      &:hover
+        background: rgb(10, 200, 10)
+        background: -webkit-linear-gradient(right, rgb(10, 200, 10), rgb(50, 220, 50), rgb(10, 200, 10))
+        background: -o-linear-gradient(right, rgb(10, 200, 10), rgb(50, 220, 50), rgb(10, 200, 10))
+        background: -moz-linear-gradient(right, rgb(10, 200, 10), rgb(50, 220, 50), rgb(10, 200, 10))
+        background: linear-gradient(to right, rgb(10, 200, 10), rgb(50, 220, 50), rgb(10, 200, 10))
+  &.adventure
+    border-color: black
+    border-width: 10px
+    margin-left: auto
+    margin-right: auto
+    position: relative
+  &.conquest
+    border-color: black
+    border-width: 10px
+
+.centered
+  margin-left: auto
+  margin-right: auto
+  position: relative
+
+.touchable
+  cursor: pointer
+
+p.detail
+  margin: 0 0 0
+
+.info-detail
+  background: rgb(118, 118, 118)
+  color: white
+  padding: 1px
+  padding-left: 5px
+  border-radius: 5px
+  border-color: rgb(118, 118, 118)
+  margin-bottom: 3px
+  p
+    margin-bottom: 1px
+
+.battle-log
+  width: 400px
+  height: 400px
+
+.health
+  width: 98%
+  height: 4px
+  bottom: 1px
+  background: rgb(255, 7, 32)
+  z-index: 10
+
+.health-bar
+  height: 100%
+  background: rgb(10, 255, 10)
+
+.health-bar_enemy
+  height: 100%
+  background: #00FFFF
+
+.robot
+  z-index: 5
+  width: 50px
+  height: 50px
+  position: relative
+  left: 5px
+  -webkit-filter: brightness(1)
+  filter: brightness(1)
+
+.robot_animated, .robot:hover
+  -webkit-filter: brightness(1.35)
+  filter: brightness(1.35)
+
+.robot-small
+  width: 25px
+  height: 25px
+  float: left
+  margin-right: 1px
+
+.robot-large
+  width: 100px
+  height: 100px
+
+.avatar:before
+  background: url(img/player.png)
+  width: 100%
+  height: 100%
+  content: ""
+  background-size: 100%
+  display: block
+
+$botlist: hunter box medic totter radiator psycho tauron crate zipper multiplicator cannoneer cannon sniper hacker destructor trasher psycho-medic hottot megahunter titan atomitum plutan colossus disablor doctor emanator trapper bomb lazor nuka
+
+@each $bot in $botlist
+  .#{$bot}:before
+    background: url(img/#{$bot}bot.png)
+    width: 100%
+    height: 100%
+    content: ""
+    background-size: 100%
+    display: block
+  .#{$bot}_enemy:before
+    background: url(img/#{$bot}bot2.png)
+    width: 100%
+    height: 100%
+    content: ""
+    background-size: 100%
+    display: block
+
+.unknown:before
+  background: url(img/unknown.png)
+  width: 100%
+  height: 100%
+  content: ""
+  background-size: 100%
+  display: block
+
+.repair
+  width: 20px
+  height: 20px
+  z-index: 50
+  top: -20px
+  position: relative
+
+.broken:before
+  content: ""
+  position: absolute
+  top: 1px
+  left: 1px
+  background: url(img/broken.png)
+  width: 50px
+  height: 50px
+  z-index: 150
+
+.stunned:before
+  content: ""
+  position: absolute
+  top: 1px
+  left: 1px
+  background: url(img/stunned.png)
+  width: 50px
+  height: 50px
+  z-index: 150
+
+.trap
+  width: 50px
+  height: 50px
+  position: absolute
+  top: 1px
+  left: 1px
+
+.plasma-pool:before
+  background: url(img/plasma.png)
+  width: 100%
+  height: 100%
+  content: ""
+  background-size: 100%
+  display: block
+
+.mine:before
+  background: url(img/mine.png)
+  width: 100%
+  height: 100%
+  content: ""
+  background-size: 100%
+  display: block
+
+.stun-mine:before
+  background: url(img/stunmine.png)
+  width: 100%
+  height: 100%
+  content: ""
+  background-size: 100%
+  display: block
+
+.loot
+  width: 50px
+  height: 50px
+  position: absolute
+  top: 1px
+  left: 1px
+
+.treasure:before
+  background: url(img/treasure.png)
+  width: 100%
+  height: 100%
+  content: ""
+  background-size: 100%
+  display: block
+
+.money:before
+  background: url(img/money.png)
+  width: 100%
+  height: 100%
+  content: ""
+  background-size: 100%
+  display: block
+
+.toolkit:before
+  background: url(img/toolkit.png)
+  width: 100%
+  height: 100%
+  content: ""
+  background-size: 100%
+  display: block
+
+.explosion.ng-hide-add.ng-hide-add-active, .hit-remove.ng-hide-add.ng-hide-add-active
+  -webkit-transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s
+  -moz-transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s
+  -o-transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s
+  transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s
+
+.explosion
+  width: 50px
+  height: 50px
+  z-index: 250
+  opacity: 1
+  position: absolute
+  top: 1px
+  left: 1px
+  &.ng-hide
+    opacity: 0
+
+.explosion_big
+  width: 150px
+  height: 150px
+  top: -50px
+  left: -50px
+
+.nuke
+  width: 150px
+  height: 150px
+  top: -50px
+  left: -50px
+  z-index: 255
+  opacity: 1
+  position: absolute
+  &.ng-hide
+    opacity: 0
+
+.hit.ng-hide-add.ng-hide-add-active, .hit-remove.ng-hide-add.ng-hide-add-active
+  -webkit-transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s
+  -moz-transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s
+  -o-transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s
+  transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s
+
+.hit
+  width: 50px
+  height: 50px
+  z-index: 200
+  opacity: 1
+  position: absolute
+  top: 1px
+  left: 1px
+  &.ng-hide
+    opacity: 0
+
+.heal.ng-hide-add.ng-hide-add-active, .heal-remove.ng-hide-add.ng-hide-add-active, .venture-message.ng-hide-add.ng-hide-add-active
+  -webkit-transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s
+  -moz-transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s
+  -o-transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s
+  transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s
+
+.heal
+  width: 40px
+  height: 40px
+  z-index: 210
+  opacity: 1
+  position: absolute
+  top: 5px
+  left: 5px
+  &.ng-hide
+    opacity: 0
+
+.pairs
+  width: 250px
+  padding-right: 10px
+  padding-bottom: 5px
+  padding-top: 5px
+  border-width: 3px
+  border-radius: 15px
+  border-color: white
+  box-shadow: 10px 10px 5px #888888
+
+.turned-card
+  width: 50px
+  height: 50px
+  z-index: 150
+  top: -50px
+  position: relative
+
+.card
+  float: right
+
+.shop-bot
+  background-color: rgb(235, 235, 235)
+  padding: 3px
+  border-radius: 5px
+  border: 3px solid black
+
+.shop-bot-bot
+  width: 110px
+
+.shop-bot-stats
+  width: 165px
+  font-size: smaller
+  font-weight: bolder
+
+.shop-bot-name
+  font-size: larger
+
+.repair-shop
+  width: 100%
+
+.bot-description-shop-container
+  background-color: white
+  height: 95px
+  width: 390px
+
+.bot-description-shop
+  padding-left: 5px
+  padding-top: 5px
+  vertical-align: text-top
+  font-size: larger
+
+.popover
+  font-size: smaller
+  font-weight: bolder
+  min-width: 100px
+
+.help-text
+  width: 550px
+
+.info-popup-bot-info
+  padding-top: 3px
+  padding-left: 7px
+  padding-bottom: 3px
+  .bot-name
+    font-size: larger
+    font-weight: bolder
+
+.taunt
+  margin-top: 2px
+  margin-right: 5px
+  border: 1px solid rgb(25, 25, 25)
+  min-height: 10px
+  font-size: smaller
+  border-radius: 2px
+  background-color: rgb(255, 255, 235)
+  padding-left: 1px
+
+.ability-button
+  width: 40px
+  height: 40px
+  border: 2px solid rgb(0, 0, 0)
+  background-color: rgb(235, 235, 235)
+  margin-right: 3px
+  margin-top: 7px
+  padding: 2px
+  cursor: pointer
+  &:hover
+    background-color: rgb(155, 155, 155)
+
+.ability-disabled
+  opacity: 0.3
+  cursor: default
+
+.venture-message
+  position: absolute
+  top: 45%
+  left: 45%
+  z-index: 999
+  color: rgb(255, 100, 0)
+  font-size: 45px
+  text-shadow: 3px 3px 3px rgb(200, 50, 0), 3px 3px 6px rgb(150, 25, 0)
+
+.victory-message
+  position: absolute
+  top: 45%
+  left: 45%
+  z-index: 999
+  color: rgb(255, 100, 0)
+  font-size: 45px
+  text-shadow: 3px 3px 3px rgb(200, 50, 0), 3px 3px 6px rgb(150, 25, 0)
+  font-size: 65px
+  background-color: black
+  border: 5px solid rgb(255, 0, 0)
+  border-radius: 15px
+  padding: 15px
+
+.venture-message.ng-hide
+  opacity: 0
+
+.victory-canvas
+  width: 100%
+  height: 80%
+  border: 10px solid rgb(55, 55, 55)
+  border-radius: 15px
+  background-color: rgb(255, 255, 255)
+
+.sound-controls
+  position: fixed
+  top: 30px
+  right: 50px
+  z-index: 999
+
+img.music
+  width: 25px
+  height: 25px
+
+div.lazer-beam
+  position: absolute
+  z-index: 999
+  background-color: red
+  background: -webkit-linear-gradient(red, rgb(255, 200, 200))
+  background: -o-linear-gradient(red, rgb(255, 200, 200))
+  background: -moz-linear-gradient(red, rgb(255, 200, 200))
+  background: linear-gradient(red, rgb(255, 200, 200))
+
+.modal-open
+  overflow: auto

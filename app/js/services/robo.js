@@ -68,7 +68,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 		this.maxHealth = 30
 		this.meleeDamage = 15
 		this.intelligence = 'medium'
-		this.typeName = 'megaHunter'
+		this.typeName = 'megahunter'
 		this.description = 'MegaHunter is three times as strong as Hunter and upon destruction will split into them.'
 	}
 	

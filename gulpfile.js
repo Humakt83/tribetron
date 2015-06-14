@@ -5,6 +5,7 @@ var uglify = require('gulp-uglify')
 var minifyCSS = require('gulp-minify-css')
 var clean = require('gulp-clean')
 var jshint = require('gulp-jshint')
+var sass = require('gulp-sass')
 var stylish = require('jshint-stylish');
 
 var browserSync = require('browser-sync')
@@ -25,11 +26,12 @@ gulp.task('lint', function() {
     .pipe(jshint.reporter(stylish));
 });
 
-gulp.task('minify-css', function() {
-  var opts = {comments:true,spare:true};
-  gulp.src(['app/tribetron.css', '!app/bower_components/**'])
-    .pipe(minifyCSS(opts))
-    .pipe(gulp.dest('dist/'))
+gulp.task('minify-css', function () {
+	var opts = {comments:true,spare:true};
+    gulp.src('app/tribetron.sass')
+        .pipe(sass())
+		.pipe(minifyCSS(opts))
+        .pipe(gulp.dest('dist/'));
 });
 
 gulp.task('minify-js', function() {
