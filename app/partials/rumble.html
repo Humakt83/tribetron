@@ -58,7 +58,7 @@
 			<span ng-show="autoPlayOn"> <input type="checkbox" ng-model="continuousPlay"> Endless game</input></span>
 			<button ng-click="showBattleLog = !showBattleLog" class="btn btn-default">{{showBattleLog ? "Hide" : "Show"}} log</button>
 			<div ng-show="showBattleLog">
-				<textarea class="battle-log" ng-disabled="true" ng-trim="false">{{battleLog.log.join()}}</textarea>
+				<textarea class="battle-log" ng-disabled="true" ng-trim="false">{{battleLog.log.join('')}}</textarea>
 			</div>
 		</div>
 		
