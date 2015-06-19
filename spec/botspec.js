@@ -353,14 +353,14 @@ describe('Testing bots', function() {
 	describe('MegaHunter', function() {
 		
 		it('moves towards enemy', function() {
-			var mega = createTeamWithRobotAndPlaceOnMap('megaHunter', false, 1, 1)
+			var mega = createTeamWithRobotAndPlaceOnMap('megahunter', false, 1, 1)
 			var enemy = createTeamWithRobotAndPlaceOnMap('totter', true, 1, 5)
 			mega.takeTurn(map)				
 			expect(map.getAreaByCoord(mapService.createCoord(1,2)).robot).toEqual(mega)
 		})
 		
 		it('when defeated will divide into hunters', function() {
-			var mega = createTeamWithRobotAndPlaceOnMap('megaHunter', false, 2, 2)
+			var mega = createTeamWithRobotAndPlaceOnMap('megahunter', false, 2, 2)
 			var team = mega.team
 			gameHandler.createGameState(team, [], 25);
 			mega.receiveDamage('test', 99, map)
@@ -374,7 +374,7 @@ describe('Testing bots', function() {
 		})
 		
 		it('only places hunters to tiles next to MegaHunter that are free', function() {
-			var mega = createTeamWithRobotAndPlaceOnMap('megaHunter', false, 2, 2)
+			var mega = createTeamWithRobotAndPlaceOnMap('megahunter', false, 2, 2)
 			var enemy = createTeamWithRobotAndPlaceOnMap('crate', true, 2, 3)
 			map.getAreaByCoord(mapService.createCoord(1,2)).isWall = true
 			var team = mega.team
