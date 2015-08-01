@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('Tribetron').factory('ChessPiece', [function() {
+angular.module('Tribetron').factory('ChessPiece', function() {
 	
 	var xMin = 0, yMin = 0, xMax = 7, yMax = 7
 	
@@ -16,7 +16,8 @@ angular.module('Tribetron').factory('ChessPiece', [function() {
 	
 	var filterMovesThatCollideWithOwnPiece = function(moves, whitePiece, board) {
 		return _.compact(_.filter(moves, function(move) {
-			var piece = board.getSlot(move).piece
+			var slot = board.getSlot(move)
+			var piece = slot ? slot.piece : undefined
 			return !piece || piece.whitePiece !== whitePiece
 		}))
 	}
@@ -30,7 +31,9 @@ angular.module('Tribetron').factory('ChessPiece', [function() {
 		var move = position.newPosition(xModifier, yModifier)
 		do {
 			moves.push(move.newPosition(0, 0))
-			blocked = blocked || board.getSlot(move).piece
+			var slot = board.getSlot(move)
+			var piece = slot ? slot.piece : undefined
+			blocked = blocked || piece
 			move = move.newPosition(xModifier, yModifier)
 		} while(isMoveInBoard(move) && !blocked)
 		return moves
@@ -117,9 +120,9 @@ angular.module('Tribetron').factory('ChessPiece', [function() {
 			var moves = pieceType.getMoves(this.position, board, whitePiece)
 			return filterIllegalMoves(moves, this.whitePiece, board)
 		}
-		this.move = function(position) {
+		this.move = function(x, y) {
 			this.moved = true;
-			this.position = position
+			this.position = new Position(x, y)
 		}
 		this.getClass = function() {
 			var addendum = whitePiece ? '' : '_enemy'
@@ -160,4 +163,4 @@ angular.module('Tribetron').factory('ChessPiece', [function() {
 		}
 	}
 	
-}])
+})
