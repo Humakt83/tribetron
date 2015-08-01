@@ -1,0 +1,13 @@
+<div class="container">
+	<div class="row">
+		<div class="col-xs-8">
+			<table class="table-bordered game chess">
+				<tr ng-repeat="row in board.board track by $index">
+					<td class="floor" ng-repeat="slot in row">
+						<div class="robot" ng-class="slot.getClass()"></div>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</div>

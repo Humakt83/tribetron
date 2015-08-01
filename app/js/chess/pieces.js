@@ -67,6 +67,7 @@ angular.module('Tribetron').factory('ChessPiece', [function() {
 			return moves
 		}
 		this.value = 50
+		this.cssName = 'totter'
 	}
 	
 	function Bishop() {
@@ -74,6 +75,7 @@ angular.module('Tribetron').factory('ChessPiece', [function() {
 			return diagonalMoves(board, position)
 		}
 		this.value = 95
+		this.cssName = 'medic'
 	}
 	
 	function Knight() {
@@ -82,6 +84,7 @@ angular.module('Tribetron').factory('ChessPiece', [function() {
 				position.newPosition(2,1), position.newPosition(2,-1), position.newPosition(-2,1), position.newPosition(-2,-1)]
 		}
 		this.value = 95
+		this.cssName = 'hunter'
 	}
 	
 	function Rook() {
@@ -89,6 +92,7 @@ angular.module('Tribetron').factory('ChessPiece', [function() {
 			return horizontalAndVerticalMoves(board, position)
 		}
 		this.value = 125
+		this.cssName = 'psycho'
 	}
 	
 	function Queen() {
@@ -97,6 +101,7 @@ angular.module('Tribetron').factory('ChessPiece', [function() {
 				.concat(horizontalAndVerticalMoves(board, position))
 		}
 		this.value = 240
+		this.cssName = 'lazor'
 	}
 	
 	function King() {
@@ -104,6 +109,7 @@ angular.module('Tribetron').factory('ChessPiece', [function() {
 			return [position.newPosition(0,1), position.newPosition(0,-1), position.newPosition(1,0), position.newPosition(-1,0)]
 		}
 		this.value = 1000
+		this.cssName = 'hacker'
 	}
 	
 	function Piece(pieceType, x, y, whitePiece) {
@@ -114,6 +120,10 @@ angular.module('Tribetron').factory('ChessPiece', [function() {
 		this.move = function(position) {
 			this.moved = true;
 			this.position = position
+		}
+		this.getClass = function() {
+			var addendum = whitePiece ? '' : '_enemy'
+			return pieceType.cssName + addendum
 		}
 		this.pieceType = pieceType
 		this.position = new Position(x, y)
