@@ -4,9 +4,13 @@ angular.module('Tribetron').factory('ChessPiece', ['ChessBoard', function(ChessB
 	
 	var xMin = 0, yMin = 0, xMax = 7, yMax = 7
 	
+	var isMoveInBoard(move) {
+		return move.x >= xMin && move.x <= xMax && move.y >= yMin && move.y <= yMax
+	}
+	
 	var filterOutOfBoardMoves = function(moves) {
 		return _.compact(_.filter(moves, function(move) {
-			return move.x >= xMin && move.x <= xMax && move.y >= yMin && move.y <= yMax
+			return isMoveInBoard(move)
 		}))
 	}
 	
@@ -19,6 +23,31 @@ angular.module('Tribetron').factory('ChessPiece', ['ChessBoard', function(ChessB
 	
 	var filterIllegalMoves = function(moves, whitePiece, board) {
 		return _.compact(filterMovesThatCollideWithOwnPiece(filterOutOfBoardMoves(moves), whitePiece, board))
+	}
+	
+	var getMovesUntilBlocked = function(board, position, xModifier, yModifier) {
+		var moves = [], blocked = false
+		var move = position.newPosition(xModifier, yModifier)
+		do {
+			moves.push(move.newPosition(0, 0))
+			blocked = blocked || board.getSlot(move).piece
+			move = move.newPosition(xModifier, yModifier)
+		} while(isMoveInBoard(move) && !blocked)
+		return moves
+	}
+	
+	var diagonalMoves = function(board, position) {
+		return getMovesUntilBlocked(board, position, 1, 1)
+			.concat(getMovesUntilBlocked(board, position, -1, -1))
+			.concat(getMovesUntilBlocked(board, position, 1, -1))
+			.concat(getMovesUntilBlocked(board,position, -1, 1))
+	}
+	
+	var horizontalAndVerticalMoves = function(board, position) {
+		return getMovesUntilBlocked(board, position, 0, 1)
+			.concat(getMovesUntilBlocked(board, position, 0, -1))
+			.concat(getMovesUntilBlocked(board, position, 1, 0))
+			.concat(getMovesUntilBlocked(board,position, -1, 0))
 	}
 	
 	function Pawn() {
@@ -41,6 +70,9 @@ angular.module('Tribetron').factory('ChessPiece', ['ChessBoard', function(ChessB
 	}
 	
 	function Bishop() {
+		this.getMoves = function(position, board) {
+			return diagonalMoves(board, position)
+		}
 		this.value = 95
 	}
 	
@@ -53,10 +85,17 @@ angular.module('Tribetron').factory('ChessPiece', ['ChessBoard', function(ChessB
 	}
 	
 	function Rook() {
+		this.getMoves = function(position, board) {
+			return horizontalAndVerticalMoves(board, position)
+		}
 		this.value = 125
 	}
 	
 	function Queen() {
+		this.getMoves = function(position, board) {
+			return diagonalMoves(board,position)
+				.concat(horizontalAndVerticalMoves(board, position))
+		}
 		this.value = 240
 	}
 	
