@@ -1,10 +1,10 @@
 'use strict'
 
-angular.module('Tribetron').factory('ChessPiece', ['ChessBoard', function(ChessBoard) {
+angular.module('Tribetron').factory('ChessPiece', [function() {
 	
 	var xMin = 0, yMin = 0, xMax = 7, yMax = 7
 	
-	var isMoveInBoard(move) {
+	var isMoveInBoard = function(move) {
 		return move.x >= xMin && move.x <= xMax && move.y >= yMin && move.y <= yMax
 	}
 	
@@ -79,7 +79,7 @@ angular.module('Tribetron').factory('ChessPiece', ['ChessBoard', function(ChessB
 	function Knight() {
 		this.getMoves = function(position) {
 			return [position.newPosition(1,2), position.newPosition(1,-2), position.newPosition(-1,2), position.newPosition(-1,-2),
-				position.newPosition(2,1), position.newPosition(2,-1), position.newPosition(-2,1), position.newPosition(-2,-1)
+				position.newPosition(2,1), position.newPosition(2,-1), position.newPosition(-2,1), position.newPosition(-2,-1)]
 		}
 		this.value = 95
 	}
@@ -127,6 +127,27 @@ angular.module('Tribetron').factory('ChessPiece', ['ChessBoard', function(ChessB
 		}
 		this.x = x
 		this.y = y
+	}
+	
+	return {
+		createPawn : function(x, y, whitePiece) {
+			return new Piece(new Pawn(), x, y, whitePiece)
+		},
+		createBishop : function(x, y, whitePiece) {
+			return new Piece(new Bishop(), x, y, whitePiece)
+		},
+		createKnight : function(x, y, whitePiece) {
+			return new Piece(new Knight(), x, y, whitePiece)
+		},
+		createRook : function(x, y, whitePiece) {
+			return new Piece(new Rook(), x, y, whitePiece)
+		},
+		createQueen : function(x, y, whitePiece) {
+			return new Piece(new Queen(), x, y, whitePiece)
+		},
+		createKing : function(x, y, whitePiece) {
+			return new Piece(new King(), x, y, whitePiece)
+		}
 	}
 	
 }])
