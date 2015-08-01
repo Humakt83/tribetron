@@ -6,6 +6,18 @@ describe('Testing bots', function() {
 	
 	beforeEach(module('Tribetron'))
 	
+	beforeEach(function() {
+		var mockGraphicsUtil = {
+			drawLazer: function () {
+				console.log("Drawing lazer")
+			}
+		}
+
+		module(function ($provide) {
+			$provide.value('GraphicsUtil', mockGraphicsUtil);
+		})
+	})
+	
 	beforeEach(inject(function(Robot, BattleLog, AreaMap, Team, GameHandler) {
 		robotService = Robot
 		log = BattleLog.getLog()
