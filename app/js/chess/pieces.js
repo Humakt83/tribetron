@@ -109,7 +109,8 @@ angular.module('Tribetron').factory('ChessPiece', function() {
 	
 	function King() {
 		this.getMoves = function(position) {
-			return [position.newPosition(0,1), position.newPosition(0,-1), position.newPosition(1,0), position.newPosition(-1,0)]
+			return [position.newPosition(0,1), position.newPosition(0,-1), position.newPosition(1,0), position.newPosition(-1,0),
+				position.newPosition(1,1), position.newPosition(-1,-1), position.newPosition(1,-1), position.newPosition(-1,1)]
 		}
 		this.value = 1000
 		this.cssName = 'hacker'
