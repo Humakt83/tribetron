@@ -25,9 +25,9 @@ angular.module('Tribetron').factory('ChessPiece', ['ChessBoard', function(ChessB
 		this.getMoves = function(position, board, whitePiece) {
 			var moves = []
 			var sign = whitePiece ? -1 : 1
-			moves.push(new Position(position.x, position.y + sign))
-			if ((position.y === 6 && whitePiece) || (position.y === 1 && !whitePiece)) moves.push(new Position(position.x, position.y + (sign * 2)))
-			var diagonalAttacks = [new Position(position.x - 1, position.y + sign), new Position(position.x + 1, position.y + sign)]
+			moves.push(position.newPosition(0, sign))
+			if ((position.y === 6 && whitePiece) || (position.y === 1 && !whitePiece)) moves.push(position.newPosition(0, (sign * 2)))
+			var diagonalAttacks = [position.newPosition(-1, sign), position.newPosition(1, sign)]
 			_.each(filterOutOfBoardMoves(diagonalAttacks), function (attack) {
 				var piece = board.getSlot(attack).piece
 				//TODO: Quirky pawn attack diagonal logic
@@ -45,6 +45,10 @@ angular.module('Tribetron').factory('ChessPiece', ['ChessBoard', function(ChessB
 	}
 	
 	function Knight() {
+		this.getMoves = function(position) {
+			return [position.newPosition(1,2), position.newPosition(1,-2), position.newPosition(-1,2), position.newPosition(-1,-2),
+				position.newPosition(2,1), position.newPosition(2,-1), position.newPosition(-2,1), position.newPosition(-2,-1)
+		}
 		this.value = 95
 	}
 	
@@ -57,8 +61,10 @@ angular.module('Tribetron').factory('ChessPiece', ['ChessBoard', function(ChessB
 	}
 	
 	function King() {
+		this.getMoves = function(position) {
+			return [position.newPosition(0,1), position.newPosition(0,-1), position.newPosition(1,0), position.newPosition(-1,0)]
+		}
 		this.value = 1000
-		this.getMove
 	}
 	
 	function Piece(pieceType, x, y, whitePiece) {
@@ -66,9 +72,9 @@ angular.module('Tribetron').factory('ChessPiece', ['ChessBoard', function(ChessB
 			var moves = pieceType.getMoves(this.position, board, whitePiece)
 			return filterIllegalMoves(moves, this.whitePiece, board)
 		}
-		this.move = function(newPosition) {
+		this.move = function(position) {
 			this.moved = true;
-			this.position = newPosition
+			this.position = position
 		}
 		this.pieceType = pieceType
 		this.position = new Position(x, y)
@@ -77,6 +83,9 @@ angular.module('Tribetron').factory('ChessPiece', ['ChessBoard', function(ChessB
 	}
 	
 	function Position(x, y) {
+		this.newPosition = function(xModifier, yModifier) {
+			return new Position(this.x + xModifier, this.y + yModifier)
+		}
 		this.x = x
 		this.y = y
 	}
