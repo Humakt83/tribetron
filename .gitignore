@@ -45,3 +45,4 @@ Temporary Items
 bower_components/
 node_modules/
 dist/
+app/tribetron.css
