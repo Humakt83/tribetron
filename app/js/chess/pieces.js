@@ -16,8 +16,19 @@ angular.module('Tribetron').factory('ChessPiece', [function() {
 		}))
 	}
 	
+	var filterMovesThatCauseMate = function(moves, board) {
+		return _.compact(_.filter(moves, function(move) {
+			if (!board.selected || board.copy) return true
+			var copyBoard = angular.copy(board)
+			copyBoard.copy = true
+			copyBoard.movePiece(copyBoard.selected, copyBoard.getSlot(move.position))
+			copyBoard.turnOfWhite = !copyBoard.turnOfWhite
+			return !copyBoard.isCheck()
+		}))
+	}
+	
 	var filterIllegalMoves = function(moves, whitePiece, board) {
-		return _.compact(filterMovesThatCollideWithOwnPiece(filterOutOfBoardMoves(moves, board), whitePiece, board))
+		return _.compact(filterMovesThatCauseMate(filterMovesThatCollideWithOwnPiece(filterOutOfBoardMoves(moves, board), whitePiece, board), board))
 	}
 	
 	var getMovesUntilBlocked = function(board, position, xModifier, yModifier) {

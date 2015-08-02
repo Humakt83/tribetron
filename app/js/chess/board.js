@@ -44,6 +44,7 @@ angular.module('Tribetron').factory('ChessBoard', ['ChessPiece', '$modal', funct
 		}
 		
 		this.pawnIsLeveled = function(piece) {
+			if (this.copy) return
 			$modal.open({
 				templateUrl: './partials/chesspawn.html',
 				controller: 'PawnLevelsUp',
@@ -57,12 +58,14 @@ angular.module('Tribetron').factory('ChessBoard', ['ChessPiece', '$modal', funct
 		}
 		
 		this.movePiece = function(from, to) {
-			var move = _.find(from.piece.allowedMoves(this), function(move) {
-				return move.position.x === to.positionX && move.position.y === to.positionY
-			})
-			this.madeMoves.push(move)						
-			to.movePiece(from)
-			move.effect()
+			if (!this.copy) {
+				var move = _.find(from.piece.allowedMoves(this), function(move) {
+					return move.position.x === to.positionX && move.position.y === to.positionY
+				})
+				this.madeMoves.push(move)
+				move.effect()				
+			}
+			to.movePiece(from)			
 			this.turnOfWhite = !this.turnOfWhite
 			this.selected = undefined
 		}
@@ -83,14 +86,47 @@ angular.module('Tribetron').factory('ChessBoard', ['ChessPiece', '$modal', funct
 			var xMin = 0, yMin = 0, xMax = 7, yMax = 7
 			return position.x >= xMin && position.x <= xMax && position.y >= yMin && position.y <= yMax
 		}
+		
+		this.getPieceSlots = function(whitePieces) {
+			return _.chain(this.board).flatten().flatten().filter(function(slot) {
+					return slot.piece && slot.piece.whitePiece === whitePieces
+				}).value()
+		}
+		
 		this.getPieces = function(whitePieces) {
-			var pieces = []
-			_.each(this.board, function(row) {
-				_.each(row, function(slot) {
-					if (slot.piece && slot.piece.whitePiece === whitePieces) pieces.push(slot.piece)
+			return _.chain(this.getPieceSlots(whitePieces)).map(function(slot) {
+				return slot.piece
+			}).value()
+		}
+		
+		this.isCheck = function() {
+			if (this.turnOfWhite) {
+				return this.isKingChecked(this.getWhiteKingSlot(), this.getBlackPieces())
+			}
+			return this.isKingChecked(this.getBlackKingSlot(), this.getWhitePieces())
+		}
+		
+		this.isKingChecked = function(king, piecesOfOpponent) {
+			var thisMap = this
+			var check = false
+			_.each(piecesOfOpponent, function(piece) {
+				_.each(piece.allowedMoves(thisMap), function(move) {
+					check = check || (move.position.x === king.positionX && move.position.y === king.positionY)
 				})
 			})
-			return pieces			
+			return check
+		}
+		
+		this.getWhiteKingSlot = function() {
+			return _.find(this.getPieceSlots(true), function(slot) {
+				return slot.piece.pieceType.constructor.name == 'King'
+			})
+		}
+		
+		this.getBlackKingSlot = function() {
+			return _.find(this.getPieceSlots(false), function(slot) {
+				return slot.piece.pieceType.constructor.name == 'King'
+			})
 		}
 		
 		this.getWhitePieces = function() {
@@ -102,6 +138,7 @@ angular.module('Tribetron').factory('ChessBoard', ['ChessPiece', '$modal', funct
 		}
 		
 		this.isStaleMate = function() {
+			if (this.isCheck()) return false
 			var possibleMoves = 0
 			var thisBoard = this
 			if (this.turnOfWhite) {
@@ -116,14 +153,30 @@ angular.module('Tribetron').factory('ChessBoard', ['ChessPiece', '$modal', funct
 			return possibleMoves <= 0
 		}
 		
+		this.isCheckMate = function() {
+			var possibleMoves = 0
+			var thisBoard = this
+			if (this.turnOfWhite) {
+				_.each(this.getWhitePieces(), function(piece) {
+					possibleMoves += piece.allowedMoves(thisBoard).length
+				})
+			} else {
+				_.each(this.getBlackPieces(), function(piece) {
+					possibleMoves += piece.allowedMoves(thisBoard).length
+				})
+			}
+			return this.isCheck() && possibleMoves <= 0
+		}
+		
 		this.isGameOver = function() {
-			return this.isStaleMate()
+			return this.isStaleMate() || this.isCheckMate()
 		}
 		
 		this.board = initBoard();
 		this.selected = undefined
 		this.turnOfWhite = true
 		this.madeMoves = []
+		this.copy = false
 	}
 	
 	return {
