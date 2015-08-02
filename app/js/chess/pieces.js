@@ -53,20 +53,35 @@ angular.module('Tribetron').factory('ChessPiece', function() {
 			.concat(getMovesUntilBlocked(board,position, -1, 0))
 	}
 	
-	function Pawn() {
+	function Pawn() {		
 		this.getMoves = function(position, board, whitePiece) {
+			function blocked(move) {
+				return board.getSlot(move).piece
+			}
+			function handleMovesForward(moves, sign) {
+				var moveForward = position.newPosition(0, sign)
+				if (!blocked(moveForward)) { 
+					moves.push(moveForward)
+					if ((position.y === 6 && whitePiece) || (position.y === 1 && !whitePiece)) {
+						var movesForwardTwice = position.newPosition(0, (sign * 2))
+						if (!blocked(movesForwardTwice))	moves.push(movesForwardTwice)
+					}
+				}
+			}
+			function handleDiagonalAttacks(moves, sign) {
+				var diagonalAttacks = [position.newPosition(-1, sign), position.newPosition(1, sign)]
+				_.each(filterOutOfBoardMoves(diagonalAttacks), function (attack) {
+					var piece = board.getSlot(attack).piece
+					//TODO: Quirky pawn attack diagonal logic
+					if (piece && piece.whitePiece !== whitePiece) {
+						moves.push(attack)
+					}
+				})
+			}
 			var moves = []
 			var sign = whitePiece ? -1 : 1
-			moves.push(position.newPosition(0, sign))
-			if ((position.y === 6 && whitePiece) || (position.y === 1 && !whitePiece)) moves.push(position.newPosition(0, (sign * 2)))
-			var diagonalAttacks = [position.newPosition(-1, sign), position.newPosition(1, sign)]
-			_.each(filterOutOfBoardMoves(diagonalAttacks), function (attack) {
-				var piece = board.getSlot(attack).piece
-				//TODO: Quirky pawn attack diagonal logic
-				if (piece && piece.whitePiece !== whitePiece) {
-					moves.push(attack)
-				}
-			})
+			handleMovesForward(moves, sign)
+			handleDiagonalAttacks(moves, sign)
 			return moves
 		}
 		this.value = 50
