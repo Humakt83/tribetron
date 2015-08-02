@@ -1,41 +1,35 @@
 'use strict'
 
-angular.module('Tribetron').factory('ChessPiece', function() {
+angular.module('Tribetron').factory('ChessPiece', [function() {
 	
-	var xMin = 0, yMin = 0, xMax = 7, yMax = 7
-	
-	var isMoveInBoard = function(move) {
-		return move.x >= xMin && move.x <= xMax && move.y >= yMin && move.y <= yMax
-	}
-	
-	var filterOutOfBoardMoves = function(moves) {
+	var filterOutOfBoardMoves = function(moves, board) {
 		return _.compact(_.filter(moves, function(move) {
-			return isMoveInBoard(move)
+			return board.isPositionInsideBoard(move.position ? move.position : move)
 		}))
 	}
 	
 	var filterMovesThatCollideWithOwnPiece = function(moves, whitePiece, board) {
 		return _.compact(_.filter(moves, function(move) {
-			var slot = board.getSlot(move)
+			var slot = board.getSlot(move.position)
 			var piece = slot ? slot.piece : undefined
 			return !piece || piece.whitePiece !== whitePiece
 		}))
 	}
 	
 	var filterIllegalMoves = function(moves, whitePiece, board) {
-		return _.compact(filterMovesThatCollideWithOwnPiece(filterOutOfBoardMoves(moves), whitePiece, board))
+		return _.compact(filterMovesThatCollideWithOwnPiece(filterOutOfBoardMoves(moves, board), whitePiece, board))
 	}
 	
 	var getMovesUntilBlocked = function(board, position, xModifier, yModifier) {
 		var moves = [], blocked = false
 		var move = position.newPosition(xModifier, yModifier)
 		do {
-			moves.push(move.newPosition(0, 0))
+			moves.push(new Move(move.newPosition(0, 0)))
 			var slot = board.getSlot(move)
 			var piece = slot ? slot.piece : undefined
 			blocked = blocked || piece
 			move = move.newPosition(xModifier, yModifier)
-		} while(isMoveInBoard(move) && !blocked)
+		} while(board.isPositionInsideBoard(move) && !blocked)
 		return moves
 	}
 	
@@ -61,20 +55,26 @@ angular.module('Tribetron').factory('ChessPiece', function() {
 			function handleMovesForward(moves, sign) {
 				var moveForward = position.newPosition(0, sign)
 				if (!blocked(moveForward)) { 
-					moves.push(moveForward)
+					moves.push(new Move(moveForward))
 					if ((position.y === 6 && whitePiece) || (position.y === 1 && !whitePiece)) {
 						var movesForwardTwice = position.newPosition(0, (sign * 2))
-						if (!blocked(movesForwardTwice))	moves.push(movesForwardTwice)
+						if (!blocked(movesForwardTwice)) moves.push(new Move(movesForwardTwice, null, true))
 					}
 				}
 			}
 			function handleDiagonalAttacks(moves, sign) {
 				var diagonalAttacks = [position.newPosition(-1, sign), position.newPosition(1, sign)]
-				_.each(filterOutOfBoardMoves(diagonalAttacks), function (attack) {
+				_.each(filterOutOfBoardMoves(diagonalAttacks, board), function (attack) {
 					var piece = board.getSlot(attack).piece
-					//TODO: Quirky pawn attack diagonal logic
 					if (piece && piece.whitePiece !== whitePiece) {
-						moves.push(attack)
+						moves.push(new Move(attack))
+					} else if (board.madeMoves.length > 0 && _.last(board.madeMoves).pawnDoubleForward) {
+						var previousMove = _.last(board.madeMoves)
+						if (previousMove.position.y === position.y && previousMove.position.x === attack.x) {
+							moves.push(new Move(attack, function() {
+								board.getSlot(previousMove.position).piece = undefined
+							}))
+						}
 					}
 				})
 			}
@@ -98,8 +98,8 @@ angular.module('Tribetron').factory('ChessPiece', function() {
 	
 	function Knight() {
 		this.getMoves = function(position) {
-			return [position.newPosition(1,2), position.newPosition(1,-2), position.newPosition(-1,2), position.newPosition(-1,-2),
-				position.newPosition(2,1), position.newPosition(2,-1), position.newPosition(-2,1), position.newPosition(-2,-1)]
+			return [new Move(position.newPosition(1,2)), new Move(position.newPosition(1,-2)), new Move(position.newPosition(-1,2)), new Move(position.newPosition(-1,-2)),
+				new Move(position.newPosition(2,1)), new Move(position.newPosition(2,-1)), new Move(position.newPosition(-2,1)), new Move(position.newPosition(-2,-1))]
 		}
 		this.value = 95
 		this.cssName = 'hunter'
@@ -124,8 +124,8 @@ angular.module('Tribetron').factory('ChessPiece', function() {
 	
 	function King() {
 		this.getMoves = function(position) {
-			return [position.newPosition(0,1), position.newPosition(0,-1), position.newPosition(1,0), position.newPosition(-1,0),
-				position.newPosition(1,1), position.newPosition(-1,-1), position.newPosition(1,-1), position.newPosition(-1,1)]
+			return [new Move(position.newPosition(0,1)), new Move(position.newPosition(0,-1)), new Move(position.newPosition(1,0)), new Move(position.newPosition(-1,0)),
+				new Move(position.newPosition(1,1)), new Move(position.newPosition(-1,-1)), new Move(position.newPosition(1,-1)), new Move(position.newPosition(-1,1))]
 		}
 		this.value = 1000
 		this.cssName = 'hacker'
@@ -158,6 +158,12 @@ angular.module('Tribetron').factory('ChessPiece', function() {
 		this.y = y
 	}
 	
+	function Move(position, effect, pawnDoubleForward) {
+		this.position = position
+		this.effect = effect ? effect : function(){}
+		this.pawnDoubleForward = pawnDoubleForward
+	}
+	
 	return {
 		createPawn : function(x, y, whitePiece) {
 			return new Piece(new Pawn(), x, y, whitePiece)
@@ -179,4 +185,4 @@ angular.module('Tribetron').factory('ChessPiece', function() {
 		}
 	}
 	
-})
+}])

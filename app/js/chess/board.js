@@ -2,12 +2,6 @@
 
 angular.module('Tribetron').factory('ChessBoard', ['ChessPiece', function(ChessPiece) {
 	
-	var xMin = 0, yMin = 0, xMax = 7, yMax = 7
-	
-	var isPositionInBoard = function(position) {
-		return position.x >= xMin && position.x <= xMax && position.y >= yMin && position.y <= yMax
-	}
-	
 	function Slot(x, y, darkBackground, piece) {
 		this.getClass = function() {
 			return this.piece ? this.piece.getClass() : ""
@@ -39,10 +33,15 @@ angular.module('Tribetron').factory('ChessBoard', ['ChessPiece', function(ChessP
 			return board
 		}
 		this.getSlot = function(position) {
-			if (!isPositionInBoard(position)) return
+			if (!this.isPositionInsideBoard(position)) return
 			return this.board[position.y][position.x]
 		}
 		this.movePiece = function(from, to) {
+			var move = _.find(from.piece.allowedMoves(this), function(move) {
+				return move.position.x === to.positionX && move.position.y === to.positionY
+			})
+			move.effect()
+			this.madeMoves.push(move)
 			to.piece = from.piece
 			from.piece = undefined
 			to.piece.move(to.positionX, to.positionY)
@@ -52,17 +51,22 @@ angular.module('Tribetron').factory('ChessBoard', ['ChessPiece', function(ChessP
 		this.isSelectable = function(slot) {
 			if (this.selected) {
 				if (_.find(this.selected.piece.allowedMoves(this), function(move) {
-					return move.x === slot.positionX && move.y === slot.positionY
+					return move.position.x === slot.positionX && move.position.y === slot.positionY
 				})) {
 					return true
 				}
 			}
 			return slot.piece && slot.piece.whitePiece === this.turnOfWhite 
 				&& slot.piece.allowedMoves(this).length > 0
-		}	
+		}
+		this.isPositionInsideBoard = function(position) {
+			var xMin = 0, yMin = 0, xMax = 7, yMax = 7
+			return position.x >= xMin && position.x <= xMax && position.y >= yMin && position.y <= yMax
+		}
 		this.board = initBoard();
 		this.selected = undefined
 		this.turnOfWhite = true
+		this.madeMoves = []
 	}
 	
 	return {
