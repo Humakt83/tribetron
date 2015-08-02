@@ -18,8 +18,9 @@ angular.module('Tribetron').factory('ChessPiece', [function() {
 	
 	var filterMovesThatCauseMate = function(moves, board) {
 		return _.compact(_.filter(moves, function(move) {
-			if (!board.selected || board.copy) return true
+			if (board.copy) return true
 			var copyBoard = angular.copy(board)
+			copyBoard.selected = copyBoard.getSlot(move.piece.position)
 			copyBoard.copy = true
 			copyBoard.movePiece(copyBoard.selected, copyBoard.getSlot(move.position))
 			copyBoard.turnOfWhite = !copyBoard.turnOfWhite
@@ -31,11 +32,11 @@ angular.module('Tribetron').factory('ChessPiece', [function() {
 		return _.compact(filterMovesThatCauseMate(filterMovesThatCollideWithOwnPiece(filterOutOfBoardMoves(moves, board), whitePiece, board), board))
 	}
 	
-	var getMovesUntilBlocked = function(board, position, xModifier, yModifier) {
+	var getMovesUntilBlocked = function(board, position, xModifier, yModifier, pieceBeingMoved) {
 		var moves = [], blocked = false
 		var move = position.newPosition(xModifier, yModifier)
 		do {
-			moves.push(new Move(move.newPosition(0, 0)))
+			moves.push(new Move(pieceBeingMoved, move.newPosition(0, 0)))
 			var slot = board.getSlot(move)
 			var piece = slot ? slot.piece : undefined
 			blocked = blocked || piece
@@ -44,29 +45,29 @@ angular.module('Tribetron').factory('ChessPiece', [function() {
 		return moves
 	}
 	
-	var diagonalMoves = function(board, position) {
-		return getMovesUntilBlocked(board, position, 1, 1)
-			.concat(getMovesUntilBlocked(board, position, -1, -1))
-			.concat(getMovesUntilBlocked(board, position, 1, -1))
-			.concat(getMovesUntilBlocked(board,position, -1, 1))
+	var diagonalMoves = function(board, position, piece) {
+		return getMovesUntilBlocked(board, position, 1, 1, piece)
+			.concat(getMovesUntilBlocked(board, position, -1, -1, piece))
+			.concat(getMovesUntilBlocked(board, position, 1, -1, piece))
+			.concat(getMovesUntilBlocked(board,position, -1, 1, piece))
 	}
 	
-	var horizontalAndVerticalMoves = function(board, position) {
-		return getMovesUntilBlocked(board, position, 0, 1)
-			.concat(getMovesUntilBlocked(board, position, 0, -1))
-			.concat(getMovesUntilBlocked(board, position, 1, 0))
-			.concat(getMovesUntilBlocked(board,position, -1, 0))
+	var horizontalAndVerticalMoves = function(board, position, piece) {
+		return getMovesUntilBlocked(board, position, 0, 1, piece)
+			.concat(getMovesUntilBlocked(board, position, 0, -1, piece))
+			.concat(getMovesUntilBlocked(board, position, 1, 0, piece))
+			.concat(getMovesUntilBlocked(board,position, -1, 0, piece))
 	}
 	
 	function Pawn() {		
-		this.getMoves = function(position, board, whitePiece, piece) {
+		this.getMoves = function(position, pieceBeingMoved, board, whitePiece) {
 			function blocked(move) {
 				return board.getSlot(move).piece
 			}
 			function addLevelupForMove(move) {
 				if (move.y === 7 || move.y === 0) {
 					return function() {
-						board.pawnIsLeveled(piece)
+						board.pawnIsLeveled(pieceBeingMoved)
 					}
 				}
 				return function() {}
@@ -74,10 +75,10 @@ angular.module('Tribetron').factory('ChessPiece', [function() {
 			function handleMovesForward(moves, sign) {
 				var moveForward = position.newPosition(0, sign)
 				if (!blocked(moveForward)) { 
-					moves.push(new Move(moveForward, addLevelupForMove(moveForward)))
+					moves.push(new Move(pieceBeingMoved, moveForward, addLevelupForMove(moveForward)))
 					if ((position.y === 6 && whitePiece) || (position.y === 1 && !whitePiece)) {
 						var movesForwardTwice = position.newPosition(0, (sign * 2))
-						if (!blocked(movesForwardTwice)) moves.push(new Move(movesForwardTwice, null, true))
+						if (!blocked(movesForwardTwice)) moves.push(new Move(pieceBeingMoved, movesForwardTwice, null, true))
 					}
 				}
 			}
@@ -86,11 +87,11 @@ angular.module('Tribetron').factory('ChessPiece', [function() {
 				_.each(filterOutOfBoardMoves(diagonalAttacks, board), function (attack) {
 					var piece = board.getSlot(attack).piece
 					if (piece && piece.whitePiece !== whitePiece) {
-						moves.push(new Move(attack, addLevelupForMove(attack)))
+						moves.push(new Move(pieceBeingMoved, attack, addLevelupForMove(attack)))
 					} else if (board.madeMoves.length > 0 && _.last(board.madeMoves).pawnDoubleForward) {
 						var previousMove = _.last(board.madeMoves)
 						if (previousMove.position.y === position.y && previousMove.position.x === attack.x) {
-							moves.push(new Move(attack, function() {
+							moves.push(new Move(pieceBeingMoved, attack, function() {
 								board.getSlot(previousMove.position).piece = undefined
 							}))
 						}
@@ -108,58 +109,58 @@ angular.module('Tribetron').factory('ChessPiece', [function() {
 	}
 	
 	function Bishop() {
-		this.getMoves = function(position, board) {
-			return diagonalMoves(board, position)
+		this.getMoves = function(position, piece, board) {
+			return diagonalMoves(board, position, piece)
 		}
 		this.value = 95
 		this.cssName = 'medic'
 	}
 	
 	function Knight() {
-		this.getMoves = function(position) {
-			return [new Move(position.newPosition(1,2)), new Move(position.newPosition(1,-2)), new Move(position.newPosition(-1,2)), new Move(position.newPosition(-1,-2)),
-				new Move(position.newPosition(2,1)), new Move(position.newPosition(2,-1)), new Move(position.newPosition(-2,1)), new Move(position.newPosition(-2,-1))]
+		this.getMoves = function(position, piece) {
+			return [new Move(piece, position.newPosition(1,2)), new Move(piece, position.newPosition(1,-2)), new Move(piece, position.newPosition(-1,2)), new Move(piece, position.newPosition(-1,-2)),
+				new Move(piece, position.newPosition(2,1)), new Move(piece, position.newPosition(2,-1)), new Move(piece, position.newPosition(-2,1)), new Move(piece, position.newPosition(-2,-1))]
 		}
 		this.value = 95
 		this.cssName = 'hunter'
 	}
 	
 	function Rook() {
-		this.getMoves = function(position, board) {
-			return horizontalAndVerticalMoves(board, position)
+		this.getMoves = function(position, piece, board) {
+			return horizontalAndVerticalMoves(board, position, piece)
 		}
 		this.value = 125
 		this.cssName = 'psycho'
 	}
 	
 	function Queen() {
-		this.getMoves = function(position, board) {
-			return diagonalMoves(board,position)
-				.concat(horizontalAndVerticalMoves(board, position))
+		this.getMoves = function(position, piece, board) {
+			return diagonalMoves(board,position, piece)
+				.concat(horizontalAndVerticalMoves(board, position, piece))
 		}
 		this.value = 240
 		this.cssName = 'lazor'
 	}
 	
 	function King() {
-		this.getMoves = function(position, board, whitePiece, piece) {
+		this.getMoves = function(position, piece, board, whitePiece) {
 			var toweringMoves = []
 			if (!piece.moved) {
 				var rookLeft = board.getSlot(position.newPosition(-4, 0))
 				var rookRight = board.getSlot(position.newPosition(3, 0))
 				if (rookLeft.piece && !rookLeft.piece.moved && !board.getSlot(position.newPosition(-1,0)).piece && !board.getSlot(position.newPosition(-2,0)).piece && !board.getSlot(position.newPosition(-3,0)).piece) {
-					toweringMoves.push(new Move(position.newPosition(-2,0), function() {
+					toweringMoves.push(new Move(piece, position.newPosition(-2,0), function() {
 						board.getSlot(rookLeft.piece.position.newPosition(3,0)).movePiece(rookLeft)
 					}))
 				}
 				if (rookRight.piece && !rookRight.piece.moved && !board.getSlot(position.newPosition(1,0)).piece && !board.getSlot(position.newPosition(2,0)).piece) {
-					toweringMoves.push(new Move(position.newPosition(2,0), function() {
+					toweringMoves.push(new Move(piece, position.newPosition(2,0), function() {
 						board.getSlot(rookRight.piece.position.newPosition(-2,0)).movePiece(rookRight)
 					}))
 				}
 			}
-			return toweringMoves.concat([new Move(position.newPosition(0,1)), new Move(position.newPosition(0,-1)), new Move(position.newPosition(1,0)), new Move(position.newPosition(-1,0)),
-				new Move(position.newPosition(1,1)), new Move(position.newPosition(-1,-1)), new Move(position.newPosition(1,-1)), new Move(position.newPosition(-1,1))])
+			return toweringMoves.concat([new Move(piece, position.newPosition(0,1)), new Move(piece, position.newPosition(0,-1)), new Move(piece, position.newPosition(1,0)), new Move(piece, position.newPosition(-1,0)),
+				new Move(piece, position.newPosition(1,1)), new Move(piece, position.newPosition(-1,-1)), new Move(piece, position.newPosition(1,-1)), new Move(piece, position.newPosition(-1,1))])
 		}
 		this.value = 1000
 		this.cssName = 'hacker'
@@ -167,7 +168,7 @@ angular.module('Tribetron').factory('ChessPiece', [function() {
 	
 	function Piece(pieceType, x, y, whitePiece) {
 		this.allowedMoves = function(board) {
-			var moves = this.pieceType.getMoves(this.position, board, this.whitePiece, this)
+			var moves = this.pieceType.getMoves(this.position, this, board, this.whitePiece)
 			return filterIllegalMoves(moves, this.whitePiece, board)
 		}
 		this.move = function(x, y) {
@@ -192,7 +193,9 @@ angular.module('Tribetron').factory('ChessPiece', [function() {
 		this.y = y
 	}
 	
-	function Move(position, effect, pawnDoubleForward) {
+	function Move(piece, position, effect, pawnDoubleForward) {
+		if (!piece) throw "No piece for move!"
+		this.piece = piece
 		this.position = position
 		this.effect = effect ? effect : function(){}
 		this.pawnDoubleForward = pawnDoubleForward

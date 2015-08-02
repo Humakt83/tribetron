@@ -107,6 +107,7 @@ angular.module('Tribetron').factory('ChessBoard', ['ChessPiece', '$modal', funct
 		}
 		
 		this.isKingChecked = function(king, piecesOfOpponent) {
+			if (!king) return true
 			var thisMap = this
 			var check = false
 			_.each(piecesOfOpponent, function(piece) {
