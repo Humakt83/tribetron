@@ -131,9 +131,24 @@ angular.module('Tribetron').factory('ChessPiece', [function() {
 	}
 	
 	function King() {
-		this.getMoves = function(position) {
-			return [new Move(position.newPosition(0,1)), new Move(position.newPosition(0,-1)), new Move(position.newPosition(1,0)), new Move(position.newPosition(-1,0)),
-				new Move(position.newPosition(1,1)), new Move(position.newPosition(-1,-1)), new Move(position.newPosition(1,-1)), new Move(position.newPosition(-1,1))]
+		this.getMoves = function(position, board, whitePiece, piece) {
+			var toweringMoves = []
+			if (!piece.moved) {
+				var rookLeft = board.getSlot(position.newPosition(-4, 0))
+				var rookRight = board.getSlot(position.newPosition(3, 0))
+				if (rookLeft.piece && !rookLeft.piece.moved && !board.getSlot(position.newPosition(-1,0)).piece && !board.getSlot(position.newPosition(-2,0)).piece && !board.getSlot(position.newPosition(-3,0)).piece) {
+					toweringMoves.push(new Move(position.newPosition(-2,0), function() {
+						board.getSlot(rookLeft.piece.position.newPosition(3,0)).movePiece(rookLeft)
+					}))
+				}
+				if (rookRight.piece && !rookRight.piece.moved && !board.getSlot(position.newPosition(1,0)).piece && !board.getSlot(position.newPosition(2,0)).piece) {
+					toweringMoves.push(new Move(position.newPosition(2,0), function() {
+						board.getSlot(rookRight.piece.position.newPosition(-2,0)).movePiece(rookRight)
+					}))
+				}
+			}
+			return toweringMoves.concat([new Move(position.newPosition(0,1)), new Move(position.newPosition(0,-1)), new Move(position.newPosition(1,0)), new Move(position.newPosition(-1,0)),
+				new Move(position.newPosition(1,1)), new Move(position.newPosition(-1,-1)), new Move(position.newPosition(1,-1)), new Move(position.newPosition(-1,1))])
 		}
 		this.value = 1000
 		this.cssName = 'hacker'
