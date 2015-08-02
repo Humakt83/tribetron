@@ -1,10 +1,15 @@
 'use strict'
 
-angular.module('Tribetron').factory('ChessBoard', ['ChessPiece', function(ChessPiece) {
+angular.module('Tribetron').factory('ChessBoard', ['ChessPiece', '$modal', function(ChessPiece, $modal) {
 	
 	function Slot(x, y, darkBackground, piece) {
 		this.getClass = function() {
 			return this.piece ? this.piece.getClass() : ""
+		}
+		this.movePiece = function(from) {
+			this.piece = from.piece
+			from.piece = undefined
+			this.piece.move(this.positionX, this.positionY)
 		}
 		this.positionX = x
 		this.positionY = y
@@ -32,22 +37,36 @@ angular.module('Tribetron').factory('ChessBoard', ['ChessPiece', function(ChessP
 			}
 			return board
 		}
+		
 		this.getSlot = function(position) {
 			if (!this.isPositionInsideBoard(position)) return
 			return this.board[position.y][position.x]
 		}
+		
+		this.pawnIsLeveled = function(piece) {
+			$modal.open({
+				templateUrl: './partials/chesspawn.html',
+				controller: 'PawnLevelsUp',
+				size: 'sm',
+				resolve: {
+					pawn: function () {
+						return piece
+					}
+				}
+			})
+		}
+		
 		this.movePiece = function(from, to) {
 			var move = _.find(from.piece.allowedMoves(this), function(move) {
 				return move.position.x === to.positionX && move.position.y === to.positionY
 			})
+			this.madeMoves.push(move)						
+			to.movePiece(from)
 			move.effect()
-			this.madeMoves.push(move)
-			to.piece = from.piece
-			from.piece = undefined
-			to.piece.move(to.positionX, to.positionY)
 			this.turnOfWhite = !this.turnOfWhite
 			this.selected = undefined
 		}
+		
 		this.isSelectable = function(slot) {
 			if (this.selected) {
 				if (_.find(this.selected.piece.allowedMoves(this), function(move) {
@@ -59,10 +78,12 @@ angular.module('Tribetron').factory('ChessBoard', ['ChessPiece', function(ChessP
 			return slot.piece && slot.piece.whitePiece === this.turnOfWhite 
 				&& slot.piece.allowedMoves(this).length > 0
 		}
+		
 		this.isPositionInsideBoard = function(position) {
 			var xMin = 0, yMin = 0, xMax = 7, yMax = 7
 			return position.x >= xMin && position.x <= xMax && position.y >= yMin && position.y <= yMax
 		}
+		
 		this.board = initBoard();
 		this.selected = undefined
 		this.turnOfWhite = true
@@ -75,3 +96,14 @@ angular.module('Tribetron').factory('ChessBoard', ['ChessPiece', function(ChessP
 		}
 	}
 }])
+
+angular.module('Tribetron').controller('PawnLevelsUp', ['$scope', '$modalInstance', 'ChessPiece', 'pawn', function ($scope, $modalInstance, ChessPiece, pawn) {
+    	
+    $scope.allowedPieces = ChessPiece.getTypesPawnCanTurnInto()
+	
+	$scope.levelup = function(pieceType) {
+		pawn.pieceType = pieceType
+		$modalInstance.close()
+	}
+	
+}]);

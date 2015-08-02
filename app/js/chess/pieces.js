@@ -48,14 +48,22 @@ angular.module('Tribetron').factory('ChessPiece', [function() {
 	}
 	
 	function Pawn() {		
-		this.getMoves = function(position, board, whitePiece) {
+		this.getMoves = function(position, board, whitePiece, piece) {
 			function blocked(move) {
 				return board.getSlot(move).piece
+			}
+			function addLevelupForMove(move) {
+				if (move.y === 7 || move.y === 0) {
+					return function() {
+						board.pawnIsLeveled(piece)
+					}
+				}
+				return function() {}
 			}
 			function handleMovesForward(moves, sign) {
 				var moveForward = position.newPosition(0, sign)
 				if (!blocked(moveForward)) { 
-					moves.push(new Move(moveForward))
+					moves.push(new Move(moveForward, addLevelupForMove(moveForward)))
 					if ((position.y === 6 && whitePiece) || (position.y === 1 && !whitePiece)) {
 						var movesForwardTwice = position.newPosition(0, (sign * 2))
 						if (!blocked(movesForwardTwice)) moves.push(new Move(movesForwardTwice, null, true))
@@ -67,7 +75,7 @@ angular.module('Tribetron').factory('ChessPiece', [function() {
 				_.each(filterOutOfBoardMoves(diagonalAttacks, board), function (attack) {
 					var piece = board.getSlot(attack).piece
 					if (piece && piece.whitePiece !== whitePiece) {
-						moves.push(new Move(attack))
+						moves.push(new Move(attack, addLevelupForMove(attack)))
 					} else if (board.madeMoves.length > 0 && _.last(board.madeMoves).pawnDoubleForward) {
 						var previousMove = _.last(board.madeMoves)
 						if (previousMove.position.y === position.y && previousMove.position.x === attack.x) {
@@ -133,7 +141,7 @@ angular.module('Tribetron').factory('ChessPiece', [function() {
 	
 	function Piece(pieceType, x, y, whitePiece) {
 		this.allowedMoves = function(board) {
-			var moves = pieceType.getMoves(this.position, board, whitePiece)
+			var moves = this.pieceType.getMoves(this.position, board, this.whitePiece, this)
 			return filterIllegalMoves(moves, this.whitePiece, board)
 		}
 		this.move = function(x, y) {
@@ -141,8 +149,8 @@ angular.module('Tribetron').factory('ChessPiece', [function() {
 			this.position = new Position(x, y)
 		}
 		this.getClass = function() {
-			var addendum = whitePiece ? '' : '_enemy'
-			return pieceType.cssName + addendum
+			var addendum = this.whitePiece ? '' : '_enemy'
+			return this.pieceType.cssName + addendum
 		}
 		this.pieceType = pieceType
 		this.position = new Position(x, y)
@@ -182,7 +190,11 @@ angular.module('Tribetron').factory('ChessPiece', [function() {
 		},
 		createKing : function(x, y, whitePiece) {
 			return new Piece(new King(), x, y, whitePiece)
+		},
+		getTypesPawnCanTurnInto : function() {
+			return [new Queen(), new Rook(), new Knight(), new Bishop()]
 		}
+		
 	}
 	
 }])
