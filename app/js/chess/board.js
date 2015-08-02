@@ -83,6 +83,42 @@ angular.module('Tribetron').factory('ChessBoard', ['ChessPiece', '$modal', funct
 			var xMin = 0, yMin = 0, xMax = 7, yMax = 7
 			return position.x >= xMin && position.x <= xMax && position.y >= yMin && position.y <= yMax
 		}
+		this.getPieces = function(whitePieces) {
+			var pieces = []
+			_.each(this.board, function(row) {
+				_.each(row, function(slot) {
+					if (slot.piece && slot.piece.whitePiece === whitePieces) pieces.push(slot.piece)
+				})
+			})
+			return pieces			
+		}
+		
+		this.getWhitePieces = function() {
+			return this.getPieces(true)
+		}
+		
+		this.getBlackPieces = function() {
+			return this.getPieces(false)
+		}
+		
+		this.isStaleMate = function() {
+			var possibleMoves = 0
+			var thisBoard = this
+			if (this.turnOfWhite) {
+				_.each(this.getWhitePieces(), function(piece) {
+					possibleMoves += piece.allowedMoves(thisBoard).length
+				})
+			} else {
+				_.each(this.getBlackPieces(), function(piece) {
+					possibleMoves += piece.allowedMoves(thisBoard).length
+				})
+			}
+			return possibleMoves <= 0
+		}
+		
+		this.isGameOver = function() {
+			return this.isStaleMate()
+		}
 		
 		this.board = initBoard();
 		this.selected = undefined
