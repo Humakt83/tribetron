@@ -9,11 +9,19 @@ angular.module('Tribetron').controller('ChessController', ['$scope', '$location'
 				$scope.chessBoard.selected = slot
 			} else {
 				$scope.chessBoard.movePiece($scope.chessBoard.selected, slot)
-				$scope.check = $scope.chessBoard.isCheck()
-				$scope.gameOver = $scope.chessBoard.isGameOver()
+				$scope.checkState()
 			}
 		}
 	}
 	
+	$scope.checkState = function() {
+		$scope.blackPieces = $scope.chessBoard.getBlackPieces()
+		$scope.whitePieces = $scope.chessBoard.getWhitePieces()
+		$scope.check = $scope.chessBoard.isCheck()
+		$scope.gameOver = $scope.chessBoard.isGameOver()
+	}
+	
 	$scope.chessBoard = ChessBoard.createBoard()
+	$scope.checkState()
+	
 }])
