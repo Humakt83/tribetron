@@ -150,7 +150,7 @@ angular.module('Tribetron').factory('ChessPiece', [function() {
 			return toweringMoves.concat([new Move(piece, position.newPosition(0,1)), new Move(piece, position.newPosition(0,-1)), new Move(piece, position.newPosition(1,0)), new Move(piece, position.newPosition(-1,0)),
 				new Move(piece, position.newPosition(1,1)), new Move(piece, position.newPosition(-1,-1)), new Move(piece, position.newPosition(1,-1)), new Move(piece, position.newPosition(-1,1))])
 		}
-		this.value = 1000
+		this.value = 10000
 		this.cssName = 'hacker'
 	}
 	

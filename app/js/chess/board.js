@@ -44,17 +44,20 @@ angular.module('Tribetron').factory('ChessBoard', ['ChessPiece', '$modal', funct
 		}
 		
 		this.pawnIsLeveled = function(piece) {
-			if (this.copy) return
-			$modal.open({
-				templateUrl: './partials/chesspawn.html',
-				controller: 'PawnLevelsUp',
-				size: 'sm',
-				resolve: {
-					pawn: function () {
-						return piece
+			if (this.aiTurn) {
+				pawn.pieceType = ChessPiece.getTypesPawnCanTurnInto()[0]
+			} else {
+				$modal.open({
+					templateUrl: './partials/chesspawn.html',
+					controller: 'PawnLevelsUp',
+					size: 'sm',
+					resolve: {
+						pawn: function () {
+							return piece
+						}
 					}
-				}
-			})
+				})
+			}
 		}
 		
 		this.movePiece = function(from, to) {
@@ -170,7 +173,7 @@ angular.module('Tribetron').factory('ChessBoard', ['ChessPiece', '$modal', funct
 		this.selected = undefined
 		this.turnOfWhite = true
 		this.madeMoves = []
-		this.copy = false
+		this.aiTurn = false
 	}
 	
 	return {
