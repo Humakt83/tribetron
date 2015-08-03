@@ -6,7 +6,7 @@ angular.module('Tribetron').controller('ChessController', ['$scope', '$location'
 		if (!$scope.gameOver && $scope.chessBoard.isSelectable(slot)) {
 			if (!$scope.chessBoard.selected || ($scope.chessBoard.selected && slot.piece 
 					&& $scope.chessBoard.selected.piece.whitePiece === slot.piece.whitePiece)) {
-				$scope.chessBoard.selected = slot
+				$scope.chessBoard.setSelected(slot)
 			} else {
 				$scope.chessBoard.movePiece($scope.chessBoard.selected, slot)
 				$scope.checkState()

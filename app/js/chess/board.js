@@ -58,13 +58,11 @@ angular.module('Tribetron').factory('ChessBoard', ['ChessPiece', '$modal', funct
 		}
 		
 		this.movePiece = function(from, to) {
-			if (!this.copy) {
-				var move = _.find(from.piece.allowedMoves(this), function(move) {
-					return move.position.x === to.positionX && move.position.y === to.positionY
-				})
-				this.madeMoves.push(move)
-				move.effect()				
-			}
+			var move = _.find(this.selectedAllowedMoves, function(move) {
+				return move.position.x === to.positionX && move.position.y === to.positionY
+			})
+			this.madeMoves.push(move)
+			move.effect()				
 			to.movePiece(from)			
 			this.turnOfWhite = !this.turnOfWhite
 			this.selected = undefined
@@ -155,24 +153,19 @@ angular.module('Tribetron').factory('ChessBoard', ['ChessPiece', '$modal', funct
 		}
 		
 		this.isCheckMate = function() {
-			var possibleMoves = 0
-			var thisBoard = this
-			if (this.turnOfWhite) {
-				_.each(this.getWhitePieces(), function(piece) {
-					possibleMoves += piece.allowedMoves(thisBoard).length
-				})
-			} else {
-				_.each(this.getBlackPieces(), function(piece) {
-					possibleMoves += piece.allowedMoves(thisBoard).length
-				})
-			}
-			return this.isCheck() && possibleMoves <= 0
+			return !this.getWhiteKingSlot() || !this.getBlackKingSlot()
 		}
 		
 		this.isGameOver = function() {
 			return this.isStaleMate() || this.isCheckMate()
 		}
 		
+		this.setSelected = function(slot) {
+			this.selected = slot
+			this.selectedAllowedMoves = slot.piece.allowedMoves(this)
+		}
+		
+		this.selectedAllowedMoves = []
 		this.board = initBoard();
 		this.selected = undefined
 		this.turnOfWhite = true
