@@ -4,7 +4,7 @@ angular.module('Tribetron').factory('ChessAI', ['ChessBoard', 'ChessPiece', func
 		
 	var evaluateBoard = function(board) {
 		function evaluate(pieces) {
-			return _.chain(pieces).map(function(piece) { return piece.pieceType.value }).reduce(function(memo, num){ return memo + num }, 0).value()
+			return _.chain(pieces).map(function(piece) { return piece.getValue() }).reduce(function(memo, num){ return memo + num }, 0).value()
 		}
 		return evaluate(board.getWhitePieces()) - evaluate(board.getBlackPieces())
 	}
