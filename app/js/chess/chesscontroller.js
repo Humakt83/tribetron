@@ -13,6 +13,7 @@ angular.module('Tribetron').controller('ChessController', ['$scope', '$location'
 				$scope.checkState()
 				if (!$scope.gameOver) {
 					$scope.ai.playTurn($scope.chessBoard)
+					$scope.checkState()
 				}
 			}
 		}
