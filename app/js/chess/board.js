@@ -45,7 +45,7 @@ angular.module('Tribetron').factory('ChessBoard', ['ChessPiece', '$modal', funct
 		
 		this.pawnIsLeveled = function(piece) {
 			if (this.aiTurn) {
-				pawn.pieceType = ChessPiece.getTypesPawnCanTurnInto()[0]
+				piece.pieceType = ChessPiece.getTypesPawnCanTurnInto()[0]
 			} else {
 				$modal.open({
 					templateUrl: './partials/chesspawn.html',

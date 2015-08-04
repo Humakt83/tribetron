@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('Tribetron').controller('ChessController', ['$scope', '$location', 'Player', 'ChessBoard', 'ChessAI', function($scope, $location, Player, ChessBoard, ChessAI) {
+angular.module('Tribetron').controller('ChessController', ['$scope', '$location', 'Player', 'ChessBoard', 'ChessAI', '$modalStack', '$interval', function($scope, $location, Player, ChessBoard, ChessAI, $modalStack, $interval) {
 	
 	$scope.selectPiece = function(slot) {
 		if (!$scope.gameOver && $scope.chessBoard.isSelectable(slot)) {
@@ -9,14 +9,23 @@ angular.module('Tribetron').controller('ChessController', ['$scope', '$location'
 				$scope.chessBoard.setSelected(slot)
 			} else {
 				$scope.chessBoard.movePiece($scope.chessBoard.selected, slot)
-				//TODO: Wait for modal to close
-				$scope.checkState()
-				if (!$scope.gameOver) {
-					$scope.ai.playTurn($scope.chessBoard)
-					$scope.checkState()
-				}
+				$scope.waitInterval = $interval(function() {
+					if (!$modalStack.getTop()) {
+						$scope.checkState()
+						if (!$scope.gameOver) {
+							$scope.aiTurn()
+						}
+					}
+				}, 50)
+
 			}
 		}
+	}
+	
+	$scope.aiTurn = function() {
+		$interval.cancel($scope.waitInterval)
+		$scope.ai.playTurn($scope.chessBoard)
+		$scope.checkState()
 	}
 	
 	$scope.checkState = function() {
