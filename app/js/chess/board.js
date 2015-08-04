@@ -69,6 +69,7 @@ angular.module('Tribetron').factory('ChessBoard', ['ChessPiece', '$modal', funct
 			to.movePiece(from)			
 			this.turnOfWhite = !this.turnOfWhite
 			this.selected = undefined
+			this.selectedAllowedMoves = []
 		}
 		
 		this.isSelectable = function(slot) {

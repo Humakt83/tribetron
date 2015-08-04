@@ -169,9 +169,9 @@ angular.module('Tribetron').factory('ChessPiece', [function() {
 		}
 		this.getValue = function() {
 			function valueOfCoord(coord) {
-				if (coord === 3 || coord === 4) return 3
-				if (coord === 2 || coord === 5) return 2
-				if (coord === 1 || coord === 3) return 1
+				if (coord === 3 || coord === 4) return 8
+				if (coord === 2 || coord === 5) return 4
+				if (coord === 1 || coord === 3) return 2
 				return 0
 			}
 			return valueOfCoord(this.position.x) + valueOfCoord(this.position.y) + this.pieceType.value
