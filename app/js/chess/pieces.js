@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('Tribetron').factory('ChessPiece', [function() {
+angular.module('Tribetron').factory('ChessPiece', ['PositionService', function(PositionService) {
 	
 	var filterOutOfBoardMoves = function(moves, board) {
 		return _.compact(_.filter(moves, function(move) {
@@ -11,7 +11,7 @@ angular.module('Tribetron').factory('ChessPiece', [function() {
 	var filterMovesThatCollideWithOwnPiece = function(moves, whitePiece, board) {
 		return _.compact(_.filter(moves, function(move) {
 			var slot = board.getSlot(move.position)
-			var piece = slot ? slot.piece : undefined
+			var piece = slot.piece
 			return !piece || piece.whitePiece !== whitePiece
 		}))
 	}
@@ -154,7 +154,7 @@ angular.module('Tribetron').factory('ChessPiece', [function() {
 		this.cssName = 'hacker'
 	}
 	
-	function Piece(pieceType, x, y, whitePiece) {
+	function Piece(pieceType, whitePiece) {
 		this.allowedMoves = function(board) {
 			var moves = this.pieceType.getMoves(this.position, this, board, this.whitePiece)
 			return filterIllegalMoves(moves, this.whitePiece, board)
@@ -177,17 +177,9 @@ angular.module('Tribetron').factory('ChessPiece', [function() {
 			return valueOfCoord(this.position.x) + valueOfCoord(this.position.y) + this.pieceType.value
 		}
 		this.pieceType = pieceType
-		this.position = new Position(x, y)
+		this.position = undefined
 		this.moved = false
 		this.whitePiece = whitePiece
-	}
-	
-	function Position(x, y) {
-		this.newPosition = function(xModifier, yModifier) {
-			return new Position(this.x + xModifier, this.y + yModifier)
-		}
-		this.x = x
-		this.y = y
 	}
 	
 	function Move(piece, position, effect, pawnDoubleForward) {
@@ -199,23 +191,23 @@ angular.module('Tribetron').factory('ChessPiece', [function() {
 	}
 	
 	return {
-		createPawn : function(x, y, whitePiece) {
-			return new Piece(new Pawn(), x, y, whitePiece)
+		createPawn : function(whitePiece) {
+			return new Piece(new Pawn(), whitePiece)
 		},
-		createBishop : function(x, y, whitePiece) {
-			return new Piece(new Bishop(), x, y, whitePiece)
+		createBishop : function(whitePiece) {
+			return new Piece(new Bishop(), whitePiece)
 		},
-		createKnight : function(x, y, whitePiece) {
-			return new Piece(new Knight(), x, y, whitePiece)
+		createKnight : function(whitePiece) {
+			return new Piece(new Knight(), whitePiece)
 		},
-		createRook : function(x, y, whitePiece) {
-			return new Piece(new Rook(), x, y, whitePiece)
+		createRook : function(whitePiece) {
+			return new Piece(new Rook(), whitePiece)
 		},
-		createQueen : function(x, y, whitePiece) {
-			return new Piece(new Queen(), x, y, whitePiece)
+		createQueen : function(whitePiece) {
+			return new Piece(new Queen(), whitePiece)
 		},
-		createKing : function(x, y, whitePiece) {
-			return new Piece(new King(), x, y, whitePiece)
+		createKing : function(whitePiece) {
+			return new Piece(new King(), whitePiece)
 		},
 		getTypesPawnCanTurnInto : function() {
 			return [new Queen(), new Rook(), new Knight(), new Bishop()]

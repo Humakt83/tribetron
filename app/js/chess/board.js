@@ -1,38 +1,25 @@
 'use strict'
 
-angular.module('Tribetron').factory('ChessBoard', ['ChessPiece', '$modal', function(ChessPiece, $modal) {
+angular.module('Tribetron').factory('ChessBoard', ['ChessPiece', '$modal', 'PositionService', function(ChessPiece, $modal, PositionService) {
 	
-	function Slot(x, y, darkBackground, piece) {
-		this.getClass = function() {
-			return this.piece ? this.piece.getClass() : ""
-		}
-		this.movePiece = function(from) {
-			this.piece = from.piece
-			from.piece = undefined
-			this.piece.move(this.positionX, this.positionY)
-		}
-		this.positionX = x
-		this.positionY = y
-		this.piece = piece
-		this.darkBackground = darkBackground
-	}
+	const xMin = 0, yMin = 0, xMax = 7, yMax = 7
 	
 	function Board() {
 		function initBoard() {
 			function determinePiece(x, y) {
-				if (y === 1 || y === 6) return ChessPiece.createPawn(x, y, y === 6)
-				if ((x === 0 || x === 7) && (y === 7 || y === 0)) return ChessPiece.createRook(x, y, y === 7)
-				if ((x === 1 || x === 6) && (y === 7 || y === 0)) return ChessPiece.createKnight(x, y, y === 7)
-				if ((x === 2 || x === 5) && (y === 7 || y === 0)) return ChessPiece.createBishop(x, y, y === 7)
-				if (x === 3 && (y === 7 || y === 0)) return ChessPiece.createQueen(x, y, y === 7)
-				if (x === 4 && (y === 7 || y === 0)) return ChessPiece.createKing(x, y, y === 7)
+				if (y === 1 || y === 6) return ChessPiece.createPawn(y === 6)
+				if ((x === 0 || x === 7) && (y === 7 || y === 0)) return ChessPiece.createRook(y === 7)
+				if ((x === 1 || x === 6) && (y === 7 || y === 0)) return ChessPiece.createKnight(y === 7)
+				if ((x === 2 || x === 5) && (y === 7 || y === 0)) return ChessPiece.createBishop(y === 7)
+				if (x === 3 && (y === 7 || y === 0)) return ChessPiece.createQueen(y === 7)
+				if (x === 4 && (y === 7 || y === 0)) return ChessPiece.createKing(y === 7)
 				return
 			}
 			var board = []
-			for (var y = 0; y < 8; y++) {
+			for (var y = yMin; y <= yMax; y++) {
 				board.push([])
-				for (var x = 0; x < 8; x++) {
-					board[y].push(new Slot(x, y, (x + y) % 2 == 0, determinePiece(x,y)))
+				for (var x = xMin; x <= xMax; x++) {
+					board[y].push(PositionService.createPosition(x, y, determinePiece(x,y)))
 				}
 			}
 			return board
@@ -62,7 +49,7 @@ angular.module('Tribetron').factory('ChessBoard', ['ChessPiece', '$modal', funct
 		
 		this.movePiece = function(from, to) {
 			var move = _.find(this.selectedAllowedMoves, function(move) {
-				return move.position.x === to.positionX && move.position.y === to.positionY
+				return move.position.x === to.x && move.position.y === to.y
 			})
 			this.madeMoves.push(move)
 			move.effect()				
@@ -75,7 +62,7 @@ angular.module('Tribetron').factory('ChessBoard', ['ChessPiece', '$modal', funct
 		this.isSelectable = function(slot) {
 			if (this.selected) {
 				if (_.find(this.selected.piece.allowedMoves(this), function(move) {
-					return move.position.x === slot.positionX && move.position.y === slot.positionY
+					return move.position.x === slot.x && move.position.y === slot.y
 				})) {
 					return true
 				}
@@ -85,7 +72,6 @@ angular.module('Tribetron').factory('ChessBoard', ['ChessPiece', '$modal', funct
 		}
 		
 		this.isPositionInsideBoard = function(position) {
-			var xMin = 0, yMin = 0, xMax = 7, yMax = 7
 			return position.x >= xMin && position.x <= xMax && position.y >= yMin && position.y <= yMax
 		}
 		
@@ -174,7 +160,7 @@ angular.module('Tribetron').factory('ChessBoard', ['ChessPiece', '$modal', funct
 		this.selected = undefined
 		this.turnOfWhite = true
 		this.madeMoves = []
-		this.aiTurn = false
+		this.aiTurn = false		
 	}
 	
 	return {

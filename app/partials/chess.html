@@ -2,8 +2,8 @@
 	<div class="row">
 		<div class="col-xs-6">
 			<table class="table-bordered game chess">
-				<tr ng-repeat="row in chessBoard.board track by $index">
-					<td ng-repeat="slot in row" ng-click="selectPiece(slot)" ng-class="{'floor-clickable' : !gameOver && chessBoard.isSelectable(slot), 'bg-white': !slot.darkBackground, 'bg-black': slot.darkBackground}">
+				<tr ng-repeat="row in chessBoard.board">
+					<td ng-repeat="slot in row" ng-click="selectPiece(slot)" ng-class="{'floor-clickable' : !gameOver && chessBoard.isSelectable(slot), 'bg-white': (slot.x + slot.y) % 2 !== 0, 'bg-black': (slot.x + slot.y) % 2 === 0}">
 						<div class="robot" ng-class="slot.getClass()"></div>
 					</td>
 				</tr>
