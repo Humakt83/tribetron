@@ -22,6 +22,8 @@ angular.module('Tribetron').controller('ChessController', ['$scope', '$location'
 		}
 	}
 	
+	$scope.aiOnBlack = false
+	
 	$scope.aiTurn = function() {
 		$interval.cancel($scope.waitInterval)
 		$scope.ai.playTurn($scope.chessBoard)
@@ -36,7 +38,11 @@ angular.module('Tribetron').controller('ChessController', ['$scope', '$location'
 	}
 	
 	$scope.chessBoard = ChessBoard.createBoard()
-	$scope.ai = ChessAI.createAI(true)
+	$scope.ai = ChessAI.createAI($scope.aiOnBlack)
 	$scope.checkState()
+	
+	if (!$scope.aiOnBlack) {
+		$scope.aiTurn()
+	}
 	
 }])
