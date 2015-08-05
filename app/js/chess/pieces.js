@@ -136,6 +136,7 @@ angular.module('Tribetron').factory('ChessPiece', ['PositionService', function(P
 			if (!piece.moved) {
 				var rookLeft = board.getSlot(position.newPosition(-4, 0))
 				var rookRight = board.getSlot(position.newPosition(3, 0))
+				if (!rookLeft || !rookRight) console.log(position)
 				if (rookLeft.piece && !rookLeft.piece.moved && !board.getSlot(position.newPosition(-1,0)).piece && !board.getSlot(position.newPosition(-2,0)).piece && !board.getSlot(position.newPosition(-3,0)).piece) {
 					toweringMoves.push(new Move(piece, position.newPosition(-2,0), function() {
 						board.getSlot(rookLeft.piece.position.newPosition(3,0)).movePiece(rookLeft)
@@ -159,9 +160,9 @@ angular.module('Tribetron').factory('ChessPiece', ['PositionService', function(P
 			var moves = this.pieceType.getMoves(this.position, this, board, this.whitePiece)
 			return filterIllegalMoves(moves, this.whitePiece, board)
 		}
-		this.move = function(x, y) {
+		this.move = function(position) {
 			this.moved = true;
-			this.position = new Position(x, y)
+			this.position = position
 		}
 		this.getClass = function() {
 			var addendum = this.whitePiece ? '' : '_enemy'

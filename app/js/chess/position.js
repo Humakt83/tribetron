@@ -9,7 +9,7 @@ angular.module('Tribetron').factory('PositionService', [function() {
 		this.movePiece = function(from) {
 			this.piece = from.piece
 			from.piece = undefined
-			this.piece.position = this
+			this.piece.move(this)
 		}
 		this.getClass = function() {
 			return this.piece ? this.piece.getClass() : ''
