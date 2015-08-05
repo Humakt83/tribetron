@@ -37,13 +37,11 @@ angular.module('Tribetron').factory('ChessAI', ['ChessBoard', 'ChessPiece', func
 		this.pickBestMove = function(board) {
 			
 			let	topMoves = this.topMoves(board)
-		
 			if (this.depth > 1) {
-				let aiOpponent = new AI(!this.black, this.depth - 1, this.evalueNBestMoves - 1)
-				_.chain(topMoves).each(function(move) {					
-					let boardCopy = move.boardCopy
-					aiOpponent.playTurn(boardCopy)
-					move.calculatedScore = evaluateBoard(boardCopy)
+				let aiOpponent = new AI(!this.black, this.depth - 1, this.evalueNBestMoves)
+				aiOpponent.notOriginal = true
+				_.chain(topMoves).each(function(move) {
+					move.calculatedScore = aiOpponent.pickBestMove(move.boardCopy).calculatedScore
 				})
 			}
 			return this.black ? _.chain(topMoves).min(function(move) { return move.calculatedScore }).value()
@@ -64,7 +62,7 @@ angular.module('Tribetron').factory('ChessAI', ['ChessBoard', 'ChessPiece', func
 	
 	return {
 		createAI : function(black) {
-			return new AI(black, 3, 3)
+			return new AI(black, 3, 10)
 		}
 	}
 }])
