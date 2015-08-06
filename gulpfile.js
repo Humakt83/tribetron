@@ -7,6 +7,7 @@ var clean = require('gulp-clean')
 var jshint = require('gulp-jshint')
 var sass = require('gulp-sass')
 var stylish = require('jshint-stylish');
+var sloc = require('gulp-sloc');
 
 var browserSync = require('browser-sync')
 var reload = browserSync.reload
@@ -94,4 +95,8 @@ gulp.task('test', function (done) {
     configFile: __dirname + '/karma.conf.js',
     singleRun: true
   }, done);
+});
+
+gulp.task('sloc', function(){
+  gulp.src(['app/js/**/*.js']).pipe(sloc());
 });
