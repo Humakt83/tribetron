@@ -22,7 +22,7 @@ angular.module('Tribetron').controller('ChessController', ['$scope', '$location'
 		}
 	}
 	
-	$scope.aiOnBlack = false
+	$scope.aiOnBlack = true
 	
 	$scope.aiTurn = function() {
 		$interval.cancel($scope.waitInterval)

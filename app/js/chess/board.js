@@ -84,7 +84,7 @@ angular.module('Tribetron').factory('ChessBoard', ['ChessPiece', '$modal', 'Posi
 		this.getPieces = function(whitePieces) {
 			return _.chain(this.getPieceSlots(whitePieces)).map(function(slot) {
 				return slot.piece
-			}).value()
+			}).sortBy(function(piece) { return piece.pieceType.value}).reverse().value()
 		}
 		
 		this.isCheck = function() {
