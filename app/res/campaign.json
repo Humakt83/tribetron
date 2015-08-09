@@ -1,3 +1,3 @@
 {
-	"scenarios": ["chess0", "chess1", "HereItBegins", "level0", "pairs", "level1", "Totterhall", "level2", "conquest0", "level3", "Run", "level4", "pairs2", "Lab", "level5", "level6", "pairs3", "Asylum", "level7", "pairs4", "level8", "Farm", "level9", "conquest1", "level9b", "Explosion", "level10", "pairs5", "level11", "Hospital", "level12", "conquest2", "Combo", "level13", "level14"]
+	"scenarios": ["HereItBegins", "level0", "pairs", "level1", "Totterhall", "level2", "conquest0", "level3", "Run", "level4", "pairs2", "Lab", "level5", "chess0", "level6", "pairs3", "Asylum", "level7", "pairs4", "level8", "Farm", "level9", "conquest1", "level9b", "Explosion", "level10", "pairs5", "level11", "Hospital", "level12", "conquest2", "Combo", "level13", "chess1", "level14"]
 }
