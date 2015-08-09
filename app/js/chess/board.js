@@ -44,8 +44,8 @@ angular.module('Tribetron').factory('Chess', ['ChessPiece', 'PositionService', f
 		}
 		
 		this.pawnIsLeveled = function() {
-			let position = _.last(this.madeMoves).position
-			let queen = this.turnOfWhite ? 5 : - 5
+			var position = _.last(this.madeMoves).position
+			var queen = this.turnOfWhite ? 5 : - 5
 			this.board[position.y][position.x] = queen
 		}
 		
@@ -68,9 +68,9 @@ angular.module('Tribetron').factory('Chess', ['ChessPiece', 'PositionService', f
 		
 		this.getFutureMoves = function() {
 			var futureMoves = []
-			for (let y = 0; y <= yMax; y++) {
-				for (let x = 0; x <= xMax; x++) {
-					let piece = this.board[y][x]
+			for (var y = 0; y <= yMax; y++) {
+				for (var x = 0; x <= xMax; x++) {
+					var piece = this.board[y][x]
 					if ((piece > 0 && this.turnOfWhite) || (piece < 0 && !this.turnOfWhite)) {
 						futureMoves.push(ChessPiece.getMoves(piece, PositionService.createPosition(x, y), this))
 					}
@@ -81,9 +81,9 @@ angular.module('Tribetron').factory('Chess', ['ChessPiece', 'PositionService', f
 		
 		this.setAllowedMoves = function() {
 			this.allowedMoves = []
-			for (let y = 0; y <= yMax; y++) {
-				for (let x = 0; x <= xMax; x++) {
-					let piece = this.board[y][x]
+			for (var y = 0; y <= yMax; y++) {
+				for (var x = 0; x <= xMax; x++) {
+					var piece = this.board[y][x]
 					if ((piece > 0 && this.turnOfWhite) || (piece < 0 && !this.turnOfWhite)) {
 						this.allowedMoves.push(ChessPiece.getMoves(piece, PositionService.createPosition(x, y), this))
 					}
@@ -95,8 +95,8 @@ angular.module('Tribetron').factory('Chess', ['ChessPiece', 'PositionService', f
 		
 		this.boardAfterMove = function(from, to) {
 			if (to.y > yMax || to.x > xMax || to.y < 0 || to.x < 0) return
-			let copyBoard = _.clone(this.board)
-			for (let x = 0; x <= xMax; x++) { copyBoard[x] = _.clone(this.board[x])}
+			var copyBoard = _.clone(this.board)
+			for (var x = 0; x <= xMax; x++) { copyBoard[x] = _.clone(this.board[x])}
 			copyBoard[to.y][to.x] = copyBoard[from.y][from.x]
 			copyBoard[from.y][from.x] = 0			
 			return copyBoard
@@ -120,7 +120,7 @@ angular.module('Tribetron').factory('Chess', ['ChessPiece', 'PositionService', f
 		
 		this.isMovable = function(x, y) {
 			if (this.selected) {
-				let sel = this.selected
+				var sel = this.selected
 				return _.find(this.allowedMoves, function(move) {
 					return move.originalPosition.x === sel.x && move.originalPosition.y === sel.y
 						&& move.position.x === x && move.position.y === y
@@ -132,7 +132,7 @@ angular.module('Tribetron').factory('Chess', ['ChessPiece', 'PositionService', f
 		}
 		
 		this.canSetSelected = function(x, y) {
-			let movable = _.find(this.allowedMoves, function(move) {
+			var movable = _.find(this.allowedMoves, function(move) {
 				return move.originalPosition.x === x && move.originalPosition.y === y
 			})
 			return movable && ((this.turnOfWhite && this.board[y][x] > 0) || (!this.turnOfWhite && this.board[y][x] < 0))
@@ -160,7 +160,7 @@ angular.module('Tribetron').factory('Chess', ['ChessPiece', 'PositionService', f
 		
 		this.isCheckMate = function() {
 			this.turnOfWhite = !this.turnOfWhite
-			let futureMoves = this.getFutureMoves()
+			var futureMoves = this.getFutureMoves()
 			this.turnOfWhite = !this.turnOfWhite
 			return futureMoves.length > 0 && this.allowedMoves.length <= 0
 		}

@@ -8,6 +8,7 @@ var jshint = require('gulp-jshint')
 var sass = require('gulp-sass')
 var stylish = require('jshint-stylish');
 var sloc = require('gulp-sloc');
+var gutil = require('gulp-util');
 
 var browserSync = require('browser-sync')
 var reload = browserSync.reload
@@ -37,7 +38,7 @@ gulp.task('minify-css', function () {
 
 gulp.task('minify-js', function() {
   gulp.src(['app/**/*.js', '!app/bower_components/**'])
-    .pipe(uglify({}))
+    .pipe(uglify().on('error', gutil.log))
     .pipe(gulp.dest('dist/'))
 });
 

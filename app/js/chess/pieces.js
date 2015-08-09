@@ -14,7 +14,7 @@ angular.module('Tribetron').factory('ChessPiece', ['PositionService', function(P
 	
 	var filterMovesThatCollideWithOwnPiece = function(moves, whitePiece, chess) {
 		return _.compact(_.filter(moves, function(move) {
-			let slot = chess.getSlot(move.position)
+			var slot = chess.getSlot(move.position)
 			return !((whitePiece && slot > 0) || (!whitePiece && slot < 0))
 		}))
 	}
@@ -40,8 +40,8 @@ angular.module('Tribetron').factory('ChessPiece', ['PositionService', function(P
 	}
 	
 	var getMovesUntilBlocked = function(chess, position, xModifier, yModifier, pieceBeingMoved) {
-		let moves = [], blocked = false
-		let newPosition = position.newPosition(xModifier, yModifier)
+		var moves = [], blocked = false
+		var newPosition = position.newPosition(xModifier, yModifier)
 		while (chess.isPositionInsideBoard(newPosition) && !blocked) {
 			moves.push(new Move(pieceBeingMoved, position, newPosition, chess))
 			blocked = blocked || chess.getSlot(newPosition) != 0
@@ -83,7 +83,7 @@ angular.module('Tribetron').factory('ChessPiece', ['PositionService', function(P
 				if ((position.y === 6 && whitePiece) || (position.y === 1 && !whitePiece)) {
 					var movesForwardTwice = position.newPosition(0, (sign * 2))
 					if (!blocked(movesForwardTwice)) {
-						let move = new Move(pieceBeingMoved, position, movesForwardTwice, chess)
+						var move = new Move(pieceBeingMoved, position, movesForwardTwice, chess)
 						move.pawnDoubleForward = true
 						moves.push(move)
 					}
@@ -93,7 +93,7 @@ angular.module('Tribetron').factory('ChessPiece', ['PositionService', function(P
 		function handleDiagonalAttacks(moves, sign) {
 			var diagonalAttacks = [position.newPosition(-1, sign), position.newPosition(1, sign)]
 			_.each(filterOutOfBoardMoves(diagonalAttacks, chess), function (attack) {
-				let piece = chess.getSlot(attack)
+				var piece = chess.getSlot(attack)
 				if ((piece < 0 && whitePiece ) || (piece > 0 && !whitePiece )) {
 					moves.push(new Move(pieceBeingMoved, position, attack, chess, addLevelupForMove(attack)))
 				} else if (chess.madeMoves.length > 0 && _.last(chess.madeMoves).pawnDoubleForward) {
@@ -139,26 +139,26 @@ angular.module('Tribetron').factory('ChessPiece', ['PositionService', function(P
 	}
 	
 	var getKingMoves = function(position, piece, chess, whitePiece) {
-		let toweringMoves = []
+		var toweringMoves = []
 		if (!chess.moveMadeOfType(whitePiece ? 'whiteKingMoved' : 'blackKingMoved')) {
-			let rookLeftPosition = position.newPosition(-4,0)			
-			let rookRightPosition = position.newPosition(3,0)
-			let rookLeft = chess.getSlot(rookLeftPosition)
-			let rookRight = chess.getSlot(rookRightPosition)
-			let rook = whitePiece? 4: -4
-			let leftRookMoved = chess.moveMadeOfType(whitePiece ? 'leftWhiteRookMoved' : 'leftBlackRookMoved')
-			let rightRookMoved = chess.moveMadeOfType(whitePiece ? 'rightWhiteRookMoved' : 'rightBlackRookMoved')
+			var rookLeftPosition = position.newPosition(-4,0)			
+			var rookRightPosition = position.newPosition(3,0)
+			var rookLeft = chess.getSlot(rookLeftPosition)
+			var rookRight = chess.getSlot(rookRightPosition)
+			var rook = whitePiece? 4: -4
+			var leftRookMoved = chess.moveMadeOfType(whitePiece ? 'leftWhiteRookMoved' : 'leftBlackRookMoved')
+			var rightRookMoved = chess.moveMadeOfType(whitePiece ? 'rightWhiteRookMoved' : 'rightBlackRookMoved')
 			if (rookLeft === rook && !leftRookMoved && chess.getSlot(position.newPosition(-1,0)) === 0 && chess.getSlot(position.newPosition(-2,0)) === 0 && chess.getSlot(position.newPosition(-3,0)) === 0) {
 				toweringMoves.push(new Move(piece, position, position.newPosition(-2,0), chess, function() {
 					chess.board[rookLeftPosition.y][rookLeftPosition.x] = 0
-					let newRookPosition = rookLeftPosition.newPosition(3, 0)
+					var newRookPosition = rookLeftPosition.newPosition(3, 0)
 					chess.board[newRookPosition.y][newRookPosition.x] = rookLeft
 				}))
 			}
 			if (rookRight === rook && !rightRookMoved && chess.getSlot(position.newPosition(1,0)) === 0 && chess.getSlot(position.newPosition(2,0)) === 0) {
 				toweringMoves.push(new Move(piece, position, position.newPosition(2,0), chess, function() {
 					chess.board[rookRightPosition.y][rookRightPosition.x] = 0
-					let newRookPosition = rookRightPosition.newPosition(-2, 0)
+					var newRookPosition = rookRightPosition.newPosition(-2, 0)
 					chess.board[newRookPosition.y][newRookPosition.x] = rookRight
 				}))
 			}
@@ -210,11 +210,11 @@ angular.module('Tribetron').factory('ChessPiece', ['PositionService', function(P
 			return _.chain([2, 3, 4, 5]).map(function(piece) { return whitePiece? piece : (-1 * piece) }).value()
 		},
 		getMoves : function(piece, position, chess) {
-			let whitePiece = piece > 0
+			var whitePiece = piece > 0
 			return filterIllegalMoves(movesForPiece[Math.abs(piece) - 1](position, piece, chess, whitePiece), whitePiece, chess)
 		},
 		getCssName : function(piece) {
-			let blackPiece = piece < 0 ? '_enemy' : ''
+			var blackPiece = piece < 0 ? '_enemy' : ''
 			return cssNames[Math.abs(piece) - 1] + blackPiece
 		},
 		getValueForPiece : function(piece, x, y) {

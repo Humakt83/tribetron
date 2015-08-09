@@ -15,7 +15,7 @@ angular.module('Tribetron').factory('ChessAI', [function() {
 	function AI(black, depth, evalueNBestMoves) {
 		
 		this.topMoves = function(chess) {
-			let moves = chess.allowedMoves			
+			var moves = chess.allowedMoves			
 			if (this.black) {
 				return _.chain(moves).sortBy(function(move) {
 					return calculateScoreOfTheMove(chess, move)
@@ -29,9 +29,9 @@ angular.module('Tribetron').factory('ChessAI', [function() {
 		
 		this.pickBestMove = function(chess) {
 			
-			let	topMoves = this.topMoves(chess)
+			var	topMoves = this.topMoves(chess)
 			if (this.depth > 1) {
-				let aiOpponent = new AI(!this.black, this.depth - 1, this.evalueNBestMoves)
+				var aiOpponent = new AI(!this.black, this.depth - 1, this.evalueNBestMoves)
 				aiOpponent.notOriginal = true
 				_.chain(topMoves).each(function(move) {
 					chess.makeMove(move)
@@ -45,7 +45,7 @@ angular.module('Tribetron').factory('ChessAI', [function() {
 		
 		this.playTurn = function(chess) {
 			chess.aiTurn = true
-			let move = this.pickBestMove(chess)
+			var move = this.pickBestMove(chess)
 			if (!move) return
 			chess.aiTurn = false
 			chess.makeMove(move)
