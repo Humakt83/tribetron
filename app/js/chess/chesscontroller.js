@@ -1,7 +1,7 @@
 'use strict'
 
-angular.module('Tribetron').controller('ChessController', ['$scope', '$location', 'Player', 'Chess', 'ChessAI', 'ChessPiece', 'PositionService', '$modalStack', '$interval', 
-		function($scope, $location, Player, Chess, ChessAI, ChessPiece, PositionService, $modalStack, $interval) {
+angular.module('Tribetron').controller('ChessController', ['$scope', '$location', 'Player', 'Chess', 'ChessAI', 'ChessPiece', 'PositionService', 'Campaign',
+		function($scope, $location, Player, Chess, ChessAI, ChessPiece, PositionService, Campaign) {
 	
 	$scope.selectPiece = function(x, y) {
 		if (!$scope.gameOver) {
@@ -9,27 +9,37 @@ angular.module('Tribetron').controller('ChessController', ['$scope', '$location'
 				$scope.chessBoard.setSelected(x, y)
 			} else if ($scope.chessBoard.isMovable(x, y)) {
 				$scope.chessBoard.movePiece($scope.chessBoard.selected, PositionService.createPosition(x, y))
-				$scope.waitInterval = $interval(function() {
-					if (!$modalStack.getTop()) {
-						$scope.checkState()
-						if (!$scope.gameOver) {
-							$scope.aiTurn()
-						}
-					}
-				}, 50)
-
+				$scope.checkState()
+				if (!$scope.gameOver) {
+					$scope.aiTurn()
+				}
 			}
 		}
 	}
+	
+	if (!Player.getPlayer()) {
+		$location.path('/')
+		return
+	}
+	
+	Campaign.getScenario(Campaign.getCampaign().currentScenario).success(function(result) {
+		$scope.reward = result.reward
+		$scope.aiOnBlack = result.aiOnBlack
+		$scope.chessBoard = Chess.createBoard()
+		$scope.ai = ChessAI.createAI($scope.aiOnBlack)
+		$scope.checkState()
+		if (!$scope.aiOnBlack) {
+			$scope.aiTurn()
+		}
+	})
 	
 	$scope.piece = ChessPiece
 	
 	$scope.position = PositionService
 	
-	$scope.aiOnBlack = true
+	$scope.win = false
 	
 	$scope.aiTurn = function() {
-		$interval.cancel($scope.waitInterval)
 		$scope.ai.playTurn($scope.chessBoard)
 		$scope.checkState()
 	}
@@ -37,16 +47,30 @@ angular.module('Tribetron').controller('ChessController', ['$scope', '$location'
 	$scope.checkState = function() {
 		$scope.blackPieces = $scope.chessBoard.getBlackPieces()
 		$scope.whitePieces = $scope.chessBoard.getWhitePieces()
-		$scope.check = $scope.chessBoard.isCheck()
 		$scope.gameOver = $scope.chessBoard.isGameOver()
+		if ($scope.gameOver) {
+			gameOver()
+		}
 	}
 	
-	$scope.chessBoard = Chess.createBoard()
-	$scope.ai = ChessAI.createAI($scope.aiOnBlack)
-	$scope.checkState()
+	var gameOver = function() {
+		if ($scope.chessBoard.isStaleMate()) {
+			$scope.chessOverText = 'Stalemate'
+		} else if ($scope.aiOnBlack === !$scope.chessBoard.turnOfWhite) {
+			$scope.win = true
+			$scope.chessOverText = 'Checkmate. ' + Player.getPlayer().name + ' is winner.'
+		} else {
+			$scope.chessOverText = 'Checkmate. Computer is winner.'
+		}	
+	}
 	
-	if (!$scope.aiOnBlack) {
-		$scope.aiTurn()
+	$scope.skip = function() {
+		$location.path('/game')
+	}
+	
+	$scope.continueGame = function() {
+		Player.getPlayer().money += $scope.reward
+		$location.path('/game')
 	}
 	
 }])

@@ -21,11 +21,14 @@
 				<h4>White pieces left</h4>
 				<span class="robot-small" ng-class="piece.getCssName(p)" ng-repeat="p in whitePieces track by $index"></span>
 			</div>
+			<div class="row">
+				<p><strong>Reward</strong>: {{reward}} tribs</p>
+				<div class="btn-group">
+					<button class="btn btn-default" ng-click="skip()">Skip</button>
+					<button class="btn btn-success" ng-disabled="!win" ng-click="continueGame()">Continue</button>
+				</div>
+				<p ng-if="gameOver">{{chessOverText}}</p>
+			</div>
 		</div>
-	</div>
-	<div class="row">
-		<button ng-click="chessBoard.undoMove()">Undo</button>
-		<p ng-show="check">Check!</p>
-		<p ng-show="gameOver">Game over</p>
 	</div>
 </div>

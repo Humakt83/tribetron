@@ -1,0 +1,5 @@
+{
+"type": "chess",
+"reward": 60,
+"aiOnBlack": true
+}

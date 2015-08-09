@@ -163,7 +163,7 @@ angular.module('Tribetron').controller('ConquestController', ['$scope', '$locati
 		$location.path('/game')
 	}
 	
-	$scope.win = function() {
+	$scope.continueGame = function() {
 		Player.getPlayer().money += $scope.reward
 		$location.path('/game')
 	}

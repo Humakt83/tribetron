@@ -54,8 +54,7 @@ angular.module('Tribetron').factory('Chess', ['ChessPiece', 'PositionService', f
 				return move.position.x === to.x && move.position.y === to.y
 					&& move.originalPosition.x === from.x && move.originalPosition.y === from.y
 			})
-			this.makeMove(move)
-			this.selected = undefined
+			this.makeMove(move)			
 		}
 		
 		this.makeMove = function(move, doNotSetMoves) {
@@ -63,7 +62,8 @@ angular.module('Tribetron').factory('Chess', ['ChessPiece', 'PositionService', f
 			this.board = move.boardAfterMove
 			move.effect()
 			this.turnOfWhite = !this.turnOfWhite
-			if (!doNotSetMoves) this.setAllowedMoves()
+			this.selected = undefined
+			if (!doNotSetMoves) this.setAllowedMoves()				
 		}
 		
 		this.getFutureMoves = function() {
@@ -118,22 +118,6 @@ angular.module('Tribetron').factory('Chess', ['ChessPiece', 'PositionService', f
 				}).sort().reverse().value()
 		}
 		
-		this.isCheck = function() {
-			return false
-		}
-		
-		this.isKingChecked = function(king, piecesOfOpponent) {
-			if (!king) return true
-			var thisMap = this
-			var check = false
-			_.each(piecesOfOpponent, function(piece) {
-				_.each(piece.allowedMoves(thisMap), function(move) {
-					check = check || (move.position.x === king.positionX && move.position.y === king.positionY)
-				})
-			})
-			return check
-		}
-		
 		this.isMovable = function(x, y) {
 			if (this.selected) {
 				let sel = this.selected
@@ -170,16 +154,19 @@ angular.module('Tribetron').factory('Chess', ['ChessPiece', 'PositionService', f
 		}
 		
 		this.isStaleMate = function() {
-			if (this.isCheck()) return false
+			if (this.isCheckMate()) return false
 			return this.allowedMoves.length <= 0
 		}
 		
 		this.isCheckMate = function() {
-			return false
+			this.turnOfWhite = !this.turnOfWhite
+			let futureMoves = this.getFutureMoves()
+			this.turnOfWhite = !this.turnOfWhite
+			return futureMoves.length > 0 && this.allowedMoves.length <= 0
 		}
 		
 		this.isGameOver = function() {
-			return this.isStaleMate() || this.isCheckMate()
+			return this.allowedMoves.length <= 0
 		}
 		
 		this.setSelected = function(x, y) {

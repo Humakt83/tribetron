@@ -39,6 +39,13 @@
 				</div>
 			</div>
 			
+			<div ng-if="scenario.type && scenario.type == 'chess'">
+				<div class="row">
+					<strong>Reward: {{scenario.reward}} tribs</strong>
+					<button ng-click="goToChess()" style="float:right; margin-right: 15px;" class="btn btn-primary">Chess</button>
+				</div>
+			</div>
+			
 			<div ng-if="scenario.type && scenario.type == 'venture'">
 				<div class="row">
 					<strong>{{scenario.story ? scenario.story : 'Adventure awaits'}}</strong>

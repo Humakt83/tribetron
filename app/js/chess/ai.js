@@ -46,8 +46,10 @@ angular.module('Tribetron').factory('ChessAI', [function() {
 		this.playTurn = function(chess) {
 			chess.aiTurn = true
 			let move = this.pickBestMove(chess)
+			if (!move) return
+			chess.aiTurn = false
 			chess.makeMove(move)
-			chess.aiTurn = false			
+						
 		}
 		this.black = black
 		this.depth = depth
