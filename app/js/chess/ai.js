@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('Tribetron').factory('ChessAI', ['ChessBoard', 'ChessPiece', function(ChessBoard, ChessPiece) {
+angular.module('Tribetron').factory('ChessAI', [function() {
 		
 	var evaluateBoard = function(chess, board) {
 		return chess.evaluateBoard(board)

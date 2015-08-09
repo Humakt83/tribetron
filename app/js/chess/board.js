@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('Tribetron').factory('ChessBoard', ['ChessPiece', 'PositionService', function(ChessPiece, PositionService) {
+angular.module('Tribetron').factory('Chess', ['ChessPiece', 'PositionService', function(ChessPiece, PositionService) {
 	
 	const xMin = 0, yMin = 0, xMax = 7, yMax = 7
 	
@@ -80,7 +80,6 @@ angular.module('Tribetron').factory('ChessBoard', ['ChessPiece', 'PositionServic
 		}
 		
 		this.setAllowedMoves = function() {
-			//var millis = new Date().getTime()
 			this.allowedMoves = []
 			for (let y = 0; y <= yMax; y++) {
 				for (let x = 0; x <= xMax; x++) {
@@ -92,7 +91,6 @@ angular.module('Tribetron').factory('ChessBoard', ['ChessPiece', 'PositionServic
 			}
 			this.selected = undefined
 			this.allowedMoves = _.compact(_.flatten(this.allowedMoves))
-			//console.log(new Date().getTime() - millis)
 		}
 		
 		this.boardAfterMove = function(from, to) {

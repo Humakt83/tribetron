@@ -1,7 +1,7 @@
 'use strict'
 
-angular.module('Tribetron').controller('ChessController', ['$scope', '$location', 'Player', 'ChessBoard', 'ChessAI', 'ChessPiece', 'PositionService', '$modalStack', '$interval', 
-		function($scope, $location, Player, ChessBoard, ChessAI, ChessPiece, PositionService, $modalStack, $interval) {
+angular.module('Tribetron').controller('ChessController', ['$scope', '$location', 'Player', 'Chess', 'ChessAI', 'ChessPiece', 'PositionService', '$modalStack', '$interval', 
+		function($scope, $location, Player, Chess, ChessAI, ChessPiece, PositionService, $modalStack, $interval) {
 	
 	$scope.selectPiece = function(x, y) {
 		if (!$scope.gameOver) {
@@ -41,7 +41,7 @@ angular.module('Tribetron').controller('ChessController', ['$scope', '$location'
 		$scope.gameOver = $scope.chessBoard.isGameOver()
 	}
 	
-	$scope.chessBoard = ChessBoard.createBoard()
+	$scope.chessBoard = Chess.createBoard()
 	$scope.ai = ChessAI.createAI($scope.aiOnBlack)
 	$scope.checkState()
 	
