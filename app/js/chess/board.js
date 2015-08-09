@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('Tribetron').factory('ChessBoard', ['ChessPiece', '$modal', 'PositionService', function(ChessPiece, $modal, PositionService) {
+angular.module('Tribetron').factory('ChessBoard', ['ChessPiece', 'PositionService', function(ChessPiece, PositionService) {
 	
 	const xMin = 0, yMin = 0, xMax = 7, yMax = 7
 	
@@ -45,21 +45,8 @@ angular.module('Tribetron').factory('ChessBoard', ['ChessPiece', '$modal', 'Posi
 		
 		this.pawnIsLeveled = function() {
 			let position = _.last(this.madeMoves).position
-			//if (this.aiTurn || this.doNotCheckForCheck) {
-				let queen = this.turnOfWhite ? 5 : - 5
-				this.board[position.y][position.x] = queen
-			/*} else {
-				var thisChess = this
-				$modal.open({
-					templateUrl: './partials/chesspawn.html',
-					controller: 'PawnLevelsUp',
-					size: 'sm'					
-				}).result.then(function(result) {
-					result = thisChess.turnOfWhite ? result : result * (-1)
-					thisChess.board[position.y][position.x] = result
-				})
-			}*/
-			
+			let queen = this.turnOfWhite ? 5 : - 5
+			this.board[position.y][position.x] = queen
 		}
 		
 		this.movePiece = function(from, to) {
@@ -216,14 +203,3 @@ angular.module('Tribetron').factory('ChessBoard', ['ChessPiece', '$modal', 'Posi
 		}
 	}
 }])
-
-angular.module('Tribetron').controller('PawnLevelsUp', ['$scope', '$modalInstance', 'ChessPiece', function ($scope, $modalInstance, ChessPiece) {
-    
-	$scope.piece = ChessPiece
-    $scope.allowedPieces = ChessPiece.getTypesPawnCanTurnInto()
-	
-	$scope.levelup = function(pieceType) {
-		$modalInstance.close(pieceType)
-	}
-	
-}]);
