@@ -1,3 +1,3 @@
 <div>
-	<span ng-repeat="piece in allowedPieces" class="robot-small touchable" ng-class="piece.cssName" ng-click="levelup(piece)">
+	<span ng-repeat="p in allowedPieces" class="robot-small touchable" ng-class="piece.getCssName(p)" ng-click="levelup(p)">
 </div>

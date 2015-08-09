@@ -1,14 +1,14 @@
 'use strict'
 
-angular.module('Tribetron').controller('ChessController', ['$scope', '$location', 'Player', 'ChessBoard', 'ChessAI', '$modalStack', '$interval', function($scope, $location, Player, ChessBoard, ChessAI, $modalStack, $interval) {
+angular.module('Tribetron').controller('ChessController', ['$scope', '$location', 'Player', 'ChessBoard', 'ChessAI', 'ChessPiece', 'PositionService', '$modalStack', '$interval', 
+		function($scope, $location, Player, ChessBoard, ChessAI, ChessPiece, PositionService, $modalStack, $interval) {
 	
-	$scope.selectPiece = function(slot) {
-		if (!$scope.gameOver && $scope.chessBoard.isSelectable(slot)) {
-			if (!$scope.chessBoard.selected || ($scope.chessBoard.selected && slot.piece 
-					&& $scope.chessBoard.selected.piece.whitePiece === slot.piece.whitePiece)) {
-				$scope.chessBoard.setSelected(slot)
-			} else {
-				$scope.chessBoard.movePiece($scope.chessBoard.selected, slot)
+	$scope.selectPiece = function(x, y) {
+		if (!$scope.gameOver) {
+			if (!$scope.chessBoard.selected || $scope.chessBoard.canSetSelected(x, y)) {
+				$scope.chessBoard.setSelected(x, y)
+			} else if ($scope.chessBoard.isMovable(x, y)) {
+				$scope.chessBoard.movePiece($scope.chessBoard.selected, PositionService.createPosition(x, y))
 				$scope.waitInterval = $interval(function() {
 					if (!$modalStack.getTop()) {
 						$scope.checkState()
@@ -21,6 +21,10 @@ angular.module('Tribetron').controller('ChessController', ['$scope', '$location'
 			}
 		}
 	}
+	
+	$scope.piece = ChessPiece
+	
+	$scope.position = PositionService
 	
 	$scope.aiOnBlack = true
 	
