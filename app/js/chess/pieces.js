@@ -1,8 +1,6 @@
 'use strict'
 
 angular.module('Tribetron').factory('ChessPiece', ['PositionService', function(PositionService) {
-	
-	const _ = require('underscore')
 
 	const cssNames = ['totter', 'hunter', 'medic', 'psycho', 'lazor', 'hacker']
 	

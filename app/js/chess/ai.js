@@ -2,8 +2,6 @@
 
 
 angular.module('Tribetron').factory('ChessAI', [function() {
-
-	const _ = require('underscore')
 		
 	var evaluateBoard = function(chess, board) {
 		return chess.evaluateBoard(board)

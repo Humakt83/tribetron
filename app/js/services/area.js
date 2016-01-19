@@ -2,7 +2,6 @@
 
 angular.module('Tribetron').factory('AreaMap', ['$filter', '$timeout', 'GameSettings', function($filter, $timeout, GameSettings) {
 
-	const _ = require('underscore')
 	const PF = require('pathfinding')
 
 	function Area(xCoord, yCoord, isWall) {

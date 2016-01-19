@@ -2,8 +2,6 @@
 
 angular.module('Tribetron').factory('AI', ['Abilities', function(Abilities) {
 
-	const _ = require('underscore')
-
 	var opponents = [NPE, Base, Mega]
 	var imgPrefix = 'img/', imgPostfix = '.png'
 	

@@ -2,8 +2,6 @@
 
 angular.module('Tribetron').controller('ConquestController', ['$scope', '$location', '$filter', 'Player', 'Campaign', function($scope, $location, $filter, Player, Campaign) {
 
-	const _ = require('underscore')
-	
 	function ConquestPiece(xPosition, yPosition, playerPiece, owned) {
 		this.getClass = function() {
 			if (!this.owned) 
