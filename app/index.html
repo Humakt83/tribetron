@@ -6,9 +6,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>Tribetron</title>
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
-    <link rel="stylesheet" href="bower_components/fontawesome/css/font-awesome.css"/>
-    <link rel="stylesheet" href="bower_components/animate.css/animate.min.css"/>
+    <link rel="stylesheet" href="bootstrap.css"/>
+    <link rel="stylesheet" href="font-awesome.css"/>
+    <link rel="stylesheet" href="animate.min.css"/>
     <link rel="stylesheet" href="tribetron.css"/>
   </head>
   <body ng-app="Tribetron" onload="loadSound()">
@@ -20,48 +20,31 @@
       <div ng-view></div>
     </div>
     <!-- scripts -->
-    <script src="bower_components/jquery/dist/jquery.js"></script>
-    <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/angular-route/angular-route.js"></script>
-    <script src="bower_components/angular-animate/angular-animate.js"></script>
-    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
-	<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-	<script src="bower_components/underscore/underscore-min.js"></script>
-	<script src="bower_components/pathfinding/pathfinding-browser.min.js"></script>
-	<script src="bower_components/SoundJS/lib/soundjs-0.6.1.min.js"></script>
-	<script src="js/sound.js"></script>
-    <script src="js/tribetron.js"></script>
-	<script src="js/controllers/maincontroller.js"></script>
-	<script src="js/controllers/gamecontroller.js"></script>
-	<script src="js/controllers/shopcontroller.js"></script>
-	<script src="js/controllers/battlecontroller.js"></script>
-	<script src="js/controllers/rumblecontroller.js"></script>
-	<script src="js/controllers/pairscontroller.js"></script>
-	<script src="js/controllers/conquestcontroller.js"></script>
-	<script src="js/controllers/venturecontroller.js"></script>
-	<script src="js/controllers/infocontroller.js"></script>
-	<script src="js/controllers/victorycontroller.js"></script>
-	<script src="js/chess/chesscontroller.js"></script>
-	<script src="js/chess/pieces.js"></script>
-	<script src="js/chess/board.js"></script>
-	<script src="js/chess/position.js"></script>
-	<script src="js/chess/ai.js"></script>
-	<script src="js/services/settings.js"></script>
-	<script src="js/services/area.js"></script>
-	<script src="js/services/robo.js"></script>
-	<script src="js/services/team.js"></script>
-	<script src="js/services/game.js"></script>
-	<script src="js/services/battlelog.js"></script>
-	<script src="js/services/campaign.js"></script>
-	<script src="js/services/player.js"></script>
-	<script src="js/services/trap.js"></script>
-	<script src="js/services/loot.js"></script>
-	<script src="js/services/abilities.js"></script>
-	<script src="js/services/ai.js"></script>
-	<script src="js/services/graphics.js"></script>
-	<script src="js/filters/capitalize.js"></script>
-	<script src="js/filters/spacify.js"></script>
-	<script src="js/directives/numberpicker.js"></script>
-	<script src="js/directives/infoclick.js"></script>
+    <script src="bundle.js"></script>
+    <script>
+      var tribetronMp3 = new Audio('Tribetron.mp3')
+
+      function loadSound () {
+        function handleLoad(event) {
+          console.log('here')
+          jQuery('#music').show()
+        }
+        console.log('here')
+        tribetronMp3.addEventListener('loadeddata', handleLoad)
+      }
+
+      function toggleSound() {
+        var music = jQuery('#music')
+        var playing = music.attr('src').indexOf('Off') == -1
+        if (!playing) {
+          tribetronMp3.pause()
+          tribetronMp3.currentTime = 0.0
+        } else {
+          tribetronMp3.play()
+        }
+        music.attr('src', playing ? 'img/soundOff.png' : 'img/soundOn.png')
+      }
+    </script>
+
   </body>
 </html>

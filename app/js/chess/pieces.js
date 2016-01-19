@@ -2,6 +2,8 @@
 
 angular.module('Tribetron').factory('ChessPiece', ['PositionService', function(PositionService) {
 	
+	const _ = require('underscore')
+
 	const cssNames = ['totter', 'hunter', 'medic', 'psycho', 'lazor', 'hacker']
 	
 	const valuesForPiece = [50, 95, 95, 125, 240, 5000]

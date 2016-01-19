@@ -2,6 +2,8 @@
 
 angular.module('Tribetron').factory('Loot', [function() {
 	
+	const _ = require('underscore')
+	
 	var lootTypes = [Treasure, Money, Toolkit]
 	
 	function Treasure() {

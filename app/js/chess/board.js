@@ -3,6 +3,8 @@
 angular.module('Tribetron').factory('Chess', ['ChessPiece', 'PositionService', function(ChessPiece, PositionService) {
 	
 	const xMin = 0, yMin = 0, xMax = 7, yMax = 7
+
+	var _ = require('underscore')
 	
 	function Board() {
 		function initBoard() {

@@ -1,5 +1,16 @@
 'use strict'
 
+global.jQuery = require('jquery')
+global._ = require('underscore')
+
+require('bootstrap')
+
+var angular = require('angular')
+
+require('angular-animate')
+require('angular-bootstrap')
+require('angular-route')
+
 angular.module('Tribetron', ['ngRoute', 'ngAnimate', 'ui.bootstrap'])
 	.config(['$routeProvider', function($routeProvider) {
 		$routeProvider
@@ -47,3 +58,40 @@ angular.module('Tribetron', ['ngRoute', 'ngAnimate', 'ui.bootstrap'])
 				redirectTo: '/'
 			})
 	}])
+
+require('./services/abilities')
+require('./services/ai')
+require('./services/area')
+require('./services/battlelog')
+require('./services/campaign')
+require('./services/game')
+require('./services/graphics')
+require('./services/loot')
+require('./services/player')
+require('./services/robo')
+require('./services/settings')
+require('./services/team')
+require('./services/trap')
+
+require('./controllers/maincontroller')
+require('./controllers/gamecontroller')
+require('./controllers/shopcontroller')
+require('./controllers/rumblecontroller')
+require('./controllers/battlecontroller')
+require('./controllers/pairscontroller')
+require('./controllers/venturecontroller')
+require('./controllers/conquestcontroller')
+require('./controllers/victorycontroller')
+require('./controllers/infocontroller')
+require('./chess/chesscontroller')
+
+require('./chess/ai')
+require('./chess/board')
+require('./chess/pieces')
+require('./chess/position')
+
+require('./directives/infoclick')
+require('./directives/numberpicker')
+
+require('./filters/spacify')
+require('./filters/capitalize')

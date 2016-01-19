@@ -2,6 +2,8 @@
 
 angular.module('Tribetron').factory('Team', ['$filter', 'Robot', function($filter, Robot) {
 	
+	const _ = require('underscore')
+	
 	var playerTeam
 	
 	function BotsByType(typeName, amount) {

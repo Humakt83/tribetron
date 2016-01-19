@@ -2,7 +2,9 @@
 
 angular.module('Tribetron').factory('AreaMap', ['$filter', '$timeout', 'GameSettings', function($filter, $timeout, GameSettings) {
 
-	
+	const _ = require('underscore')
+	const PF = require('pathfinding')
+
 	function Area(xCoord, yCoord, isWall) {
 		this.calculateDistance = function(toArea) {
 			return Math.abs(this.xCoord - toArea.xCoord) + Math.abs(this.yCoord - toArea.yCoord)

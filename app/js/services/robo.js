@@ -3,6 +3,8 @@
 angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog', 'GameHandler', 'GameSettings', 'Trap', 'AreaMap', 'GraphicsUtil', 
 		function($timeout, $filter, BattleLog, GameHandler, GameSettings, Trap, AreaMap, GraphicsUtil) {
 	
+	const _ = require('underscore')
+
 	var types = [Hunter, Box, Medic, Totter, Radiator, Psycho, Crate, Zipper, Multiplicator, Cannoneer, 
 				Sniper, Hacker, Destructor, Trasher, PsychoMedic, HotTot, MegaHunter, Titan, Tauron, Colossus,
 				CombinatorAtomitum, CombinatorPlutan, Disablor, Doctor, Emanator, Trapper, Cannon, Bomb, Lazor, Nuka]

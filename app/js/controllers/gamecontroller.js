@@ -2,6 +2,7 @@
 
 angular.module('Tribetron').controller('GameController', ['$scope', '$location', 'Campaign', 'Player', 'InfoOpener', function($scope, $location, Campaign, Player, InfoOpener) {
 	
+
 	$scope.infoOpener = InfoOpener
 	
 	function initCampaign() {

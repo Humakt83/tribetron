@@ -15,11 +15,11 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-	  'app/bower_components/underscore/underscore-min.js',
-	  'app/bower_components/angular/angular.min.js',
-	  'app/bower_components/jquery/dist/*.min.js',
-	  'app/bower_components/**/*.min.js',
+	  'node_modules/underscore/underscore-min.js',
+	  'node_modules/angular/angular.min.js',
+	  'node_modules/jquery/dist/*.min.js',
 	  'node_modules/angular-mocks/angular-mocks.js',
+      'node_modules/**/*.min.js',
 	  'app/js/tribetron.js',
       'app/js/**/*.js',
       'spec**/*spec.js'
@@ -28,8 +28,8 @@ module.exports = function(config) {
 
     // list of files to exclude
     exclude: [
-		'app/bower_components/angular-animate/',
-		'app/bower_components/SoundJS/**/*',
+		'node_modules/angular-animate/',
+		'node_modules/SoundJS/**/*',
 		'app/js/sound.js'
     ],
 

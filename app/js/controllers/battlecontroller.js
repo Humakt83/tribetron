@@ -3,6 +3,8 @@
 angular.module('Tribetron').controller('BattleController', ['$scope', '$interval', '$location', 'AreaMap', 'Robot', 'Trap', 'Team', 'GameHandler', 'Player', 'Campaign', 'GameSettings', 'InfoOpener', 'Abilities', 'AI', 
 		function($scope, $interval, $location, AreaMap, Robot, Trap, Team, GameHandler, Player, Campaign, GameSettings, InfoOpener, Abilities, AI) {
 	
+	const _ = require('underscore')
+
 	$scope.player = Player.getPlayer()
 	
 	if (!$scope.player) {
