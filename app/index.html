@@ -11,40 +11,15 @@
     <link rel="stylesheet" href="animate.min.css"/>
     <link rel="stylesheet" href="tribetron.css"/>
   </head>
-  <body ng-app="Tribetron" onload="loadSound()">
-	<div class="title"></div>
-	<div class="sound-controls">
-		<img id="music" class="music" src="img/soundOn.png"/ onclick="toggleSound(this)" style="display: none;">
-	</div>
+  <body ng-app="Tribetron">
+    <div class="title"></div>
+    <div ng-controller="SoundController" class="sound-controls">
+		  <img id="music" class="music" ng-src="{{playImg}}" ng-click="toggleSound()">
+    </div>
     <div class="container">
       <div ng-view></div>
     </div>
     <!-- scripts -->
     <script src="bundle.js"></script>
-    <script>
-      var tribetronMp3 = new Audio('Tribetron.mp3')
-
-      function loadSound () {
-        function handleLoad(event) {
-          console.log('here')
-          jQuery('#music').show()
-        }
-        console.log('here')
-        tribetronMp3.addEventListener('loadeddata', handleLoad)
-      }
-
-      function toggleSound() {
-        var music = jQuery('#music')
-        var playing = music.attr('src').indexOf('Off') == -1
-        if (!playing) {
-          tribetronMp3.pause()
-          tribetronMp3.currentTime = 0.0
-        } else {
-          tribetronMp3.play()
-        }
-        music.attr('src', playing ? 'img/soundOff.png' : 'img/soundOn.png')
-      }
-    </script>
-
   </body>
 </html>

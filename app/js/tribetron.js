@@ -83,6 +83,7 @@ require('./controllers/venturecontroller')
 require('./controllers/conquestcontroller')
 require('./controllers/victorycontroller')
 require('./controllers/infocontroller')
+require('./controllers/soundcontroller')
 require('./chess/chesscontroller')
 
 require('./chess/ai')
