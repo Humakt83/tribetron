@@ -15,22 +15,15 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-	  'node_modules/underscore/underscore-min.js',
-	  'node_modules/angular/angular.min.js',
-	  'node_modules/jquery/dist/*.min.js',
+	  'dist/bundle.js',
 	  'node_modules/angular-mocks/angular-mocks.js',
-      'node_modules/**/*.min.js',
-	  'app/js/tribetron.js',
-      'app/js/**/*.js',
       'spec**/*spec.js'
     ],
 
 
     // list of files to exclude
     exclude: [
-		'node_modules/angular-animate/',
-		'node_modules/SoundJS/**/*',
-		'app/js/sound.js'
+		'node_modules/angular-animate/'
     ],
 
 
@@ -65,7 +58,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome'],
+    browsers: ['Firefox'],
 
 
     // Continuous Integration mode
