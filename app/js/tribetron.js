@@ -87,9 +87,7 @@ require('./controllers/soundcontroller')
 require('./chess/chesscontroller')
 
 require('./chess/ai')
-require('./chess/board')
-require('./chess/pieces')
-require('./chess/position')
+require('./chess/chessservice')
 
 require('./directives/infoclick')
 require('./directives/numberpicker')

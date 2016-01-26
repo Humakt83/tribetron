@@ -2,13 +2,40 @@
 
 
 angular.module('Tribetron').factory('ChessAI', [function() {
-		
-	var evaluateBoard = function(chess, board) {
-		return chess.evaluateBoard(board)
+	
+	const xMin = 0, yMin = 0, xMax = 7, yMax = 7
+	const valuesForPiece = [50, 95, 95, 125, 240, 5000]
+
+	var	getValueForPiece = function(piece, x, y) {
+		function getValueOfCoordX(coord) {
+			if (coord === 3 || coord === 4) return 6
+			if (coord === 2 || coord === 5) return 3
+			if (coord === 1 || coord === 6) return 1
+			return 0
+		}
+		function getValueOfCoordY(coord) {
+			if ( piece === -1 ) return coord
+			if ( piece === 1) return 7 - coord
+			return getValueOfCoordX(coord)
+		}
+		return valuesForPiece[Math.abs(piece) - 1] + getValueOfCoordX(x) + getValueOfCoordY(y)
+	}
+
+	var evaluateBoard = function(board) {
+		var score = 0
+		for (var y = yMin; y <= yMax; y++) {
+			for (var x = xMin; x <= xMax; x++) {
+				if (board[x][y] > 0)
+					score += getValueForPiece(board[x][y], x, y)
+				if(board[x][y] < 0)
+					score -= getValueForPiece(board[x][y], x, y)
+			}				
+		}
+		return score
 	}
 	
-	var calculateScoreOfTheMove = function(chess, move) {
-		var score = evaluateBoard(chess, move.boardAfterMove)
+	var calculateScoreOfTheMove = function(move) {
+		var score = evaluateBoard(move.boardAfterMove)
 		move.calculatedScore = score
 		return score
 	}
@@ -19,11 +46,11 @@ angular.module('Tribetron').factory('ChessAI', [function() {
 			var moves = chess.allowedMoves			
 			if (this.black) {
 				return _.chain(moves).sortBy(function(move) {
-					return calculateScoreOfTheMove(chess, move)
+					return calculateScoreOfTheMove(move)
 				}).first(this.evalueNBestMoves).compact().value()
 			} else {				
 				return _.chain(moves).sortBy(function(move) {
-					return calculateScoreOfTheMove(chess, move)
+					return calculateScoreOfTheMove(move)
 				}).last(this.evalueNBestMoves).compact().value()
 			}
 		}

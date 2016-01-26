@@ -5,7 +5,7 @@
 				<tr ng-repeat="row in chessBoard.board track by $index">
 					<td ng-repeat="slot in row track by $index" ng-click="selectPiece($index, $parent.$index)"
 							ng-class="{'floor-clickable' : !gameOver && chessBoard.isMovable($index, $parent.$index), 'bg-white': ($parent.$index + $index) % 2 !== 0, 'bg-black': ($parent.$index + $index) % 2 === 0}">
-						<div class="robot" ng-class="piece.getCssName(chessBoard.board[$parent.$index][$index])"></div>
+						<div class="robot" ng-class="getCssNameForPiece(chessBoard.board[$parent.$index][$index])"></div>
 					</td>
 				</tr>
 			</table>
@@ -15,11 +15,11 @@
 			<div class="row">
 			
 				<h4>Black pieces left</h4>
-				<span class="robot-small" ng-class="piece.getCssName(p)" ng-repeat="p in blackPieces track by $index"></span>			
+				<span class="robot-small" ng-class="getCssNameForPiece(p)" ng-repeat="p in blackPieces track by $index"></span>			
 			</div>
 			<div class="row">	
 				<h4>White pieces left</h4>
-				<span class="robot-small" ng-class="piece.getCssName(p)" ng-repeat="p in whitePieces track by $index"></span>
+				<span class="robot-small" ng-class="getCssNameForPiece(p)" ng-repeat="p in whitePieces track by $index"></span>
 			</div>
 			<div class="row">
 				<p><strong>Reward</strong>: {{reward}} tribs</p>
