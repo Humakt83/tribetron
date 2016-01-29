@@ -39,6 +39,18 @@ angular.module('Tribetron').factory('Player', ['Team', 'Robot', function(Team, R
 		},
 		reset: function() {
 			player = undefined
+		},
+		loadPlayer: function(playerToSet) {
+			player = new Player(playerToSet.name, playerToSet.team.name)
+			player.money = playerToSet.money
+			for (var i = 1; i < playerToSet.level; i++) {
+				player.levelUp()
+			}			
+			angular.forEach(playerToSet.team.robots, function(botToSet) {
+				var bot = Robot.createRobotUsingTypeName(botToSet.type.typeName)
+				bot.currentHealth = botToSet.currentHealth
+				player.team.addBot(bot)
+			})
 		}
 	}
 }])

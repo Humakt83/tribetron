@@ -13,8 +13,10 @@ angular.module('Tribetron').factory('Campaign', ['$http', function($http) {
 		this.isCompleted = function() {
 			return this.scenarios.indexOf(this.currentScenario) + 1 >= this.scenarios.length
 		}
-		this.scenarios = result.scenarios
-		this.currentScenario = this.scenarios[0]
+		if (result) {
+			this.scenarios = result.scenarios
+			this.currentScenario = this.scenarios[0]
+		}
 	}
 	
 	var campaign;
@@ -32,9 +34,15 @@ angular.module('Tribetron').factory('Campaign', ['$http', function($http) {
 		},
 		getScenario: function(scenario) {
 			return $http.get('res/' + scenario + '.json')
-		},
+		},		
 		reset: function() {
 			campaign = undefined
+		},
+		loadCampaign: function(campaignToSet) {
+			campaign = new Campaign()
+			campaign.scenarios = campaignToSet.scenarios
+			campaign.currentScenario = campaignToSet.currentScenario
+			campaign.loaded = true
 		}
 	
 	}

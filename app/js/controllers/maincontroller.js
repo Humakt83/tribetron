@@ -30,6 +30,16 @@ angular.module('Tribetron').controller('MainController', ['$scope', '$location',
 		$scope.videoShown = true;
 	}
 
+	$scope.isLoadGameDisabled = function() {
+		return localStorage['tribetronSave.player'] == undefined
+	}
+
+	$scope.loadGame = function() {
+		Player.loadPlayer(JSON.parse(localStorage['tribetronSave.player']))
+		Campaign.loadCampaign(JSON.parse(localStorage['tribetronSave.campaign']))
+		$location.path('/game')
+	}
+
 }])
 
 angular.module('Tribetron').controller('PlayerController', ['$scope', '$modalInstance', '$location', 'Player', function($scope, $modalInstance, $location, Player) {

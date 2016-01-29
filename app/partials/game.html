@@ -11,7 +11,7 @@
 				<span class="robot-small" ng-repeat="bot in player.team.robots" ng-class="bot.getTypeClass()" ng-info-click="infoOpener.openBotInfo($event)" ng-bot="{{bot.type.typeName}}">
 			</div>
 			<div>
-				<button class="btn btn-primary" ng-click="saveGame()" ng-enabled="localStorageAllowed()">Save Game</button>
+				<button class="btn btn-primary" ng-click="saveGame()">Save Game</button>
 			</div>
 		</div>
 		

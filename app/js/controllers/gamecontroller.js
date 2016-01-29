@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('Tribetron').controller('GameController', ['$scope', '$location', '$window', 'Campaign', 'Player', 'InfoOpener', function($scope, $location, $window, Campaign, Player, InfoOpener) {
+angular.module('Tribetron').controller('GameController', ['$scope', '$location', 'Campaign', 'Player', 'InfoOpener', function($scope, $location, Campaign, Player, InfoOpener) {
 	
 	const SAVENAME = 'tribetronSave'
 
@@ -22,7 +22,8 @@ angular.module('Tribetron').controller('GameController', ['$scope', '$location',
 		if ($scope.campaign.isCompleted()) {
 			$location.path('/victory')
 		} else {
-			$scope.campaign.advanceCampaign()
+			if (!$scope.campaign.loaded) $scope.campaign.advanceCampaign()
+			else $scope.campaign.loaded = false
 			Campaign.getScenario(Campaign.getCampaign().currentScenario).success(function(result) {
 				$scope.scenario = result
 				if ($scope.scenario.levelup) $scope.player.levelUp()
@@ -43,17 +44,12 @@ angular.module('Tribetron').controller('GameController', ['$scope', '$location',
 		continueCampaign()
 	}
 
-	$scope.localStorageAllowed = function() {
-		try {
-    		return 'localStorage' in $window && $window['localStorage'] !== null;
-  		} catch (e) {
-    		return false;
-  		}
-	}
-
 	$scope.saveGame = function() {
 		localStorage.clear()
+		console.log($scope.player)
+		console.log($scope.campaign)
 		localStorage[SAVENAME + '.player'] = JSON.stringify($scope.player)
+		console.log('Saving campaign')
 		localStorage[SAVENAME + '.campaign'] = JSON.stringify($scope.campaign)
 	}
 	
