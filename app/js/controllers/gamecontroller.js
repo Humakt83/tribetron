@@ -1,7 +1,8 @@
 'use strict'
 
-angular.module('Tribetron').controller('GameController', ['$scope', '$location', 'Campaign', 'Player', 'InfoOpener', function($scope, $location, Campaign, Player, InfoOpener) {
+angular.module('Tribetron').controller('GameController', ['$scope', '$location', '$window', 'Campaign', 'Player', 'InfoOpener', function($scope, $location, $window, Campaign, Player, InfoOpener) {
 	
+	const SAVENAME = 'tribetronSave'
 
 	$scope.infoOpener = InfoOpener
 	
@@ -40,6 +41,20 @@ angular.module('Tribetron').controller('GameController', ['$scope', '$location',
 		initCampaign()
 	} else {
 		continueCampaign()
+	}
+
+	$scope.localStorageAllowed = function() {
+		try {
+    		return 'localStorage' in $window && $window['localStorage'] !== null;
+  		} catch (e) {
+    		return false;
+  		}
+	}
+
+	$scope.saveGame = function() {
+		localStorage.clear()
+		localStorage[SAVENAME + '.player'] = JSON.stringify($scope.player)
+		localStorage[SAVENAME + '.campaign'] = JSON.stringify($scope.campaign)
 	}
 	
 	$scope.goToShop = function() {

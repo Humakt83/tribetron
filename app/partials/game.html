@@ -3,12 +3,15 @@
 	<div class="row" ng-hide="completed">
 		<div class="col-xs-6 player-info">
 			<h4>Player: {{player.name}}</h4>
-			<span>Team: {{player.team.name}} <span><br />
+			<span>Team: {{player.team.name}} </span><br />
 			<span>Money: {{player.money}} tribs</span><br />
 			<span>Level: {{player.level}}</span>
 			<div class="row" ng-show="player.team.robots && player.team.robots.length > 0">
 				<strong style="float:left">Roster&nbsp;</strong>
 				<span class="robot-small" ng-repeat="bot in player.team.robots" ng-class="bot.getTypeClass()" ng-info-click="infoOpener.openBotInfo($event)" ng-bot="{{bot.type.typeName}}">
+			</div>
+			<div>
+				<button class="btn btn-primary" ng-click="saveGame()" ng-enabled="localStorageAllowed()">Save Game</button>
 			</div>
 		</div>
 		
