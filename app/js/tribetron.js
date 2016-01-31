@@ -72,6 +72,7 @@ require('./services/robo')
 require('./services/settings')
 require('./services/team')
 require('./services/trap')
+require('./services/saveload')
 
 require('./controllers/maincontroller')
 require('./controllers/gamecontroller')

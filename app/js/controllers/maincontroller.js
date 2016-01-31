@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('Tribetron').controller('MainController', ['$scope', '$location', '$modal', 'Player', 'Campaign', function($scope, $location, $modal, Player, Campaign) {
+angular.module('Tribetron').controller('MainController', ['$scope', '$location', '$modal', 'Player', 'Campaign', 'LoadGame', function($scope, $location, $modal, Player, Campaign, LoadGame) {
 	
 	Campaign.reset()
 	Player.reset()
@@ -30,14 +30,13 @@ angular.module('Tribetron').controller('MainController', ['$scope', '$location',
 		$scope.videoShown = true;
 	}
 
+
 	$scope.isLoadGameDisabled = function() {
-		return localStorage['tribetronSave.player'] == undefined
+		return LoadGame.isThereNoSave()
 	}
 
 	$scope.loadGame = function() {
-		Player.loadPlayer(JSON.parse(localStorage['tribetronSave.player']))
-		Campaign.loadCampaign(JSON.parse(localStorage['tribetronSave.campaign']))
-		$location.path('/game')
+		LoadGame.load()
 	}
 
 }])
