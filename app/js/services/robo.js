@@ -1004,6 +1004,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 		}
 		this.stunned = 0
 		this.type = type
+		this.typeName = type.typeName
 		this.destroyed = false
 		this.currentHealth = this.type.maxHealth
 		this.damaged = 0

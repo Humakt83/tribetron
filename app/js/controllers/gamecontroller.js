@@ -46,10 +46,16 @@ angular.module('Tribetron').controller('GameController', ['$scope', '$location',
 
 	$scope.saveGame = function() {
 		localStorage.clear()
-		console.log($scope.player)
-		console.log($scope.campaign)
-		localStorage[SAVENAME + '.player'] = JSON.stringify($scope.player)
-		console.log('Saving campaign')
+		var storedBits = []
+		localStorage[SAVENAME + '.player'] = JSON.stringify($scope.player, function(key, val) {
+   			if (val != null && typeof val == "object" && ty) {
+        		if (storedBits.indexOf(val) >= 0) {
+            		return
+        		}
+        		storedBits.push(val)
+    		}
+    		return val
+		})
 		localStorage[SAVENAME + '.campaign'] = JSON.stringify($scope.campaign)
 	}
 	

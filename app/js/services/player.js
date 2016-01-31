@@ -47,7 +47,7 @@ angular.module('Tribetron').factory('Player', ['Team', 'Robot', function(Team, R
 				player.levelUp()
 			}			
 			angular.forEach(playerToSet.team.robots, function(botToSet) {
-				var bot = Robot.createRobotUsingTypeName(botToSet.type.typeName)
+				var bot = Robot.createRobotUsingTypeName(botToSet.typeName)
 				bot.currentHealth = botToSet.currentHealth
 				player.team.addBot(bot)
 			})
