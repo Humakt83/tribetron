@@ -33,62 +33,69 @@ var customOpts = {
 var opts = assign({}, watchify.args, customOpts);
 var b = watchify(browserify(opts));
 
-gulp.task('default', ['build'])
+gulp.task('default', ['serve'])
 
 gulp.task('clean', function() {
-    gulp.src(DIST_DIR)
-      .pipe(clean({force: true}));
-});
-
-gulp.task('lint', function() {
-  return gulp.src(['app/**/*.js'])
-    .pipe(jshint({asi: true, globalstrict: true}))
-    .pipe(jshint.reporter(stylish));
+  return gulp.src(DIST_DIR)
+    .pipe(clean({force: true}));
 });
 
 gulp.task('minify-css', function () {
 	var opts = {comments:true,spare:true};
-  gulp.src('app/tribetron.sass')
+  return gulp.src('app/tribetron.sass')
     .pipe(sass())
 	  .pipe(minifyCSS(opts))
     .pipe(gulp.dest(DIST_DIR));
 });
 
 gulp.task('copy-html-files', function () {
-  gulp.src('app/**/*.html')
+  return gulp.src('app/**/*.html')
     .pipe(gulp.dest(DIST_DIR));
 });
 
 gulp.task('copy-pictures', function() {
-  gulp.src('app/img/*.png')
+  return gulp.src('app/img/*.png')
     .pipe(gulp.dest(DIST_DIR + '/img'));
 });
 
 gulp.task('copy-json', function() {
-  gulp.src('app/res/*.json')
+  return gulp.src('app/res/*.json')
     .pipe(gulp.dest(DIST_DIR + '/res'));
 });
 
 gulp.task('copy-mp3', function() {
-  gulp.src('app/Tribetron.mp3')
+  return gulp.src('app/Tribetron.mp3')
     .pipe(gulp.dest(DIST_DIR));
 });
 
-gulp.task('copy-css', function() {
-  gulp.src(['node_modules/bootstrap/dist/css/bootstrap.css', 'node_modules/fontawesome/css/font-awesome.css', 'node_modules/animate.css/animate.min.css'])
+gulp.task('copy-css', ['minify-css'], function() {
+  return gulp.src(['node_modules/bootstrap/dist/css/bootstrap.css', 'node_modules/fontawesome/css/font-awesome.css', 'node_modules/animate.css/animate.min.css'])
     .pipe(gulp.dest(DIST_DIR));
 });
 
-gulp.task('build', ['minify-css', 'copy-html-files', 'copy-css', 'copy-pictures', 'copy-json', 'copy-mp3'], bundle);
+gulp.task('copy-files', ['copy-html-files', 'copy-css', 'copy-pictures', 'copy-json', 'copy-mp3'])
 
-gulp.task('build-start', ['build', 'serve']);
+gulp.task('bundle', ['copy-files'], function() {
+  return b.bundle()
+    .on('error', gutil.log.bind(gutil, 'Browserify Error'))
+    .pipe(source('bundle.js'))
+    .pipe(buffer())
+    .pipe(sourcemaps.init({loadMaps: true}))
+    .pipe(sourcemaps.write('./'))
+    .pipe(gulp.dest(DIST_DIR));
+});
 
-gulp.task('serve', ['default'], function() {
-  browserSync({
-    server: {
-      baseDir: 'dist'
-    }
-  });
+gulp.task('refresh', ['bundle'], browserSync.reload);
+
+gulp.task('watch', ['bundle'], function() {
+    var watcher = gulp.watch('./app/**/*', ['refresh']);
+    watcher.on('change', function(event) {
+        console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
+    });
+});
+
+gulp.task('serve', ['watch'], function() {
+  return browserSync({ server: { baseDir: 'dist' } });
 });
 
 gulp.task('test', function (done) {
@@ -98,19 +105,14 @@ gulp.task('test', function (done) {
   }, done);
 });
 
-gulp.task('sloc', function(){
+gulp.task('sloc', function() {
   gulp.src(['app/js/**/*.js']).pipe(sloc())
 });
 
-b.on('update', bundle); // on any dep update, runs the bundler
-b.on('log', gutil.log); // output build logs to terminal
+gulp.task('lint', function() {
+  return gulp.src(['app/**/*.js'])
+    .pipe(jshint({asi: true, globalstrict: true}))
+    .pipe(jshint.reporter(stylish));
+});
 
-function bundle() {
-  return b.bundle()
-    .on('error', gutil.log.bind(gutil, 'Browserify Error'))
-    .pipe(source('bundle.js'))
-    .pipe(buffer())
-    .pipe(sourcemaps.init({loadMaps: true}))
-    .pipe(sourcemaps.write('./')) 
-    .pipe(gulp.dest(DIST_DIR));
-}
+b.on('log', gutil.log); // output build logs to terminal
