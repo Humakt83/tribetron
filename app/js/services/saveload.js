@@ -10,7 +10,7 @@ angular.module('Tribetron').factory('SaveGame', function() {
 			localStorage.clear()
 			var storedBits = []
 			localStorage[SAVENAME_PLAYER] = JSON.stringify(player, function(key, val) {
-	   			if (val != null && typeof val == "object") {
+	   			if (val !== null && typeof val == "object") {
 	        		if (storedBits.indexOf(val) >= 0) {
 	            		return
 	        		}
@@ -33,7 +33,7 @@ angular.module('Tribetron').factory('LoadGame', ['$location', 'Campaign', 'Playe
 			$location.path('/game')
 		},
 		isThereNoSave: function() {
-			return localStorage[SAVENAME_PLAYER] == undefined
+			return localStorage[SAVENAME_PLAYER] === undefined
 		}
 	}
 }])

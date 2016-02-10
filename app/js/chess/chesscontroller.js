@@ -60,7 +60,7 @@ angular.module('Tribetron').controller('ChessController', ['$scope', '$location'
 			$scope.chessOverText = 'Stalemate'
 		} else if ($scope.chessBoard.isCheckMate()) {
 			$scope.chessOverText = 'Checkmate'
-			if ($scope.aiOnBlack === !$scope.chessBoard.turnOfWhite) {
+			if ($scope.aiOnBlack !== $scope.chessBoard.turnOfWhite) {
 				$scope.win = true
 				$scope.chessOverText = 'Checkmate. ' + Player.getPlayer().name + ' is winner.'
 			} else {
