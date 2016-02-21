@@ -55,7 +55,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 			areas.push(botArea)
 			GameHandler.getGameState().removeBotFromQueue(bot)
 			angular.forEach(areas, function(area) {
-				if (map.botCanBePlacedOnArea(area)) {
+				if (map.botCanBePlacedOnArea(area, true)) {
 					var hunter = new Robot(new Hunter())
 					team.addBot(hunter)
 					area.setRobot(hunter)
@@ -286,7 +286,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 			areas.push(botArea)
 			GameHandler.getGameState().removeBotFromQueue(bot)
 			angular.forEach(areas, function(area) {
-				if (map.botCanBePlacedOnArea(area)) {
+				if (map.botCanBePlacedOnArea(area, true)) {
 					var totter = new Robot(new Totter())
 					team.addBot(totter)
 					area.setRobot(totter)

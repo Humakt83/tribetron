@@ -88,8 +88,9 @@ angular.module('Tribetron').factory('AreaMap', ['$filter', '$timeout', 'GameSett
 		
 		this.moveBot = function(from, to) {
 			if (this.botCanBePlacedOnArea(to)) {
+				let robotTo = to.robot
 				to.setRobot(from.robot)
-				from.setRobot()
+				from.setRobot(robotTo)
 				if (to.trap) {
 					to.trap.triggerTrap(to, to.robot, this)
 				}
@@ -100,7 +101,7 @@ angular.module('Tribetron').factory('AreaMap', ['$filter', '$timeout', 'GameSett
 		
 		this.moveBotTowardsUsingFinder = function(botArea, targetArea, avoidTraps) {
 			function walkableArea(area) {
-				return area === targetArea || (!area.isWall && !area.robot && (!avoidTraps || !area.trap))
+				return area === targetArea || (!area.isWall && !(area.robot && !area.robot.destroyed) && (!avoidTraps || !area.trap))
 			}
 			var grid = new PF.Grid(this.width, this.height)
 			angular.forEach(this.areas, function(area) {
@@ -229,8 +230,8 @@ angular.module('Tribetron').factory('AreaMap', ['$filter', '$timeout', 'GameSett
 			var foundedArea = $filter('filter')(areas, {'yCoord': coord.y, 'xCoord': coord.x})
 			return foundedArea ? foundedArea[0] : null
 		}
-		this.botCanBePlacedOnArea = function(area) {
-			return area && !area.isWall && !area.robot
+		this.botCanBePlacedOnArea = function(area, mustNotContainBot) {
+			return area && !area.isWall && !(area.robot && (mustNotContainBot || !area.robot.destroyed))
 		}
 		this.getAreasBetween = function(from, to) {
 			if (!this.areaCanbeReachedInStraightLine(from, to)) return
