@@ -24,6 +24,7 @@ angular.module('Tribetron').factory('Player', ['Team', 'Robot', function(Team, R
 		this.money = 5
 		this.team = Team.createPlayerTeam(teamName, [])
 		this.level = 1
+		this.tactics = true
 		this.avatar = Robot.createRobot(new Avatar())
 	}
 	

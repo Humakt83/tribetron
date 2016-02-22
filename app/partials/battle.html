@@ -36,6 +36,11 @@
 				</tbody>
 			</table>
 			<span><strong>Round {{gameState.round}}/{{gameState.maxRounds}}</strong></span>
+			<div ng-show="tacticsPhase">
+				<h1>Tactics phace</h1>
+				<p style="white-space: pre;">Place your bots on the left side of arena.</p>
+				<span>Bot to place: </span><span class="robot-small" ng-class="team.robots[botToPlace].getTypeClass()"></span>
+			</div>
 			<div ng-show="gameState.isOver()" class="row">
 				<h1>Game Over!</h1>
 				<p style="white-space: pre;">{{winMessage()}}</p>

@@ -67,8 +67,12 @@ angular.module('Tribetron').controller('BattleController', ['$scope', '$interval
 			$scope.enemyTeam = createTeamWithRobots(result.opponentTeamName, robotsPerTeam, result.rosterOpponent)
 			
 			$scope.teams = [$scope.team, $scope.enemyTeam]
-			
-			placeTeam($scope.team)
+			if (!$scope.player.tactics) {
+				placeTeam($scope.team)
+			} else {
+				$scope.tacticsPhase = true
+				$scope.botToPlace = 0
+			}
 			placeTeam($scope.enemyTeam)
 			
 			placeTraps(traps)
@@ -77,6 +81,14 @@ angular.module('Tribetron').controller('BattleController', ['$scope', '$interval
 			
 			$scope.opponentTaunt = $scope.opponent.type.helloMessage
 		})
+	}
+
+	$scope.placeBot = function(area) {
+		if (area.isEmpty() && area.xCoord < ($scope.map.width / 2) -1) {
+			area.setRobot($scope.team.robots[$scope.botToPlace])
+			$scope.botToPlace++
+			$scope.tacticsPhase = $scope.team.robots[$scope.botToPlace] !== undefined
+		}
 	}
 	
 	$scope.winMessage = function() {
@@ -155,6 +167,10 @@ angular.module('Tribetron').controller('BattleController', ['$scope', '$interval
 	}
 	
 	$scope.doAction = function(area) {
+		if ($scope.tacticsPhase) {
+			$scope.placeBot(area)
+			return
+		}
 		if (!$scope.actionPossible(area)) return
 		if ($scope.action.activate($scope.player.name, area.robot, $scope.map, area) && !$scope.gameState.isOver()) {
 			$scope.opponentTaunt = $scope.opponent.playTurn($scope.enemyTeam, $scope.map)
