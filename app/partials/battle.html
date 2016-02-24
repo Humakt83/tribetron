@@ -37,12 +37,12 @@
 			</table>
 			<span><strong>Round {{gameState.round}}/{{gameState.maxRounds}}</strong></span>
 			<div ng-show="tacticsPhase">
-				<h1>Tactics phace</h1>
+				<h2>Tactics phase</h2>
 				<p style="white-space: pre;">Place your bots on the left side of arena.</p>
-				<span>Bot to place: </span><span class="robot-small" ng-class="team.robots[botToPlace].getTypeClass()"></span>
+				<span>Bot to place: </span><span class="robot-small" ng-class="botsToPlace[botToPlace].getTypeClass()"></span>
 			</div>
 			<div ng-show="gameState.isOver()" class="row">
-				<h1>Game Over!</h1>
+				<h2>Game Over!</h2>
 				<p style="white-space: pre;">{{winMessage()}}</p>
 				<button ng-show="victorious" ng-click="continueGame()" class="btn btn-primary">Continue Campaign</button>
 				<button ng-show="!victorious" ng-click="backToMain()" class="btn btn-primary">Continue to Main Menu</button>

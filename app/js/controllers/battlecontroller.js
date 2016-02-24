@@ -67,12 +67,24 @@ angular.module('Tribetron').controller('BattleController', ['$scope', '$interval
 			$scope.enemyTeam = createTeamWithRobots(result.opponentTeamName, robotsPerTeam, result.rosterOpponent)
 			
 			$scope.teams = [$scope.team, $scope.enemyTeam]
+
 			if (!$scope.player.tactics) {
 				placeTeam($scope.team)
 			} else {
-				$scope.tacticsPhase = true
-				$scope.botToPlace = 0
+				$scope.botsToPlaceRandomly = _.chain($scope.team.robots).filter(function(bot) {
+					return bot.type.unplaceable
+				}).value()
+				if ($scope.botsToPlaceRandomly.length === $scope.team.robots.length) {
+					placeTeam($scope.team)
+				} else {
+					$scope.botsToPlace = _.chain($scope.team.robots).filter(function(bot) {
+						return !_.contains($scope.botsToPlaceRandomly, bot)
+					}).value()
+ 					$scope.tacticsPhase = true
+					$scope.botToPlace = 0
+				}
 			}
+
 			placeTeam($scope.enemyTeam)
 			
 			placeTraps(traps)
@@ -85,9 +97,14 @@ angular.module('Tribetron').controller('BattleController', ['$scope', '$interval
 
 	$scope.placeBot = function(area) {
 		if (area.isEmpty() && area.xCoord < ($scope.map.width / 2) -1) {
-			area.setRobot($scope.team.robots[$scope.botToPlace])
+			area.setRobot($scope.botsToPlace[$scope.botToPlace])
 			$scope.botToPlace++
-			$scope.tacticsPhase = $scope.team.robots[$scope.botToPlace] !== undefined
+			$scope.tacticsPhase = $scope.botsToPlace[$scope.botToPlace] !== undefined
+			if (!$scope.tacticsPhase) {
+				_.each($scope.botsToPlaceRandomly, function(bot) {
+					$scope.map.placeRobotAtRandomFreeSpot(bot, false)
+				})
+			}
 		}
 	}
 	

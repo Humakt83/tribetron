@@ -863,6 +863,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 		this.intelligence = 'medium'
 		this.typeName = 'atomitum'
 		this.cannotBeTeleported = true
+		this.unplaceable = true
 		this.description = 'Atomitum tries to reach its other half, Plutan, and combine with it into Colossus.'
 	}
 	
@@ -904,6 +905,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 		this.intelligence = 'medium'
 		this.typeName = 'plutan'
 		this.cannotBeTeleported = true
+		this.unplaceable = true
 		this.description = 'Plutan tries to reach its other half, Atomitum, and combine with it into Colossus.'
 	}
 	
