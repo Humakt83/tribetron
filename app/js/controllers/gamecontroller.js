@@ -1,20 +1,43 @@
 'use strict'
 
-angular.module('Tribetron').controller('GameController', ['$scope', '$location', 'Campaign', 'Player', 'InfoOpener', 'SaveGame', function($scope, $location, Campaign, Player, InfoOpener, SaveGame) {
+angular.module('Tribetron').controller('GameController', ['$scope', '$location', 'Campaign', 'Player', 'Robot', 'InfoOpener', 'SaveGame', 
+                                                          function($scope, $location, Campaign, Player, Robot, InfoOpener, SaveGame) {
 	
-	
-
 	$scope.infoOpener = InfoOpener
+    
+    function setOpponentRosterForCustomBattle(result) {
+        var width = result.rows[0].length, height = result.rows.length			
+        $scope.scenario.rosterOpponent = []
+        for (var y = 0; y < height; y++) {
+            for (var x = 0; x < width; x++) {
+                var objectName = result.rows[y][x].object
+                var botType = _.find(Robot.getTypesAsObjects(), function(type) {
+                    return type.typeName == objectName;
+                })                            
+                if (botType) $scope.scenario.rosterOpponent.push(botType.typeName);
+            }
+        }
+    }
 	
+    function loadScenario() {        
+        Campaign.getScenario(Campaign.getCampaign().currentScenario).success(function(result) {
+            $scope.scenario = result
+            if ($scope.scenario.levelup) $scope.player.levelUp()
+            if ($scope.scenario.type && $scope.scenario.type == 'battle') {
+                setOpponentRosterForCustomBattle(result);
+            }
+        })
+    }
+    
 	function initCampaign() {
 		$scope.started = true
 		Campaign.getCampaignJson().success(function(campaignResult) {
 			$scope.campaign = Campaign.createCampaign(campaignResult)
-			Campaign.getScenario(Campaign.getCampaign().currentScenario).success(function(result) {
-				$scope.scenario = result
-			})
+			loadScenario()
 		})
 	}
+    
+
 	
 	function continueCampaign() {
 		$scope.campaign = Campaign.getCampaign()
@@ -24,13 +47,7 @@ angular.module('Tribetron').controller('GameController', ['$scope', '$location',
 		} else {
 			if (!$scope.campaign.loaded) $scope.campaign.advanceCampaign()
 			else $scope.campaign.loaded = false
-			Campaign.getScenario(Campaign.getCampaign().currentScenario).success(function(result) {
-				$scope.scenario = result
-				if ($scope.scenario.levelup) $scope.player.levelUp()
-                if ($scope.scenario.type === 'battle') {
-                    
-                }
-			})
+            loadScenario()
 		}
 	}
 	

@@ -197,4 +197,4 @@ angular.module('Tribetron').controller('CustomBattleController', ['$scope', '$in
 	
 	if (Team.getPlayerTeam()) init()
 	else $scope.continueGame()
-}
+}])
