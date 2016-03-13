@@ -27,6 +27,9 @@ angular.module('Tribetron').controller('GameController', ['$scope', '$location',
 			Campaign.getScenario(Campaign.getCampaign().currentScenario).success(function(result) {
 				$scope.scenario = result
 				if ($scope.scenario.levelup) $scope.player.levelUp()
+                if ($scope.scenario.type === 'battle') {
+                    
+                }
 			})
 		}
 	}

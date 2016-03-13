@@ -34,6 +34,10 @@ angular.module('Tribetron', ['ngRoute', 'ngAnimate', 'ui.bootstrap'])
 				templateUrl: './partials/battle.html',
 				controller: 'BattleController'
 			})
+            .when('/custombattle', {
+                templateUrl: './partials/battle.html',
+                controller: 'CustomBattleController'
+            })
 			.when('/pairs', {
 				templateUrl: './partials/pairs.html',
 				controller: 'PairsController'
@@ -79,6 +83,7 @@ require('./controllers/gamecontroller')
 require('./controllers/shopcontroller')
 require('./controllers/rumblecontroller')
 require('./controllers/battlecontroller')
+require('./controllers/custombattlecontroller')
 require('./controllers/pairscontroller')
 require('./controllers/venturecontroller')
 require('./controllers/conquestcontroller')
