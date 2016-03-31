@@ -29,7 +29,6 @@ angular.module('Tribetron').controller('CustomBattleController', ['$scope', '$in
 					return type.typeName == objectName;
 			})
 			if (botType) {
-                console.log(botType)
 				var bot = Robot.createRobot(botType)
 				$scope.enemyTeam.addBot(bot)
 				area.setRobot(bot)
