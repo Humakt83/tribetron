@@ -961,6 +961,10 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 			return this.type.typeName + postfix + turnClass
 		}
 		this.receiveDamage = function(source, damage, map) {
+            if (this.shield > 0) {
+                this.shield--
+                return
+            }
 			if (this.destroyed) return
 			this.currentHealth = Math.max(0, (this.currentHealth - damage))
 			BattleLog.add(this.type.typeName + ' receives ' + damage + ' damage from ' + source) 
@@ -996,6 +1000,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 		}
 		this.cleanEffects = function() {
 			this.stunned = 0
+            this.shield = 0
 		}
 		this.resetHealth = function() {
 			this.currentHealth = this.type.maxHealth
@@ -1010,6 +1015,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 		this.destroyed = false
 		this.currentHealth = this.type.maxHealth
 		this.damaged = 0
+        this.shield = 0
 		this.myTurn = false
 	}
 	

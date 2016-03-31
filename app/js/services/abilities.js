@@ -34,6 +34,19 @@ angular.module('Tribetron').factory('Abilities', [function() {
 		this.levelRequirement = 1
 		this.image= imagePrefix + 'hit' + imagePostfix
 	}
+    
+    function Shield() {
+        this.activate = function(source, bot) {
+            if (!bot.destroyed) {
+                bot.shield++
+                return true
+            }
+            return false
+        }
+        this.name = 'Shield'
+        this.levelRequirement = 2
+        this.image = imagePrefix + 'shield' + imagePostfix
+    }
 	
 	function Teleport() {
 		this.activate = function(source, bot, map, targetArea) {
@@ -74,7 +87,7 @@ angular.module('Tribetron').factory('Abilities', [function() {
 		this.cooldownLeft = 0
 	}
 	
-	var abilities = [new Attack(), new Repair(), new Stun(), new Teleport()]
+	var abilities = [new Attack(), new Repair(), new Stun(), new Teleport(), new Shield()]
 	
 	return {
 		getAbilities : function() {

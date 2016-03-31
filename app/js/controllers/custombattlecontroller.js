@@ -174,6 +174,7 @@ angular.module('Tribetron').controller('CustomBattleController', ['$scope', '$in
 			case 'Teleport':
 				actionPossible = (area.robot && !$scope.action.selectedBot && !area.robot.type.cannotBeTeleported) || ($scope.action.selectedBot && area.isEmpty())
 				break;
+            case 'Shield':
 			case 'Stun':
 				actionPossible = area.robot && !area.robot.destroyed
 				break;
