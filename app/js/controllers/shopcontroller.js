@@ -15,9 +15,7 @@ angular.module('Tribetron').controller('ShopController', ['$scope', '$location',
 	
 	$scope.money = $scope.player.money
 	
-	Campaign.getScenario(Campaign.getCampaign().currentScenario).success(function(result) {
-		$scope.maxRosterSize = result.maxRoster
-	})
+    $scope.maxRosterSize = Campaign.getCampaign().loadedScenario.maxRoster
 	
 	$scope.buyBot = function(botType) {
 		if (botType.levelRequirement > $scope.player.level)
@@ -36,7 +34,9 @@ angular.module('Tribetron').controller('ShopController', ['$scope', '$location',
 	
 	$scope.toBattle = function() {
 		$scope.player.money = $scope.money
-		$location.path('/battle')
+        var scenario = Campaign.getCampaign().loadedScenario;
+        if (scenario.type && scenario.type === 'battle') $location.path('/custombattle')
+        else $location.path('/battle')
 	}
 	
 	$scope.brokenBotClass = function(bot) {

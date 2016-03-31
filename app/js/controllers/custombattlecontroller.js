@@ -17,81 +17,83 @@ angular.module('Tribetron').controller('CustomBattleController', ['$scope', '$in
 	
 	
 	function init() {
-		var createTeamWithRobots = function(teamName, amountOfRobots, rosterOpponent) {
-			function createRandomRobot() {
-				var RobotType = Robot.getTypes()[Math.floor(Math.random() * Robot.getTypes().length)]
-				return Robot.createRobot(new RobotType())
-			}
-			var bots = []
-			angular.forEach(rosterOpponent, function(botType) {
-				if (botType != 'unknown') {
-					bots.push(Robot.createRobot(_.find(Robot.getTypesAsObjects(), function(type) {
-						return type.typeName === botType;
-					})))
-				} else {
-					bots.push(createRandomRobot())
-				}
-			})
-			return Team.createTeam(teamName, bots, true)
-		}
-		
+				
 		var placeTeam = function(team) {
 			angular.forEach(team.robots, function(robot) {
 				$scope.map.placeRobotAtRandomFreeSpot(robot, team.isEnemy)
 			})
 		}
 		
-		var placeTraps = function(traps) {
-			angular.forEach(traps, function(trap) {
-				var trapType = _.find(Trap.getTrapTypes(), function(Type) {
-						return new Type().name === trap;
-				})
-				$scope.map.placeTrapAtRandomFreeSpot(Trap.createTrap(trapType))
-			})			
+		var addBotToMap = function(objectName, area) {
+			var botType = _.find(Robot.getTypesAsObjects(), function(type) {
+					return type.typeName == objectName;
+			})
+			if (botType) {
+                console.log(botType)
+				var bot = Robot.createRobot(botType)
+				$scope.enemyTeam.addBot(bot)
+				area.setRobot(bot)
+			}
+		}
+		
+		var addTrapToMap = function(objectName, area) {
+			var trapType = _.find(Trap.getTrapTypes(), function(Type) {
+				return new Type().jsonName == objectName
+			})
+			if (trapType) {
+				area.setTrap(Trap.createTrap(trapType))
+			}
 		}
 		
 		$scope.team = $scope.player.team
 		
-		Campaign.getScenario(Campaign.getCampaign().currentScenario).success(function(result) {
-			var width = result.areaWidth, height = result.areaHeight, robotsPerTeam = result.maxRoster, numberOfRounds = result.rounds
-			var traps = result.traps ? result.traps : []
-			$scope.opponent = AI.createOpponent(AI.getOpponentByName(result.opponent))
-			$scope.autoPlayOn = undefined
-			$scope.playToggle = 'Play'
-			$scope.reward = result.reward
-			
-			$scope.map = AreaMap.createMap(width,height)
-			
-			
-			$scope.enemyTeam = createTeamWithRobots(result.opponentTeamName, robotsPerTeam, result.rosterOpponent)
-			
-			$scope.teams = [$scope.team, $scope.enemyTeam]
+		var scenario = Campaign.getCampaign().loadedScenario
+        var width = scenario.rows[0].length, height = scenario.rows.length
+        var robotsPerTeam = scenario.maxRoster, numberOfRounds = scenario.rounds
+        $scope.opponent = AI.createOpponent(AI.getOpponentByName(scenario.opponent))
+        $scope.reward = scenario.reward
+        $scope.autoPlayOn = undefined
 
-			if (!$scope.player.tactics) {
-				placeTeam($scope.team)
-			} else {
-				$scope.botsToPlaceRandomly = _.chain($scope.team.robots).filter(function(bot) {
-					return bot.type.unplaceable
-				}).value()
-				if ($scope.botsToPlaceRandomly.length === $scope.team.robots.length) {
-					placeTeam($scope.team)
-				} else {
-					$scope.botsToPlace = _.chain($scope.team.robots).filter(function(bot) {
-						return !_.contains($scope.botsToPlaceRandomly, bot)
-					}).value()
- 					$scope.tacticsPhase = true
-					$scope.botToPlace = 0
-				}
-			}
+        $scope.map = AreaMap.createMap(width,height)
 
-			placeTeam($scope.enemyTeam)
-			
-			placeTraps(traps)
-			
-			$scope.gameState = GameHandler.createGameState([$scope.team, $scope.enemyTeam], numberOfRounds)
-			
-			$scope.opponentTaunt = $scope.opponent.type.helloMessage
-		})
+        $scope.enemyTeam = Team.createTeam(scenario.opponentTeamName, [], true)
+        for (var y = 0; y < height; y++) {
+            var rowAreas = $scope.map.getAreasByRow(y)
+            for (var x = 0; x < width; x++) {
+                var objectName = scenario.rows[y][x].object
+                if (objectName == 'wall') {
+                    rowAreas[x].isWall = true
+                } else {
+                    rowAreas[x].isWall = false
+                    addBotToMap(objectName, rowAreas[x])
+                    addTrapToMap(objectName, rowAreas[x])
+                }
+            }
+        }
+
+        $scope.teams = [$scope.team, $scope.enemyTeam]
+
+        if (!$scope.player.tactics) {
+            placeTeam($scope.team)
+        } else {
+            $scope.botsToPlaceRandomly = _.chain($scope.team.robots).filter(function(bot) {
+                return bot.type.unplaceable
+            }).value()
+            if ($scope.botsToPlaceRandomly.length === $scope.team.robots.length) {
+                placeTeam($scope.team)
+            } else {
+                $scope.botsToPlace = _.chain($scope.team.robots).filter(function(bot) {
+                    return !_.contains($scope.botsToPlaceRandomly, bot)
+                }).value()
+                $scope.tacticsPhase = true
+                $scope.botToPlace = 0
+            }
+        }
+
+        $scope.gameState = GameHandler.createGameState([$scope.team, $scope.enemyTeam], numberOfRounds)
+
+        $scope.opponentTaunt = $scope.opponent.type.helloMessage
+		
 	}
 
 	$scope.placeBot = function(area) {

@@ -34,7 +34,10 @@ angular.module('Tribetron').factory('Campaign', ['$http', function($http) {
 		},
 		getScenario: function(scenario) {
 			return $http.get('res/' + scenario + '.json')
-		},		
+		},
+        setLoadedScenario: function(scenario) {
+            campaign.loadedScenario = scenario
+        },
 		reset: function() {
 			campaign = undefined
 		},

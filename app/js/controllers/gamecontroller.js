@@ -22,6 +22,7 @@ angular.module('Tribetron').controller('GameController', ['$scope', '$location',
     function loadScenario() {        
         Campaign.getScenario(Campaign.getCampaign().currentScenario).success(function(result) {
             $scope.scenario = result
+            Campaign.setLoadedScenario(result)
             if ($scope.scenario.levelup) $scope.player.levelUp()
             if ($scope.scenario.type && $scope.scenario.type == 'battle') {
                 setOpponentRosterForCustomBattle(result);
