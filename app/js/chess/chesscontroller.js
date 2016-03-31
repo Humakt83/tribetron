@@ -25,17 +25,25 @@ angular.module('Tribetron').controller('ChessController', ['$scope', '$location'
 		$location.path('/')
 		return
 	}
-	
-	Campaign.getScenario(Campaign.getCampaign().currentScenario).success(function(result) {
-		$scope.reward = result.reward
-		$scope.aiOnBlack = result.aiOnBlack
-		$scope.chessBoard = ChessService.getNewChess()
-		$scope.ai = ChessAI.createAI($scope.aiOnBlack)
-		$scope.checkState()
-		if (!$scope.aiOnBlack) {
-			$scope.aiTurn()
+            
+    $scope.checkState = function() {
+		$scope.blackPieces = $scope.chessBoard.getBlackPieces()
+		$scope.whitePieces = $scope.chessBoard.getWhitePieces()
+		$scope.gameOver = $scope.chessBoard.isGameOver()
+		if ($scope.gameOver) {
+			gameOver()
 		}
-	})	
+	}
+	
+    var scenario = Campaign.getCampaign().loadedScenario
+    $scope.reward = scenario.reward
+    $scope.aiOnBlack = scenario.aiOnBlack
+    $scope.chessBoard = ChessService.getNewChess()
+    $scope.ai = ChessAI.createAI($scope.aiOnBlack)
+    $scope.checkState()
+    if (!$scope.aiOnBlack) {
+        $scope.aiTurn()
+    }
 
 	$scope.piece = ChessService.getPiece()
 	
@@ -44,15 +52,6 @@ angular.module('Tribetron').controller('ChessController', ['$scope', '$location'
 	$scope.aiTurn = function() {
 		$scope.ai.playTurn($scope.chessBoard)
 		$scope.checkState()
-	}
-	
-	$scope.checkState = function() {
-		$scope.blackPieces = $scope.chessBoard.getBlackPieces()
-		$scope.whitePieces = $scope.chessBoard.getWhitePieces()
-		$scope.gameOver = $scope.chessBoard.isGameOver()
-		if ($scope.gameOver) {
-			gameOver()
-		}
 	}
 	
 	var gameOver = function() {

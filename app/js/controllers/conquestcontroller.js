@@ -133,10 +133,9 @@ angular.module('Tribetron').controller('ConquestController', ['$scope', '$locati
 		return
 	}
 	
-	Campaign.getScenario(Campaign.getCampaign().currentScenario).success(function(result) {
-		$scope.reward = result.reward
-		$scope.conquest = new Conquest(result.width, result.height)
-	})
+    var scenario = Campaign.getCampaign().loadedScenario
+    $scope.reward = scenario.reward
+    $scope.conquest = new Conquest(scenario.width, scenario.height)
 	
 	$scope.selectPiece = function(piece) {
 		function gameOver() {

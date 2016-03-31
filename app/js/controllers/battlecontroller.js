@@ -53,46 +53,45 @@ angular.module('Tribetron').controller('BattleController', ['$scope', '$interval
 		
 		$scope.team = $scope.player.team
 		
-		Campaign.getScenario(Campaign.getCampaign().currentScenario).success(function(result) {
-			var width = result.areaWidth, height = result.areaHeight, robotsPerTeam = result.maxRoster, numberOfRounds = result.rounds
-			var traps = result.traps ? result.traps : []
-			$scope.opponent = AI.createOpponent(AI.getOpponentByName(result.opponent))
-			$scope.autoPlayOn = undefined
-			$scope.playToggle = 'Play'
-			$scope.reward = result.reward
-			
-			$scope.map = AreaMap.createMap(width,height)
-			
-			
-			$scope.enemyTeam = createTeamWithRobots(result.opponentTeamName, robotsPerTeam, result.rosterOpponent)
-			
-			$scope.teams = [$scope.team, $scope.enemyTeam]
+        var scenario = Campaign.getCampaign().loadedScenario
+        var width = scenario.areaWidth, height = scenario.areaHeight, robotsPerTeam = scenario.maxRoster, numberOfRounds = scenario.rounds
+        var traps = scenario.traps ? scenario.traps : []
+        $scope.opponent = AI.createOpponent(AI.getOpponentByName(scenario.opponent))
+        $scope.autoPlayOn = undefined
+        $scope.playToggle = 'Play'
+        $scope.reward = scenario.reward
 
-			if (!$scope.player.tactics) {
-				placeTeam($scope.team)
-			} else {
-				$scope.botsToPlaceRandomly = _.chain($scope.team.robots).filter(function(bot) {
-					return bot.type.unplaceable
-				}).value()
-				if ($scope.botsToPlaceRandomly.length === $scope.team.robots.length) {
-					placeTeam($scope.team)
-				} else {
-					$scope.botsToPlace = _.chain($scope.team.robots).filter(function(bot) {
-						return !_.contains($scope.botsToPlaceRandomly, bot)
-					}).value()
- 					$scope.tacticsPhase = true
-					$scope.botToPlace = 0
-				}
-			}
+        $scope.map = AreaMap.createMap(width,height)
 
-			placeTeam($scope.enemyTeam)
-			
-			placeTraps(traps)
-			
-			$scope.gameState = GameHandler.createGameState([$scope.team, $scope.enemyTeam], numberOfRounds)
-			
-			$scope.opponentTaunt = $scope.opponent.type.helloMessage
-		})
+
+        $scope.enemyTeam = createTeamWithRobots(scenario.opponentTeamName, robotsPerTeam, scenario.rosterOpponent)
+
+        $scope.teams = [$scope.team, $scope.enemyTeam]
+
+        if (!$scope.player.tactics) {
+            placeTeam($scope.team)
+        } else {
+            $scope.botsToPlaceRandomly = _.chain($scope.team.robots).filter(function(bot) {
+                return bot.type.unplaceable
+            }).value()
+            if ($scope.botsToPlaceRandomly.length === $scope.team.robots.length) {
+                placeTeam($scope.team)
+            } else {
+                $scope.botsToPlace = _.chain($scope.team.robots).filter(function(bot) {
+                    return !_.contains($scope.botsToPlaceRandomly, bot)
+                }).value()
+                $scope.tacticsPhase = true
+                $scope.botToPlace = 0
+            }
+        }
+
+        placeTeam($scope.enemyTeam)
+
+        placeTraps(traps)
+
+        $scope.gameState = GameHandler.createGameState([$scope.team, $scope.enemyTeam], numberOfRounds)
+
+        $scope.opponentTaunt = $scope.opponent.type.helloMessage
 	}
 
 	$scope.placeBot = function(area) {

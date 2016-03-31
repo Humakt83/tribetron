@@ -55,33 +55,32 @@ angular.module('Tribetron').controller('VentureController', ['$scope', '$interva
 			}
 		}
 		
-		Campaign.getScenario(Campaign.getCampaign().currentScenario).success(function(result) {
-			var width = result.rows[0].length, height = result.rows.length
-			
-			$scope.map = AreaMap.createMap(width,height)
-			
-			$scope.monsters = Team.createTeam('enemy', [], true)
-			
-			for (var y = 0; y < height; y++) {
-				var rowAreas = $scope.map.getAreasByRow(y)
-				for (var x = 0; x < width; x++) {
-					var objectName = result.rows[y][x].object
-					if (objectName == 'wall') {
-						rowAreas[x].isWall = true
-					} else {
-						rowAreas[x].isWall = false
-						addBotToMap(objectName, rowAreas[x])
-						addTrapToMap(objectName, rowAreas[x])
-						addPlayerToMap(objectName, rowAreas[x])
-						addLootToMap(objectName, rowAreas[x])
-					}
-				}
-			}
-			
-			$scope.avatar = Team.createTeam('avatar', [$scope.player.avatar], false)
-			
-			$scope.gameState = GameHandler.createGameState([$scope.avatar, $scope.monsters], 9000)
-		})
+		var scenario = Campaign.getCampaign().loadedScenario
+        var width = scenario.rows[0].length, height = scenario.rows.length
+
+        $scope.map = AreaMap.createMap(width,height)
+
+        $scope.monsters = Team.createTeam('enemy', [], true)
+
+        for (var y = 0; y < height; y++) {
+            var rowAreas = $scope.map.getAreasByRow(y)
+            for (var x = 0; x < width; x++) {
+                var objectName = scenario.rows[y][x].object
+                if (objectName == 'wall') {
+                    rowAreas[x].isWall = true
+                } else {
+                    rowAreas[x].isWall = false
+                    addBotToMap(objectName, rowAreas[x])
+                    addTrapToMap(objectName, rowAreas[x])
+                    addPlayerToMap(objectName, rowAreas[x])
+                    addLootToMap(objectName, rowAreas[x])
+                }
+            }
+        }
+
+        $scope.avatar = Team.createTeam('avatar', [$scope.player.avatar], false)
+
+        $scope.gameState = GameHandler.createGameState([$scope.avatar, $scope.monsters], 9000)
 		
 		$scope.displayMessage('Venture begins')
 	}

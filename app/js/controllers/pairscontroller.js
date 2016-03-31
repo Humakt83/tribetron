@@ -8,42 +8,41 @@ angular.module('Tribetron').controller('PairsController', ['$scope', '$location'
 	}
 
 	function init() {
-		Campaign.getScenario(Campaign.getCampaign().currentScenario).success(function(result) {
+        var scenario = Campaign.getCampaign().loadedScenario
 			
-			function generateRowsOfCards(cards) {
-				var rows = []
-				var cardsPerRowRemaining = 4
-				var i = 0
-				rows[i] = []
-				angular.forEach(cards, function(card) {
-					rows[i].push(card)
-					cardsPerRowRemaining--
-					if (cardsPerRowRemaining < 1) {
-						i++
-						rows[i] = []
-						cardsPerRowRemaining = 4
-					}
-				})
-				return rows
-			}
-			
-			$scope.numberOfPairsLeft = result.pairs
-			$scope.maxClicks = result.maxClicks
-			$scope.clicks = 0
-			$scope.reward = result.reward
-			var cards = []
-			$scope.cardsSelected = []
-			var types = Robot.getTypesAsObjects()
-			
-			for (var i = 0; i < $scope.numberOfPairsLeft; i++) {
-				if (i >= types.length) {
-					throw "Too many pairs"
-				}
-				cards.push(new Card(types[i].typeName), new Card(types[i].typeName))
-			}
-			
-			$scope.rows = generateRowsOfCards(_.shuffle(cards))
-		})
+        function generateRowsOfCards(cards) {
+            var rows = []
+            var cardsPerRowRemaining = 4
+            var i = 0
+            rows[i] = []
+            angular.forEach(cards, function(card) {
+                rows[i].push(card)
+                cardsPerRowRemaining--
+                if (cardsPerRowRemaining < 1) {
+                    i++
+                    rows[i] = []
+                    cardsPerRowRemaining = 4
+                }
+            })
+            return rows
+        }
+
+        $scope.numberOfPairsLeft = scenario.pairs
+        $scope.maxClicks = scenario.maxClicks
+        $scope.clicks = 0
+        $scope.reward = scenario.reward
+        var cards = []
+        $scope.cardsSelected = []
+        var types = Robot.getTypesAsObjects()
+
+        for (var i = 0; i < $scope.numberOfPairsLeft; i++) {
+            if (i >= types.length) {
+                throw "Too many pairs"
+            }
+            cards.push(new Card(types[i].typeName), new Card(types[i].typeName))
+        }
+
+        $scope.rows = generateRowsOfCards(_.shuffle(cards))
 	}
 	
 	if (!Player.getPlayer()) {
