@@ -1,3 +1,4 @@
 {
-	"predef": ["angular", "_", "PF", "$", "createjs"]
+	"predef": ["angular", "_", "PF", "$", "createjs", "require", "Audio", "localStorage", "global"],
+    "esversion": 6
 }
