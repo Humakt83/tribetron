@@ -6,7 +6,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 	var types = [Hunter, Box, Medic, Totter, Radiator, Psycho, Crate, Zipper, Multiplicator, Cannoneer, 
 				Sniper, Hacker, Destructor, Trasher, PsychoMedic, HotTot, MegaHunter, Titan, Tauron, Colossus,
 				CombinatorAtomitum, CombinatorPlutan, Disablor, Doctor, Emanator, Trapper, Cannon, Bomb, Lazor, Nuka, 
-                 StrongBox, Spike, Hackram]
+                 StrongBox, Spike, Hackram, Kamikaze]
 	
 	var moveToClosestReachableOpponent = function(map, botArea, closestOpponent, opponentAreas, avoidTraps) {
 		while (opponentAreas.length > 0 && closestOpponent && !map.moveBotTowardsUsingFinder(botArea, closestOpponent, avoidTraps)) {
@@ -654,6 +654,46 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 		this.intelligence = 'low'
 		this.typeName = 'tauron'
 		this.description = 'Tauron will charge towards enemy dealing massive damage'
+	}
+            
+    function Kamikaze() {
+        this.destroyEffect = function(bot, map, team) {
+			var area = map.findAreaWhereBotIs(bot)
+			var areasNear = map.findAreasCloseToArea(area)
+			area.setRobot()
+			area.setExplosion()
+			angular.forEach(areasNear, function(areaNear) {
+				if (areaNear.robot) areaNear.robot.receiveDamage('Kamikaze', bot.type.explosiveDamage, map, bot)
+			})			
+			team.removeBot(bot)
+			GameHandler.getGameState().removeBotFromQueue(bot)
+		}
+		this.takeTurn = function(bot, map, team) {
+			var area = map.findAreaWhereBotIs(bot)
+			var opponentAreas = map.findOpponents(bot.team, false)
+			var target = _.find(opponentAreas, function(botArea) {
+				return map.areaCanbeReachedInStraightLine(area, botArea) && !map.anythingBetweenAreas(area, botArea)
+			})
+			if (target && !target.robot.destroyed) {
+				while (area.calculateDistance(target) > 1) {
+					map.moveBotTowardsInStraightLine(area, target)
+					area = map.findAreaWhereBotIs(bot)
+				}
+				BattleLog.add('Kamikaze rams its target exploding in the process')
+                this.destroyEffect(bot, map, team)
+			} else {
+				var closestOpponent = area.findClosest(opponentAreas)
+				BattleLog.add('Kamikaze moves towards enemy.')
+				map.moveBotTowards(area, closestOpponent)
+			}
+		}
+		this.levelRequirement = 4
+		this.price = 30
+		this.maxHealth = 30
+		this.explosiveDamage = 30
+		this.intelligence = 'low'
+		this.typeName = 'kamikaze'
+		this.description = 'Kamikaze will ram against enemy and suicide in fiery explosion.'
 	}
 	
 	function Multiplicator() {
