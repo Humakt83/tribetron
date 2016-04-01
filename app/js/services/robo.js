@@ -5,7 +5,8 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 
 	var types = [Hunter, Box, Medic, Totter, Radiator, Psycho, Crate, Zipper, Multiplicator, Cannoneer, 
 				Sniper, Hacker, Destructor, Trasher, PsychoMedic, HotTot, MegaHunter, Titan, Tauron, Colossus,
-				CombinatorAtomitum, CombinatorPlutan, Disablor, Doctor, Emanator, Trapper, Cannon, Bomb, Lazor, Nuka, StrongBox, Spike]
+				CombinatorAtomitum, CombinatorPlutan, Disablor, Doctor, Emanator, Trapper, Cannon, Bomb, Lazor, Nuka, 
+                 StrongBox, Spike, Hackram]
 	
 	var moveToClosestReachableOpponent = function(map, botArea, closestOpponent, opponentAreas, avoidTraps) {
 		while (opponentAreas.length > 0 && closestOpponent && !map.moveBotTowardsUsingFinder(botArea, closestOpponent, avoidTraps)) {
@@ -715,7 +716,6 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 				BattleLog.add('Hacker hacks enemy')
 				var target = closestOpponent.robot
 				target.team.removeBot(target)
-				target.team = this.team
 				target.hacked = !target.hacked
 				team.addBot(target)
 			} else if (area.calculateDistance(closestOpponent) == 2 && !closestOpponent.robot.range && closestOpponent.robot.meleeDamage ) {
@@ -731,6 +731,37 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 		this.intelligence = 'high'
 		this.typeName = 'hacker'
 		this.description = 'Hacker turns enemies to allies until end of combat.'
+	}
+            
+    function Hackram() {
+		this.takeTurn = function(bot, map, team) {
+			var area = map.findAreaWhereBotIs(bot)
+			var opponentAreas = map.findOpponents(bot.team, false)
+			var target = _.find(opponentAreas, function(botArea) {
+				return map.areaCanbeReachedInStraightLine(area, botArea) && !map.anythingBetweenAreas(area, botArea)
+			})
+			if (target && !target.robot.destroyed) {
+				while (area.calculateDistance(target) > 1) {
+					map.moveBotTowardsInStraightLine(area, target)
+					area = map.findAreaWhereBotIs(bot)
+				}
+				BattleLog.add('Hackram rams its target')
+                var targetBot = target.robot
+				targetBot.team.removeBot(target)
+				targetBot.hacked = !targetBot.hacked
+				team.addBot(targetBot)
+			} else {
+				var closestOpponent = area.findClosest(opponentAreas)
+				BattleLog.add('Hackram moves towards enemy.')
+				moveToClosestReachableOpponent(map, area, closestOpponent, opponentAreas, false)
+			}
+		}
+		this.levelRequirement = 5
+		this.price = 50
+		this.maxHealth = 13
+		this.intelligence = 'medium'
+		this.typeName = 'hackram'
+		this.description = 'Hackram will charge towards enemy and convert them to your cause'
 	}
 	
 	function Disablor() {
