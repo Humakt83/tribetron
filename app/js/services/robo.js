@@ -5,7 +5,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 
 	var types = [Hunter, Box, Medic, Totter, Radiator, Psycho, Crate, Zipper, Multiplicator, Cannoneer, 
 				Sniper, Hacker, Destructor, Trasher, PsychoMedic, HotTot, MegaHunter, Titan, Tauron, Colossus,
-				CombinatorAtomitum, CombinatorPlutan, Disablor, Doctor, Emanator, Trapper, Cannon, Bomb, Lazor, Nuka]
+				CombinatorAtomitum, CombinatorPlutan, Disablor, Doctor, Emanator, Trapper, Cannon, Bomb, Lazor, Nuka, StrongBox]
 	
 	var moveToClosestReachableOpponent = function(map, botArea, closestOpponent, opponentAreas, avoidTraps) {
 		while (opponentAreas.length > 0 && closestOpponent && !map.moveBotTowardsUsingFinder(botArea, closestOpponent, avoidTraps)) {
@@ -165,7 +165,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 		this.price = 0
 		this.maxHealth = 5
 		this.intelligence = 'none'
-		this.description = 'It`s a box. A box bot'
+		this.description = 'It`s a box. A box bot.'
 	}
 	
 	function Crate() {
@@ -177,7 +177,19 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 		this.price = 5
 		this.maxHealth = 30
 		this.intelligence = 'none'
-		this.description = 'A tough box'
+		this.description = 'A tough box.'
+	}
+            
+    function StrongBox() {
+		this.takeTurn = function() {
+			BattleLog.add('StrongBox does nothing.')
+		}
+		this.levelRequirement = 4
+		this.typeName = 'strongbox'
+		this.price = 25
+		this.maxHealth = 100
+		this.intelligence = 'none'
+		this.description = 'A very tough box.'
 	}
 	
 	function Medic() {
