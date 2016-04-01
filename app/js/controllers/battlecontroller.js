@@ -162,25 +162,7 @@ angular.module('Tribetron').controller('BattleController', ['$scope', '$interval
 	
 	$scope.actionPossible = function(area) {
 		if ($scope.waitingForPlayerTurn || !$scope.action || $scope.gameState.isOver()) return false
-		var actionPossible
-		switch ($scope.action.name) {
-			case 'Repair': 
-				actionPossible = area.robot && !area.robot.destroyed && area.robot.currentHealth < area.robot.type.maxHealth
-				break
-			case 'Attack': 
-				actionPossible = area.robot && !area.robot.destroyed
-				break
-			case 'Teleport':
-				actionPossible = (area.robot && !$scope.action.selectedBot && !area.robot.type.cannotBeTeleported) || ($scope.action.selectedBot && area.isEmpty())
-				break;
-            case 'Shield':
-			case 'Stun':
-				actionPossible = area.robot && !area.robot.destroyed
-				break;
-			default:
-				actionPossible = false
-		}
-		return $scope.action.cooldownLeft > 0 ? false : actionPossible;
+        return Abilities.actionPossible($scope.action.name, area, $scope.action.selectedBot)
 	}
 	
 	$scope.doAction = function(area) {

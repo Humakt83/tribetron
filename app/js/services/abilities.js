@@ -108,6 +108,27 @@ angular.module('Tribetron').factory('Abilities', [function() {
 				}
 			})
 		},
+        actionPossible : function(actionName, area, selectedBot) {
+            var actionPossible
+            switch (actionName) {
+                case 'Repair': 
+                    actionPossible = area.robot && !area.robot.destroyed && area.robot.currentHealth < area.robot.type.maxHealth
+                    break
+                case 'Attack': 
+                    actionPossible = area.robot && !area.robot.destroyed
+                    break
+                case 'Teleport':
+                    actionPossible = (area.robot && !selectedBot && !area.robot.type.cannotBeTeleported) || (selectedBot && area.isEmpty())
+                    break;
+                case 'Shield':
+                case 'Stun':
+                    actionPossible = area.robot && !area.robot.destroyed
+                    break;
+                default:
+                    actionPossible = false
+            }
+            return this.getAbilityByName(actionName).cooldownLeft > 0 ? false : actionPossible;
+        },
 		reset : function() {
 			angular.forEach(abilities, function(ability) {
 				if (ability.cooldown) {
