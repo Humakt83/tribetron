@@ -6,7 +6,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 	var types = [Hunter, Box, Medic, Totter, Radiator, Psycho, Crate, Zipper, Multiplicator, Cannoneer, 
 				Sniper, Hacker, Destructor, Trasher, PsychoMedic, HotTot, MegaHunter, Titan, Tauron, Colossus,
 				CombinatorAtomitum, CombinatorPlutan, Disablor, Doctor, Emanator, Trapper, Cannon, Bomb, Lazor, Nuka, 
-                 StrongBox, Spike, Hackram, Kamikaze]
+                 StrongBox, Spike, Hackram, Kamikaze, Quicko]
 	
 	var moveToClosestReachableOpponent = function(map, botArea, closestOpponent, opponentAreas, avoidTraps) {
 		while (opponentAreas.length > 0 && closestOpponent && !map.moveBotTowardsUsingFinder(botArea, closestOpponent, avoidTraps)) {
@@ -71,6 +71,28 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 		this.intelligence = 'medium'
 		this.typeName = 'megahunter'
 		this.description = 'MegaHunter is three times as strong as Hunter and upon destruction will split into them.'
+	}
+            
+    function Quicko() {
+		this.takeTurn = function(bot, map, team, doNotRepeat) {
+			var area = map.findAreaWhereBotIs(bot)
+			var opponentAreas = map.findOpponents(team)
+			var closestOpponent = area.findClosest(opponentAreas)
+			if (area.calculateDistance(closestOpponent) < 2) 
+				closestOpponent.robot.receiveDamage('Quicko', this.meleeDamage, map, bot, true)
+			else {
+				BattleLog.add('Quicko moves towards enemy.')
+				map.moveBotTowards(area, closestOpponent)
+			}
+            if (!doNotRepeat) this.takeTurn(bot, map, team, true)
+		}
+		this.levelRequirement = 2
+		this.price = 16
+		this.maxHealth = 10
+		this.meleeDamage = 4
+		this.intelligence = 'low'
+		this.typeName = 'quicko'
+		this.description = 'Quicko moves or attacks twice each turn.'
 	}
 	
 	function Zipper() {
