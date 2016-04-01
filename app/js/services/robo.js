@@ -5,7 +5,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 
 	var types = [Hunter, Box, Medic, Totter, Radiator, Psycho, Crate, Zipper, Multiplicator, Cannoneer, 
 				Sniper, Hacker, Destructor, Trasher, PsychoMedic, HotTot, MegaHunter, Titan, Tauron, Colossus,
-				CombinatorAtomitum, CombinatorPlutan, Disablor, Doctor, Emanator, Trapper, Cannon, Bomb, Lazor, Nuka, StrongBox]
+				CombinatorAtomitum, CombinatorPlutan, Disablor, Doctor, Emanator, Trapper, Cannon, Bomb, Lazor, Nuka, StrongBox, Spike]
 	
 	var moveToClosestReachableOpponent = function(map, botArea, closestOpponent, opponentAreas, avoidTraps) {
 		while (opponentAreas.length > 0 && closestOpponent && !map.moveBotTowardsUsingFinder(botArea, closestOpponent, avoidTraps)) {
@@ -20,7 +20,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 			var opponentAreas = map.findOpponents(team)
 			var closestOpponent = area.findClosest(opponentAreas)
 			if (area.calculateDistance(closestOpponent) < 2) 
-				closestOpponent.robot.receiveDamage('Hunter', this.meleeDamage, map)
+				closestOpponent.robot.receiveDamage('Hunter', this.meleeDamage, map, bot, true)
 			else {
 				BattleLog.add('Hunter moves towards enemy.')
 				map.moveBotTowards(area, closestOpponent)
@@ -41,7 +41,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 			var opponentAreas = map.findOpponents(team)
 			var closestOpponent = area.findClosest(opponentAreas)
 			if (area.calculateDistance(closestOpponent) < 2) 
-				closestOpponent.robot.receiveDamage('MegaHunter', this.meleeDamage, map)
+				closestOpponent.robot.receiveDamage('MegaHunter', this.meleeDamage, map, bot, true)
 			else {
 				BattleLog.add('MegaHunter moves towards enemy.')
 				moveToClosestReachableOpponent(map, area, closestOpponent, opponentAreas)
@@ -78,7 +78,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 			var opponentAreas = map.findOpponents(team)
 			var closestOpponent = area.findClosest(opponentAreas)
 			if (area.calculateDistance(closestOpponent) <= this.range) 
-				closestOpponent.robot.receiveDamage('Zipper', this.rangedDamage, map)
+				closestOpponent.robot.receiveDamage('Zipper', this.rangedDamage, map, bot)
 			else {
 				BattleLog.add('Zipper moves towards enemy.')
 				map.moveBotTowards(area, closestOpponent)
@@ -95,7 +95,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 	}
 	
 	function Lazor() {
-		this.fireLazer = function(map, botArea, targetArea) {
+		this.fireLazer = function(map, botArea, targetArea, bot) {
 			function createAreaTowardsTargetArea() {
 				if (botArea.xCoord === targetArea.xCoord) return AreaMap.createArea(botArea.xCoord, (botArea.yCoord - targetArea.yCoord) * -map.height)
 				else return AreaMap.createArea((botArea.xCoord - targetArea.xCoord) * -map.width, botArea.yCoord)
@@ -103,7 +103,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 			var thisRangedDamage = this.rangedDamage
 			var areaTowardsTargetArea = createAreaTowardsTargetArea()
 			angular.forEach(map.getAreasBetween(botArea, areaTowardsTargetArea), function(area) {
-				if (area.robot)	area.robot.receiveDamage('Lazor', thisRangedDamage, map)
+				if (area.robot)	area.robot.receiveDamage('Lazor', thisRangedDamage, map, bot)
 			})
 			GraphicsUtil.drawLazer(botArea, targetArea)
 		}
@@ -114,7 +114,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 				return map.areaCanbeReachedInStraightLine(area, opponentArea)
 			})
 			if (opponentAreaOnSameLine) 
-				this.fireLazer(map, area, opponentAreaOnSameLine)
+				this.fireLazer(map, area, opponentAreaOnSameLine, bot)
 			else {
 				BattleLog.add('Lazor moves towards enemy.')
 				var closestOpponent = area.findClosest(opponentAreas)
@@ -140,7 +140,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 			if (distance < 2) {
 				if (map.moveBotAway(area, closestOpponent)) BattleLog.add('Sniper moves away from the enemy')
 			} else if (distance <= this.range) {
-				closestOpponent.robot.receiveDamage('Sniper', this.rangedDamage, map)
+				closestOpponent.robot.receiveDamage('Sniper', this.rangedDamage, map, bot)
 			} else {
 				BattleLog.add('Sniper moves towards enemy.')
 				moveToClosestReachableOpponent(map, area, closestOpponent, opponentAreas)
@@ -190,6 +190,21 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 		this.maxHealth = 100
 		this.intelligence = 'none'
 		this.description = 'A very tough box.'
+	}
+            
+    function Spike() {
+		this.takeTurn = function() {
+			BattleLog.add('Spike does nothing.')
+		}
+        this.receiveDamageEffect = function(sourcebot, damage, map, melee) {
+            if (melee) sourcebot.receiveDamage('Spike', Math.floor(damage / 2), map)
+        }
+		this.levelRequirement = 2
+		this.typeName = 'spike'
+		this.price = 10
+		this.maxHealth = 23
+		this.intelligence = 'none'
+		this.description = 'A bot that will deal damage to its melee attacker equal to half the damage received. Does not move.'
 	}
 	
 	function Medic() {
@@ -243,7 +258,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 			var areaToMove = areasNear[Math.floor(Math.random() * areasNear.length)]
 			if (areaToMove.robot) {
 				bot.receiveDamage('self', this.meleeDamage, map)
-				if (areaToMove.robot) areaToMove.robot.receiveDamage('Totter', this.meleeDamage, map)
+				if (areaToMove.robot) areaToMove.robot.receiveDamage('Totter', this.meleeDamage, map, bot, true)
 			} else if (areaToMove.isWall) {
 				bot.receiveDamage('Wall', this.meleeDamage, map)
 			} else {
@@ -257,7 +272,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 			area.setRobot()
 			area.setExplosion()
 			angular.forEach(areasNear, function(areaNear) {
-				if (areaNear.robot) areaNear.robot.receiveDamage('Totter', bot.type.meleeDamage, map)
+				if (areaNear.robot) areaNear.robot.receiveDamage('Totter', bot.type.meleeDamage, map, bot)
 			})			
 			team.removeBot(bot)
 			GameHandler.getGameState().removeBotFromQueue(bot)
@@ -284,7 +299,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 					area = map.findAreaWhereBotIs(bot)
 				}
 				BattleLog.add('Hottot rams its target')
-				target.robot.receiveDamage('Hottot', this.meleeDamage, map)
+				target.robot.receiveDamage('Hottot', this.meleeDamage, map, bot)
 			} else {
 				BattleLog.add('Hottot did not find suitable target to destroy.')
 			}
@@ -319,7 +334,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 		this.radiateDamage = function(map, area, bot) {
 			var areasNear = map.findAreasCloseToArea(area)
 			angular.forEach(areasNear, function(areaNear) {
-				if (areaNear.robot) areaNear.robot.receiveDamage('Radiator', bot.type.radiationDamage, map)
+				if (areaNear.robot) areaNear.robot.receiveDamage('Radiator', bot.type.radiationDamage, map, bot)
 			})
 		}
 		this.takeTurn = function(bot, map, team) {
@@ -346,7 +361,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 		this.radiateDamage = function(map, area, bot) {
 			var areasNear = map.findAreasCloseToArea(area)
 			angular.forEach(areasNear, function(areaNear) {
-				if (areaNear.robot) areaNear.robot.receiveDamage('Emanator', bot.type.radiationDamage, map)
+				if (areaNear.robot) areaNear.robot.receiveDamage('Emanator', bot.type.radiationDamage, map, bot)
 			})
 		}
 		this.takeTurn = function(bot, map, team) {
@@ -374,7 +389,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 			var areasNear = map.findAreasCloseToArea(area)
 			areasNear.push(area)
 			angular.forEach(areasNear, function(areaNear) {
-				if (areaNear.robot) areaNear.robot.receiveDamage('Cannoneer', bot.type.explosiveDamage, map)
+				if (areaNear.robot) areaNear.robot.receiveDamage('Cannoneer', bot.type.explosiveDamage, map, bot)
 			})
 		}
 		this.takeTurn = function(bot, map, team) {
@@ -407,7 +422,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 			areasNear = _.uniq(areasNear)
 			areasNear = $filter('filter')(areasNear, function(an) { return an.robot && !an.robot.destroyed })
 			angular.forEach(areasNear, function(areaNear) {
-				if (areaNear.robot) areaNear.robot.receiveDamage('Cannon', bot.type.explosiveDamage, map)
+				if (areaNear.robot) areaNear.robot.receiveDamage('Cannon', bot.type.explosiveDamage, map, bot)
 			})
 			area.setExplosion(true)
 		}
@@ -432,7 +447,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 		this.range = 8
 		this.intelligence = 'medium'
 		this.typeName = 'cannon'
-		this.description = 'Volleys from Cannon, inflict explosive damage to target and surrounding bots. Unable to attack if enemy is in close range, so Cannon tries to retreat.'
+		this.description = 'Volleys from Cannon inflict explosive damage to target and surrounding bots. Unable to attack if enemy is in close range, so Cannon tries to retreat.'
 	}
 	
 	function Bomb() {
@@ -448,7 +463,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 			var opponentAreas = map.findOpponents(team)
 			var closestOpponent = area.findClosest(opponentAreas)
 			if (area.calculateDistance(closestOpponent) < 2) {
-				closestOpponent.robot.receiveDamage('Bomb', this.meleeDamage, map)
+				closestOpponent.robot.receiveDamage('Bomb', this.meleeDamage, map, bot, true)
 			} else {
 				BattleLog.add('Bomb moves towards enemy.')
 				map.moveBotTowards(area, closestOpponent)
@@ -466,7 +481,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 			areasNear = _.uniq(areasNear)
 			areasNear = $filter('filter')(areasNear, function(an) { return an.robot && !an.robot.destroyed })
 			angular.forEach(areasNear, function(areaNear) {
-				if (areaNear.robot) areaNear.robot.receiveDamage('Bomb', bot.type.explosiveDamage, map)
+				if (areaNear.robot) areaNear.robot.receiveDamage('Bomb', bot.type.explosiveDamage, map, bot)
 			})
 			area.setRobot()
 			area.setExplosion(true)	
@@ -497,7 +512,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 			var opponentAreas = map.findOpponents(team)
 			var closestOpponent = area.findClosest(opponentAreas)
 			if (area.calculateDistance(closestOpponent) < 2) {
-				closestOpponent.robot.receiveDamage('Nuka', this.meleeDamage, map)
+				closestOpponent.robot.receiveDamage('Nuka', this.meleeDamage, map, bot, true)
 			} else {
 				BattleLog.add('Nuka moves towards enemy.')
 				moveToClosestReachableOpponent(map, area, closestOpponent, opponentAreas)
@@ -520,7 +535,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 			areasNear = _.uniq(areasNear)
 			areasNear = $filter('filter')(areasNear, function(an) { return an.robot && !an.robot.destroyed })
 			angular.forEach(areasNear, function(areaNear) {
-				if (areaNear.robot) areaNear.robot.receiveDamage('Nuka', bot.type.explosiveDamage, map)
+				if (areaNear.robot) areaNear.robot.receiveDamage('Nuka', bot.type.explosiveDamage, map, bot)
 			})
 			area.setRobot()
 			area.setExplosion(false, true)
@@ -552,7 +567,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 					area = map.findAreaWhereBotIs(bot)
 				}
 				BattleLog.add('Psycho rams its target')
-				target.robot.receiveDamage('Psycho', this.meleeDamage, map)
+				target.robot.receiveDamage('Psycho', this.meleeDamage, map, bot, true)
 			} else {
 				BattleLog.add('Psycho did not find suitable target to destroy.')
 			}
@@ -579,7 +594,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 					area = map.findAreaWhereBotIs(bot)
 				}
 				BattleLog.add('Psycho-medic rams its target')
-				target.robot.receiveDamage('Psycho-medic', this.meleeDamage, map)
+				target.robot.receiveDamage('Psycho-medic', this.meleeDamage, map, bot, true)
 			} else {
 				BattleLog.add('Psycho-medic did not find suitable target to destroy.')
 			}
@@ -624,7 +639,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 					area = map.findAreaWhereBotIs(bot)
 				}
 				BattleLog.add('Tauron rams its target')
-				target.robot.receiveDamage('Tauron', this.meleeDamage, map)
+				target.robot.receiveDamage('Tauron', this.meleeDamage, map, bot, true)
 			} else {
 				var closestOpponent = area.findClosest(opponentAreas)
 				BattleLog.add('Tauron moves towards enemy.')
@@ -660,7 +675,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 			var opponentAreas = map.findOpponents(team)
 			var closestOpponent = area.findClosest(opponentAreas)
 			if (area.calculateDistance(closestOpponent) < 2) 
-				closestOpponent.robot.receiveDamage('Multiplicator', this.meleeDamage, map)
+				closestOpponent.robot.receiveDamage('Multiplicator', this.meleeDamage, map, bot, true)
 			else {
 				var botClone = new Robot(_.find(getTypesAsObjects(), function(typeAsObject) { return bot.type.typeName === typeAsObject.typeName}))
 				area.setRobot(botClone)
@@ -746,7 +761,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 			var opponentAreas = map.findOpponents(team)
 			var closestOpponent = area.findClosest(opponentAreas)
 			if (area.calculateDistance(closestOpponent) < 2) 
-				closestOpponent.robot.receiveDamage('Destructor', this.meleeDamage, map)
+				closestOpponent.robot.receiveDamage('Destructor', this.meleeDamage, map, bot, true)
 			else {
 				BattleLog.add('Destructor moves towards enemy.')
 				map.moveBotTowards(area, closestOpponent)
@@ -771,7 +786,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 					BattleLog.add('Trasher cleans up enemy wreckage')
 					closestOpponent.robot.team.removeBot(closestOpponent.robot)
 					closestOpponent.setRobot()
-				} else closestOpponent.robot.receiveDamage('Trasher', this.meleeDamage, map)
+				} else closestOpponent.robot.receiveDamage('Trasher', this.meleeDamage, map, bot, true)
 			} else {
 				BattleLog.add('Trasher moves towards enemy.')
 				map.moveBotTowards(area, closestOpponent)
@@ -793,7 +808,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 			var closestOpponent = area.findClosest(opponentAreas)
 			var distance = area.calculateDistance(closestOpponent)
 			if (distance <= this.range) { 
-				closestOpponent.robot.receiveDamage('Titan', distance < 2 ? this.meleeDamage : this.rangedDamage, map)
+				closestOpponent.robot.receiveDamage('Titan', distance < 2 ? this.meleeDamage : this.rangedDamage, map, bot, distance < 2)
 			} else {
 				BattleLog.add('Titan moves towards enemy.')
 				moveToClosestReachableOpponent(map, area, closestOpponent, opponentAreas)
@@ -822,7 +837,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 					closestOpponent.robot.team.removeBot(closestOpponent.robot)
 					closestOpponent.setRobot()
 					map.moveBot(area, closestOpponent)
-				} else closestOpponent.robot.receiveDamage('Colossus', this.meleeDamage, map)
+				} else closestOpponent.robot.receiveDamage('Colossus', this.meleeDamage, map, bot, true)
 			} else {
 				BattleLog.add('Colossus moves towards enemy.')
 				moveToClosestReachableOpponent(map, area, closestOpponent, opponentAreas)
@@ -844,7 +859,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 			var opponentAreas = map.findOpponents(team, true)
 			var closestOpponent = area.findClosest(opponentAreas)
 			if (area.calculateDistance(closestOpponent) < 2) {
-				closestOpponent.robot.receiveDamage('Atomitum', this.meleeDamage, map)
+				closestOpponent.robot.receiveDamage('Atomitum', this.meleeDamage, map, bot, true)
 			} else {
 				BattleLog.add('Atomitum moves towards enemy.')
 				moveToClosestReachableOpponent(map, area, closestOpponent, opponentAreas)
@@ -885,7 +900,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 			var opponentAreas = map.findOpponents(team, true)
 			var closestOpponent = area.findClosest(opponentAreas)
 			if (area.calculateDistance(closestOpponent) < 2) {
-				closestOpponent.robot.receiveDamage('Plutan', this.meleeDamage, map)
+				closestOpponent.robot.receiveDamage('Plutan', this.meleeDamage, map, bot, true)
 			} else {
 				BattleLog.add('Plutan moves towards enemy.')
 				moveToClosestReachableOpponent(map, area, closestOpponent, opponentAreas)
@@ -972,14 +987,17 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 			var turnClass = this.myTurn ? ' robot_animated' : ''
 			return this.type.typeName + postfix + turnClass
 		}
-		this.receiveDamage = function(source, damage, map) {
+		this.receiveDamage = function(source, damage, map, sourcebot, melee) {
+            if (this.destroyed) return
             if (this.shield > 0) {
                 this.shield--
                 return
-            }
-			if (this.destroyed) return
+            }			
 			this.currentHealth = Math.max(0, (this.currentHealth - damage))
-			BattleLog.add(this.type.typeName + ' receives ' + damage + ' damage from ' + source) 
+			BattleLog.add(this.type.typeName + ' receives ' + damage + ' damage from ' + source)
+            if (sourcebot && this.type.receiveDamageEffect) {
+                this.type.receiveDamageEffect(sourcebot, damage, map, melee)
+            }
 			if (this.currentHealth <= 0) {
 				BattleLog.add(this.type.typeName + ' is destroyed')
 				this.destroyed = true
