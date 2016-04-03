@@ -17,6 +17,7 @@ angular.module('Tribetron').factory('Abilities', [function() {
 			return false
 		}
 		this.name = 'Repair'
+        this.description = 'An ability to repair a bot in the battlefield. Repairs at maximum 10% of bots maximum health.'
 		this.levelRequirement = 1
 		this.image= imagePrefix + 'repair' + imagePostfix
 	}
@@ -31,6 +32,7 @@ angular.module('Tribetron').factory('Abilities', [function() {
 			return false
 		}
 		this.name = 'Attack'
+        this.description = 'Attack a bot to deal damage equal to 15 percent of bot`s maximum health'
 		this.levelRequirement = 1
 		this.image= imagePrefix + 'hit' + imagePostfix
 	}
@@ -44,6 +46,7 @@ angular.module('Tribetron').factory('Abilities', [function() {
             return false
         }
         this.name = 'Shield'
+        this.description = 'Shields the bot against the next attack it receives.'
         this.levelRequirement = 2
         this.image = imagePrefix + 'shield' + imagePostfix
     }
@@ -65,6 +68,7 @@ angular.module('Tribetron').factory('Abilities', [function() {
 		}
 		this.selectedBot = undefined
 		this.name = 'Teleport'
+        this.description = 'Teleports a bot from one place to another in the battlefield.'
 		this.levelRequirement = 5
 		this.image= imagePrefix + 'teleport' + imagePostfix
 		this.cooldown = 3
@@ -81,6 +85,7 @@ angular.module('Tribetron').factory('Abilities', [function() {
 			return false
 		}
 		this.name = 'Stun'
+        this.description = 'Disables a bot for a turn.'
 		this.levelRequirement = 3
 		this.image= imagePrefix + 'stun' + imagePostfix
 		this.cooldown = 2
