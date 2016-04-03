@@ -1,0 +1,41 @@
+<div class="container levelup">
+    <div class="row modal-header">
+        <div class="col-xs-6">
+            <h2>Level up!</h2>
+        </div>
+        <div class="col-xs-6">
+            <h3>New level: {{player.level}}</h3>
+        </div>
+    </div>
+    <div class="modal-body">
+        <div class="row levelupInfo" ng-if="tacticsGained">
+            <div class="col-xs-offset-1 col-xs-10">
+                <p>Gained an ability to deploy bots on the battlefield (they are no longer deployed on random locations). Can only deploy on the left side of the battlefield.</p>
+            </div>
+            <div class="col-xs-1"></div>
+        </div>
+        <div class="row levelupInfo" ng-if="newAbilities.length > 0">
+            <div class="col-xs-offset-1 col-xs-3">
+                <strong>New Abilities</strong>
+            </div>
+            <div class="col-xs-8">
+                <img ng-src="{{ability.image}}" class="ability-button img-circle" ng-repeat="ability in newAbilities" data-toggle="tooltip" data-placement="top" title="{{ability.name}}: {{ability.description}}">
+            </div>
+            <div class="col-xs-1"></div>
+        </div>
+        <div class="row levelupInfo">
+            <div class="col-xs-3 col-xs-offset-1">
+                <div class="robot avatar"></div>
+            </div>
+            <div class="col-xs-8">
+                <span>Health: <strong>{{player.avatar.type.maxHealth}}</strong>(+{{avatarHealthBonus}})</span>
+                <br>
+                <span>Damage: <strong>{{player.avatar.type.meleeDamage}}</strong>(+{{avatarDamageBonus}})</span>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="ok();">Ok</button>
+    </div>
+
+</div>

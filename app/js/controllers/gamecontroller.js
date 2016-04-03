@@ -1,7 +1,7 @@
 'use strict'
 
-angular.module('Tribetron').controller('GameController', ['$scope', '$location', 'Campaign', 'Player', 'Robot', 'InfoOpener', 'SaveGame', 
-                                                          function($scope, $location, Campaign, Player, Robot, InfoOpener, SaveGame) {
+angular.module('Tribetron').controller('GameController', ['$scope', '$location', '$modal', 'Campaign', 'Player', 'Robot', 'InfoOpener', 'SaveGame', 
+                                                          function($scope, $location, $modal, Campaign, Player, Robot, InfoOpener, SaveGame) {
 	
 	$scope.infoOpener = InfoOpener
     
@@ -23,7 +23,13 @@ angular.module('Tribetron').controller('GameController', ['$scope', '$location',
         Campaign.getScenario(Campaign.getCampaign().currentScenario).success(function(result) {
             $scope.scenario = result
             Campaign.setLoadedScenario(result)
-            if ($scope.scenario.levelup) $scope.player.levelUp()
+            if ($scope.scenario.levelup) {
+                
+                $modal.open({
+                    templateUrl: './partials/levelup.html',
+                    controller: 'LevelController'
+                })
+            }
             if ($scope.scenario.type && $scope.scenario.type == 'battle') {
                 setOpponentRosterForCustomBattle(result);
             }
@@ -93,5 +99,25 @@ angular.module('Tribetron').controller('GameController', ['$scope', '$location',
 		if (type == 'unknown')
 			return type
 		return type + '_enemy'
+	}
+}])
+
+angular.module('Tribetron').controller('LevelController', ['$scope', '$modalInstance', 'Player', 'Abilities', function($scope, $modalInstance, Player, Abilities) {
+	
+    var gamer = Player.getPlayer()
+    var healthBefore = gamer.avatar.type.maxHealth
+    var damageBefore = gamer.avatar.type.meleeDamage
+    var tacticsBefore = gamer.tactics
+    
+    gamer.levelUp()
+    
+    $scope.avatarHealthBonus = gamer.avatar.type.maxHealth - healthBefore
+    $scope.avatarDamageBonus = gamer.avatar.type.meleeDamage - damageBefore
+    $scope.tacticsGained = gamer.tactics && !tacticsBefore
+    $scope.player = gamer
+    $scope.newAbilities = Abilities.getAbilitiesByLevel($scope.player.level)
+    
+	$scope.ok = function() {
+		$modalInstance.dismiss('ok')
 	}
 }])

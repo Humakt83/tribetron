@@ -140,6 +140,11 @@ angular.module('Tribetron').factory('Abilities', [function() {
 					ability.cooldownLeft = 0
 				}
 			})
-		}
+		},
+        getAbilitiesByLevel : function(level) {
+            return _.filter(abilities, function(ability) {
+                return ability.levelRequirement === level
+            })
+        }
 	}
 }])

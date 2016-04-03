@@ -19,12 +19,13 @@ angular.module('Tribetron').factory('Player', ['Team', 'Robot', function(Team, R
 			this.avatar.type.maxHealth += 5
 			this.avatar.resetHealth()
 			this.avatar.type.meleeDamage += 2
+            if (this.level > 2) this.tactics = true
 		}
 		this.name = playerName
 		this.money = 5
 		this.team = Team.createPlayerTeam(teamName, [])
 		this.level = 1
-		this.tactics = true
+		this.tactics = false
 		this.avatar = Robot.createRobot(new Avatar())
 	}
 	
