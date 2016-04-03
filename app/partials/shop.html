@@ -25,7 +25,7 @@
 					<strong style="font-size: 22px">Money: {{money}} tribs</strong>
 				</div>
 				<div>
-					<strong style="float:left; font-size: 20px">Roster (max {{maxRosterSize}}): </strong><span ng-repeat="bot in team.robots" class="robot-small touchable" ng-class="bot.getTypeClass()" ng-click="sellOrRepair(bot)">
+					<strong style="float:left; font-size: 20px">Roster (required {{maxRosterSize}}): </strong><span ng-repeat="bot in team.robots" class="robot-small touchable" ng-class="bot.getTypeClass()" ng-click="sellOrRepair(bot)">
 						<img ng-if="bot.currentHealth < bot.type.maxHealth" class="repair" src="img/repair.png" />
 					</span>
 				</div>
