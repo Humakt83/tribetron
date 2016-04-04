@@ -5,7 +5,7 @@
 "maxRoster": 10,
 "rounds": 35,
 "levelup": true,
-"rosterOpponent": ["megaHunter", "emanator", "emanator", "hacker", "trapper", "plutan", "atomitum", "plutan", "atomitum", "titan", "doctor", "doctor", "cannon", "cannon"],
+"rosterOpponent": ["megahunter", "emanator", "emanator", "hacker", "trapper", "plutan", "atomitum", "plutan", "atomitum", "titan", "doctor", "doctor", "cannon", "cannon"],
 "opponentTeamName": "Hurdians",
 "opponent": "Mega",
 "traps": ["Mine", "Mine", "Mine", "Stun mine", "Stun mine", "Plasma pool", "Plasma pool", "Stun mine", "Plasma pool"]
