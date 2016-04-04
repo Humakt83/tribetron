@@ -1158,7 +1158,8 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 			var details = []
 			angular.forEach(Object.keys(botType), function(key) {
 				if (botType.hasOwnProperty(key) && !(botType[key] instanceof Function) && key !== '$$hashKey' && key != 'typeName' && key != 'description') {
-					details.push(key + ': ' + botType[key])
+                    if (botType[key] === true) details.push(key)
+					else details.push(key + ': ' + botType[key])
 				}
 			})
 			return details		
