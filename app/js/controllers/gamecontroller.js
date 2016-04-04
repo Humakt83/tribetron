@@ -23,7 +23,7 @@ angular.module('Tribetron').controller('GameController', ['$scope', '$location',
         Campaign.getScenario(Campaign.getCampaign().currentScenario).success(function(result) {
             $scope.scenario = result
             Campaign.setLoadedScenario(result)
-            if ($scope.scenario.levelup) {
+            if ($scope.scenario.levelup && $location.search().loaded !== '1') {
                 
                 $modal.open({
                     templateUrl: './partials/levelup.html',
@@ -76,23 +76,23 @@ angular.module('Tribetron').controller('GameController', ['$scope', '$location',
 	}
 	
 	$scope.goToShop = function() {
-		$location.path('/shop')
+		$location.path('/shop').search('loaded', null)
 	}
 	
 	$scope.goToPairs = function() {
-		$location.path('/pairs')
+		$location.path('/pairs').search('loaded', null)
 	}
 	
 	$scope.goToConquest = function() {
-		$location.path('/conquest')
+		$location.path('/conquest').search('loaded', null)
 	}
 	
 	$scope.goToChess = function() {
-		$location.path('/chess')
+		$location.path('/chess').search('loaded', null)
 	}
 	
 	$scope.goToAdventure = function() {
-		$location.path('/venture')
+		$location.path('/venture').search('loaded', null)
 	}
 	
 	$scope.getEnemyBotClass = function(type) {

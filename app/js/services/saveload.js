@@ -30,7 +30,7 @@ angular.module('Tribetron').factory('LoadGame', ['$location', 'Campaign', 'Playe
 		load: function() {
 			Player.loadPlayer(JSON.parse(localStorage[SAVENAME_PLAYER]))
 			Campaign.loadCampaign(JSON.parse(localStorage[SAVENAME_CAMPAIGN]))
-			$location.path('/game')
+			$location.path('/game').search({loaded: '1'})
 		},
 		isThereNoSave: function() {
 			return localStorage[SAVENAME_PLAYER] === undefined
