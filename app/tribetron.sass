@@ -133,12 +133,8 @@ p.detail
   margin: 0 0 0
 
 .info-detail
-  background: rgb(118, 118, 118)
-  color: white
   padding: 1px
   padding-left: 5px
-  border-radius: 5px
-  border-color: rgb(118, 118, 118)
   margin-bottom: 3px
   p
     margin-bottom: 1px
@@ -194,6 +190,11 @@ p.detail
   -moz-transform: scale(1.0)
   transform-origin: 0 0
   -moz-transform-origin: 0 0
+  width: 100px
+  height: 100px
+  &.avatar
+    transform: scale(0.5)
+    -moz-transform: scale(0.5)
 
 .avatar:before
   transform: scale(1.75)
@@ -206,6 +207,7 @@ p.detail
   content: ""
   background-size: 100%
   display: block
+
 
 $botlist: atomitum bomb box cannon cannoneer colossus crate destructor disablor doctor emanator hacker hackram hottot hunter kamikaze lazor medic megahunter multiplicator nuka plutan psycho-medic psycho quicko radiator sniper spike strongbox tauron titan totter trapper trasher zipper
 
@@ -454,6 +456,8 @@ $botlist: atomitum bomb box cannon cannoneer colossus crate destructor disablor 
   padding-top: 3px
   padding-left: 7px
   padding-bottom: 3px
+  background: rgb(118, 118, 118)
+  color: white
   .bot-name
     font-size: larger
     font-weight: bolder

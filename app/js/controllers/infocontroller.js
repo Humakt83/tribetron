@@ -7,11 +7,13 @@ angular.module('Tribetron').controller('BotInfo', ['$scope', '$modalInstance', '
 	if (botTypeName === 'avatar') {
 		$scope.robotDetails = Robot.getDetails(Player.getPlayer().avatar.type)
 		$scope.description = Player.getPlayer().avatar.type.description
+        $scope.roboImg = Player.getPlayer().avatar.getTypeClass
 	} else {
 		angular.forEach(Robot.getTypesAsObjects(), function(robotType) {
 			if (robotType.typeName == botTypeName) {
 				$scope.robotDetails = Robot.getDetails(robotType)
 				$scope.description = robotType.description
+                $scope.robotImg = robotType.typeName
 			}
 		})
 	}

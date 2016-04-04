@@ -3,12 +3,19 @@
 		<span class="bot-name">{{botTypeName | capitalize}}</span>
 	</div>
 	<div class="modal-body">
-		<div class="info-detail">
-			<p ng-repeat="detail in robotDetails">{{detail | capitalize | spacify}}</p>
-		</div>
-		<p class="info-detail">{{description}}</p>		
+        <div class="row">
+            <div class="col-xs-5">
+                <div class="robot robot-large" ng-class="botTypeName"></div>
+            </div>
+            <div class="info-detail col-xs-7">
+                <p ng-repeat="detail in robotDetails">{{detail | capitalize | spacify}}</p>
+            </div>
+        </div>
+        <div class="row">
+            <p class="info-detail">{{description}}</p>
+        </div>				
 	</div>
 	<div class="modal-footer">
-		<button class="btn btn-primary" ng-click="cancel()">Close</button>
+		<button class="btn btn-primary" ng-click="cancel()">Ok</button>
 	</div>
 </div>
