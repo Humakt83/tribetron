@@ -4,7 +4,7 @@
 "areaHeight": 15,
 "maxRoster": 11,
 "rounds": 30,
-"rosterOpponent": ["hunter", "box", "medic", "totter", "radiator", "psycho", "crate", "zipper", "multiplicator", "cannoneer", "sniper", "hacker", "destructor", "trasher", "psycho-medic", "hottot", "megaHunter", "titan", "tauron", "colossus", "atomitum", "plutan", "disablor", "doctor", "emanator", "trapper", "cannon", "bomb", "lazor", "nuka"],
+"rosterOpponent": ["hunter", "box", "medic", "totter", "radiator", "psycho", "crate", "zipper", "multiplicator", "cannoneer", "sniper", "hacker", "destructor", "trasher", "psycho-medic", "hottot", "megahunter", "titan", "tauron", "colossus", "atomitum", "plutan", "disablor", "doctor", "emanator", "trapper", "cannon", "bomb", "lazor", "nuka"],
 "opponentTeamName": "Allians",
 "opponent": "Mega",
 "traps": ["Mine", "Mine", "Mine", "Stun mine", "Stun mine", "Plasma pool", "Plasma pool", "Stun mine"]
