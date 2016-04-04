@@ -1,8 +1,10 @@
+$bgcolor: rgba(150, 150, 150, 1)
+$bgcoloroutline: rgba(130, 130, 130, 0.75)
+
 body
-  background: -webkit-linear-gradient(left, rgba(100, 100, 100, 0), rgba(200, 200, 200, 1))
-  background: -o-linear-gradient(right, rgba(100, 100, 100, 0), rgba(200, 200, 200, 1))
-  background: -moz-linear-gradient(right, rgba(100, 100, 100, 0), rgba(200, 200, 200, 1))
-  background: linear-gradient(to right, rgba(100, 100, 100, 0), rgba(200, 200, 200, 1))
+    background: (linear-gradient(135deg, $bgcolor 11px, $bgcoloroutline 11px, $bgcoloroutline 12px, transparent 12px, transparent 33px, $bgcoloroutline 33px, $bgcoloroutline 34px, transparent 34px), linear-gradient(225deg, $bgcolor 11px, $bgcoloroutline 11px, $bgcoloroutline 11px, transparent 12px, transparent 33px, $bgcoloroutline 33px, $bgcoloroutline 34px, transparent 34px)0 32px);
+    background-color: $bgcolor
+    background-size: 32px 64px
 
 .container
   width: 1700px
