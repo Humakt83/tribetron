@@ -33,7 +33,8 @@
                     <td ng-repeat="area in map.getAreasByRow($index)" ng-class="{'touchable': actionPossible(area), 'wall': area.isWall, 'floor': !area.isWall}" ng-click="doAction(area)">
                         <div ng-if="area.robot" ng-class="area.robot.getTypeClass()" class="robot" ng-info-click="infoOpener.openBotInfo($event)" ng-bot="{{area.robot.type.typeName}}"></div>
                         <div ng-if="area.robot && area.robot.destroyed" class="broken"></div>
-                        <div ng-if="area.robot && !area.robot.destroyed && area.robot.stunned > 0" class="stunned"></div>							
+                        <div ng-if="area.robot && !area.robot.destroyed && area.robot.stunned > 0" class="stunned"></div>
+                        <div ng-if="area.robot && !area.robot.destroyed && area.robot.shield > 0" class="shield"></div>
                         <div ng-if="area.robot" class="health">
                             <div class="health-bar" ng-class="{'health-bar_enemy': area.robot.team.isEnemy}" style="width:{{area.robot.calculatePercentageOfHealth()}}%;"></div>
                         </div>							
