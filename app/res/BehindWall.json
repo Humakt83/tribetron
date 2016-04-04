@@ -1,0 +1,80 @@
+{
+  "type" : "battle",
+  "story" : "Description",
+  "maxRoster" : 6,
+  "reward" : 50,
+  "opponentTeamName" : "Zappers",
+  "opponent" : "Base",
+  "rounds" : 20,
+  "rows" : [ [ {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "box"
+  }, {
+    "object" : "zipper"
+  } ], [ {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "box"
+  }, {
+    "object" : "zipper"
+  } ], [ {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "crate"
+  }, {
+    "object" : "sniper"
+  } ], [ {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "box"
+  }, {
+    "object" : "zipper"
+  } ], [ {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "floor"
+  }, {
+    "object" : "box"
+  }, {
+    "object" : "zipper"
+  } ] ]
+}
