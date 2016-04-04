@@ -4,7 +4,7 @@
 "areaHeight": 10,
 "maxRoster": 10,
 "rounds": 35,
-"rosterOpponent": ["megaHunter", "megaHunter", "hottot", "hottot", "disablor", "disablor", "plutan", "atomitum", "titan", "psycho-medic", "psycho-medic", "tauron", "tauron", "disablor"],
+"rosterOpponent": ["megahunter", "megahunter", "hottot", "hottot", "disablor", "disablor", "plutan", "atomitum", "titan", "psycho-medic", "psycho-medic", "tauron", "tauron", "disablor"],
 "opponentTeamName": "Stimulons",
 "opponent": "Mega",
 "traps": ["Mine", "Mine", "Mine", "Stun mine", "Stun mine", "Plasma pool", "Plasma pool", "Stun mine", "Plasma pool"]
