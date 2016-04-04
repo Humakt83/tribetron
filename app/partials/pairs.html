@@ -1,26 +1,24 @@
-<div class="container">
-	<div class="row">
-		<div class="col-xs-4 pairs">
-			<div ng-repeat="row in rows">
-				<div class="robot card" ng-class="[card.typeName]" ng-repeat="card in row" ng-click="clickCard(card)">
-					<img ng-if="!card.turned" src="img/card.png" class="turned-card" />
-				</div>
-			</div>
-		</div>
-		
-		<div class="col-xs-1"></div>
-		
-		<div class="col-xs-4 pairs-info">
-			<strong>Pairs left</strong>: {{numberOfPairsLeft}} <br />
-			<strong>Clicks</strong>: {{clicks}}/{{maxClicks}} <br />
-			<strong>Reward</strong>: {{reward}} tribs
-			<div class="btn-group">
-				<button class="btn btn-default" ng-disabled="victory" ng-click="skip()">Skip</button>
-				<button class="btn btn-success" ng-disabled="!victory" ng-click="win()">Continue</button>
-			</div>
-			<p ng-if="pairsOver">
-				{{pairsOverText}}
-			</p>
-		</div>
-	</div>
+<div class="row">
+    <div class="col-xs-4 pairs">
+        <div ng-repeat="row in rows">
+            <div class="robot card" ng-class="[card.typeName]" ng-repeat="card in row" ng-click="clickCard(card)">
+                <img ng-if="!card.turned" src="img/card.png" class="turned-card" />
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xs-1"></div>
+
+    <div class="col-xs-4 pairs-info">
+        <strong>Pairs left</strong>: {{numberOfPairsLeft}} <br />
+        <strong>Clicks</strong>: {{clicks}}/{{maxClicks}} <br />
+        <strong>Reward</strong>: {{reward}} tribs
+        <div class="btn-group">
+            <button class="btn btn-default" ng-disabled="victory" ng-click="skip()">Skip</button>
+            <button class="btn btn-success" ng-disabled="!victory" ng-click="win()">Continue</button>
+        </div>
+        <p ng-if="pairsOver">
+            {{pairsOverText}}
+        </p>
+    </div>
 </div>

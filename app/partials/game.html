@@ -1,60 +1,57 @@
-<div class="container">
-	
-	<div class="row" ng-hide="completed">
-		<div class="col-xs-6 player-info">
-			<h4>Player: {{player.name}}</h4>
-			<span>Team: {{player.team.name}} </span><br />
-			<span>Money: {{player.money}} tribs</span><br />
-			<span>Level: {{player.level}}</span>
-			<div class="row" ng-show="player.team.robots && player.team.robots.length > 0">
-				<strong style="float:left">Roster&nbsp;</strong>
-				<span class="robot-small" ng-repeat="bot in player.team.robots" ng-class="bot.getTypeClass()" ng-info-click="infoOpener.openBotInfo($event)" ng-bot="{{bot.type.typeName}}">
-			</div>
-			<div>
-				<button class="btn btn-primary" ng-click="saveGame()">Save Game</button>
-			</div>
-		</div>
-		
-		<div class="col-xs-6 scenario-info">
-			<div ng-if="!scenario.type || scenario.type === 'battle'">
-				<h3>Next battle</h3>
-				<div class="row">
-					<h4>{{scenario.opponentTeamName}}</h4>
-					<span class="robot-small" ng-class="getEnemyBotClass(type)" ng-repeat="type in scenario.rosterOpponent track by $index" ng-info-click="infoOpener.openBotInfo($event)" ng-bot="{{type}}"></span>
-				</div>
-				<div class="row">
-					<strong>Reward: {{scenario.reward}} tribs</strong>
-					<button ng-click="goToShop()" style="float:right; margin-right: 15px;" class="btn btn-primary">Shop</button>
-				</div>
-			</div>
-			
-			<div ng-if="scenario.type && scenario.type == 'pairs'">
-				<div class="row">
-					<strong>Reward: {{scenario.reward}} tribs</strong>
-					<button ng-click="goToPairs()" style="float:right; margin-right: 15px;" class="btn btn-primary">Memory Challenge</button>
-				</div>
-			</div>
-			
-			<div ng-if="scenario.type && scenario.type == 'conquest'">
-				<div class="row">
-					<strong>Reward: {{scenario.reward}} tribs</strong>
-					<button ng-click="goToConquest()" style="float:right; margin-right: 15px;" class="btn btn-primary">Conquest</button>
-				</div>
-			</div>
-			
-			<div ng-if="scenario.type && scenario.type == 'chess'">
-				<div class="row">
-					<strong>Reward: {{scenario.reward}} tribs</strong>
-					<button ng-click="goToChess()" style="float:right; margin-right: 15px;" class="btn btn-primary">Chess</button>
-				</div>
-			</div>
-			
-			<div ng-if="scenario.type && scenario.type == 'venture'">
-				<div class="row">
-					<strong>{{scenario.story ? scenario.story : 'Adventure awaits'}}</strong>
-					<button ng-click="goToAdventure()" style="float:right; margin-right: 15px;" class="btn btn-primary">Travel</button>
-				</div>
-			</div>
-		</div>
-	</div>
+<div class="row" ng-hide="completed">
+    <div class="col-xs-6 player-info">
+        <h4>Player: {{player.name}}</h4>
+        <span>Team: {{player.team.name}} </span><br />
+        <span>Money: {{player.money}} tribs</span><br />
+        <span>Level: {{player.level}}</span>
+        <div class="row" ng-show="player.team.robots && player.team.robots.length > 0">
+            <strong style="float:left">Roster&nbsp;</strong>
+            <span class="robot-small" ng-repeat="bot in player.team.robots" ng-class="bot.getTypeClass()" ng-info-click="infoOpener.openBotInfo($event)" ng-bot="{{bot.type.typeName}}">
+        </div>
+        <div>
+            <button class="btn btn-primary" ng-click="saveGame()">Save Game</button>
+        </div>
+    </div>
+
+    <div class="col-xs-6 scenario-info">
+        <div ng-if="!scenario.type || scenario.type === 'battle'">
+            <h3>Next battle</h3>
+            <div class="row">
+                <h4>{{scenario.opponentTeamName}}</h4>
+                <span class="robot-small" ng-class="getEnemyBotClass(type)" ng-repeat="type in scenario.rosterOpponent track by $index" ng-info-click="infoOpener.openBotInfo($event)" ng-bot="{{type}}"></span>
+            </div>
+            <div class="row">
+                <strong>Reward: {{scenario.reward}} tribs</strong>
+                <button ng-click="goToShop()" style="float:right; margin-right: 15px;" class="btn btn-primary">Shop</button>
+            </div>
+        </div>
+
+        <div ng-if="scenario.type && scenario.type == 'pairs'">
+            <div class="row">
+                <strong>Reward: {{scenario.reward}} tribs</strong>
+                <button ng-click="goToPairs()" style="float:right; margin-right: 15px;" class="btn btn-primary">Memory Challenge</button>
+            </div>
+        </div>
+
+        <div ng-if="scenario.type && scenario.type == 'conquest'">
+            <div class="row">
+                <strong>Reward: {{scenario.reward}} tribs</strong>
+                <button ng-click="goToConquest()" style="float:right; margin-right: 15px;" class="btn btn-primary">Conquest</button>
+            </div>
+        </div>
+
+        <div ng-if="scenario.type && scenario.type == 'chess'">
+            <div class="row">
+                <strong>Reward: {{scenario.reward}} tribs</strong>
+                <button ng-click="goToChess()" style="float:right; margin-right: 15px;" class="btn btn-primary">Chess</button>
+            </div>
+        </div>
+
+        <div ng-if="scenario.type && scenario.type == 'venture'">
+            <div class="row">
+                <strong>{{scenario.story ? scenario.story : 'Adventure awaits'}}</strong>
+                <button ng-click="goToAdventure()" style="float:right; margin-right: 15px;" class="btn btn-primary">Travel</button>
+            </div>
+        </div>
+    </div>
 </div>

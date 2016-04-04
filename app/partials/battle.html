@@ -1,65 +1,63 @@
-<div class="container">
-	<div class="row">
-		<div class="col-xs-2 battle-info">
-			<img ng-src="{{ability.image}}" class="ability-button img-circle" ng-class="{'ability-disabled': (waitingForPlayerTurn || gameState.isOver() || ability.cooldownLeft > 0)}" ng-repeat="ability in abilities" 
-				ng-click="pickAction(ability)" ng-hide="player.level < ability.levelRequirement" ng-disabled="waitingForPlayerTurn || gameState.isOver() || ability.cooldownLeft > 0"
-				data-toggle="tooltip" data-placement="top" title="{{ability.name}}: {{ability.description}}">
-			<div class="row">
-				<h1>{{team.name}}</h1>
-				<span ng-repeat="botsByType in team.botsByTypeAlive"><span class="robot-small" ng-class="bot.getTypeClass()" ng-repeat="bot in botsByType.bots"></span></span>
-			</div>
-			<div class="row" style="padding-top: 5px;">
-				<button ng-click="settings.decreaseSpeed()" class="btn btn-default" ng-disabled="!settings.canDecreaseSpeed()">- Speed</button>
-				<button ng-click="settings.increaseSpeed()" class="btn btn-default" ng-disabled="!settings.canIncreaseSpeed()">+ Speed</button>
-			</div>
-            <div class="row margin-left">
-                <span><strong>Round {{gameState.round}}/{{gameState.maxRounds}}</strong></span>
-                <div ng-show="tacticsPhase" class="row">
-                    <h2>Tactics phase</h2>
-                    <p style="white-space: pre;">Place your bots on the left side of arena.</p>
-                    <span style="float: left">Bot to place: </span><span class="robot-small" ng-class="botsToPlace[botToPlace].getTypeClass()"></span>
-                </div>
-                <div ng-show="gameState.isOver()" class="row">
-                    <h2>Game Over!</h2>
-                    <p style="white-space: pre;">{{winMessage()}}</p>
-                    <button ng-show="victorious" ng-click="continueGame()" class="btn btn-primary">Continue Campaign</button>
-                    <button ng-show="!victorious" ng-click="backToMain()" class="btn btn-primary">Continue to Main Menu</button>
-                </div>
+<div class="row">
+    <div class="col-xs-2 battle-info">
+        <img ng-src="{{ability.image}}" class="ability-button img-circle" ng-class="{'ability-disabled': (waitingForPlayerTurn || gameState.isOver() || ability.cooldownLeft > 0)}" ng-repeat="ability in abilities" 
+            ng-click="pickAction(ability)" ng-hide="player.level < ability.levelRequirement" ng-disabled="waitingForPlayerTurn || gameState.isOver() || ability.cooldownLeft > 0"
+            data-toggle="tooltip" data-placement="top" title="{{ability.name}}: {{ability.description}}">
+        <div class="row">
+            <h1>{{team.name}}</h1>
+            <span ng-repeat="botsByType in team.botsByTypeAlive"><span class="robot-small" ng-class="bot.getTypeClass()" ng-repeat="bot in botsByType.bots"></span></span>
+        </div>
+        <div class="row" style="padding-top: 5px;">
+            <button ng-click="settings.decreaseSpeed()" class="btn btn-default" ng-disabled="!settings.canDecreaseSpeed()">- Speed</button>
+            <button ng-click="settings.increaseSpeed()" class="btn btn-default" ng-disabled="!settings.canIncreaseSpeed()">+ Speed</button>
+        </div>
+        <div class="row margin-left">
+            <span><strong>Round {{gameState.round}}/{{gameState.maxRounds}}</strong></span>
+            <div ng-show="tacticsPhase" class="row">
+                <h2>Tactics phase</h2>
+                <p style="white-space: pre;">Place your bots on the left side of arena.</p>
+                <span style="float: left">Bot to place: </span><span class="robot-small" ng-class="botsToPlace[botToPlace].getTypeClass()"></span>
             </div>
-		</div>
-		<div class="col-xs-8">		
-			<table class="table-bordered game">
-				<tbody>
-					<tr ng-repeat="row in map.rows track by $index">
-						<td ng-repeat="area in map.getAreasByRow($index)" ng-class="{'touchable': actionPossible(area), 'wall': area.isWall, 'floor': !area.isWall}" ng-click="doAction(area)">
-							<div ng-if="area.robot" ng-class="area.robot.getTypeClass()" class="robot" ng-info-click="infoOpener.openBotInfo($event)" ng-bot="{{area.robot.type.typeName}}"></div>
-							<div ng-if="area.robot && area.robot.destroyed" class="broken"></div>
-							<div ng-if="area.robot && !area.robot.destroyed && area.robot.stunned > 0" class="stunned"></div>							
-							<div ng-if="area.robot" class="health">
-								<div class="health-bar" ng-class="{'health-bar_enemy': area.robot.team.isEnemy}" style="width:{{area.robot.calculatePercentageOfHealth()}}%;"></div>
-							</div>							
-							<div ng-if="area.trap" class="trap" ng-class="area.trap.trapType.cssName"></div>
-							<img ng-if="area.robot" class="hit" ng-hide="area.robot.damaged < 1" src="img/hit.png" />
-							<img ng-if="area.robot" class="heal" ng-hide="!area.robot.beingHealed" src="img/repair.png" />
-							<img ng-if="area.explosion" class="explosion" ng-class="{'explosion_big': area.bigExplosion}" ng-hide="!area.explosion" src="img/explosion.png" />
-							<img ng-if="area.nuke" class="nuke" ng-hide="!area.nuke" src="img/nuke.png" />
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-		
-		<div class="col-xs-2 battle-info">
-			<div class="row">
-				<h1>{{opponent.type.name}}</h1>
-				<img class="opponent-portrait" src="{{opponent.type.image}}" /><br />
-				<p class="taunt">{{opponentTaunt}}</p>
-			</div>
-			<div class="row">
-				<h1>{{enemyTeam.name}}</h1>
-				<span ng-repeat="botsByType in enemyTeam.botsByTypeAlive"><span class="robot-small" ng-class="bot.getTypeClass()" ng-repeat="bot in botsByType.bots"></span></span>
-			</div>
-		</div>
-	
-	</div>
+            <div ng-show="gameState.isOver()" class="row">
+                <h2>Game Over!</h2>
+                <p style="white-space: pre;">{{winMessage()}}</p>
+                <button ng-show="victorious" ng-click="continueGame()" class="btn btn-primary">Continue Campaign</button>
+                <button ng-show="!victorious" ng-click="backToMain()" class="btn btn-primary">Continue to Main Menu</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-8">		
+        <table class="table-bordered game centered">
+            <tbody>
+                <tr ng-repeat="row in map.rows track by $index">
+                    <td ng-repeat="area in map.getAreasByRow($index)" ng-class="{'touchable': actionPossible(area), 'wall': area.isWall, 'floor': !area.isWall}" ng-click="doAction(area)">
+                        <div ng-if="area.robot" ng-class="area.robot.getTypeClass()" class="robot" ng-info-click="infoOpener.openBotInfo($event)" ng-bot="{{area.robot.type.typeName}}"></div>
+                        <div ng-if="area.robot && area.robot.destroyed" class="broken"></div>
+                        <div ng-if="area.robot && !area.robot.destroyed && area.robot.stunned > 0" class="stunned"></div>							
+                        <div ng-if="area.robot" class="health">
+                            <div class="health-bar" ng-class="{'health-bar_enemy': area.robot.team.isEnemy}" style="width:{{area.robot.calculatePercentageOfHealth()}}%;"></div>
+                        </div>							
+                        <div ng-if="area.trap" class="trap" ng-class="area.trap.trapType.cssName"></div>
+                        <img ng-if="area.robot" class="hit" ng-hide="area.robot.damaged < 1" src="img/hit.png" />
+                        <img ng-if="area.robot" class="heal" ng-hide="!area.robot.beingHealed" src="img/repair.png" />
+                        <img ng-if="area.explosion" class="explosion" ng-class="{'explosion_big': area.bigExplosion}" ng-hide="!area.explosion" src="img/explosion.png" />
+                        <img ng-if="area.nuke" class="nuke" ng-hide="!area.nuke" src="img/nuke.png" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col-xs-2 battle-info">
+        <div class="row">
+            <h1>{{opponent.type.name}}</h1>
+            <img class="opponent-portrait" src="{{opponent.type.image}}" /><br />
+            <p class="taunt">{{opponentTaunt}}</p>
+        </div>
+        <div class="row">
+            <h1>{{enemyTeam.name}}</h1>
+            <span ng-repeat="botsByType in enemyTeam.botsByTypeAlive"><span class="robot-small" ng-class="bot.getTypeClass()" ng-repeat="bot in botsByType.bots"></span></span>
+        </div>
+    </div>
+
 </div>
