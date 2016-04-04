@@ -22,12 +22,12 @@
 		</table>
 		<div class="venture-message" ng-hide="!message"><span>{{message}}</span></div>
 		<div class="text-center">
-			<button ng-click="settings.decreaseSpeed()" class="btn btn-default" ng-disabled="!settings.canDecreaseSpeed()">- Speed</button>
-			<button ng-click="settings.increaseSpeed()" class="btn btn-default" ng-disabled="!settings.canIncreaseSpeed()">+ Speed</button>
+			<button ng-click="settings.decreaseSpeed()" class="btn btn-tribetron" ng-disabled="!settings.canDecreaseSpeed()">- Speed</button>
+			<button ng-click="settings.increaseSpeed()" class="btn btn-tribetron" ng-disabled="!settings.canIncreaseSpeed()">+ Speed</button>
 		</div>
 	</div>
 	<div class="row text-center">
-		<button class="btn btn-success" ng-show="ventureOver" ng-click="continueCampaign()">Continue Campaign</button>
-		<button class="btn btn-warning" ng-show="player.avatar.destroyed" ng-click="backToMain()">Continue to Main Menu</button>
+		<button class="btn btn-tribetron" ng-show="ventureOver" ng-click="continueCampaign()">Continue Campaign</button>
+		<button class="btn btn-tribetron" ng-show="player.avatar.destroyed" ng-click="backToMain()">Continue to Main Menu</button>
 	</div>
 </div>

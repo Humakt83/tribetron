@@ -1,8 +1,8 @@
 <div class="row">
-    <button ng-click="newGame()" class="btn btn-primary">New Game</button>
-    <button ng-click="settings.decreaseSpeed()" class="btn btn-default" ng-disabled="!settings.canDecreaseSpeed()">- Speed</button>
-    <button ng-click="settings.increaseSpeed()" class="btn btn-default" ng-disabled="!settings.canIncreaseSpeed()">+ Speed</button>
-    <button ng-click="showMapOptions = !showMapOptions" class="btn btn-default">{{showMapOptions ? "Hide" : "Show"}} Map Options</button>
+    <button ng-click="newGame()" class="btn btn-tribetron">New Game</button>
+    <button ng-click="settings.decreaseSpeed()" class="btn btn-tribetron" ng-disabled="!settings.canDecreaseSpeed()">- Speed</button>
+    <button ng-click="settings.increaseSpeed()" class="btn btn-tribetron" ng-disabled="!settings.canIncreaseSpeed()">+ Speed</button>
+    <button ng-click="showMapOptions = !showMapOptions" class="btn btn-tribetron">{{showMapOptions ? "Hide" : "Show"}} Map Options</button>
 </div>
 
 <div class="row rumble-input-number-group form-inline" ng-show="showMapOptions">
@@ -49,12 +49,12 @@
             </tbody>
         </table>
 
-        <button class="btn btn-default" ng-click="nextTurn()" ng-disabled="gameState.isOver()">Next turn</button>
-        <button class="btn btn-default" ng-click="fullTurn()" ng-disabled="gameState.isOver()">Full turn</button>
-        <button class="btn btn-default" ng-click="togglePlay()" ng-disabled="gameState.isOver()">{{playToggle}}</button>
+        <button class="btn btn-tribetron" ng-click="nextTurn()" ng-disabled="gameState.isOver()">Next turn</button>
+        <button class="btn btn-tribetron" ng-click="fullTurn()" ng-disabled="gameState.isOver()">Full turn</button>
+        <button class="btn btn-tribetron" ng-click="togglePlay()" ng-disabled="gameState.isOver()">{{playToggle}}</button>
         <span>{{gameState.round}}/{{gameState.maxRounds}}</span>
         <span ng-show="autoPlayOn"> <input type="checkbox" ng-model="continuousPlay"> Endless game</span>
-        <button ng-click="showBattleLog = !showBattleLog" class="btn btn-default">{{showBattleLog ? "Hide" : "Show"}} log</button>
+        <button ng-click="showBattleLog = !showBattleLog" class="btn btn-tribetron">{{showBattleLog ? "Hide" : "Show"}} log</button>
         <div ng-show="showBattleLog">
             <textarea class="battle-log" ng-disabled="true" ng-trim="false">{{battleLog.log.join('')}}</textarea>
         </div>

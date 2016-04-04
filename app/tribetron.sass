@@ -1,5 +1,6 @@
 $bgcolor: rgba(150, 150, 150, 1)
 $bgcoloroutline: rgba(130, 130, 130, 0.75)
+$buttonbg: rgba(90, 90, 90, 1)
 
 body
     background: (linear-gradient(135deg, $bgcolor 11px, $bgcoloroutline 11px, $bgcoloroutline 12px, transparent 12px, transparent 33px, $bgcoloroutline 33px, $bgcoloroutline 34px, transparent 34px), linear-gradient(225deg, $bgcolor 11px, $bgcoloroutline 11px, $bgcoloroutline 11px, transparent 12px, transparent 33px, $bgcoloroutline 33px, $bgcoloroutline 34px, transparent 34px)0 32px);
@@ -127,6 +128,7 @@ table
   margin-left: auto
   margin-right: auto
   position: relative
+  text-align: center
 
 .touchable
   cursor: pointer
@@ -558,3 +560,9 @@ div.lazer-beam
 
 .margin-left
   margin-left: 3px
+
+.btn-tribetron
+    background-color: $buttonbg
+    color: white
+    border: 2px solid black
+    font-weight: bold

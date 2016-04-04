@@ -8,8 +8,8 @@
             <span ng-repeat="botsByType in team.botsByTypeAlive"><span class="robot-small" ng-class="bot.getTypeClass()" ng-repeat="bot in botsByType.bots"></span></span>
         </div>
         <div class="row" style="padding-top: 5px;">
-            <button ng-click="settings.decreaseSpeed()" class="btn btn-default" ng-disabled="!settings.canDecreaseSpeed()">- Speed</button>
-            <button ng-click="settings.increaseSpeed()" class="btn btn-default" ng-disabled="!settings.canIncreaseSpeed()">+ Speed</button>
+            <button ng-click="settings.decreaseSpeed()" class="btn btn-tribetron" ng-disabled="!settings.canDecreaseSpeed()">- Speed</button>
+            <button ng-click="settings.increaseSpeed()" class="btn btn-tribetron" ng-disabled="!settings.canIncreaseSpeed()">+ Speed</button>
         </div>
         <div class="row margin-left">
             <span><strong>Round {{gameState.round}}/{{gameState.maxRounds}}</strong></span>
@@ -21,8 +21,8 @@
             <div ng-show="gameState.isOver()" class="row">
                 <h2>Game Over!</h2>
                 <p style="white-space: pre;">{{winMessage()}}</p>
-                <button ng-show="victorious" ng-click="continueGame()" class="btn btn-primary">Continue Campaign</button>
-                <button ng-show="!victorious" ng-click="backToMain()" class="btn btn-primary">Continue to Main Menu</button>
+                <button ng-show="victorious" ng-click="continueGame()" class="btn btn-tribetron">Continue Campaign</button>
+                <button ng-show="!victorious" ng-click="backToMain()" class="btn btn-tribetron">Continue to Main Menu</button>
             </div>
         </div>
     </div>

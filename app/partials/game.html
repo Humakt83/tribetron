@@ -9,7 +9,7 @@
             <span class="robot-small" ng-repeat="bot in player.team.robots" ng-class="bot.getTypeClass()" ng-info-click="infoOpener.openBotInfo($event)" ng-bot="{{bot.type.typeName}}">
         </div>
         <div>
-            <button class="btn btn-primary" ng-click="saveGame()">Save Game</button>
+            <button class="btn btn-tribetron" ng-click="saveGame()">Save Game</button>
         </div>
     </div>
 
@@ -22,35 +22,35 @@
             </div>
             <div class="row">
                 <strong>Reward: {{scenario.reward}} tribs</strong>
-                <button ng-click="goToShop()" style="float:right; margin-right: 15px;" class="btn btn-primary">Shop</button>
+                <button ng-click="goToShop()" style="float:right; margin-right: 15px;" class="btn btn-tribetron">Shop</button>
             </div>
         </div>
 
         <div ng-if="scenario.type && scenario.type == 'pairs'">
             <div class="row">
                 <strong>Reward: {{scenario.reward}} tribs</strong>
-                <button ng-click="goToPairs()" style="float:right; margin-right: 15px;" class="btn btn-primary">Memory Challenge</button>
+                <button ng-click="goToPairs()" style="float:right; margin-right: 15px;" class="btn btn-tribetron">Memory Challenge</button>
             </div>
         </div>
 
         <div ng-if="scenario.type && scenario.type == 'conquest'">
             <div class="row">
                 <strong>Reward: {{scenario.reward}} tribs</strong>
-                <button ng-click="goToConquest()" style="float:right; margin-right: 15px;" class="btn btn-primary">Conquest</button>
+                <button ng-click="goToConquest()" style="float:right; margin-right: 15px;" class="btn btn-tribetron">Conquest</button>
             </div>
         </div>
 
         <div ng-if="scenario.type && scenario.type == 'chess'">
             <div class="row">
                 <strong>Reward: {{scenario.reward}} tribs</strong>
-                <button ng-click="goToChess()" style="float:right; margin-right: 15px;" class="btn btn-primary">Chess</button>
+                <button ng-click="goToChess()" style="float:right; margin-right: 15px;" class="btn btn-tribetron">Chess</button>
             </div>
         </div>
 
         <div ng-if="scenario.type && scenario.type == 'venture'">
             <div class="row">
                 <strong>{{scenario.story ? scenario.story : 'Adventure awaits'}}</strong>
-                <button ng-click="goToAdventure()" style="float:right; margin-right: 15px;" class="btn btn-primary">Travel</button>
+                <button ng-click="goToAdventure()" style="float:right; margin-right: 15px;" class="btn btn-tribetron">Travel</button>
             </div>
         </div>
     </div>

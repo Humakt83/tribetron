@@ -14,8 +14,8 @@
         <strong>Clicks</strong>: {{clicks}}/{{maxClicks}} <br />
         <strong>Reward</strong>: {{reward}} tribs
         <div class="btn-group">
-            <button class="btn btn-default" ng-disabled="victory" ng-click="skip()">Skip</button>
-            <button class="btn btn-success" ng-disabled="!victory" ng-click="win()">Continue</button>
+            <button class="btn btn-tribetron" ng-disabled="victory" ng-click="skip()">Skip</button>
+            <button class="btn btn-tribetron" ng-disabled="!victory" ng-click="win()">Continue</button>
         </div>
         <p ng-if="pairsOver">
             {{pairsOverText}}
