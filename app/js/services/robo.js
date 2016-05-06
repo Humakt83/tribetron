@@ -1,7 +1,7 @@
 'use strict'
 
-angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog', 'GameHandler', 'GameSettings', 'Trap', 'AreaMap', 'GraphicsUtil', 
-		function($timeout, $filter, BattleLog, GameHandler, GameSettings, Trap, AreaMap, GraphicsUtil) {
+angular.module('Tribetron').factory('Robot', ['$timeout', 'BattleLog', 'GameHandler', 'GameSettings', 'Trap', 'AreaMap', 'GraphicsUtil', 
+		function($timeout, BattleLog, GameHandler, GameSettings, Trap, AreaMap, GraphicsUtil) {
 
 	var types = [Hunter, Box, Medic, Totter, Radiator, Psycho, Crate, Zipper, Multiplicator, Cannoneer, 
 				Sniper, Hacker, Destructor, Trasher, PsychoMedic, HotTot, MegaHunter, Titan, Tauron, Colossus,
@@ -443,7 +443,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 			}))
 			areasNear.push(area)
 			areasNear = _.uniq(areasNear)
-			areasNear = $filter('filter')(areasNear, function(an) { return an.robot && !an.robot.destroyed })
+			areasNear = _.filter(areasNear, function(an) { return an.robot && !an.robot.destroyed })
 			angular.forEach(areasNear, function(areaNear) {
 				if (areaNear.robot) areaNear.robot.receiveDamage('Cannon', bot.type.explosiveDamage, map, bot)
 			})
@@ -502,7 +502,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 			}))
 			areasNear.push(area)
 			areasNear = _.uniq(areasNear)
-			areasNear = $filter('filter')(areasNear, function(an) { return an.robot && !an.robot.destroyed })
+			areasNear = _.filter(areasNear, function(an) { return an.robot && !an.robot.destroyed })
 			angular.forEach(areasNear, function(areaNear) {
 				if (areaNear.robot) areaNear.robot.receiveDamage('Bomb', bot.type.explosiveDamage, map, bot)
 			})
@@ -556,7 +556,7 @@ angular.module('Tribetron').factory('Robot', ['$timeout', '$filter', 'BattleLog'
 			}))
 			areasNear.push(area)
 			areasNear = _.uniq(areasNear)
-			areasNear = $filter('filter')(areasNear, function(an) { return an.robot && !an.robot.destroyed })
+			areasNear = _.filter(areasNear, function(an) { return an.robot && !an.robot.destroyed })
 			angular.forEach(areasNear, function(areaNear) {
 				if (areaNear.robot) areaNear.robot.receiveDamage('Nuka', bot.type.explosiveDamage, map, bot)
 			})

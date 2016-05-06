@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('Tribetron').controller('ConquestController', ['$scope', '$location', '$filter', 'Player', 'Campaign', function($scope, $location, $filter, Player, Campaign) {
+angular.module('Tribetron').controller('ConquestController', ['$scope', '$location', 'Player', 'Campaign', function($scope, $location, Player, Campaign) {
 
 	function ConquestPiece(xPosition, yPosition, playerPiece, owned) {
 		this.getClass = function() {
@@ -33,13 +33,13 @@ angular.module('Tribetron').controller('ConquestController', ['$scope', '$locati
 			return $scope.conquest.getMovableAreas(conquestPiece).length > 0
 		}
 		this.getMovableAreas = function(conquestPiece) {
-			return $filter('filter')(_.flatten($scope.conquest.gameTable), function(piece) {
+			return _.filter(_.flatten($scope.conquest.gameTable), function(piece) {
 				var distance = conquestPiece.distanceFromPiece(piece)
 				return !piece.owned && (distance < 2 || (distance < 3 && conquestPiece.isInSameLine(piece)))
 			})
 		}
 		this.isSelectable = function(piece, playerTurn) {
-			var selectablePieces = $filter('filter')(_.flatten($scope.conquest.gameTable), function(conquestPiece) {
+			var selectablePieces = _.filter(_.flatten($scope.conquest.gameTable), function(conquestPiece) {
 				if ($scope.selectedPiece) {
 					var distance = conquestPiece.distanceFromPiece($scope.selectedPiece)
 					return !conquestPiece.owned && (distance < 2 || (distance < 3 && conquestPiece.isInSameLine($scope.selectedPiece)))
@@ -49,12 +49,12 @@ angular.module('Tribetron').controller('ConquestController', ['$scope', '$locati
 			return selectablePieces.indexOf(piece) > -1
 		}
 		this.getSelectablePieces = function(playerTurn) {
-			return $filter('filter')(_.flatten(this.gameTable), function(piece) {
+			return _.filter(_.flatten(this.gameTable), function(piece) {
 				return $scope.conquest.isSelectable(piece, playerTurn)
 			})
 		}
 		this.getPiecesNextToPiece = function(piece) {
-			return $filter('filter')(_.flatten(this.gameTable), function(conquestPiece) {
+			return _.filter(_.flatten(this.gameTable), function(conquestPiece) {
 				return conquestPiece.distanceFromPiece(piece) < 2
 			})
 		}
@@ -67,12 +67,12 @@ angular.module('Tribetron').controller('ConquestController', ['$scope', '$locati
 			})
 		}
 		this.getAmountOfPieces = function(player) {
-			return $filter('filter')(_.flatten(this.gameTable), function(conquestPiece) {
+			return _.filter(_.flatten(this.gameTable), function(conquestPiece) {
 				return conquestPiece.owned && conquestPiece.playerPiece === player
 			}).length
 		}
 		this.getAmountOfFreePieces = function() {
-			return $filter('filter')(_.flatten(this.gameTable), function(conquestPiece) {
+			return _.filter(_.flatten(this.gameTable), function(conquestPiece) {
 				return !conquestPiece.owned
 			}).length
 		}
@@ -120,7 +120,7 @@ angular.module('Tribetron').controller('ConquestController', ['$scope', '$locati
 				})
 			})
 			var moveWithMaxScore = _.max(fromToScoreMap, function(fromToScore) { return fromToScore.score})
-			var equalMoves = $filter('filter')(fromToScoreMap, function(fromToScore) { return fromToScore.score == moveWithMaxScore.score})
+			var equalMoves = _.filter(fromToScoreMap, function(fromToScore) { return fromToScore.score == moveWithMaxScore.score})
 			var moveToMake = equalMoves[Math.floor(Math.random() * equalMoves.length)]
 			$scope.conquest.movePiece(moveToMake.from, moveToMake.to)
 			return true

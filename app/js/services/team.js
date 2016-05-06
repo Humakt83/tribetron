@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('Tribetron').factory('Team', ['$filter', 'Robot', function($filter, Robot) {
+angular.module('Tribetron').factory('Team', ['Robot', function(Robot) {
 
 	var playerTeam
 	
@@ -21,14 +21,14 @@ angular.module('Tribetron').factory('Team', ['$filter', 'Robot', function($filte
 		
 		this.botsRemaining = function() {
 			this.robots = _.compact(this.robots)
-			return $filter('filter')(this.robots, {'destroyed': false}).length
+			return _.filter(this.robots, {'destroyed': false}).length
 		}
 		
 		this.botsPerTypeRemaining = function() {
 			var botsPerType = [], thisTeam = this
 			angular.forEach(Robot.getTypes(), function(Type) {
 				var botType = new Type()
-				botsPerType.push(new BotsByType(botType.typeName, $filter('filter')(thisTeam.robots, function(bot) {
+				botsPerType.push(new BotsByType(botType.typeName, _.filter(thisTeam.robots, function(bot) {
 					return bot.type.typeName === botType.typeName && !bot.destroyed
 				})))
 			})
@@ -41,7 +41,7 @@ angular.module('Tribetron').factory('Team', ['$filter', 'Robot', function($filte
 		}
 		
 		this.destroyedBots = function() {
-			return $filter('filter')(this.robots, {'destroyed': true})
+			return _.filter(this.robots, {'destroyed': true})
 		}
 		
 		this.removeBot = function(robot) {
@@ -50,7 +50,7 @@ angular.module('Tribetron').factory('Team', ['$filter', 'Robot', function($filte
 		}
 		
 		this.removeBotsByTypeName = function(typeName) {
-			var botsByType = $filter('filter')(this.robots, function (robot) {return robot.type.typeName == typeName})
+			var botsByType = _.filter(this.robots, function (robot) {return robot.type.typeName == typeName})
 			if (botsByType && botsByType.length > 0) {
 				var thisTeam = this
 				angular.forEach(botsByType, function(bot) {

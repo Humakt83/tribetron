@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('Tribetron').factory('AreaMap', ['$filter', '$timeout', 'GameSettings', function($filter, $timeout, GameSettings) {
+angular.module('Tribetron').factory('AreaMap', ['$timeout', 'GameSettings', function($timeout, GameSettings) {
 
 	const PF = require('pathfinding')
 
@@ -76,7 +76,7 @@ angular.module('Tribetron').factory('AreaMap', ['$filter', '$timeout', 'GameSett
 		}
 		
 		this.findAreasWithOtherBots = function(bot, botsAreDestroyed) {
-			return $filter('filter')(this.areas, function(area) { return area.robot && area.robot !== bot && area.robot.destroyed == botsAreDestroyed})
+			return _.filter(this.areas, function(area) { return area.robot && area.robot !== bot && area.robot.destroyed == botsAreDestroyed})
 		}
 		
 		this.findAreasCloseToArea = function(area) {
@@ -195,19 +195,19 @@ angular.module('Tribetron').factory('AreaMap', ['$filter', '$timeout', 'GameSett
 		}
 		
 		this.findAreaWithBotByTypeName = function(typeName, team, onlyUndestroyed) {
-			return $filter('filter')(areas, function(area) {
+			return _.filter(areas, function(area) {
 				return area.robot && area.robot.type.typeName == typeName && (!team || team === area.robot.team) && (!onlyUndestroyed || !area.robot.destroyed)
 			})
 		}
 		
 		this.findAreaWithOpponentsBotByTypeName = function(typeName, team) {
-			return $filter('filter')(areas, function(area) {
+			return _.filter(areas, function(area) {
 				return area.robot && area.robot.type.typeName == typeName && team !== area.robot.team && !area.robot.destroyed
 			})
 		}
 		
 		this.findOpponents = function(team, includeDestroyed) {
-			return $filter('filter')(areas, function(area) { 
+			return _.filter(areas, function(area) { 
 				return area.robot && (includeDestroyed || !area.robot.destroyed) && area.robot.team !== team 
 			})
 		}
@@ -216,18 +216,18 @@ angular.module('Tribetron').factory('AreaMap', ['$filter', '$timeout', 'GameSett
 			return botArea.findClosest(_.filter(opponents, function(opp) { return opp !== botArea }))
 		}		
 		this.findInjuredAllies = function(team, bot, doNotIncludeDestroyed) {
-			return $filter('filter')(areas, function(area) { 
+			return _.filter(areas, function(area) { 
 				return area.robot && area.robot.isInjured() && area.robot.team === team && area.robot !== bot && (!doNotIncludeDestroyed || !area.robot.destroyed)
 			})
 		}
 		this.getAreasByRow = function(row) {
-			return $filter('filter')(areas, function(area) { return area.yCoord === row})
+			return _.filter(areas, function(area) { return area.yCoord === row})
 		}
 		this.getAreasByColumn = function(column) {
-			return $filter('filter')(areas, function(area) { return area.xCoord === column})
+			return _.filter(areas, function(area) { return area.xCoord === column})
 		}
 		this.getAreaByCoord = function(coord) {
-			var foundedArea = $filter('filter')(areas, {'yCoord': coord.y, 'xCoord': coord.x})
+			var foundedArea = _.filter(areas, {'yCoord': coord.y, 'xCoord': coord.x})
 			return foundedArea ? foundedArea[0] : null
 		}
 		this.botCanBePlacedOnArea = function(area, mustNotContainBot) {
@@ -235,7 +235,7 @@ angular.module('Tribetron').factory('AreaMap', ['$filter', '$timeout', 'GameSett
 		}
 		this.getAreasBetween = function(from, to) {
 			if (!this.areaCanbeReachedInStraightLine(from, to)) return
-			return $filter('filter')(areas, function(area) {
+			return _.filter(areas, function(area) {
 				return area.isBetween(from, to)
 			})
 		}

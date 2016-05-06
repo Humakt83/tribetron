@@ -12,7 +12,8 @@ require('angular-bootstrap')
 require('angular-route')
 
 angular.module('Tribetron', ['ngRoute', 'ngAnimate', 'ui.bootstrap'])
-	.config(['$routeProvider', function($routeProvider) {
+	.config(['$routeProvider', '$compileProvider', function($routeProvider, $compileProvider) {
+        $compileProvider.debugInfoEnabled(false)
 		$routeProvider
 			.when('/', {
 				templateUrl: './partials/main.html',
