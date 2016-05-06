@@ -1,7 +1,7 @@
 {
 "reward": 130,
-"areaWidth": 20,
-"areaHeight": 10,
+"areaWidth": 15,
+"areaHeight": 12,
 "maxRoster": 10,
 "rounds": 35,
 "rosterOpponent": ["megahunter", "megahunter", "megahunter", "hacker", "nuka", "nuka", "plutan", "atomitum", "plutan", "atomitum", "titan", "doctor", "doctor", "cannon", "titan"],

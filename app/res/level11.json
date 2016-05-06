@@ -1,7 +1,7 @@
 {
 "reward": 120,
-"areaWidth": 20,
-"areaHeight": 10,
+"areaWidth": 15,
+"areaHeight": 11,
 "maxRoster": 10,
 "rounds": 35,
 "rosterOpponent": ["megahunter", "megahunter", "hottot", "hottot", "disablor", "disablor", "plutan", "atomitum", "titan", "psycho-medic", "psycho-medic", "tauron", "tauron", "disablor"],
