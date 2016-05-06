@@ -4,6 +4,7 @@
   "description": "Robotribes the game",
   "main": "gulpfile.js",
   "scripts": {
+	"start": "gulp serve",
     "test": "gulp test"
   },
   "author": "Humakt83",
