@@ -49,7 +49,7 @@ gulp.task('minify-css', function () {
 });
 
 gulp.task('copy-html-files', function () {
-  return gulp.src('app/**/*.html')
+  return gulp.src(['app/**/*.html', 'app/tribetron.ico'])
     .pipe(gulp.dest(DIST_DIR));
 });
 
